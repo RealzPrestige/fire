@@ -1,0 +1,11 @@
+[
+  {
+    "modid": "fire",
+    "name": "Fire",
+    "description": "1.12.2 Client for PVP by zPrestige_",
+    "mcversion": "1.12.2",
+    "authorList": [
+      "zPrestige_"
+    ]
+  }
+]

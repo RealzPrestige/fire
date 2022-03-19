@@ -1,0 +1,144 @@
+---- Minecraft Crash Report ----
+// Don't be sad, have a hug! <3
+
+Time: 2/25/22 3:54 PM
+Description: Unexpected error
+
+java.lang.ClassCastException: net.minecraft.client.renderer.EntityRenderer cannot be cast to dev.zprestige.fire.mixins.render.IEntityRenderer
+	at dev.zprestige.fire.util.shader.FramebufferShader.startDraw(FramebufferShader.java:41)
+	at dev.zprestige.fire.module.visual.Shaders.onGlobalRenderTick(Shaders.java:58)
+	at dev.zprestige.fire.events.listener.EventListener.lambda$onRenderWorldLastEvent$1(EventListener.java:63)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1384)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.events.listener.EventListener.onRenderWorldLastEvent(EventListener.java:63)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_12_EventListener_onRenderWorldLastEvent_RenderWorldLastEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.client.ForgeHooksClient.dispatchRenderLast(ForgeHooksClient.java:181)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorldPass(EntityRenderer.java:1485)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorld(EntityRenderer.java:1312)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1115)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1208)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:441)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at dev.zprestige.fire.util.shader.FramebufferShader.startDraw(FramebufferShader.java:41)
+	at dev.zprestige.fire.module.visual.Shaders.onGlobalRenderTick(Shaders.java:58)
+	at dev.zprestige.fire.events.listener.EventListener.lambda$onRenderWorldLastEvent$1(EventListener.java:63)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1384)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.events.listener.EventListener.onRenderWorldLastEvent(EventListener.java:63)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_12_EventListener_onRenderWorldLastEvent_RenderWorldLastEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.client.ForgeHooksClient.dispatchRenderLast(ForgeHooksClient.java:181)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorldPass(EntityRenderer.java:1485)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorld(EntityRenderer.java:1312)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Player688'/247, l='MpServer', x=226.70, y=87.17, z=-241.30]]
+	Chunk stats: MultiplayerChunkCache: 169, 169
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (252,64,-242), Chunk: (at 12,4,14 in 15,-16; contains blocks 240,0,-256 to 255,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 1523912 game time, 1 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 44 total; [EntitySkeleton['Skeleton'/385, l='MpServer', x=275.50, y=24.00, z=-298.50], EntitySkeleton['Skeleton'/265, l='MpServer', x=228.50, y=46.00, z=-316.50], EntitySheep['Sheep'/138, l='MpServer', x=191.83, y=74.00, z=-254.18], EntityZombie['Zombie'/139, l='MpServer', x=190.50, y=32.00, z=-209.50], EntityZombie['Zombie'/399, l='MpServer', x=291.50, y=55.00, z=-320.50], EntitySheep['Sheep'/144, l='MpServer', x=204.73, y=70.00, z=-263.50], EntityZombie['Zombie'/400, l='MpServer', x=292.50, y=55.00, z=-318.50], EntitySheep['Sheep'/145, l='MpServer', x=211.27, y=72.00, z=-258.50], EntityZombie['Zombie'/146, l='MpServer', x=195.50, y=27.00, z=-248.50], EntitySkeleton['Skeleton'/276, l='MpServer', x=281.50, y=21.00, z=-211.50], EntitySkeleton['Skeleton'/277, l='MpServer', x=281.50, y=21.00, z=-210.50], EntityPlayerSP['Player688'/247, l='MpServer', x=226.70, y=87.17, z=-241.30], EntityZombie['Zombie'/159, l='MpServer', x=210.73, y=30.00, z=-258.48], EntityZombie['Zombie'/426, l='MpServer', x=176.50, y=29.00, z=-232.50], EntitySheep['Sheep'/171, l='MpServer', x=249.50, y=63.00, z=-307.50], EntityZombie['Zombie'/427, l='MpServer', x=172.50, y=29.00, z=-230.50], EntitySheep['Sheep'/172, l='MpServer', x=250.05, y=64.00, z=-313.74], EntitySheep['Sheep'/173, l='MpServer', x=250.83, y=64.00, z=-312.40], EntityBat['Bat'/430, l='MpServer', x=294.22, y=20.06, z=-166.65], EntitySheep['Sheep'/175, l='MpServer', x=249.51, y=66.00, z=-299.73], EntityOtherPlayerMP['FakePlayer'/-100, l='MpServer', x=226.30, y=85.00, z=-241.60], EntitySheep['Sheep'/184, l='MpServer', x=260.79, y=63.00, z=-273.28], EntitySkeleton['Skeleton'/442, l='MpServer', x=172.50, y=54.00, z=-212.50], EntitySkeleton['Skeleton'/443, l='MpServer', x=177.50, y=27.00, z=-202.50], EntitySheep['Sheep'/191, l='MpServer', x=297.73, y=66.00, z=-306.52], EntitySheep['Sheep'/192, l='MpServer', x=295.40, y=64.00, z=-302.50], EntitySkeleton['Skeleton'/193, l='MpServer', x=296.50, y=22.00, z=-208.50], EntityZombieVillager['Zombie Villager'/194, l='MpServer', x=293.50, y=19.00, z=-167.50], EntitySheep['Sheep'/201, l='MpServer', x=305.45, y=66.00, z=-309.11], EntitySkeleton['Skeleton'/202, l='MpServer', x=304.50, y=29.00, z=-180.50], EntityZombie['Zombie'/88, l='MpServer', x=149.50, y=15.00, z=-293.50], EntityZombie['Zombie'/89, l='MpServer', x=149.30, y=15.42, z=-294.70], EntityBat['Bat'/346, l='MpServer', x=178.60, y=27.10, z=-196.75], EntityCreeper['Creeper'/91, l='MpServer', x=149.35, y=15.00, z=-291.99], EntitySkeleton['Skeleton'/92, l='MpServer', x=147.70, y=14.00, z=-292.43], EntityCreeper['Creeper'/93, l='MpServer', x=146.78, y=15.00, z=-294.48], EntitySkeleton['Skeleton'/94, l='MpServer', x=152.50, y=18.00, z=-301.50], EntityCreeper['Creeper'/95, l='MpServer', x=150.50, y=16.00, z=-294.50], EntityZombie['Zombie'/100, l='MpServer', x=147.50, y=38.00, z=-269.50], EntityCreeper['Creeper'/103, l='MpServer', x=156.50, y=28.00, z=-225.50], EntityBat['Bat'/104, l='MpServer', x=153.08, y=29.17, z=-228.80], EntityBat['Bat'/361, l='MpServer', x=300.11, y=16.00, z=-182.25], EntityCreeper['Creeper'/111, l='MpServer', x=148.77, y=28.00, z=-222.19], EntityBat['Bat'/121, l='MpServer', x=152.21, y=23.14, z=-173.10]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:461)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2888)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:470)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_275, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Amazon.com Inc.
+	Memory: 526768584 bytes (502 MB) / 999292928 bytes (953 MB) up to 1873805312 bytes (1787 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 1, tcache: 1, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2768 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State     | ID        | Version      | Source                                         | Signature |
+	|:--------- |:--------- |:------------ |:---------------------------------------------- |:--------- |
+	| UCHIJAAAA | minecraft | 1.12.2       | minecraft.jar                                  | None      |
+	| UCHIJAAAA | mcp       | 9.42         | minecraft.jar                                  | None      |
+	| UCHIJAAAA | FML       | 8.0.99.99    | forgeSrc-1.12.2-14.23.5.2768-PROJECT(ruby).jar | None      |
+	| UCHIJAAAA | forge     | 14.23.5.2768 | forgeSrc-1.12.2-14.23.5.2768-PROJECT(ruby).jar | None      |
+	| UCHIJAAAA | ruby      | 0.1          | ruby-0.2-gND56pcAANG0YCc.jar                   | None      |
+
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'Intel' Version: '4.6.0 - Build 27.20.100.8681' Renderer: 'Intel(R) HD Graphics 620'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: Intel(R) HD Graphics 620 GL version 4.6.0 - Build 27.20.100.8681, Intel
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 4x Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz

@@ -1,0 +1,124 @@
+---- Minecraft Crash Report ----
+// Who set us up the TNT?
+
+Time: 3/18/22 7:18 PM
+Description: Rendering screen
+
+java.lang.IllegalArgumentException: Color parameter outside of expected range: Alpha
+	at java.awt.Color.testColorValueRange(Color.java:310)
+	at java.awt.Color.<init>(Color.java:395)
+	at java.awt.Color.<init>(Color.java:490)
+	at dev.zprestige.fire.ui.menu.category.ConfigScreen.render(ConfigScreen.java:59)
+	at dev.zprestige.fire.ui.menu.MenuScreen.drawScreen(MenuScreen.java:47)
+	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:442)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at java.awt.Color.testColorValueRange(Color.java:310)
+	at java.awt.Color.<init>(Color.java:395)
+	at java.awt.Color.<init>(Color.java:490)
+	at dev.zprestige.fire.ui.menu.category.ConfigScreen.render(ConfigScreen.java:59)
+	at dev.zprestige.fire.ui.menu.MenuScreen.drawScreen(MenuScreen.java:47)
+	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
+
+-- Screen render details --
+Details:
+	Screen name: dev.zprestige.fire.ui.menu.MenuScreen
+	Mouse location: Scaled: (658, 113). Absolute: (1317, 783)
+	Screen size: Scaled: (960, 505). Absolute: (1920, 1009). Scale factor of 2
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Player515'/213, l='MpServer', x=206.02, y=75.00, z=-260.70]]
+	Chunk stats: MultiplayerChunkCache: 169, 169
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (252,64,-242), Chunk: (at 12,4,14 in 15,-16; contains blocks 240,0,-256 to 255,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 1980918 game time, 1010 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 78 total; [EntitySkeleton['Skeleton'/128, l='MpServer', x=229.91, y=46.00, z=-313.81], EntityCreeper['Creeper'/129, l='MpServer', x=236.50, y=48.00, z=-319.00], EntitySheep['Sheep'/130, l='MpServer', x=231.46, y=63.00, z=-287.26], EntityZombie['Zombie'/10, l='MpServer', x=127.50, y=18.00, z=-246.50], EntityCreeper['Creeper'/139, l='MpServer', x=247.50, y=52.00, z=-339.50], EntitySheep['Sheep'/143, l='MpServer', x=247.50, y=77.00, z=-334.27], EntitySkeleton['Skeleton'/17, l='MpServer', x=141.50, y=41.00, z=-339.50], EntityBat['Bat'/146, l='MpServer', x=259.54, y=16.82, z=-336.14], EntityZombie['Zombie'/18, l='MpServer', x=139.50, y=41.00, z=-338.50], EntityZombie['Zombie'/147, l='MpServer', x=262.19, y=53.00, z=-338.55], EntityCreeper['Creeper'/19, l='MpServer', x=138.50, y=41.00, z=-338.50], EntitySkeleton['Skeleton'/22, l='MpServer', x=134.50, y=11.00, z=-307.67], EntityBat['Bat'/23, l='MpServer', x=147.42, y=16.21, z=-293.47], EntityBat['Bat'/24, l='MpServer', x=138.33, y=16.10, z=-287.42], EntityZombie['Zombie'/25, l='MpServer', x=139.29, y=18.00, z=-226.59], EntitySkeleton['Skeleton'/26, l='MpServer', x=140.44, y=26.00, z=-228.16], EntityBat['Bat'/155, l='MpServer', x=264.37, y=25.13, z=-277.03], EntityCreeper['Creeper'/27, l='MpServer', x=135.50, y=28.00, z=-224.50], EntityCreeper['Creeper'/156, l='MpServer', x=266.54, y=36.00, z=-271.17], EntityEnderman['Enderman'/28, l='MpServer', x=143.43, y=29.00, z=-237.50], EntitySkeleton['Skeleton'/157, l='MpServer', x=267.50, y=34.00, z=-250.27], EntityZombie['Zombie'/30, l='MpServer', x=141.50, y=18.00, z=-216.50], EntityZombie['Zombie'/31, l='MpServer', x=141.50, y=18.00, z=-213.82], EntitySheep['Sheep'/159, l='MpServer', x=283.48, y=72.00, z=-340.28], EntitySheep['Sheep'/161, l='MpServer', x=285.53, y=72.00, z=-337.76], EntityZombie['Zombie'/163, l='MpServer', x=275.49, y=35.00, z=-290.19], EntityZombie['Zombie'/164, l='MpServer', x=281.50, y=35.00, z=-277.50], EntityCreeper['Creeper'/44, l='MpServer', x=153.76, y=39.00, z=-339.43], EntityBat['Bat'/45, l='MpServer', x=157.49, y=40.10, z=-337.25], EntityEnderman['Enderman'/47, l='MpServer', x=154.70, y=39.00, z=-339.55], EntitySkeleton['Skeleton'/48, l='MpServer', x=159.53, y=52.00, z=-335.73], EntityBat['Bat'/49, l='MpServer', x=148.49, y=21.10, z=-305.11], EntityCreeper['Creeper'/50, l='MpServer', x=146.50, y=12.00, z=-279.50], EntitySquid['Squid'/51, l='MpServer', x=153.28, y=59.55, z=-266.21], EntitySquid['Squid'/52, l='MpServer', x=143.09, y=60.18, z=-261.48], EntityBat['Bat'/53, l='MpServer', x=144.75, y=31.10, z=-245.75], EntityBat['Bat'/54, l='MpServer', x=145.55, y=31.10, z=-244.75], EntitySquid['Squid'/55, l='MpServer', x=153.09, y=56.00, z=-236.60], EntitySquid['Squid'/56, l='MpServer', x=145.62, y=60.62, z=-238.40], EntitySquid['Squid'/57, l='MpServer', x=145.15, y=47.16, z=-216.47], EntitySquid['Squid'/65, l='MpServer', x=161.60, y=45.12, z=-221.60], EntityCreeper['Creeper'/66, l='MpServer', x=162.50, y=33.00, z=-207.50], EntityCreeper['Creeper'/67, l='MpServer', x=169.50, y=51.00, z=-209.19], EntitySkeleton['Skeleton'/68, l='MpServer', x=171.50, y=53.00, z=-204.50], EntityZombie['Zombie'/76, l='MpServer', x=185.70, y=22.08, z=-339.70], EntityCreeper['Creeper'/79, l='MpServer', x=186.17, y=23.00, z=-336.83], EntitySkeleton['Skeleton'/80, l='MpServer', x=173.50, y=39.00, z=-337.24], EntityEnderman['Enderman'/81, l='MpServer', x=181.50, y=49.00, z=-323.30], EntityBat['Bat'/82, l='MpServer', x=179.83, y=52.75, z=-311.08], EntitySquid['Squid'/83, l='MpServer', x=181.62, y=51.74, z=-289.28], EntitySquid['Squid'/84, l='MpServer', x=188.60, y=48.71, z=-278.40], EntityBat['Bat'/85, l='MpServer', x=185.75, y=18.10, z=-256.11], EntityCreeper['Creeper'/86, l='MpServer', x=185.50, y=17.00, z=-259.50], EntitySkeleton['Skeleton'/87, l='MpServer', x=184.50, y=17.00, z=-259.50], EntitySkeleton['Skeleton'/88, l='MpServer', x=184.50, y=17.00, z=-261.50], EntityZombie['Zombie'/216, l='MpServer', x=262.71, y=25.00, z=-279.50], EntitySpider['Spider'/89, l='MpServer', x=184.50, y=17.00, z=-253.50], EntityPlayerSP['Player515'/213, l='MpServer', x=206.02, y=75.00, z=-260.70], EntitySheep['Sheep'/90, l='MpServer', x=181.74, y=75.00, z=-246.40], EntityCreeper['Creeper'/91, l='MpServer', x=187.51, y=41.00, z=-229.83], EntityCreeper['Creeper'/92, l='MpServer', x=188.50, y=12.00, z=-220.50], EntityBat['Bat'/93, l='MpServer', x=191.90, y=13.10, z=-219.61], EntitySheep['Sheep'/103, l='MpServer', x=199.45, y=72.00, z=-254.55], EntitySheep['Sheep'/104, l='MpServer', x=202.50, y=72.00, z=-241.23], EntitySpider['Spider'/105, l='MpServer', x=194.30, y=13.00, z=-224.01], EntityZombie['Zombie'/106, l='MpServer', x=203.77, y=23.00, z=-229.55], EntityCreeper['Creeper'/107, l='MpServer', x=199.50, y=20.00, z=-218.50], EntitySkeleton['Skeleton'/108, l='MpServer', x=201.54, y=35.00, z=-218.75], EntityCreeper['Creeper'/109, l='MpServer', x=201.50, y=33.00, z=-207.50], EntityBat['Bat'/110, l='MpServer', x=200.25, y=35.10, z=-207.48], EntitySquid['Squid'/111, l='MpServer', x=203.71, y=57.91, z=-202.96], EntitySpider['Spider'/113, l='MpServer', x=222.26, y=50.00, z=-324.60], EntitySkeleton['Skeleton'/114, l='MpServer', x=208.72, y=39.00, z=-307.50], EntitySquid['Squid'/115, l='MpServer', x=209.60, y=55.13, z=-206.60], EntitySpider['Spider'/124, l='MpServer', x=232.92, y=46.00, z=-317.95], EntityCreeper['Creeper'/125, l='MpServer', x=236.16, y=48.00, z=-319.64], EntityEnderman['Enderman'/126, l='MpServer', x=236.28, y=46.00, z=-317.54], EntityEnderman['Enderman'/127, l='MpServer', x=229.23, y=46.00, z=-313.34]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:461)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2889)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:463)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_272, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Amazon.com Inc.
+	Memory: 173727872 bytes (165 MB) / 968359936 bytes (923 MB) up to 3801088000 bytes (3625 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2847 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                         | Signature |
+	|:------ |:--------- |:------------ |:---------------------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                  | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                  | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | forge     | 14.23.5.2847 | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | fire      | 0.1          | fire-0.1.jar                                   | None      |
+
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 472.12' Renderer: 'NVIDIA GeForce RTX 3060/PCIe/SSE2'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: NVIDIA GeForce RTX 3060/PCIe/SSE2 GL version 4.6.0 NVIDIA 472.12, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 16x AMD Ryzen 7 2700X Eight-Core Processor 
