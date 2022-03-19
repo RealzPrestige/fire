@@ -64,7 +64,7 @@ public class Main {
                 Arrays.stream(color).map(i -> i << 8 | (i >> 24 & 255)).forEach(bytebuffer::putInt);
                 bytebuffer.flip();
                 Display.setIcon(new ByteBuffer[]{bytebuffer});
-            } catch (Exception ignored){
+            } catch (Exception ignored) {
             }
         }
     }
