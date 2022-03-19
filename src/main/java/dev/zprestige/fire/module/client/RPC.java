@@ -8,7 +8,6 @@ public class RPC extends Module {
 
     @Override
     public void onEnable(){
-        int minecraft = (Integer) (Object) Minecraft.getMinecraft();
         Main.discordRPCManager.start();
     }
 
