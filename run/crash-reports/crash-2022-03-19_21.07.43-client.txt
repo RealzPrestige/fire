@@ -1,0 +1,134 @@
+---- Minecraft Crash Report ----
+// Daisy, daisy...
+
+Time: 3/19/22 9:07 PM
+Description: Updating screen events
+
+java.lang.ClassCastException: net.minecraft.client.Minecraft cannot be cast to java.lang.Integer
+	at dev.zprestige.fire.module.client.RPC.onEnable(RPC.java:11)
+	at dev.zprestige.fire.module.Module.enableModule(Module.java:34)
+	at dev.zprestige.fire.module.Module.toggleModule(Module.java:48)
+	at dev.zprestige.fire.ui.menu.category.modules.MenuModule.click(MenuModule.java:73)
+	at dev.zprestige.fire.ui.menu.category.MenuCategory.lambda$click$6(MenuCategory.java:78)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.menu.category.MenuCategory.click(MenuCategory.java:78)
+	at dev.zprestige.fire.ui.menu.MenuScreen.lambda$mouseClicked$3(MenuScreen.java:105)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.menu.MenuScreen.mouseClicked(MenuScreen.java:105)
+	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:533)
+	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:501)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1759)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1098)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:398)
+	at net.minecraft.client.main.Main.main(SourceFile:123)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at dev.zprestige.fire.module.client.RPC.onEnable(RPC.java:11)
+	at dev.zprestige.fire.module.Module.enableModule(Module.java:34)
+	at dev.zprestige.fire.module.Module.toggleModule(Module.java:48)
+	at dev.zprestige.fire.ui.menu.category.modules.MenuModule.click(MenuModule.java:73)
+	at dev.zprestige.fire.ui.menu.category.MenuCategory.lambda$click$6(MenuCategory.java:78)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.menu.category.MenuCategory.click(MenuCategory.java:78)
+	at dev.zprestige.fire.ui.menu.MenuScreen.lambda$mouseClicked$3(MenuScreen.java:105)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.menu.MenuScreen.mouseClicked(MenuScreen.java:105)
+	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:533)
+	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:501)
+
+-- Affected screen --
+Details:
+	Screen name: dev.zprestige.fire.ui.menu.MenuScreen
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Player390'/199, l='MpServer', x=226.88, y=80.00, z=-240.39]]
+	Chunk stats: MultiplayerChunkCache: 169, 169
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (252,64,-242), Chunk: (at 12,4,14 in 15,-16; contains blocks 240,0,-256 to 255,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 2127276 game time, 20073 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: true), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 44 total; [EntityCreeper['Creeper'/64, l='MpServer', x=160.09, y=29.01, z=-236.49], EntityBat['Bat'/128, l='MpServer', x=253.53, y=35.63, z=-269.19], EntityCreeper['Creeper'/65, l='MpServer', x=147.94, y=27.00, z=-237.88], EntityCreeper['Creeper'/66, l='MpServer', x=156.30, y=28.00, z=-236.65], EntityCreeper['Creeper'/67, l='MpServer', x=147.30, y=27.00, z=-236.62], EntitySkeleton['Skeleton'/68, l='MpServer', x=148.58, y=28.00, z=-225.01], EntityEnderman['Enderman'/69, l='MpServer', x=147.50, y=27.00, z=-230.53], EntityBat['Bat'/70, l='MpServer', x=151.25, y=29.10, z=-225.52], EntitySkeleton['Skeleton'/71, l='MpServer', x=154.47, y=23.00, z=-247.28], EntityPlayerSP['Player390'/199, l='MpServer', x=226.88, y=80.00, z=-240.39], EntityBat['Bat'/72, l='MpServer', x=157.75, y=53.10, z=-238.25], EntityBat['Bat'/73, l='MpServer', x=157.75, y=53.10, z=-238.25], EntitySpider['Spider'/74, l='MpServer', x=153.50, y=27.00, z=-220.50], EntitySkeleton['Skeleton'/75, l='MpServer', x=151.50, y=28.00, z=-232.27], EntitySkeleton['Skeleton'/140, l='MpServer', x=262.71, y=26.00, z=-277.49], EntityCreeper['Creeper'/141, l='MpServer', x=257.50, y=42.00, z=-278.50], EntityBat['Bat'/142, l='MpServer', x=272.68, y=31.03, z=-240.96], EntityEnderman['Enderman'/86, l='MpServer', x=169.50, y=43.00, z=-238.56], EntityBat['Bat'/87, l='MpServer', x=171.45, y=54.72, z=-219.14], EntityBat['Bat'/88, l='MpServer', x=168.44, y=55.10, z=-215.30], EntitySheep['Sheep'/155, l='MpServer', x=293.02, y=69.00, z=-317.06], EntitySheep['Sheep'/156, l='MpServer', x=299.45, y=62.44, z=-297.93], EntitySkeleton['Skeleton'/157, l='MpServer', x=291.50, y=20.00, z=-244.50], EntitySpider['Spider'/95, l='MpServer', x=179.50, y=49.00, z=-317.50], EntitySheep['Sheep'/96, l='MpServer', x=187.49, y=74.00, z=-240.75], EntitySheep['Sheep'/97, l='MpServer', x=179.41, y=72.00, z=-258.23], EntityBat['Bat'/98, l='MpServer', x=190.52, y=43.53, z=-231.52], EntityZombie['Zombie'/99, l='MpServer', x=181.50, y=29.00, z=-191.50], EntitySheep['Sheep'/100, l='MpServer', x=205.51, y=68.00, z=-266.76], EntityBat['Bat'/101, l='MpServer', x=197.66, y=27.80, z=-226.22], EntityBat['Bat'/102, l='MpServer', x=198.58, y=36.81, z=-207.45], EntityZombie['Zombie'/104, l='MpServer', x=223.37, y=13.00, z=-173.80], EntityWitch['Witch'/105, l='MpServer', x=219.71, y=13.00, z=-177.47], EntitySkeleton['Skeleton'/111, l='MpServer', x=233.70, y=64.00, z=-273.30], EntitySkeleton['Skeleton'/53, l='MpServer', x=148.48, y=14.00, z=-289.04], EntityZombie['Zombie'/54, l='MpServer', x=148.64, y=16.00, z=-296.68], EntityZombie['Zombie'/57, l='MpServer', x=147.39, y=38.00, z=-269.50], EntityCreeper['Creeper'/58, l='MpServer', x=152.18, y=24.00, z=-243.50], EntityZombie['Zombie'/59, l='MpServer', x=151.46, y=25.00, z=-240.78], EntitySkeleton['Skeleton'/60, l='MpServer', x=153.50, y=32.00, z=-248.50], EntityZombie['Zombie'/61, l='MpServer', x=153.50, y=63.00, z=-243.28], EntityCreeper['Creeper'/62, l='MpServer', x=157.50, y=63.00, z=-243.50], EntityCreeper['Creeper'/63, l='MpServer', x=147.30, y=27.00, z=-237.90], EntitySheep['Sheep'/127, l='MpServer', x=234.73, y=64.00, z=-282.50]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:420)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2741)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:419)
+	at net.minecraft.client.main.Main.main(SourceFile:123)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_272, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Amazon.com Inc.
+	Memory: 349888480 bytes (333 MB) / 1360003072 bytes (1297 MB) up to 3801088000 bytes (3625 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2847 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                         | Signature |
+	|:------ |:--------- |:------------ |:---------------------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                  | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                  | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeBin-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | forge     | 14.23.5.2847 | forgeBin-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | fire      | 0.1          | fire-0.1.jar                                   | None      |
+
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 472.12' Renderer: 'NVIDIA GeForce RTX 3060/PCIe/SSE2'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: NVIDIA GeForce RTX 3060/PCIe/SSE2 GL version 4.6.0 NVIDIA 472.12, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 16x AMD Ryzen 7 2700X Eight-Core Processor 

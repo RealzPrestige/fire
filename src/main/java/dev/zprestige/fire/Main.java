@@ -9,6 +9,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import org.lwjgl.opengl.Display;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+
 @Mod(modid = Main.modid, name = Main.name, version = Main.version)
 public class Main {
     public static final String modid = "fire";
@@ -28,6 +34,7 @@ public class Main {
     public static PlayerManager playerManager;
     public static HudManager hudManager;
     public static DiscordRPCManager discordRPCManager;
+
     @Mod.EventHandler
     public void init(FMLInitializationEvent ignoredEvent) {
         Display.setTitle(name + " " + version);
@@ -45,6 +52,21 @@ public class Main {
         playerManager = (PlayerManager) new PlayerManager().registerEventBus();
         hudManager = (HudManager) new HudManager().init().registerEventBus();
         discordRPCManager = new DiscordRPCManager();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> configManager.save("AutoSave")));
+        final InputStream icon = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/images/fire.png");
+        if (icon != null) {
+            try {
+                final BufferedImage bufferedimage = ImageIO.read(icon);
+                final int bufferedWidth = bufferedimage.getWidth();
+                final int bufferedHeight = bufferedimage.getHeight();
+                final int[] color = bufferedimage.getRGB(0, 0, bufferedWidth, bufferedHeight, null, 0, bufferedWidth);
+                final ByteBuffer bytebuffer = ByteBuffer.allocate(4 * color.length);
+                Arrays.stream(color).map(i -> i << 8 | (i >> 24 & 255)).forEach(bytebuffer::putInt);
+                bytebuffer.flip();
+                Display.setIcon(new ByteBuffer[]{bytebuffer});
+            } catch (Exception ignored){
+            }
+        }
     }
 }
 

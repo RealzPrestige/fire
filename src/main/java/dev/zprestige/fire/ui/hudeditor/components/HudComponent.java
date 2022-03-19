@@ -1,13 +1,16 @@
 package dev.zprestige.fire.ui.hudeditor.components;
 
 
+import dev.zprestige.fire.Main;
 import dev.zprestige.fire.module.client.ClickGui;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import dev.zprestige.fire.util.impl.Vector2D;
+import net.minecraft.client.Minecraft;
 
 import java.awt.*;
 
 public class HudComponent {
+    protected final Minecraft mc = Main.mc;
     protected String name;
     protected boolean enabled, dragging;
     protected Vector2D position, size;
@@ -24,8 +27,8 @@ public class HudComponent {
         position = new Vector2D(dragX + mouseX, dragY + mouseY);
     }
 
-    public void release(int button){
-        if (button == 0){
+    public void release(int button) {
+        if (button == 0) {
             dragging = false;
         }
     }
@@ -39,10 +42,10 @@ public class HudComponent {
     }
 
     public void update(int mouseX, int mouseY) {
-        if (dragging){
+        if (dragging) {
             drag(mouseX, mouseY);
         }
-        if (inside(mouseX, mouseY)){
+        if (inside(mouseX, mouseY)) {
             RenderUtil.drawRect(position, new Vector2D(position.getX() + size.getX(), position.getY() + size.getY()), new Color(0, 0, 0, 30).getRGB());
         }
         RenderUtil.drawOutline(position.getX(), position.getY(), position.getX() + size.getX(), position.getY() + size.getY(), ClickGui.Instance.color.GetColor(), 1.0f);
