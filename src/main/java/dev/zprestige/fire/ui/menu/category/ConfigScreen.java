@@ -255,7 +255,7 @@ public class ConfigScreen extends AbstractCategory {
         selectedList.clear();
         float deltaY = position.getY() + 22;
         for (File file : filesInFolder(new File(Main.fileManager.getDirectory() + File.separator + "Configs"))) {
-            if (file.getName().equals("ActiveConfig.txt") || file.getName().equals("Friends.txt")){
+            if (file.getName().equals("ActiveConfig.txt") || file.getName().equals("Friends.txt") || file.getName().equals("Prefix.txt")){
                 continue;
             }
             loadableConfigs.add(new LoadableConfig(file.getName(), new Vector2D(position.getX() + 6, deltaY), new Vector2D(size.getX() / 2 - 10, 15)));
