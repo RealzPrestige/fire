@@ -30,11 +30,12 @@ public class Main {
     public static FontManager fontManager;
     public static FileManager fileManager;
     public static FriendManager friendManager;
+    public static CommandManager commandManager;
     public static ConfigManager configManager;
     public static PlayerManager playerManager;
     public static HudManager hudManager;
     public static DiscordRPCManager discordRPCManager;
-    public static CommandManager commandManager;
+    public static InteractionManager interactionManager;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent ignoredEvent) {
@@ -49,12 +50,18 @@ public class Main {
         fontManager = new FontManager();
         fileManager = new FileManager();
         friendManager = new FriendManager();
-        configManager = new ConfigManager().loadActiveConfig().loadSavedFriends();
+        commandManager = (CommandManager) new CommandManager().init().registerEventBus();
+        configManager = new ConfigManager().loadActiveConfig().loadSavedFriends().loadPrefix();
         playerManager = (PlayerManager) new PlayerManager().registerEventBus();
         hudManager = (HudManager) new HudManager().init().registerEventBus();
-        discordRPCManager = new DiscordRPCManager();
-        commandManager = (CommandManager) new CommandManager().init().registerEventBus();
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> configManager.save("AutoSave")));
+        discordRPCManager = new DiscordRPCManager().init();
+        interactionManager = new InteractionManager();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            configManager.save("AutoSave");
+            configManager.savePrefix();
+            friendManager.saveFriends();
+            discordRPCManager.stop();
+        }));
         final InputStream icon = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/images/fire.png");
         if (icon != null) {
             try {

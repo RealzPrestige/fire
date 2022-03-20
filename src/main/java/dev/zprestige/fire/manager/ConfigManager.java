@@ -15,6 +15,28 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ConfigManager {
     protected final File configFolder = new File(Main.fileManager.getDirectory() + File.separator + "Configs");
     protected final String separator = File.separator;
+
+    public void savePrefix() {
+        final File file = Main.fileManager.registerFileAndCreate(configFolder + separator + "Prefix.txt");
+        final BufferedWriter bufferedWriter = Main.fileManager.createBufferedWriter(file);
+        Main.fileManager.writeLine(bufferedWriter, "\"" + Main.commandManager.getPrefix() + "\"");
+        Main.fileManager.closeBufferedWriter(bufferedWriter);
+    }
+
+    public ConfigManager loadPrefix(){
+        final File file = Main.fileManager.registerFileAndCreate(configFolder + separator + "Prefix.txt");
+        final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file);
+        try {
+            final String line = bufferedReader.readLine();
+            if (line != null && !line.equalsIgnoreCase("")) {
+                Main.commandManager.setPrefix(line.replace("\"", ""));
+            }
+        } catch (IOException ignored) {
+        }
+        Main.fileManager.closeBufferedReader(bufferedReader);
+        return this;
+    }
+
     public ConfigManager loadActiveConfig() {
         final String active = getActiveConfig();
         if (active == null || !active.equals("") || !new File(configFolder + separator + active).exists()) {

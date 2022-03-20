@@ -5,14 +5,19 @@ import dev.zprestige.fire.module.Module;
 import net.minecraft.client.Minecraft;
 
 public class RPC extends Module {
+    public static RPC Instance;
+
+    public RPC() {
+        Instance = this;
+    }
 
     @Override
-    public void onEnable(){
+    public void onEnable() {
         Main.discordRPCManager.start();
     }
 
     @Override
-    public void onDisable(){
+    public void onDisable() {
         Main.discordRPCManager.stop();
     }
 }

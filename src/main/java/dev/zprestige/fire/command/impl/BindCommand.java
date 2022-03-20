@@ -8,7 +8,7 @@ import org.lwjgl.input.Keyboard;
 public class BindCommand extends Command {
 
     public BindCommand() {
-        super("config", "Bind <Module> <Keybind>");
+        super("bind", "Bind <Module> <Keybind>");
     }
 
     @Override
@@ -16,10 +16,10 @@ public class BindCommand extends Command {
         try {
             final String[] split = string.split(" ");
             for (Module module : Main.moduleManager.getModules()) {
-                if (module.getName().equals(split[1])) {
+                if (module.getName().equalsIgnoreCase(split[1])) {
                     final int keybind = Keyboard.getKeyIndex(split[2]);
                     module.setKeybind(keybind);
-                    completeMessage("keyinded " + module.getName() + "'s keybind to " + keybind);
+                    completeMessage("keyinded " + module.getName() + "'s keybind to " + split[2]);
                 }
             }
         } catch (Exception ignored) {

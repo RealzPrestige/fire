@@ -1,6 +1,5 @@
 package dev.zprestige.fire.module.client;
 
-import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.TickEvent;
 import dev.zprestige.fire.module.Module;
@@ -24,7 +23,7 @@ public class ClickGui extends Module {
     }
 
     @RegisterListener
-    public void onTick(TickEvent event){
+    protected void onTick(TickEvent event){
         if (!(mc.currentScreen instanceof MenuScreen) && !(mc.currentScreen instanceof HudEditorScreen)){
             disableModule();
         }
@@ -39,7 +38,5 @@ public class ClickGui extends Module {
         if (mc.currentScreen instanceof MenuScreen) {
             mc.currentScreen = null;
         }
-        Main.configManager.save("AutoSave");
-        Main.friendManager.saveFriends();
     }
 }

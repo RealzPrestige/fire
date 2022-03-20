@@ -23,10 +23,6 @@ public class CommandManager extends RegisteredClass {
         return this;
     }
 
-    public ArrayList<Command> getCommands() {
-        return commands;
-    }
-
     public String getPrefix() {
         return prefix;
     }

@@ -4,6 +4,7 @@ import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.module.client.RPC;
 import net.minecraft.client.Minecraft;
 
 public class DiscordRPCManager {
@@ -11,6 +12,13 @@ public class DiscordRPCManager {
     protected final DiscordRichPresence presence = new DiscordRichPresence();
     protected final DiscordRPC rpc = DiscordRPC.INSTANCE;
     protected Thread thread;
+
+    public DiscordRPCManager init() {
+        if (RPC.Instance.isEnabled()) {
+            start();
+        }
+        return this;
+    }
 
     @SuppressWarnings("BusyWait")
     public void start() {
