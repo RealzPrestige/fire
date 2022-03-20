@@ -118,6 +118,9 @@ public class ConfigManager {
 
     public void load(final String folder, boolean preserveKeybinds) {
         final File file = new File(configFolder + separator + folder);
+        if (file.exists()){
+            return;
+        }
         for (Module module : Main.moduleManager.getModules()) {
             final File path = new File(file + separator + module.getCategory().toString());
             final File moduleFile = new File(path + separator + module.getName() + ".txt");

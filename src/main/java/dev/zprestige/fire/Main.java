@@ -53,7 +53,7 @@ public class Main {
         playerManager = (PlayerManager) new PlayerManager().registerEventBus();
         hudManager = (HudManager) new HudManager().init().registerEventBus();
         discordRPCManager = new DiscordRPCManager();
-        commandManager = new CommandManager();
+        commandManager = (CommandManager) new CommandManager().init().registerEventBus();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> configManager.save("AutoSave")));
         final InputStream icon = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/images/fire.png");
         if (icon != null) {
