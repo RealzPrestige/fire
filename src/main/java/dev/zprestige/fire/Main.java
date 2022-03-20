@@ -37,6 +37,7 @@ public class Main {
     public static DiscordRPCManager discordRPCManager;
     public static InventoryManager inventoryManager;
     public static InteractionManager interactionManager;
+    public static RotationManager rotationManager;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent ignoredEvent) {
@@ -58,6 +59,7 @@ public class Main {
         discordRPCManager = new DiscordRPCManager().init();
         inventoryManager = new InventoryManager();
         interactionManager = new InteractionManager();
+        rotationManager = new RotationManager();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.save("AutoSave");
             configManager.savePrefix();
