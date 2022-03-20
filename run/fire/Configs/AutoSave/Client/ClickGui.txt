@@ -1,5 +1,5 @@
 "Keybind": "54:false"
 "Enabled": "false"
-"Color": "-2647459"
+"Color": "-10655785"
 "Background Color": "-13226193"
 "AnimationSpeed": "1.0"

@@ -34,6 +34,7 @@ public class Main {
     public static PlayerManager playerManager;
     public static HudManager hudManager;
     public static DiscordRPCManager discordRPCManager;
+    public static CommandManager commandManager;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent ignoredEvent) {
@@ -52,6 +53,7 @@ public class Main {
         playerManager = (PlayerManager) new PlayerManager().registerEventBus();
         hudManager = (HudManager) new HudManager().init().registerEventBus();
         discordRPCManager = new DiscordRPCManager();
+        commandManager = new CommandManager();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> configManager.save("AutoSave")));
         final InputStream icon = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/images/fire.png");
         if (icon != null) {

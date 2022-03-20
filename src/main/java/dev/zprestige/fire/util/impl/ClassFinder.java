@@ -1,6 +1,7 @@
 package dev.zprestige.fire.util.impl;
 
 import com.google.common.reflect.ClassPath;
+import dev.zprestige.fire.command.Command;
 import dev.zprestige.fire.module.Category;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.ui.hudeditor.components.HudComponent;
@@ -63,6 +64,26 @@ public class ClassFinder implements Utils {
         } catch (Exception ignored) {
         }
         return hudComponents;
+    }
+
+    public static ArrayList<Command> commandArrayList() {
+        final ArrayList<Command> commands = new ArrayList<>();
+        try {
+            List<Class<?>> classes = ClassFinder.from("dev.zprestige.fire.command.impl");
+            if (classes != null) {
+                for (Class<?> clazz : classes) {
+                    if (!Modifier.isAbstract(clazz.getModifiers()) && Command.class.isAssignableFrom(clazz)) {
+                        for (Constructor<?> constructor : clazz.getConstructors()) {
+                            final Command instance = ((Command) constructor.newInstance());
+                            Arrays.stream(instance.getClass().getDeclaredFields()).filter(field -> !field.isAccessible()).forEach(field -> field.setAccessible(true));
+                            commands.add(instance);
+                        }
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return commands;
     }
 
     @SuppressWarnings("ALL")
