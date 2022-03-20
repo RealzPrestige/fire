@@ -100,4 +100,8 @@ public class Module {
     public ArrayList<Setting> getSettings() {
         return settings;
     }
+
+    public String getData(){
+        return "";
+    }
 }

@@ -2,6 +2,7 @@ package dev.zprestige.fire.manager;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.util.impl.BlockUtil;
+import dev.zprestige.fire.util.impl.Timer;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -9,6 +10,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -56,7 +58,7 @@ public class InteractionManager {
             Blocks.BLACK_SHULKER_BOX
     );
 
-    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean strict) {
+    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict) {
         for (EnumFacing direction : EnumFacing.values()) {
             final BlockPos directionOffset = pos.offset(direction);
             for (Entity entity : mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos))) {
@@ -78,9 +80,9 @@ public class InteractionManager {
                 mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
                 mc.player.setSneaking(true);
             }
-            final Vec3d interactVector = new Vec3d(directionOffset).addVector(0.5, 0.5, 0.5).add(new Vec3d(direction.getOpposite().getDirectionVec()).scale(0.5));
+            final Vec3d vec = new Vec3d(directionOffset).addVector(0.5, 0.5, 0.5).add(new Vec3d(direction.getOpposite().getDirectionVec()).scale(0.5));
             if (rotate) {
-                final double[] rotations = BlockUtil.calculateAngle(interactVector);
+                final double[] rotations = BlockUtil.calculateAngle(vec);
                 mc.player.connection.sendPacket(new CPacketPlayer.Rotation((float) rotations[0], (float) rotations[1], mc.player.onGround));
             }
             if (sneak) {
@@ -91,7 +93,17 @@ public class InteractionManager {
                 mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SPRINTING));
                 mc.player.setSprinting(true);
             }
-            if (mc.playerController.processRightClickBlock(mc.player, mc.world, directionOffset, direction.getOpposite(), interactVector, EnumHand.MAIN_HAND) != EnumActionResult.FAIL) {
+            EnumActionResult clickBlock = null;
+
+            if (packet){
+                float f = (float) (vec.x - (double) pos.getX());
+                float f1 = (float) (vec.y - (double) pos.getY());
+                float f2 = (float) (vec.z - (double) pos.getZ());
+                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, direction, EnumHand.MAIN_HAND, f, f1, f2));
+            } else {
+                clickBlock = mc.playerController.processRightClickBlock(mc.player, mc.world, directionOffset, direction.getOpposite(), vec, EnumHand.MAIN_HAND);
+            }
+            if (packet || clickBlock != EnumActionResult.FAIL) {
                 mc.player.swingArm(EnumHand.MAIN_HAND);
                 mc.rightClickDelayTimer = 4;
                 return;
@@ -135,5 +147,23 @@ public class InteractionManager {
 
     protected boolean isVisible(final BlockPos pos){
         return !mc.world.getBlockState(pos).isFullBlock() || !mc.world.isAirBlock(pos);
+    }
+
+    public void placeBlockWithSwitch(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final int slot){
+        int currentItem = mc.player.inventory.currentItem;
+        Main.inventoryManager.switchToSlot(slot);
+        placeBlock(pos, rotate, packet, strict);
+        mc.player.inventory.currentItem = currentItem;
+        mc.playerController.updateController();
+    }
+
+    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final Timer timer){
+        placeBlock(pos, rotate, packet, strict);
+        timer.syncTime();
+    }
+
+    public void placeBlockWithSwitch(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final int slot, final Timer timer){
+        placeBlockWithSwitch(pos, rotate, packet, strict, slot);
+        timer.syncTime();
     }
 }

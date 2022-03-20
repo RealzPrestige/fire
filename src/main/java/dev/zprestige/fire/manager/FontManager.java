@@ -64,4 +64,8 @@ public class FontManager {
             return plain;
         }
     }
+
+    public FontRenderer getCustomFont() {
+        return customFont;
+    }
 }

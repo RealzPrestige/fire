@@ -35,6 +35,12 @@
     },
     "done": true
   },
+  "minecraft:recipes/transportation/dark_oak_boat": {
+    "criteria": {
+      "entered_water": "2022-03-20 13:52:32 +0100"
+    },
+    "done": true
+  },
   "minecraft:recipes/decorations/chest": {
     "criteria": {
       "has_lots_of_items": "2022-03-18 08:06:41 +0100"
@@ -56,9 +62,21 @@
     },
     "done": true
   },
+  "minecraft:recipes/transportation/birch_boat": {
+    "criteria": {
+      "entered_water": "2022-03-20 13:52:32 +0100"
+    },
+    "done": true
+  },
   "minecraft:recipes/decorations/enchanting_table": {
     "criteria": {
       "has_obsidian": "2022-03-18 08:06:41 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/acacia_boat": {
+    "criteria": {
+      "entered_water": "2022-03-20 13:52:32 +0100"
     },
     "done": true
   },
@@ -74,16 +92,37 @@
     },
     "done": true
   },
+  "minecraft:recipes/transportation/boat": {
+    "criteria": {
+      "entered_water": "2022-03-20 13:52:32 +0100"
+    },
+    "done": true
+  },
   "minecraft:story/form_obsidian": {
     "criteria": {
       "obsidian": "2022-03-18 08:06:41 +0100"
     },
     "done": true
   },
+  "minecraft:recipes/transportation/jungle_boat": {
+    "criteria": {
+      "entered_water": "2022-03-20 13:52:32 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/spruce_boat": {
+    "criteria": {
+      "entered_water": "2022-03-20 13:52:32 +0100"
+    },
+    "done": true
+  },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
       "forest": "2022-03-18 08:06:41 +0100",
-      "forest_hills": "2022-03-18 17:30:21 +0100"
+      "beaches": "2022-03-20 13:52:27 +0100",
+      "forest_hills": "2022-03-18 17:30:21 +0100",
+      "ocean": "2022-03-20 13:52:41 +0100",
+      "river": "2022-03-20 13:52:33 +0100"
     },
     "done": false
   }

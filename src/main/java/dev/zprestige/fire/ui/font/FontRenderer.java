@@ -77,4 +77,8 @@ public class FontRenderer {
     public int getStringWidth(String text) {
         return defaultFont.getStringWidth(text) / 2;
     }
+
+    public ImageAWT getDefaultFont() {
+        return defaultFont;
+    }
 }

@@ -4,6 +4,8 @@
   "package": "dev.zprestige.fire.mixins.impl.",
   "refmap": "mixins.fire.refmap.json",
   "mixins": [
+    "MixinGuiButton",
+    "MixinGuiMainMenu",
     "MixinNetworkManager"
   ]
 }

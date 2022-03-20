@@ -35,6 +35,7 @@ public class Main {
     public static PlayerManager playerManager;
     public static HudManager hudManager;
     public static DiscordRPCManager discordRPCManager;
+    public static InventoryManager inventoryManager;
     public static InteractionManager interactionManager;
 
     @Mod.EventHandler
@@ -55,6 +56,7 @@ public class Main {
         playerManager = (PlayerManager) new PlayerManager().registerEventBus();
         hudManager = (HudManager) new HudManager().init().registerEventBus();
         discordRPCManager = new DiscordRPCManager().init();
+        inventoryManager = new InventoryManager();
         interactionManager = new InteractionManager();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.save("AutoSave");
