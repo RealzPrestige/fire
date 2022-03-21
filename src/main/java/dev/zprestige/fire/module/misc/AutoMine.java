@@ -64,7 +64,7 @@ public class AutoMine extends Module {
                     timer.syncTime();
                     started = false;
                 }
-            } else {
+            } else if (Main.mineManager.isntMining()){
                 for (int i = 0; i < 3; i++){
                     if (perform(getPriority(i), player)){
                         return;

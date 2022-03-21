@@ -217,6 +217,7 @@ public class InteractionManager {
         mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, pos, enumFacing));
         mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, enumFacing));
         mc.player.swingArm(EnumHand.MAIN_HAND);
+        Main.mineManager.setMiningPos(pos);
     }
 
     public void abort(final BlockPos pos, final EnumFacing enumFacing) {
