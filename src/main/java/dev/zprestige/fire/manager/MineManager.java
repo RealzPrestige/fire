@@ -27,10 +27,6 @@ public class MineManager extends RegisteredClass {
         }
     }
 
-    public BlockPos getMiningPos() {
-        return miningPos;
-    }
-
     public void setMiningPos(BlockPos miningPos) {
         this.miningPos = miningPos;
     }
