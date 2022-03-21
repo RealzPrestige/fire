@@ -17,10 +17,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class InteractionManager {
     protected final Minecraft mc = Main.mc;
@@ -165,5 +168,39 @@ public class InteractionManager {
     public void placeBlockWithSwitch(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final int slot, final Timer timer){
         placeBlockWithSwitch(pos, rotate, packet, strict, slot);
         timer.syncTime();
+    }
+
+    public void interactBlock(final BlockPos pos, final EnumFacing enumFacing){
+        mc.playerController.onPlayerDamageBlock(pos, enumFacing);
+    }
+
+    public EnumFacing closestEnumFacing(final BlockPos pos){
+        final TreeMap<Double, EnumFacing> enumFacingTreeMap = Main.interactionManager.getVisibleSides(pos).stream().collect(Collectors.toMap(enumFacing -> getDistanceToFace(pos, enumFacing), enumFacing -> enumFacing, (a, b) -> b, TreeMap::new));
+        return enumFacingTreeMap.firstEntry().getValue();
+    }
+
+    protected double getDistanceToFace(final BlockPos pos, final EnumFacing enumFacing) {
+        Vec3i vec3i = new Vec3i(0.5, 0.5, 0.5);
+        switch (enumFacing) {
+            case NORTH:
+                vec3i = new Vec3i(0.5, 0.5, -1.5);
+                break;
+            case EAST:
+                vec3i = new Vec3i(1.5, 0.5, 0.5);
+                break;
+            case SOUTH:
+                vec3i = new Vec3i(0.5, 0.5, 1.5);
+                break;
+            case WEST:
+                vec3i = new Vec3i(-1.5, 0.5, 0.5);
+                break;
+            case UP:
+                vec3i = new Vec3i(0.5, 1.5, 0.5);
+                break;
+            case DOWN:
+                vec3i = new Vec3i(0.5, -1.5, 0.5);
+                break;
+        }
+        return mc.player.getDistanceSq(pos.add(vec3i));
     }
 }
