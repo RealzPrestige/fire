@@ -44,7 +44,7 @@ public class Main {
         Display.setTitle(name + " " + version);
         mc = Minecraft.getMinecraft();
         eventBus = new EventBus();
-        threadManager = new ThreadManager();
+        threadManager = (ThreadManager) new ThreadManager().registerEventBus();
         listener = (Listener) new Listener().registerForge().registerEventBus();
         moduleManager = new ModuleManager().init();
         fadeManager = (FadeManager) new FadeManager().registerEventBus();
@@ -59,7 +59,7 @@ public class Main {
         discordRPCManager = new DiscordRPCManager().init();
         inventoryManager = new InventoryManager();
         interactionManager = new InteractionManager();
-        rotationManager = new RotationManager();
+        rotationManager = (RotationManager) new RotationManager().registerEventBus();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.save("AutoSave");
             configManager.savePrefix();

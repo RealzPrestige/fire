@@ -25,16 +25,14 @@ public class Listener extends RegisteredClass {
     protected final EventBus eventBus = Main.eventBus;
 
     @SubscribeEvent
-    protected void onLivingUpdateEvent(LivingEvent.LivingUpdateEvent event) {
+    public void onLivingUpdateEvent(LivingEvent.LivingUpdateEvent event) {
         if (checkNull() && event.getEntity().getEntityWorld().isRemote && event.getEntityLiving().equals(mc.player)) {
             final TickEvent tickEvent = new TickEvent();
             eventBus.post(tickEvent);
             if (mc.currentScreen == null) {
                 Main.moduleManager.getModules().stream().filter(module -> module.getKeySetting().isHold()).forEach(module -> {
                     final boolean down = Keyboard.isKeyDown(module.getKeybind());
-                    if (!module.isEnabled() && down) {
-                        module.enableModule();
-                    } else if (module.isEnabled() && !down) {
+                    if (module.isEnabled() && !down) {
                         module.disableModule();
                     }
                 });
@@ -43,7 +41,7 @@ public class Listener extends RegisteredClass {
     }
 
     @SubscribeEvent
-    protected void onRenderWorldLastEvent(RenderWorldLastEvent event) {
+    public void onRenderWorldLastEvent(RenderWorldLastEvent event) {
         final Profiler profiler = mc.mcProfiler;
         profiler.startSection("fire");
         if (checkNull()) {
@@ -54,7 +52,7 @@ public class Listener extends RegisteredClass {
     }
 
     @SubscribeEvent
-    protected void onRenderGameOverlayTextEvent(RenderGameOverlayEvent.Text event) {
+    public void onRenderGameOverlayTextEvent(RenderGameOverlayEvent.Text event) {
         if (checkNull()) {
             final FrameEvent.FrameEvent2D frameEvent2D = new FrameEvent.FrameEvent2D(event.getPartialTicks());
             eventBus.post(frameEvent2D);
@@ -62,27 +60,27 @@ public class Listener extends RegisteredClass {
     }
 
     @SubscribeEvent
-    protected void onClientConnect(FMLNetworkEvent.ClientConnectedToServerEvent ignoredEvent) {
+    public void onClientConnect(FMLNetworkEvent.ClientConnectedToServerEvent ignoredEvent) {
         final ConnectionEvent.Join connectionEventJoin = new ConnectionEvent.Join();
         eventBus.post(connectionEventJoin);
     }
 
     @SubscribeEvent
-    protected void onDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent ignoredEvent) {
+    public void onDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent ignoredEvent) {
         final ConnectionEvent.Disconnect connectionEventDisconnect = new ConnectionEvent.Disconnect();
         eventBus.post(connectionEventDisconnect);
     }
 
     @SubscribeEvent
-    protected void onDeath(LivingDeathEvent event) {
+    public void onDeath(LivingDeathEvent event) {
         final DeathEvent deathEvent = new DeathEvent(event.getEntity());
         eventBus.post(deathEvent);
     }
 
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
-        if (checkNull()) {
-            Main.moduleManager.getModules().stream().filter(module -> !module.getKeySetting().isHold()).filter(module -> module.getKeybind() == Keyboard.getEventKey()).forEach(Module::toggleModule);
+        if (checkNull() && Keyboard.getEventKeyState()) {
+            Main.moduleManager.getModules().stream().filter(module -> module.getKeybind() == Keyboard.getEventKey()).forEach(Module::toggleModule);
         }
     }
 

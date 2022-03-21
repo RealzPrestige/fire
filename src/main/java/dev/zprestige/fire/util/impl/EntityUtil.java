@@ -6,7 +6,6 @@ import dev.zprestige.fire.util.Utils;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.Map;
 import java.util.Objects;

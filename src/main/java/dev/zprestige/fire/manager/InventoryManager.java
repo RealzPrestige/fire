@@ -16,6 +16,11 @@ public class InventoryManager {
         mc.playerController.updateController();
     }
 
+    public void switchBack(final int slot){
+        mc.player.inventory.currentItem = slot;
+        mc.playerController.updateController();
+    }
+
     public int getItemSlot(final Item item) {
         int itemSlot = -1;
         for (int i = 1; i <= 45; ++i) {

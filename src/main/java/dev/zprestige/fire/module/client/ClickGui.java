@@ -23,7 +23,7 @@ public class ClickGui extends Module {
     }
 
     @RegisterListener
-    protected void onTick(TickEvent event){
+    public void onTick(TickEvent event){
         if (!(mc.currentScreen instanceof MenuScreen) && !(mc.currentScreen instanceof HudEditorScreen)){
             disableModule();
         }

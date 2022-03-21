@@ -3,13 +3,120 @@ package dev.zprestige.fire.util.impl;
 import dev.zprestige.fire.manager.PlayerManager;
 import dev.zprestige.fire.util.Utils;
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.item.EntityEnderCrystal;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
+import net.minecraft.util.CombatRules;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Explosion;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BlockUtil implements Utils {
+
+    public static boolean isNotVisible(BlockPos position, double offset) {
+        if (offset > 50 || offset < -50) {
+            return false;
+        }
+        return mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(position.getX() + 0.5, position.getY() + offset, position.getZ() + 0.5), false, true, false) != null;
+    }
+    public static float calculateEntityDamage(final EntityEnderCrystal crystal, final PlayerManager.Player player) {
+        return calculatePosDamage(crystal.posX, crystal.posY, crystal.posZ, player.getEntityPlayer());
+    }
+
+    public static float calculateEntityDamage(final EntityEnderCrystal crystal, final EntityPlayer entityPlayer) {
+        return calculatePosDamage(crystal.posX, crystal.posY, crystal.posZ, entityPlayer);
+    }
+
+    public static float calculatePosDamage(final BlockPos position, final EntityPlayer entityPlayer) {
+        return calculatePosDamage(position.getX() + 0.5, position.getY() + 1.0, position.getZ() + 0.5, entityPlayer);
+    }
+
+    public static float calculatePosDamage(final BlockPos position, final PlayerManager.Player player) {
+        return calculatePosDamage(position.getX() + 0.5, position.getY() + 1.0, position.getZ() + 0.5, player.getEntityPlayer());
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    public static float calculatePosDamage(final double posX, final double posY, final double posZ, final Entity entity) {
+        final float doubleSize = 12.0F;
+        final double size = entity.getDistance(posX, posY, posZ) / (double) doubleSize;
+        final Vec3d vec3d = new Vec3d(posX, posY, posZ);
+        final double blockDensity = entity.world.getBlockDensity(vec3d, entity.getEntityBoundingBox());
+        final double value = (1.0D - size) * blockDensity;
+        final float damage = (float) ((int) ((value * value + value) / 2.0D * 7.0D * (double) doubleSize + 1.0D));
+        double finalDamage = 1.0D;
+
+        if (entity instanceof EntityLivingBase) {
+            finalDamage = getBlastReduction((EntityLivingBase) entity, getMultipliedDamage(damage), new Explosion(mc.world, null, posX, posY, posZ, 6.0F, false, true));
+        }
+
+        return (float) finalDamage;
+    }
+
+    private static float getMultipliedDamage(final float damage) {
+        return damage * (mc.world.getDifficulty().getDifficultyId() == 0 ? 0.0F : (mc.world.getDifficulty().getDifficultyId() == 2 ? 1.0F : (mc.world.getDifficulty().getDifficultyId() == 1 ? 0.5F : 1.5F)));
+    }
+
+    public static float getBlastReduction(final EntityLivingBase entity, final float damageI, final Explosion explosion) {
+        float damage = damageI;
+        final DamageSource ds = DamageSource.causeExplosionDamage(explosion);
+        damage = CombatRules.getDamageAfterAbsorb(damage, entity.getTotalArmorValue(), (float) entity.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).getAttributeValue());
+        int k = 0;
+        try {
+            k = EnchantmentHelper.getEnchantmentModifierDamage(entity.getArmorInventoryList(), ds);
+        } catch (Exception ignored) {
+        }
+        damage = damage * (1.0F - MathHelper.clamp(k, 0.0F, 20.0F) / 25.0F);
+
+        if (entity.isPotionActive(MobEffects.RESISTANCE)) {
+            damage = damage - (damage / 4);
+        }
+
+        return damage;
+    }
+
+    public static List<BlockPos> getCrystallableBlocks(final double range, final boolean onePointThirteen){
+        return getBlocksInRadius(range).stream().filter(pos -> canPosBeCrystalled(pos, onePointThirteen)).collect(Collectors.toList());
+    }
+
+    public static List<BlockPos> getBlocksInRadius(final double range) {
+        final List<BlockPos> posses = new ArrayList<>();
+        final float xRange = Math.round(range);
+        final float yRange = Math.round(range);
+        final float zRange = Math.round(range);
+        float x = -xRange;
+        while (x <= xRange) {
+            float y = -yRange;
+            while (y <= yRange) {
+                float z = -zRange;
+                while (z <= zRange) {
+                    final BlockPos position = mc.player.getPosition().add(x, y, z);
+                    if (mc.player.getDistance(position.getX() + 0.5, position.getY() + 1, position.getZ() + 0.5) <= range) {
+                        posses.add(position);
+                    }
+                    z++;
+                }
+                y++;
+            }
+            x++;
+        }
+        return posses;
+    }
+
+    public static boolean canPosBeCrystalled(final BlockPos pos, final boolean onePointThirteen){
+        return (getState(pos).equals(Blocks.OBSIDIAN) || getState(pos).equals(Blocks.BEDROCK)) && getState(pos.up()).equals(Blocks.AIR) && (getState(pos.up().up()).equals(Blocks.AIR) || onePointThirteen);
+    }
 
     public static Vec3d getPositionEyes(){
         return mc.player.getPositionEyes(1);

@@ -13,6 +13,7 @@ import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
@@ -35,7 +36,7 @@ public class MenuScreen extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         final ScaledResolution scaledResolution = new ScaledResolution(mc);
-
+        scroll();
         if (offset < targetOffset) {
             offset = AnimationUtil.increaseNumber(offset, targetOffset, 10);
         } else if (offset > targetOffset) {
@@ -66,6 +67,20 @@ public class MenuScreen extends GuiScreen {
         }
 
         drawArrows();
+    }
+
+    protected void scroll(){
+        int wheel = Mouse.getDWheel();
+        if (wheel < 0){
+            for (AbstractCategory abstractCategory : guiCategories){
+                abstractCategory.setPosition(new Vector2D(abstractCategory.getPosition().getX(), abstractCategory.getPosition().getY() + 16));
+            }
+        }
+        if (wheel > 0){
+            for (AbstractCategory abstractCategory : guiCategories){
+                abstractCategory.setPosition(new Vector2D(abstractCategory.getPosition().getX(), abstractCategory.getPosition().getY() - 16));
+            }
+        }
     }
 
     protected boolean shouldConfigBeRendered() {

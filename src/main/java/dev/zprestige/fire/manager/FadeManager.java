@@ -42,7 +42,7 @@ public class FadeManager extends RegisteredClass {
         } else {
             for (Map.Entry<FadePosition, Float> entry : fadePositions.entrySet()) {
                 final FadePosition fadePosition1 = entry.getKey();
-                if (fadePosition1.getPos().equals(Main.mc.player.getPosition().down())) {
+                if (fadePosition1.getPos().equals(pos)) {
                     fadePositions.put(fadePosition1, startAlpha);
                 }
             }
