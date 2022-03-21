@@ -6,6 +6,7 @@ import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.TickEvent;
 import dev.zprestige.fire.manager.PlayerManager;
 import dev.zprestige.fire.module.Module;
+import dev.zprestige.fire.module.combat.AutoCrystal;
 import dev.zprestige.fire.module.player.PacketMine;
 import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Slider;
@@ -25,14 +26,15 @@ import java.util.stream.Collectors;
 public class AutoMine extends Module {
     public final Slider targetRange = Menu.Slider("Target Range", 9.0f, 0.1f, 15.0f);
     public final Slider breakRange = Menu.Slider("Break Range", 5.0f, 0.1f, 6.0f);
+    public final Switch damage = Menu.Switch("Damage", false);
     public final Switch onePointThirteen = Menu.Switch("One Point Thirteen", false);
-    public final ComboBox priority = Menu.ComboBox("Priority", "Burrow -> City -> Surround", new String[]{
-            "City -> Surround -> Burrow",
-            "City -> Burrow -> Surround",
-            "Surround -> City -> Burrow",
-            "Surround -> Burrow -> City",
-            "Burrow -> City -> Surround",
-            "Burrow -> Surround -> City",
+    public final ComboBox priority = Menu.ComboBox("Priority", "Burrow-City-Surround", new String[]{
+            "City-Surround-Burrow",
+            "City-Burrow-Surround",
+            "Surround-City-Burrow",
+            "Surround-Burrow-City",
+            "Burrow-City-Surround",
+            "Burrow-Surround-City",
     });
     protected boolean started;
     protected BlockPos interactedPos;
@@ -58,13 +60,17 @@ public class AutoMine extends Module {
         if (player != null && BlockUtil.isPlayerSafe(player)) {
             if (started) {
                 if (timer.getTime(2000)) {
+                    final AutoCrystal autoCrystal = (AutoCrystal) Main.moduleManager.getModuleByClass(AutoCrystal.class);
+                    if (damage.GetSwitch() && BlockUtil.canPosBeCrystalled(interactedPos, onePointThirteen.GetSwitch()) && autoCrystal.isEnabled()){
+                        autoCrystal.placeCrystal(interactedPos);
+                    }
                     Main.interactionManager.attemptBreak(interactedPos, interactedFace);
                     interactedFace = null;
                     interactedPos = null;
                     timer.syncTime();
                     started = false;
                 }
-            } else if (Main.mineManager.isntMining()){
+            } else {
                 for (int i = 0; i < 3; i++){
                     if (perform(getPriority(i), player)){
                         return;
@@ -150,8 +156,8 @@ public class AutoMine extends Module {
     }
 
     protected String getPriority(final int i) {
-        final String string = priority.GetCombo().replace("-> ", "");
-        return string.split(" ")[i];
+        final String string = priority.GetCombo();
+        return string.split("-")[i];
     }
 
     protected void start(final BlockPos pos, final EnumFacing enumFacing) {

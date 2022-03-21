@@ -78,7 +78,7 @@ public class PacketMine extends Module {
         if (activePos != null) {
             abort(activePos, facing);
         }
-        if (!BlockUtil.getState(event.getPos()).equals(Blocks.BEDROCK) && Main.mineManager.isntMining()) {
+        if (!BlockUtil.getState(event.getPos()).equals(Blocks.BEDROCK)) {
             initiateBreaking(event.getPos(), event.getFacing());
             event.setCancelled(true);
         }
