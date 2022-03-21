@@ -48,9 +48,6 @@ public class ConfigManager {
 
     public String getActiveConfig() {
         final File file = Main.fileManager.registerFileAndCreate(configFolder + separator + "ActiveConfig.txt");
-        if (!file.exists()) {
-            return "";
-        }
         final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file);
         try {
             if (bufferedReader.readLine() != null) {
@@ -209,7 +206,9 @@ public class ConfigManager {
             Main.fileManager.writeLine(bufferedWriter, "\"Position\": \"" + hudComponent.getPosition().getX() + "\", \"" + hudComponent.getPosition().getY() + "\"");
             Main.fileManager.closeBufferedWriter(bufferedWriter);
         }
-        saveActiveConfig(folder);
+        if (!folder.equals("AutoSave")) {
+            saveActiveConfig(folder);
+        }
     }
 
     public void loadSingleCategory(File file, boolean preserveKeybinds) {

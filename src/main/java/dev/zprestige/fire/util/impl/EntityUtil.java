@@ -19,7 +19,7 @@ public class EntityUtil implements Utils {
         final TreeMap<Integer, Boolean> entityPlayerFloatTreeMap3 = new TreeMap<>();
         final TreeMap<Integer, Boolean> entityPlayerFloatTreeMap4 = new TreeMap<>();
         for (PlayerManager.Player player : Main.playerManager.getPlayers()) {
-            if (player.getEntityPlayer().equals(mc.player) || Main.friendManager.isFriend(player.getName()))
+            if (player.getEntityPlayer().isDead || player.getEntityPlayer().equals(mc.player) || Main.friendManager.isFriend(player.getName()))
                 continue;
             final double distance = player.getDistance();
             if (distance < range) {

@@ -19,13 +19,11 @@ public class RotationManager extends RegisteredClass {
 
     @RegisterListener
     public void onPacketSend(PacketEvent.PacketSendEvent event) {
-        if (Main.listener.checkNull()) {
-            if (event.getPacket() instanceof CPacketPlayer) {
-                final CPacketPlayer packet = ((CPacketPlayer) event.getPacket());
-                packet.yaw = target[0];
-                packet.pitch = target[1];
-                needsRotations = false;
-            }
+        if (Main.listener.checkNull() && needsRotations && event.getPacket() instanceof CPacketPlayer) {
+            final CPacketPlayer packet = ((CPacketPlayer) event.getPacket());
+            packet.yaw = target[0];
+            packet.pitch = target[1];
+            needsRotations = false;
         }
     }
 

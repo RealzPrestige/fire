@@ -6,10 +6,7 @@ import dev.zprestige.fire.events.impl.PacketEvent;
 import dev.zprestige.fire.events.impl.TickEvent;
 import dev.zprestige.fire.manager.PlayerManager;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.settings.impl.ColorBox;
-import dev.zprestige.fire.settings.impl.ComboBox;
-import dev.zprestige.fire.settings.impl.Slider;
-import dev.zprestige.fire.settings.impl.Switch;
+import dev.zprestige.fire.settings.impl.*;
 import dev.zprestige.fire.util.impl.BlockUtil;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import dev.zprestige.fire.util.impl.Timer;
@@ -29,6 +26,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.util.*;
@@ -99,7 +97,9 @@ public class AutoCrystal extends Module {
             "Ultra",
             "UltraChain"
     });
-
+    public final Slider facePlaceHealth = Menu.Slider("Face Place Health", 15.0f, 0.1f, 36.0f);
+    public final Switch facePlaceSlow = Menu.Switch("Face Place Slow", false);
+    public final Key facePlaceForceKey = Menu.Key("Face Place Force Key", Keyboard.KEY_NONE);
     public final Switch render = Menu.Switch("Render", false);
     public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f);
     public final Switch box = Menu.Switch("Box", false);
@@ -163,19 +163,19 @@ public class AutoCrystal extends Module {
     public void onTick(TickEvent event) {
         final PlayerManager.Player player = EntityUtil.getClosestTarget(targetPriority(targetPriority.GetCombo()), targetRange.GetSlider());
         if (player != null) {
-            performAutoCrystal(player);
+            performAutoCrystal(player, facePlace(player) && facePlaceSlow.GetSwitch());
         }
     }
 
-    public void performAutoCrystal(final PlayerManager.Player player) {
-        if (timers[0].getTime((long) placeDelay.GetSlider())) {
+    public void performAutoCrystal(final PlayerManager.Player player, final boolean facePlace) {
+        if (timers[0].getTime((long)placeDelay.GetSlider())) {
             final BlockPos pos = calculatePosition(player);
             if (pos != null) {
                 placeCrystal(pos);
                 timers[0].syncTime();
             }
         }
-        if (timers[1].getTime((long) explodeDelay.GetSlider())) {
+        if (timers[1].getTime(facePlace ? 500 : (long) explodeDelay.GetSlider())) {
             final EntityEnderCrystal entityEnderCrystal = calculateCrystal(player);
             if (entityEnderCrystal != null) {
                 explodeCrystal(entityEnderCrystal);
@@ -257,7 +257,8 @@ public class AutoCrystal extends Module {
             final double damage = BlockUtil.calculateEntityDamage(entityEnderCrystal, player);
             final double selfDamage = BlockUtil.calculateEntityDamage(entityEnderCrystal, mc.player);
             final double selfHealth = mc.player.getHealth() + mc.player.getAbsorptionAmount();
-            if (damage > minExplodeDamage.GetSlider() && selfDamage < maxSelfExplodeDamage.GetSlider() && selfDamage < selfHealth - explodeAntiSuicide.GetSlider()) {
+            final float minDamage = facePlace(player) ? 2.0f : minExplodeDamage.GetSlider();
+            if (damage > minDamage && selfDamage < maxSelfExplodeDamage.GetSlider() && selfDamage < selfHealth - explodeAntiSuicide.GetSlider()) {
                 crystals.put(entityEnderCrystal, new CalculationComponent(damage, player.getDistanceToPos(pos), selfDamage));
             }
         }
@@ -297,7 +298,8 @@ public class AutoCrystal extends Module {
             final double damage = BlockUtil.calculatePosDamage(pos, player);
             final double selfDamage = BlockUtil.calculatePosDamage(pos, mc.player);
             final double selfHealth = mc.player.getHealth() + mc.player.getAbsorptionAmount();
-            if (damage > minPlaceDamage.GetSlider() && selfDamage < maxSelfPlaceDamage.GetSlider() && selfDamage < selfHealth - placeAntiSuicide.GetSlider()) {
+            final float minDamage = facePlace(player) ? 2.0f : minPlaceDamage.GetSlider();
+            if (damage > minDamage && selfDamage < maxSelfPlaceDamage.GetSlider() && selfDamage < selfHealth - placeAntiSuicide.GetSlider()) {
                 posses.put(pos, new CalculationComponent(damage, player.getDistanceToPos(pos), selfDamage));
             }
         }
@@ -327,6 +329,9 @@ public class AutoCrystal extends Module {
         return null;
     }
 
+    protected boolean facePlace(final PlayerManager.Player player){
+        return player.getHealth() < facePlaceHealth.GetSlider() || Keyboard.isKeyDown(facePlaceForceKey.GetKey());
+    }
     protected EntityUtil.TargetPriority targetPriority(final String string) {
         return Arrays.stream(EntityUtil.TargetPriority.values()).filter(targetPriority1 -> targetPriority1.toString().equals(string)).findFirst().orElse(null);
     }
