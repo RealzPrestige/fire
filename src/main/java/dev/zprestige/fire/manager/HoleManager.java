@@ -129,6 +129,10 @@ public class HoleManager  {
         return !mc.world.getBlockState(pos).getBlock().equals(Blocks.BEDROCK);
     }
 
+    public List<HolePos> getHoles() {
+        return holes;
+    }
+
     public static class HolePos {
         protected final BlockPos pos;
         protected final Type holeType;

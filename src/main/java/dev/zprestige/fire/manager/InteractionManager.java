@@ -8,8 +8,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayerDigging;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -19,10 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class InteractionManager {
@@ -203,4 +202,29 @@ public class InteractionManager {
         }
         return mc.player.getDistanceSq(pos.add(vec3i));
     }
+
+    public void attemptBreak(final BlockPos pos, final EnumFacing enumFacing) {
+        final int slot = Main.inventoryManager.getItemFromHotbar(Items.DIAMOND_PICKAXE);
+        if (slot != -1) {
+            final int currentItem = mc.player.inventory.currentItem;
+            Main.inventoryManager.switchToSlot(slot);
+            Objects.requireNonNull(mc.getConnection()).sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, enumFacing));
+            Main.inventoryManager.switchBack(currentItem);
+        }
+    }
+
+    public void initiateBreaking(final BlockPos pos, final EnumFacing enumFacing) {
+        mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, pos, enumFacing));
+        mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, enumFacing));
+        mc.player.swingArm(EnumHand.MAIN_HAND);
+    }
+
+    public void abort(final BlockPos pos, final EnumFacing enumFacing) {
+        mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, pos, enumFacing));
+        mc.playerController.isHittingBlock = false;
+        mc.playerController.curBlockDamageMP = 0.0f;
+        mc.world.sendBlockBreakProgress(mc.player.getEntityId(), pos, -1);
+        mc.player.resetCooldown();
+    }
+
 }

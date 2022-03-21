@@ -31,4 +31,8 @@ public class ModuleManager extends RegisteredClass {
         return modules;
     }
 
+    public Module getModuleByClass(final Class<?> c){
+        return modules.stream().filter(module -> module.getName().equalsIgnoreCase(c.getName().split("\\.")[5])).findFirst().orElse(null);
+    }
+
 }

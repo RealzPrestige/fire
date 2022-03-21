@@ -118,6 +118,9 @@ public class BlockUtil implements Utils {
         return (getState(pos).equals(Blocks.OBSIDIAN) || getState(pos).equals(Blocks.BEDROCK)) && getState(pos.up()).equals(Blocks.AIR) && (getState(pos.up().up()).equals(Blocks.AIR) || onePointThirteen);
     }
 
+    public static boolean canPosBeCrystalledSoon(final BlockPos pos, final boolean onePointThirteen){
+        return (getState(pos).equals(Blocks.OBSIDIAN) || getState(pos).equals(Blocks.BEDROCK)) && (getState(pos.up().up()).equals(Blocks.AIR) || onePointThirteen);
+    }
     public static Vec3d getPositionEyes(){
         return mc.player.getPositionEyes(1);
     }
