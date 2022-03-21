@@ -98,9 +98,9 @@ public class Module {
 
     public void updateListPosition(){
         if (isEnabled()){
-            listX = AnimationUtil.decreaseNumber(listX, 0, listX / 50);
+            listX = AnimationUtil.decreaseNumber(listX, 0, listX / 10);
         } else {
-            listX = AnimationUtil.increaseNumber(listX, stringWidth(), (stringWidth() - listX) / 50);
+            listX = AnimationUtil.increaseNumber(listX, stringWidth(), (stringWidth() - listX) / 10);
         }
     }
 

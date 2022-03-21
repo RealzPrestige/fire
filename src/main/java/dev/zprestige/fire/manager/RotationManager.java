@@ -47,7 +47,7 @@ public class RotationManager extends RegisteredClass {
         setRotations(angle[0], angle[1], sync);
     }
 
-    public float[] calculateAngle(Vec3d to) {
+    public float[] calculateAngle(final Vec3d to) {
         float yaw = (float) (Math.toDegrees(Math.atan2(to.subtract(mc.player.getPositionEyes(1)).z, to.subtract(mc.player.getPositionEyes(1)).x)) - 90);
         float pitch = (float) Math.toDegrees(-Math.atan2(to.subtract(mc.player.getPositionEyes(1)).y, Math.hypot(to.subtract(mc.player.getPositionEyes(1)).x, to.subtract(mc.player.getPositionEyes(1)).z)));
         return new float[]{MathHelper.wrapDegrees(yaw), MathHelper.wrapDegrees(pitch)};

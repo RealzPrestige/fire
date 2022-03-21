@@ -76,43 +76,46 @@ public class ConfigManager {
 
     public boolean isConfigTheSame(final String folder, final Module module){
         final File file = new File(configFolder + separator + folder + separator + module.getCategory() + separator + module.getName() + ".txt");
-        final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file);
-        AtomicBoolean same = new AtomicBoolean(true);
-        bufferedReader.lines().forEach(line -> {
-            final String[] finalLine = line.replace("\"", "").replace(" ", "").split(":");
-            final String settingName = finalLine[0];
-            final String value = finalLine[1];
-            final Setting setting = isStringSetting(settingName, module);
-            if (setting instanceof ColorBox){
-                if (!String.valueOf(((ColorBox) setting).GetColor().getRGB()).equals(value)){
-                    same.set(false);
+        if (file.exists()) {
+            final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file);
+            AtomicBoolean same = new AtomicBoolean(true);
+            bufferedReader.lines().forEach(line -> {
+                final String[] finalLine = line.replace("\"", "").replace(" ", "").split(":");
+                final String settingName = finalLine[0];
+                final String value = finalLine[1];
+                final Setting setting = isStringSetting(settingName, module);
+                if (setting instanceof ColorBox) {
+                    if (!String.valueOf(((ColorBox) setting).GetColor().getRGB()).equals(value)) {
+                        same.set(false);
+                    }
                 }
-            }
-            if (setting instanceof ComboBox) {
-                if (!String.valueOf(((ComboBox) setting).GetCombo()).equals(value)){
-                    same.set(false);
+                if (setting instanceof ComboBox) {
+                    if (!String.valueOf(((ComboBox) setting).GetCombo()).equals(value)) {
+                        same.set(false);
+                    }
                 }
-            }
-            if (setting instanceof Key) {
-                if (!String.valueOf(((Key) setting).GetKey()).equals(value)){
-                    same.set(false);
+                if (setting instanceof Key) {
+                    if (!String.valueOf(((Key) setting).GetKey()).equals(value)) {
+                        same.set(false);
+                    }
+                    if (!String.valueOf(((Key) setting).isHold()).equals(finalLine[2])) {
+                        same.set(false);
+                    }
                 }
-                if (!String.valueOf(((Key) setting).isHold()).equals(finalLine[2])){
-                    same.set(false);
+                if (setting instanceof Slider) {
+                    if (!String.valueOf(((Slider) setting).GetSlider()).equals(value)) {
+                        same.set(false);
+                    }
                 }
-            }
-            if (setting instanceof Slider) {
-                if (!String.valueOf(((Slider) setting).GetSlider()).equals(value)){
-                    same.set(false);
+                if (setting instanceof Switch) {
+                    if (!String.valueOf(((Switch) setting).GetSwitch()).equals(value)) {
+                        same.set(false);
+                    }
                 }
-            }
-            if (setting instanceof Switch) {
-                if (!String.valueOf(((Switch) setting).GetSwitch()).equals(value)){
-                    same.set(false);
-                }
-            }
-        });
-        return same.get();
+            });
+            return same.get();
+        }
+        return false;
     }
 
     public boolean isConfigTheSame(final String folder){
@@ -137,32 +140,33 @@ public class ConfigManager {
 
     public void load(final String folder, boolean preserveKeybinds) {
         final File file = new File(configFolder + separator + folder);
-        if (file.exists()){
-            return;
-        }
         for (Module module : Main.moduleManager.getModules()) {
             final File path = new File(file + separator + module.getCategory().toString());
             final File moduleFile = new File(path + separator + module.getName() + ".txt");
-            final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(moduleFile);
-            bufferedReader.lines().forEach(line -> loadModule(module, line, preserveKeybinds));
-            Main.fileManager.closeBufferedReader(bufferedReader);
+            if (moduleFile.exists()) {
+                final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(moduleFile);
+                bufferedReader.lines().forEach(line -> loadModule(module, line, preserveKeybinds));
+                Main.fileManager.closeBufferedReader(bufferedReader);
+            }
         }
         final File hudFolder = Main.fileManager.registerPathAndCreate(file + separator + "Hud");
         for (HudComponent hudComponent : Main.hudManager.getHudComponents()){
             final File hudComponentFile = Main.fileManager.registerFileAndCreate(hudFolder + separator + hudComponent.getName() + ".txt");
-            final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(hudComponentFile);
-            bufferedReader.lines().forEach(line -> {
-                final String[] split = line.replace("\"", "").replace(" ", "").split(":");
-                final String type = split[0];
-                if (type.equals("Enabled")){
-                    hudComponent.setEnabled(Boolean.parseBoolean(split[1]));
-                }
-                if (type.equals("Position")){
-                    final String[] pos = split[1].replace("\"", "").replace(" ", "").split(",");
-                    hudComponent.setPosition(new Vector2D(Float.parseFloat(pos[0]), Float.parseFloat(pos[1])));
-                }
-            });
-            Main.fileManager.closeBufferedReader(bufferedReader);
+            if (hudComponentFile.exists()) {
+                final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(hudComponentFile);
+                bufferedReader.lines().forEach(line -> {
+                    final String[] split = line.replace("\"", "").replace(" ", "").split(":");
+                    final String type = split[0];
+                    if (type.equals("Enabled")) {
+                        hudComponent.setEnabled(Boolean.parseBoolean(split[1]));
+                    }
+                    if (type.equals("Position")) {
+                        final String[] pos = split[1].replace("\"", "").replace(" ", "").split(",");
+                        hudComponent.setPosition(new Vector2D(Float.parseFloat(pos[0]), Float.parseFloat(pos[1])));
+                    }
+                });
+                Main.fileManager.closeBufferedReader(bufferedReader);
+            }
         }
         saveActiveConfig(folder);
     }
@@ -216,9 +220,12 @@ public class ConfigManager {
             if (category.toString().equals(file.getName())) {
                 for (Module module : Main.moduleManager.getModulesInCategory(category)) {
                     System.out.println(module.getName());
-                    final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(new File(file + separator + module.getName() + ".txt"));
-                    bufferedReader.lines().forEach(line -> loadModule(module, line, preserveKeybinds));
-                    Main.fileManager.closeBufferedReader(bufferedReader);
+                    final File file1 = new File(file + separator + module.getName() + ".txt");
+                    if (file1.exists()) {
+                    final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file1);
+                        bufferedReader.lines().forEach(line -> loadModule(module, line, preserveKeybinds));
+                        Main.fileManager.closeBufferedReader(bufferedReader);
+                    }
                 }
             }
         }

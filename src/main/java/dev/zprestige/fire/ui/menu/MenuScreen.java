@@ -12,6 +12,8 @@ import dev.zprestige.fire.util.impl.RenderUtil;
 import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -214,6 +216,25 @@ public class MenuScreen extends GuiScreen {
         } else if (currentScreen.equals(CurrentScreen.CONFIG)) {
             currentScreen = CurrentScreen.MENU;
             targetOffset = 0.0f;
+        }
+    }
+
+    @Override
+    public void initGui() {
+        if (OpenGlHelper.shadersSupported && mc.getRenderViewEntity() instanceof EntityPlayer && ClickGui.Instance.blur.GetSwitch()) {
+            try {
+                mc.entityRenderer.getShaderGroup().deleteShaderGroup();
+            } catch (Exception ignored) {
+            }
+            mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
+        }
+    }
+
+    @Override
+    public void onGuiClosed() {
+        try {
+            mc.entityRenderer.getShaderGroup().deleteShaderGroup();
+        } catch (Exception ignored) {
         }
     }
 
