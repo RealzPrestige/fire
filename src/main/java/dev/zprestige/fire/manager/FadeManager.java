@@ -35,6 +35,9 @@ public class FadeManager extends RegisteredClass {
         return fadePositions.entrySet().stream().anyMatch(entry -> entry.getKey().getPos().equals(pos));
     }
 
+    public void removePosition(final BlockPos pos){
+        new HashMap<>(fadePositions).keySet().stream().filter(aFloat -> aFloat.getPos().equals(pos)).forEach(fadePositions::remove);
+    }
     public void createFadePosition(final BlockPos pos, final Color boxColor, final Color outlineColor, final boolean box, final boolean outline, final float lineWidth, final float speed, float startAlpha) {
         final FadePosition fadePosition = new FadePosition(pos, boxColor, outlineColor, box, outline, lineWidth, speed);
         if (!isOccupied(pos)) {

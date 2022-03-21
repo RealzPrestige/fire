@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public class MixinGuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
     @ModifyArg(method = "initGui", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 2))
-    private Object moveLanguageButton(Object buttonIn) {
+    public Object moveLanguageButton(Object buttonIn) {
         final GuiButton guiButton = (GuiButton) buttonIn;
         // fuck u ugly bitch
         guiButton.x += 9999;

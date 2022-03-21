@@ -22,6 +22,73 @@ public class RenderUtil implements Utils {
     protected static final Tessellator tessellator = Tessellator.getInstance();
     protected static final BufferBuilder bufferbuilder = tessellator.getBuffer();
 
+    public static void drawBBBoxWithHeight(final AxisAlignedBB BB, final Color color, final float height) {
+        final AxisAlignedBB bb = new AxisAlignedBB(BB.minX - mc.getRenderManager().viewerPosX, BB.minY - mc.getRenderManager().viewerPosY, BB.minZ - mc.getRenderManager().viewerPosZ, BB.maxX - mc.getRenderManager().viewerPosX, BB.maxY - mc.getRenderManager().viewerPosY - 1 + height, BB.maxZ - mc.getRenderManager().viewerPosZ);
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.disableDepth();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
+        GlStateManager.disableTexture2D();
+        GlStateManager.depthMask(false);
+        GL11.glEnable(2848);
+        GL11.glHint(3154, 4354);
+        RenderGlobal.renderFilledBox(bb, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+        GL11.glDisable(2848);
+        GlStateManager.depthMask(true);
+        GlStateManager.enableDepth();
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
+        GlStateManager.popMatrix();
+    }
+
+    public static void drawBlockOutlineBBWithHeight(AxisAlignedBB bb, Color color, float lineWidth, float height) {
+        final Vec3d interpolateEntity = interpolateEntity(mc.player, mc.getRenderPartialTicks());
+        RenderUtil.drawBlockOutlineWithHeight(bb.grow(0.002f).offset(-interpolateEntity.x, -interpolateEntity.y, -interpolateEntity.z), color, lineWidth, height);
+    }
+
+    public static void drawBlockOutlineWithHeight(final AxisAlignedBB bb,final Color color,final float lineWidth,final float height) {
+        float red = (float) color.getRed();
+        float green = (float) color.getGreen();
+        float blue = (float) color.getBlue();
+        float alpha = (float) color.getAlpha();
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.disableDepth();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
+        GlStateManager.disableTexture2D();
+        GlStateManager.depthMask(false);
+        GL11.glEnable(2848);
+        GL11.glHint(3154, 4354);
+        GL11.glLineWidth(lineWidth);
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
+        bufferbuilder.pos(bb.minX, bb.minY, bb.minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.minX, bb.minY, bb.maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.minY, bb.maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.minY, bb.minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.minX, bb.minY, bb.minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.minX, bb.maxY - 1 + height, bb.minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.minX, bb.maxY - 1 + height, bb.maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.minX, bb.minY, bb.maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.minY, bb.maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.maxY - 1 + height, bb.maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.minX, bb.maxY - 1 + height, bb.maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.maxY - 1 + height, bb.maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.maxY - 1 + height, bb.minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.minY, bb.minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.maxY - 1 + height, bb.minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(bb.minX, bb.maxY - 1 + height, bb.minZ).color(red, green, blue, alpha).endVertex();
+        tessellator.draw();
+        GL11.glDisable(2848);
+        GlStateManager.depthMask(true);
+        GlStateManager.enableDepth();
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
+        GlStateManager.popMatrix();
+    }
+
+
     public static void drawCheckMark(float x, float y, int width, int color) {
         float f = (color >> 24 & 255) / 255.0f;
         float f1 = (color >> 16 & 255) / 255.0f;
@@ -53,38 +120,39 @@ public class RenderUtil implements Utils {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public static void prepareScale(double scale){
+    public static void prepareScale(double scale) {
         GL11.glPushMatrix();
         GL11.glScaled(scale, scale, scale);
     }
 
-    public static void releaseScale(){
+    public static void releaseScale() {
         GL11.glPopMatrix();
     }
+
     public static void drawArrow(float x, float y, boolean left) {
-            GL11.glPushMatrix();
-            GL11.glScaled(1.3, 1.3, 1.3);
-            y -= 1.5f;
-            x += 2;
-            x /= 1.3;
-            y /= 1.3;
-            GL11.glEnable(GL11.GL_LINE_SMOOTH);
-            GL11.glDisable(GL11.GL_TEXTURE_2D);
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glLineWidth(1);
-            GL11.glColor4f(255, 255, 255, 255);
-            GL11.glBegin(GL11.GL_LINES);
-            GL11.glVertex2d(x, y);
-            GL11.glVertex2d(x + (left ? -4 : 4), y + 3);
-            GL11.glEnd();
-            GL11.glBegin(GL11.GL_LINES);
-            GL11.glVertex2d(x + (left ? -4 : 4), y + 3);
-            GL11.glVertex2d(x, y + 6);
-            GL11.glEnd();
-            GL11.glDisable(GL11.GL_BLEND);
-            GL11.glEnable(GL11.GL_TEXTURE_2D);
-            GL11.glDisable(GL11.GL_LINE_SMOOTH);
-            GL11.glPopMatrix();
+        GL11.glPushMatrix();
+        GL11.glScaled(1.3, 1.3, 1.3);
+        y -= 1.5f;
+        x += 2;
+        x /= 1.3;
+        y /= 1.3;
+        GL11.glEnable(GL11.GL_LINE_SMOOTH);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glLineWidth(1);
+        GL11.glColor4f(255, 255, 255, 255);
+        GL11.glBegin(GL11.GL_LINES);
+        GL11.glVertex2d(x, y);
+        GL11.glVertex2d(x + (left ? -4 : 4), y + 3);
+        GL11.glEnd();
+        GL11.glBegin(GL11.GL_LINES);
+        GL11.glVertex2d(x + (left ? -4 : 4), y + 3);
+        GL11.glVertex2d(x, y + 6);
+        GL11.glEnd();
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_LINE_SMOOTH);
+        GL11.glPopMatrix();
 
     }
 

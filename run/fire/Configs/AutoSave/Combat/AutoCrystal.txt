@@ -1,5 +1,5 @@
-"Keybind": "33:false"
-"Enabled": "true"
+"Keybind": "0:false"
+"Enabled": "false"
 "Target Range": "9.0"
 "Target Priority": "UnSafe"
 "Place Delay": "0.0"

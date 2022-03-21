@@ -1,0 +1,8 @@
+"Keybind": "0:false"
+"Enabled": "true"
+"Render": "true"
+"Alpha Animation": "None"
+"Size Animation": "None"
+"Box Color": "-65536"
+"Outline Color": "-65536"
+"Outline Width": "1.0"

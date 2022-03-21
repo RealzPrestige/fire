@@ -36,7 +36,7 @@ public abstract class MixinGuiButton {
 
 
     @Inject(method = {"drawButton"}, at = {@At("HEAD")}, cancellable = true)
-    protected void drawButton(Minecraft mc, int mouseX, int mouseY, float ignoredPartialTicks, CallbackInfo callbackInfo) {
+    public void drawButton(Minecraft mc, int mouseX, int mouseY, float ignoredPartialTicks, CallbackInfo callbackInfo) {
         if (visible) {
             hovered = (mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height);
             RenderUtil.drawRect(new Vector2D(x, y), new Vector2D(x + width, y + height), ClickGui.Instance.backgroundColor.GetColor().getRGB());
