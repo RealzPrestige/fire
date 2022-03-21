@@ -6,6 +6,8 @@ import dev.zprestige.fire.events.impl.ModuleToggleEvent;
 import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.settings.impl.Key;
 import dev.zprestige.fire.settings.impl.Switch;
+import dev.zprestige.fire.util.impl.AnimationUtil;
+import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 
 public class Module {
     public final Menu Menu = new Menu(this);
+    protected float listX = 0.0f;
     protected final EventBus eventBus = Main.eventBus;
     protected final ArrayList<Setting> settings = new ArrayList<>();
     protected final Minecraft mc = Minecraft.getMinecraft();
@@ -93,6 +96,18 @@ public class Module {
         return this;
     }
 
+    public void updateListPosition(){
+        if (isEnabled()){
+            listX = AnimationUtil.decreaseNumber(listX, 0, listX / 50);
+        } else {
+            listX = AnimationUtil.increaseNumber(listX, stringWidth(), (stringWidth() - listX) / 50);
+        }
+    }
+
+    public float getListX() {
+        return listX;
+    }
+
     public boolean nullCheck() {
         return mc.world == null || mc.player == null;
     }
@@ -103,5 +118,14 @@ public class Module {
 
     public String getData(){
         return "";
+    }
+
+    public float stringWidth(){
+        final String name = getName();
+        if (getData().equals("")){
+            return Main.fontManager.getStringWidth(name);
+        } else {
+            return Main.fontManager.getStringWidth(name + "[" + getData() +"]");
+        }
     }
 }
