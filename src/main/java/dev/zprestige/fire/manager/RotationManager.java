@@ -36,6 +36,12 @@ public class RotationManager extends RegisteredClass {
         }
     }
 
+    public void setClientRotations(final float yaw, final float pitch){
+        mc.player.rotationYaw = yaw;
+        mc.player.rotationYawHead = yaw;
+        mc.player.rotationPitch = pitch;
+    }
+
     public void facePos(final BlockPos pos, final boolean sync) {
         final float[] angle = calculateAngle(new Vec3d(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f));
         setRotations(angle[0], angle[1], sync);

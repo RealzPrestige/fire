@@ -3,10 +3,7 @@ package dev.zprestige.fire.util.impl;
 import dev.zprestige.fire.util.Utils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
@@ -32,7 +29,7 @@ public class RenderUtil implements Utils {
         GlStateManager.depthMask(false);
         GL11.glEnable(2848);
         GL11.glHint(3154, 4354);
-        RenderGlobal.renderFilledBox(bb, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+        RenderGlobal.renderFilledBox(bb, color.getRed() / 255f, color.getGreen()/ 255f, color.getBlue()/ 255f, color.getAlpha()/ 255f);
         GL11.glDisable(2848);
         GlStateManager.depthMask(true);
         GlStateManager.enableDepth();
@@ -46,11 +43,11 @@ public class RenderUtil implements Utils {
         RenderUtil.drawBlockOutlineWithHeight(bb.grow(0.002f).offset(-interpolateEntity.x, -interpolateEntity.y, -interpolateEntity.z), color, lineWidth, height);
     }
 
-    public static void drawBlockOutlineWithHeight(final AxisAlignedBB bb,final Color color,final float lineWidth,final float height) {
-        float red = (float) color.getRed();
-        float green = (float) color.getGreen();
-        float blue = (float) color.getBlue();
-        float alpha = (float) color.getAlpha();
+    public static void drawBlockOutlineWithHeight(final AxisAlignedBB bb, final Color color, final float lineWidth, final float height) {
+        float red = (float) color.getRed()/ 255f;
+        float green = (float) color.getGreen()/ 255f;
+        float blue = (float) color.getBlue()/ 255f;
+        float alpha = (float) color.getAlpha()/ 255f;
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.disableDepth();

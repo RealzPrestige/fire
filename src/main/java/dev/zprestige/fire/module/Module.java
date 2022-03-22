@@ -7,7 +7,6 @@ import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.settings.impl.Key;
 import dev.zprestige.fire.settings.impl.Switch;
 import dev.zprestige.fire.util.impl.AnimationUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
@@ -109,7 +108,7 @@ public class Module {
     }
 
     public boolean nullCheck() {
-        return mc.world == null || mc.player == null;
+        return mc.world != null && mc.player != null;
     }
 
     public ArrayList<Setting> getSettings() {

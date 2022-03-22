@@ -75,6 +75,9 @@ public class ConfigManager {
     }
 
     public boolean isConfigTheSame(final String folder, final Module module){
+        if (module == null){
+            return false;
+        }
         final File file = new File(configFolder + separator + folder + separator + module.getCategory() + separator + module.getName() + ".txt");
         if (file.exists()) {
             final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file);

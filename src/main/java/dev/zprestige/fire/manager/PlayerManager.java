@@ -19,7 +19,7 @@ public class PlayerManager extends RegisteredClass {
 
     @RegisterListener
     public void onTick(TickEvent event) {
-        Main.threadManager.run(() -> players = mc.world.playerEntities.stream().map(Player::new).collect(Collectors.toCollection(ArrayList::new)));
+        Main.threadManager.run(() -> players = mc.world.playerEntities.stream().filter(entityPlayer -> !entityPlayer.equals(mc.player)).map(Player::new).collect(Collectors.toCollection(ArrayList::new)));
     }
 
     public Player getPlayerByEntityID(final int entityId) {
