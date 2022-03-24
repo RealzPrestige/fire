@@ -14,15 +14,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketUseEntity;
-import net.minecraft.network.play.server.SPacketSoundEffect;
 import net.minecraft.network.play.server.SPacketSpawnObject;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -30,7 +27,6 @@ import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class AutoCrystal extends Module {
@@ -90,6 +86,7 @@ public class AutoCrystal extends Module {
     public final Switch placeInhibit = Menu.Switch("Place Inhibit", false);
     public final Switch onePointThirteen = Menu.Switch("One Point Thirteen", false);
     public final Switch explodeAntiWeakness = Menu.Switch("Explode Anti Weakness", false);
+    public final Switch multiTask = Menu.Switch("MultiTask", true);
     public final Switch setDead = Menu.Switch("Set Dead", false);
     public final ComboBox predict = Menu.ComboBox("Predict", "Normal", new String[]{
             "None",
@@ -109,7 +106,6 @@ public class AutoCrystal extends Module {
     public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f);
 
     protected final Timer[] timers = new Timer[]{new Timer(), new Timer()};
-
     @RegisterListener
     public void onPacketSend(PacketEvent.PacketSendEvent event) {
         if (event.getPacket() instanceof CPacketPlayerTryUseItemOnBlock) {
@@ -136,31 +132,27 @@ public class AutoCrystal extends Module {
 
     @RegisterListener
     public void onPacketReceive(PacketEvent.PacketReceiveEvent event) {
+        if (!nullCheck()) {
+            return;
+        }
         if (predict.GetCombo().equals("None")) {
             return;
         }
         try {
-            if (event.getPacket() instanceof SPacketSoundEffect) {
-                SPacketSoundEffect packet = new SPacketSoundEffect();
-                if (packet.getCategory() == SoundCategory.BLOCKS && packet.getSound() == SoundEvents.ENTITY_GENERIC_EXPLODE) {
-                    final List<Entity> loadedEntityList = mc.world.loadedEntityList;
-                    loadedEntityList.stream().filter(entity -> entity instanceof EntityEnderCrystal && entity.getDistanceSq(packet.getX(), packet.getY(), packet.getZ()) < (mc.playerController.getBlockReachDistance() * mc.playerController.getBlockReachDistance())).forEach(entity -> {
-                        Objects.requireNonNull(mc.world.getEntityByID(entity.getEntityId())).setDead();
-                        mc.world.removeEntityFromWorld(entity.entityId);
-                    });
-                }
-            }
             if (predict.GetCombo().equals("Normal") && event.getPacket() instanceof SPacketSpawnObject && ((SPacketSpawnObject) event.getPacket()).getType() == 51 && mc.world.getEntityByID(((SPacketSpawnObject) event.getPacket()).getEntityID()) instanceof EntityEnderCrystal) {
                 final EntityEnderCrystal entityEnderCrystal = (EntityEnderCrystal) mc.world.getEntityByID(((SPacketSpawnObject) event.getPacket()).getEntityID());
                 explodeCrystal(entityEnderCrystal);
             }
-        } catch (ConcurrentModificationException ignored){
+        } catch (ConcurrentModificationException ignored) {
         }
     }
 
 
     @RegisterListener
     public void onTick(TickEvent event) {
+        if (!multiTask.GetSwitch() && mc.player.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE) && mc.gameSettings.keyBindUseItem.isKeyDown()) {
+            return;
+        }
         final PlayerManager.Player player = EntityUtil.getClosestTarget(targetPriority(targetPriority.GetCombo()), targetRange.GetSlider());
         if (player != null) {
             performAutoCrystal(player, facePlace(player) && facePlaceSlow.GetSwitch());
@@ -168,7 +160,7 @@ public class AutoCrystal extends Module {
     }
 
     public void performAutoCrystal(final PlayerManager.Player player, final boolean facePlace) {
-        if (timers[0].getTime((long)placeDelay.GetSlider())) {
+        if (timers[0].getTime((long) placeDelay.GetSlider())) {
             final BlockPos pos = calculatePosition(player);
             if (pos != null) {
                 placeCrystal(pos);
@@ -205,7 +197,7 @@ public class AutoCrystal extends Module {
             mc.playerController.attackEntity(mc.player, entityEnderCrystal);
         }
         if (setDead.GetSwitch()) {
-            entityEnderCrystal.setDead();
+            mc.world.removeEntityFromWorld(entityEnderCrystal.entityId);
         }
         mc.player.swingArm(EnumHand.MAIN_HAND);
         if (switched) {
@@ -329,9 +321,10 @@ public class AutoCrystal extends Module {
         return null;
     }
 
-    protected boolean facePlace(final PlayerManager.Player player){
+    protected boolean facePlace(final PlayerManager.Player player) {
         return player.getHealth() < facePlaceHealth.GetSlider() || Keyboard.isKeyDown(facePlaceForceKey.GetKey());
     }
+
     protected EntityUtil.TargetPriority targetPriority(final String string) {
         return Arrays.stream(EntityUtil.TargetPriority.values()).filter(targetPriority1 -> targetPriority1.toString().equals(string)).findFirst().orElse(null);
     }

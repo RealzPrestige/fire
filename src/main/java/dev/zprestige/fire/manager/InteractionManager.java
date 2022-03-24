@@ -6,6 +6,7 @@ import dev.zprestige.fire.util.impl.Timer;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -61,14 +62,14 @@ public class InteractionManager {
     );
 
     public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict) {
-        for (EnumFacing direction : EnumFacing.values()) {
-            final BlockPos directionOffset = pos.offset(direction);
+        for (EnumFacing enumFacing : EnumFacing.values()) {
+            final BlockPos directionOffset = pos.offset(enumFacing);
             for (Entity entity : mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos))) {
-                if (!(entity instanceof EntityItem)) {
+                if (!(entity instanceof EntityItem || entity instanceof EntityEnderCrystal)) {
                     return;
                 }
             }
-            if (strict && !getVisibleSides(directionOffset).contains(direction.getOpposite()) || mc.world.getBlockState(directionOffset).getMaterial().isReplaceable()) {
+            if (strict && !getVisibleSides(directionOffset).contains(enumFacing.getOpposite()) || mc.world.getBlockState(directionOffset).getMaterial().isReplaceable()) {
                 continue;
             }
             final boolean sprint = mc.player.isSprinting();
@@ -82,7 +83,7 @@ public class InteractionManager {
                 mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
                 mc.player.setSneaking(true);
             }
-            final Vec3d vec = new Vec3d(directionOffset).addVector(0.5, 0.5, 0.5).add(new Vec3d(direction.getOpposite().getDirectionVec()).scale(0.5));
+            final Vec3d vec = new Vec3d(directionOffset).addVector(0.5, 0.5, 0.5).add(new Vec3d(enumFacing.getOpposite().getDirectionVec()).scale(0.5));
             if (rotate) {
                 final double[] rotations = BlockUtil.calculateAngle(vec);
                 mc.player.connection.sendPacket(new CPacketPlayer.Rotation((float) rotations[0], (float) rotations[1], mc.player.onGround));
@@ -96,14 +97,13 @@ public class InteractionManager {
                 mc.player.setSprinting(true);
             }
             EnumActionResult clickBlock = null;
-
             if (packet){
-                float f = (float) (vec.x - (double) pos.getX());
-                float f1 = (float) (vec.y - (double) pos.getY());
-                float f2 = (float) (vec.z - (double) pos.getZ());
-                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, direction, EnumHand.MAIN_HAND, f, f1, f2));
+                final EnumFacing facing = getFirstEnumFacing(pos);
+                final EnumFacing opposite = facing.getOpposite();
+                final BlockPos closest = pos.offset(facing);
+                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(closest, opposite, EnumHand.MAIN_HAND, (float) (vec.x - closest.getX()), (float) (vec.y -  closest.getY()), (float) (vec.z - closest.getZ())));
             } else {
-                clickBlock = mc.playerController.processRightClickBlock(mc.player, mc.world, directionOffset, direction.getOpposite(), vec, EnumHand.MAIN_HAND);
+                clickBlock = mc.playerController.processRightClickBlock(mc.player, mc.world, directionOffset, enumFacing.getOpposite(), vec, EnumHand.MAIN_HAND);
             }
             if (packet || clickBlock != EnumActionResult.FAIL) {
                 mc.player.swingArm(EnumHand.MAIN_HAND);
@@ -113,6 +113,22 @@ public class InteractionManager {
         }
     }
 
+    public EnumFacing getFirstEnumFacing(final BlockPos pos){
+        return getEnumFacingSides(pos).stream().findFirst().orElse(null);
+    }
+
+    public ArrayList<EnumFacing> getEnumFacingSides(final BlockPos pos) {
+        final ArrayList<EnumFacing> sides = new ArrayList<>();
+        Arrays.stream(EnumFacing.values()).forEach(side -> {
+            final BlockPos pos1 = pos.offset(side);
+            if (mc.world.getBlockState(pos1).getBlock().canCollideCheck(mc.world.getBlockState(pos1), false)) {
+                if (!mc.world.getBlockState(pos1).getMaterial().isReplaceable()) {
+                    sides.add(side);
+                }
+            }
+        });
+        return sides;
+    }
     public ArrayList<EnumFacing> getVisibleSides(final BlockPos pos) {
         final ArrayList<EnumFacing> sides = new ArrayList<>();
         final Vec3d vec = new Vec3d(pos).addVector(0.5, 0.5, 0.5);

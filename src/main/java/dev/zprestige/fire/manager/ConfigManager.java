@@ -11,6 +11,7 @@ import dev.zprestige.fire.util.impl.Vector2D;
 import java.awt.*;
 import java.io.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.LogManager;
 
 public class ConfigManager {
     protected final File configFolder = new File(Main.fileManager.getDirectory() + File.separator + "Configs");
@@ -23,8 +24,11 @@ public class ConfigManager {
         Main.fileManager.closeBufferedWriter(bufferedWriter);
     }
 
-    public ConfigManager loadPrefix(){
+    public ConfigManager loadPrefix() {
         final File file = Main.fileManager.registerFileAndCreate(configFolder + separator + "Prefix.txt");
+        if (!file.exists()) {
+            return this;
+        }
         final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file);
         try {
             final String line = bufferedReader.readLine();
@@ -39,7 +43,7 @@ public class ConfigManager {
 
     public ConfigManager loadActiveConfig() {
         final String active = getActiveConfig();
-        if (active == null || !active.equals("") || !new File(configFolder + separator + active).exists()) {
+        if (active == null || active.equals("")) {
             return this;
         }
         load(active.replace("\"", ""), false);
@@ -47,20 +51,23 @@ public class ConfigManager {
     }
 
     public String getActiveConfig() {
-        final File file = Main.fileManager.registerFileAndCreate(configFolder + separator + "ActiveConfig.txt");
-        final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file);
-        try {
-            if (bufferedReader.readLine() != null) {
-                return bufferedReader.readLine();
-            }
-        } catch (IOException ignored) {
+        final File file = new File(configFolder + separator + "ActiveConfig.txt");
+        if (!file.exists()) {
             return "";
         }
-        return "";
+        final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file);
+        try {
+            return bufferedReader.readLine();
+        } catch (IOException e) {
+            return "";
+        }
     }
 
-    public ConfigManager loadSavedFriends(){
+    public ConfigManager loadSavedFriends() {
         final File file = Main.fileManager.registerFileAndCreate(configFolder + separator + "Friends.txt");
+        if (!file.exists()) {
+            return this;
+        }
         final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file);
         bufferedReader.lines().forEach(line -> Main.friendManager.addFriend(line.replace("\"", "")));
         Main.fileManager.closeBufferedReader(bufferedReader);
@@ -74,8 +81,8 @@ public class ConfigManager {
         Main.fileManager.closeBufferedWriter(bufferedWriter);
     }
 
-    public boolean isConfigTheSame(final String folder, final Module module){
-        if (module == null){
+    public boolean isConfigTheSame(final String folder, final Module module) {
+        if (module == null) {
             return false;
         }
         final File file = new File(configFolder + separator + folder + separator + module.getCategory() + separator + module.getName() + ".txt");
@@ -121,23 +128,23 @@ public class ConfigManager {
         return false;
     }
 
-    public boolean isConfigTheSame(final String folder){
+    public boolean isConfigTheSame(final String folder) {
         return Main.moduleManager.getCategories().stream().allMatch(category -> isCategoryTheSame(folder, category));
     }
 
-    public boolean isCategoryTheSame(final String folder, final Category category){
+    public boolean isCategoryTheSame(final String folder, final Category category) {
         return Main.moduleManager.getModulesInCategory(category).stream().allMatch(module -> isConfigTheSame(folder, module));
     }
 
-    public Category getCategoryByString(final String category){
+    public Category getCategoryByString(final String category) {
         return Main.moduleManager.getCategories().stream().filter(category1 -> category1.toString().equals(category)).findFirst().orElse(null);
     }
 
-    public Module getModuleByString(final String module){
+    public Module getModuleByString(final String module) {
         return Main.moduleManager.getModules().stream().filter(module1 -> module1.getName().equals(module.replace(".txt", ""))).findFirst().orElse(null);
     }
 
-    protected Setting isStringSetting(final String name, final Module module){
+    protected Setting isStringSetting(final String name, final Module module) {
         return module.getSettings().stream().filter(setting -> name.equals(setting.getName())).findFirst().orElse(null);
     }
 
@@ -153,22 +160,27 @@ public class ConfigManager {
             }
         }
         final File hudFolder = Main.fileManager.registerPathAndCreate(file + separator + "Hud");
-        for (HudComponent hudComponent : Main.hudManager.getHudComponents()){
-            final File hudComponentFile = Main.fileManager.registerFileAndCreate(hudFolder + separator + hudComponent.getName() + ".txt");
-            if (hudComponentFile.exists()) {
-                final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(hudComponentFile);
-                bufferedReader.lines().forEach(line -> {
-                    final String[] split = line.replace("\"", "").replace(" ", "").split(":");
-                    final String type = split[0];
-                    if (type.equals("Enabled")) {
-                        hudComponent.setEnabled(Boolean.parseBoolean(split[1]));
+        if (hudFolder.exists()) {
+            try {
+                for (HudComponent hudComponent : Main.hudManager.getHudComponents()) {
+                    final File hudComponentFile = Main.fileManager.registerFileAndCreate(hudFolder + separator + hudComponent.getName() + ".txt");
+                    if (hudComponentFile.exists()) {
+                        final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(hudComponentFile);
+                        bufferedReader.lines().forEach(line -> {
+                            final String[] split = line.replace("\"", "").replace(" ", "").split(":");
+                            final String type = split[0];
+                            if (type.equals("Enabled")) {
+                                hudComponent.setEnabled(Boolean.parseBoolean(split[1]));
+                            }
+                            if (type.equals("Position")) {
+                                final String[] pos = split[1].replace("\"", "").replace(" ", "").split(",");
+                                hudComponent.setPosition(new Vector2D(Float.parseFloat(pos[0]), Float.parseFloat(pos[1])));
+                            }
+                        });
+                        Main.fileManager.closeBufferedReader(bufferedReader);
                     }
-                    if (type.equals("Position")) {
-                        final String[] pos = split[1].replace("\"", "").replace(" ", "").split(",");
-                        hudComponent.setPosition(new Vector2D(Float.parseFloat(pos[0]), Float.parseFloat(pos[1])));
-                    }
-                });
-                Main.fileManager.closeBufferedReader(bufferedReader);
+                }
+            } catch (Exception ignored) {
             }
         }
         saveActiveConfig(folder);
@@ -206,7 +218,7 @@ public class ConfigManager {
             }
         }
         final File hudFolder = Main.fileManager.registerPathAndCreate(configFolder + separator + folder + separator + "Hud");
-        for (HudComponent hudComponent : Main.hudManager.getHudComponents()){
+        for (HudComponent hudComponent : Main.hudManager.getHudComponents()) {
             final File hudComponentFile = Main.fileManager.registerFileAndCreate(hudFolder + separator + hudComponent.getName() + ".txt");
             final BufferedWriter bufferedWriter = Main.fileManager.createBufferedWriter(hudComponentFile);
             Main.fileManager.writeLine(bufferedWriter, "\"Enabled\": \"" + hudComponent.isEnabled() + "\"");
@@ -225,7 +237,7 @@ public class ConfigManager {
                     System.out.println(module.getName());
                     final File file1 = new File(file + separator + module.getName() + ".txt");
                     if (file1.exists()) {
-                    final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file1);
+                        final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file1);
                         bufferedReader.lines().forEach(line -> loadModule(module, line, preserveKeybinds));
                         Main.fileManager.closeBufferedReader(bufferedReader);
                     }

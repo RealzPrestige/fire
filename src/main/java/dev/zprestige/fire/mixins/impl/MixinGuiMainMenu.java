@@ -14,7 +14,8 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(value = GuiMainMenu.class)
+// fuck rusher
+@Mixin(value = GuiMainMenu.class, priority = 999)
 public class MixinGuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
     @ModifyArg(method = "initGui", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 2))

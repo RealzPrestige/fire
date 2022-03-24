@@ -1,6 +1,5 @@
 package dev.zprestige.fire.manager;
 
-import dev.zprestige.fire.Main;
 import dev.zprestige.fire.RegisteredClass;
 import dev.zprestige.fire.module.Category;
 import dev.zprestige.fire.module.Module;
@@ -34,5 +33,4 @@ public class ModuleManager extends RegisteredClass {
     public Module getModuleByClass(final Class<?> c){
         return modules.stream().filter(module -> module.getName().equalsIgnoreCase(c.getName().split("\\.")[5])).findFirst().orElse(null);
     }
-
 }
