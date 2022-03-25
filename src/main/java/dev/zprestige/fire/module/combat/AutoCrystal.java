@@ -2,16 +2,19 @@ package dev.zprestige.fire.module.combat;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
+import dev.zprestige.fire.events.impl.DeathEvent;
 import dev.zprestige.fire.events.impl.PacketEvent;
 import dev.zprestige.fire.events.impl.TickEvent;
 import dev.zprestige.fire.manager.PlayerManager;
 import dev.zprestige.fire.module.Module;
+import dev.zprestige.fire.module.misc.AutoMine;
 import dev.zprestige.fire.settings.impl.*;
 import dev.zprestige.fire.util.impl.BlockUtil;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import dev.zprestige.fire.util.impl.Timer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -86,6 +89,8 @@ public class AutoCrystal extends Module {
     public final Switch placeInhibit = Menu.Switch("Place Inhibit", false);
     public final Switch onePointThirteen = Menu.Switch("One Point Thirteen", false);
     public final Switch explodeAntiWeakness = Menu.Switch("Explode Anti Weakness", false);
+    public final Switch autoMineTargetPrefer = Menu.Switch("Auto Mine Target Prefer", false);
+    public final Switch destroyLoot = Menu.Switch("Destroy Loot", false);
     public final Switch multiTask = Menu.Switch("MultiTask", true);
     public final Switch setDead = Menu.Switch("Set Dead", false);
     public final Switch pyroMode = Menu.Switch("Pyro Mode", true);
@@ -107,8 +112,17 @@ public class AutoCrystal extends Module {
     public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f);
 
     protected final Timer[] timers = new Timer[]{new Timer(), new Timer()};
+    protected final HashMap<PlayerManager.Player, Long> deadPlayers = new HashMap<>();
     protected final ArrayList<EntityEnderCrystal> pyroCrystals = new ArrayList<>();
     protected int pyroId = -1;
+
+    @RegisterListener
+    public void onDeath(final DeathEvent event){
+        if (event.getEntity() instanceof EntityPlayer) {
+            final PlayerManager.Player entity = new PlayerManager.Player((EntityPlayer) event.getEntity());
+            deadPlayers.put(entity, System.currentTimeMillis() + 3000L);
+        }
+    }
 
     @Override
     public void onDisable() {
@@ -165,13 +179,31 @@ public class AutoCrystal extends Module {
         if (!multiTask.GetSwitch() && mc.player.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE) && mc.gameSettings.keyBindUseItem.isKeyDown()) {
             return;
         }
-        final PlayerManager.Player player = EntityUtil.getClosestTarget(targetPriority(targetPriority.GetCombo()), targetRange.GetSlider());
+        PlayerManager.Player player = EntityUtil.getClosestTarget(targetPriority(targetPriority.GetCombo()), targetRange.GetSlider());
+        if (!destroyLoot.GetSwitch() && deadPlayers.containsKey(player)){
+            return;
+        }
+        if (autoMineTargetPrefer.GetSwitch()){
+            final PlayerManager.Player autoMineTarget = ((AutoMine) Main.moduleManager.getModuleByClass(AutoMine.class)).getTarget();
+            if (autoMineTarget != null){
+                player = autoMineTarget;
+            }
+        }
         if (player != null) {
             performAutoCrystal(player, facePlace(player) && facePlaceSlow.GetSwitch());
         }
+        checkDeaths();
     }
 
-    public void performAutoCrystal(final PlayerManager.Player player, final boolean facePlace) {
+    protected void checkDeaths(){
+        for (Map.Entry<PlayerManager.Player, Long> entry : new HashMap<>(deadPlayers).entrySet()){
+            if (entry.getValue() < System.currentTimeMillis()){
+                deadPlayers.remove(entry.getKey());
+            }
+        }
+    }
+
+    protected void performAutoCrystal(final PlayerManager.Player player, final boolean facePlace) {
         if (timers[0].getTime((long) placeDelay.GetSlider())) {
             final BlockPos pos = calculatePosition(player);
             if (pos != null) {

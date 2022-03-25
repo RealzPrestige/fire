@@ -40,6 +40,7 @@ public class AutoMine extends Module {
     protected BlockPos interactedPos;
     protected EnumFacing interactedFace;
     protected final Timer timer = new Timer();
+    protected PlayerManager.Player target;
     protected Vec3i[] offsets = new Vec3i[]{
             new Vec3i(1, 0, 0),
             new Vec3i(-1, 0, 0),
@@ -69,6 +70,7 @@ public class AutoMine extends Module {
                     interactedPos = null;
                     timer.syncTime();
                     started = false;
+                    target = null;
                 }
             } else {
                 for (int i = 0; i < 3; i++){
@@ -85,26 +87,30 @@ public class AutoMine extends Module {
             case "Burrow":
                 final BlockPos burrowPos = getBurrowPos(player);
                 if (burrowPos != null) {
-                    breakPos(burrowPos);
+                    breakPos(burrowPos, player);
                     return true;
                 }
                 break;
             case "Surround":
                 final BlockPos surroundPos = getClosestSurroundPos(player);
                 if (surroundPos != null) {
-                    breakPos(surroundPos);
+                    breakPos(surroundPos, player);
                     return true;
                 }
                 break;
             case "City":
                 final BlockPos cityPos = getClosestCityPos(player);
                 if (cityPos != null) {
-                    breakPos(cityPos);
+                    breakPos(cityPos, player);
                     return true;
                 }
                 break;
         }
         return false;
+    }
+
+    public PlayerManager.Player getTarget(){
+        return target;
     }
 
     protected BlockPos getClosestCityPos(final PlayerManager.Player player) {
@@ -140,7 +146,7 @@ public class AutoMine extends Module {
         return canMine(pos) && BlockUtil.canPosBeCrystalled(pos, thirteen) && (noExtra || BlockUtil.canPosBeCrystalledSoon(pos.down(), thirteen)) && mc.player.getDistanceSq(pos) < breakRange.GetSlider() * 2;
     }
 
-    protected void breakPos(final BlockPos pos) {
+    protected void breakPos(final BlockPos pos, final PlayerManager.Player player) {
         final EnumFacing enumFacing = Main.interactionManager.closestEnumFacing(pos);
         Main.interactionManager.interactBlock(pos, enumFacing);
         start(pos, enumFacing);

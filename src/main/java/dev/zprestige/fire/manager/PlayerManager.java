@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PlayerManager extends RegisteredClass {
-    protected final Minecraft mc = Main.mc;
+    protected static final Minecraft mc = Main.mc;
     protected List<Player> players = new ArrayList<>();
 
     @RegisterListener
@@ -30,7 +30,7 @@ public class PlayerManager extends RegisteredClass {
         return players;
     }
 
-    public class Player {
+    public static class Player {
         protected final EntityPlayer entityPlayer;
 
         public Player(EntityPlayer entityPlayer) {

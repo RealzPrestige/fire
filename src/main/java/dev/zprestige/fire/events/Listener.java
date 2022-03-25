@@ -80,6 +80,8 @@ public class Listener extends RegisteredClass {
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (checkNull() && Keyboard.getEventKeyState()) {
+            final KeyEvent keyEvent = new KeyEvent(Keyboard.getEventKey());
+            Main.eventBus.post(keyEvent);
             Main.moduleManager.getModules().stream().filter(module -> module.getKeybind() == Keyboard.getEventKey()).forEach(Module::toggleModule);
         }
     }

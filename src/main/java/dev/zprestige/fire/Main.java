@@ -39,6 +39,7 @@ public class Main {
     public static InteractionManager interactionManager;
     public static RotationManager rotationManager;
     public static HoleManager holeManager;
+    public static TickManager tickManager;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent ignoredEvent) {
@@ -62,6 +63,7 @@ public class Main {
         interactionManager = new InteractionManager();
         rotationManager = (RotationManager) new RotationManager().registerEventBus();
         holeManager = new HoleManager();
+        tickManager = (TickManager) new TickManager().registerEventBus();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.save("AutoSave");
             configManager.savePrefix();
