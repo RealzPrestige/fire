@@ -14,12 +14,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.network.play.server.SPacketSpawnObject;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -88,6 +88,7 @@ public class AutoCrystal extends Module {
     public final Switch explodeAntiWeakness = Menu.Switch("Explode Anti Weakness", false);
     public final Switch multiTask = Menu.Switch("MultiTask", true);
     public final Switch setDead = Menu.Switch("Set Dead", false);
+    public final Switch pyroMode = Menu.Switch("Pyro Mode", true);
     public final ComboBox predict = Menu.ComboBox("Predict", "Normal", new String[]{
             "None",
             "Normal",
@@ -106,6 +107,17 @@ public class AutoCrystal extends Module {
     public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f);
 
     protected final Timer[] timers = new Timer[]{new Timer(), new Timer()};
+    protected final ArrayList<EntityEnderCrystal> pyroCrystals = new ArrayList<>();
+    protected int pyroId = -1;
+
+    @Override
+    public void onDisable() {
+        new ArrayList<>(pyroCrystals).forEach(entityEnderCrystal1 -> {
+            entityEnderCrystal1.setDead();
+            pyroCrystals.remove(entityEnderCrystal1);
+        });
+    }
+
     @RegisterListener
     public void onPacketSend(PacketEvent.PacketSendEvent event) {
         if (event.getPacket() instanceof CPacketPlayerTryUseItemOnBlock) {
@@ -203,6 +215,15 @@ public class AutoCrystal extends Module {
         if (switched) {
             Main.inventoryManager.switchBack(currentItem);
         }
+        new ArrayList<>(pyroCrystals).forEach(entityEnderCrystal1 -> {
+            entityEnderCrystal1.setDead();
+            pyroCrystals.remove(entityEnderCrystal1);
+            playPyroSound(entityEnderCrystal1.getPosition());
+        });
+    }
+
+    protected void playPyroSound(final BlockPos pos){
+        mc.world.playSound(mc.player, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 1, 0);
     }
 
     public void placeCrystal(final BlockPos pos) {
@@ -233,6 +254,21 @@ public class AutoCrystal extends Module {
             Main.inventoryManager.switchBack(currentItem);
         }
         Main.fadeManager.createFadePosition(pos, boxColor.GetColor(), outlineColor.GetColor(), box.GetSwitch(), outline.GetSwitch(), outlineWidth.GetSlider(), fadeSpeed.GetSlider(), boxColor.GetColor().getAlpha());
+        if (pyroMode.GetSwitch() && !containsPyro(pos)) {
+            final EntityEnderCrystal crystal = new EntityEnderCrystal(mc.world, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
+            mc.world.addEntityToWorld(pyroId -= 1, crystal);
+            pyroCrystals.add(crystal);
+        }
+    }
+
+    protected boolean containsPyro(BlockPos pos) {
+        pos = new BlockPos(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
+        for (EntityEnderCrystal entityEnderCrystal : pyroCrystals) {
+            if (entityEnderCrystal.getDistanceSq(pos) < 2.0f) {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected EntityEnderCrystal calculateCrystal(final PlayerManager.Player player) {
@@ -242,7 +278,7 @@ public class AutoCrystal extends Module {
                 continue;
             }
             final BlockPos pos = entity.getPosition();
-            if (mc.player.getDistance(entity) > (BlockUtil.isNotVisible(pos, raytrace(explodeRaytrace.GetCombo()).getOffset()) ? explodeWallRange.GetSlider() : explodeRange.GetSlider())) {
+            if (mc.player.getDistance(entity) > (BlockUtil.isNotVisible(pos, raytrace(explodeRaytrace.GetCombo()).getOffset()) ? explodeWallRange.GetSlider() : explodeRange.GetSlider()) || pyroCrystals.contains(entity)) {
                 continue;
             }
             final EntityEnderCrystal entityEnderCrystal = (EntityEnderCrystal) entity;

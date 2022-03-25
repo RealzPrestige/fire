@@ -30,11 +30,11 @@ public class Main {
     public static FontManager fontManager;
     public static FileManager fileManager;
     public static FriendManager friendManager;
+    public static DiscordRPCManager discordRPCManager;
+    public static HudManager hudManager;
     public static CommandManager commandManager;
     public static ConfigManager configManager;
     public static PlayerManager playerManager;
-    public static HudManager hudManager;
-    public static DiscordRPCManager discordRPCManager;
     public static InventoryManager inventoryManager;
     public static InteractionManager interactionManager;
     public static RotationManager rotationManager;
@@ -53,11 +53,11 @@ public class Main {
         fontManager = new FontManager();
         fileManager = new FileManager();
         friendManager = new FriendManager();
+        discordRPCManager = new DiscordRPCManager().init();
+        hudManager = (HudManager) new HudManager().init().registerEventBus();
         commandManager = (CommandManager) new CommandManager().init().registerEventBus();
         configManager = new ConfigManager().loadActiveConfig().loadSavedFriends().loadPrefix();
         playerManager = (PlayerManager) new PlayerManager().registerEventBus();
-        hudManager = (HudManager) new HudManager().init().registerEventBus();
-        discordRPCManager = new DiscordRPCManager().init();
         inventoryManager = new InventoryManager();
         interactionManager = new InteractionManager();
         rotationManager = (RotationManager) new RotationManager().registerEventBus();

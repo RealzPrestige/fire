@@ -75,12 +75,12 @@ public class MenuScreen extends GuiScreen {
         int wheel = Mouse.getDWheel();
         if (wheel < 0){
             for (AbstractCategory abstractCategory : guiCategories){
-                abstractCategory.setPosition(new Vector2D(abstractCategory.getPosition().getX(), abstractCategory.getPosition().getY() + 16));
+                abstractCategory.setPosition(new Vector2D(abstractCategory.getPosition().getX(), abstractCategory.getPosition().getY() - 16));
             }
         }
         if (wheel > 0){
             for (AbstractCategory abstractCategory : guiCategories){
-                abstractCategory.setPosition(new Vector2D(abstractCategory.getPosition().getX(), abstractCategory.getPosition().getY() - 16));
+                abstractCategory.setPosition(new Vector2D(abstractCategory.getPosition().getX(), abstractCategory.getPosition().getY() + 16));
             }
         }
     }
