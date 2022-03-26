@@ -59,7 +59,7 @@ public class Surround extends Module {
     @RegisterListener
     public void onTick(final TickEvent event) {
         final BlockPos pos = BlockUtil.getPosition();
-        if (!mc.player.onGround || mc.player.stepHeight > 0.6f || pos.getY() > lastPos.getY()) {
+        if (!mc.player.onGround || mc.player.stepHeight > 0.6f || (lastPos != null && pos.getY() > lastPos.getY())) {
             disableModule();
             return;
         }

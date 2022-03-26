@@ -58,9 +58,4 @@ public class RotationManager extends RegisteredClass {
         float pitch = (float) Math.toDegrees(-Math.atan2(to.subtract(mc.player.getPositionEyes(1)).y, Math.hypot(to.subtract(mc.player.getPositionEyes(1)).x, to.subtract(mc.player.getPositionEyes(1)).z)));
         return new float[]{MathHelper.wrapDegrees(yaw), MathHelper.wrapDegrees(pitch)};
     }
-
-    public Vec3d getEyePosition() {
-        return mc.player.getPositionEyes(mc.getRenderPartialTicks());
-    }
-
 }

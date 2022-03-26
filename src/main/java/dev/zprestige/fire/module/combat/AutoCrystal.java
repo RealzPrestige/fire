@@ -117,7 +117,7 @@ public class AutoCrystal extends Module {
     protected int pyroId = -1;
 
     @RegisterListener
-    public void onDeath(final DeathEvent event){
+    public void onDeath(final DeathEvent event) {
         if (event.getEntity() instanceof EntityPlayer) {
             final PlayerManager.Player entity = new PlayerManager.Player((EntityPlayer) event.getEntity());
             deadPlayers.put(entity, System.currentTimeMillis() + 3000L);
@@ -180,30 +180,30 @@ public class AutoCrystal extends Module {
             return;
         }
         PlayerManager.Player player = EntityUtil.getClosestTarget(targetPriority(targetPriority.GetCombo()), targetRange.GetSlider());
-        if (!destroyLoot.GetSwitch() && deadPlayers.containsKey(player)){
+        if (!destroyLoot.GetSwitch() && deadPlayers.containsKey(player)) {
             return;
         }
-        if (autoMineTargetPrefer.GetSwitch()){
+        if (autoMineTargetPrefer.GetSwitch()) {
             final PlayerManager.Player autoMineTarget = ((AutoMine) Main.moduleManager.getModuleByClass(AutoMine.class)).getTarget();
-            if (autoMineTarget != null){
+            if (autoMineTarget != null) {
                 player = autoMineTarget;
             }
         }
         if (player != null) {
-            performAutoCrystal(player, facePlace(player) && facePlaceSlow.GetSwitch());
+            performAutoCrystal(player);
         }
         checkDeaths();
     }
 
-    protected void checkDeaths(){
-        for (Map.Entry<PlayerManager.Player, Long> entry : new HashMap<>(deadPlayers).entrySet()){
-            if (entry.getValue() < System.currentTimeMillis()){
+    protected void checkDeaths() {
+        for (Map.Entry<PlayerManager.Player, Long> entry : new HashMap<>(deadPlayers).entrySet()) {
+            if (entry.getValue() < System.currentTimeMillis()) {
                 deadPlayers.remove(entry.getKey());
             }
         }
     }
 
-    protected void performAutoCrystal(final PlayerManager.Player player, final boolean facePlace) {
+    protected void performAutoCrystal(final PlayerManager.Player player) {
         if (timers[0].getTime((long) placeDelay.GetSlider())) {
             final BlockPos pos = calculatePosition(player);
             if (pos != null) {
@@ -211,7 +211,7 @@ public class AutoCrystal extends Module {
                 timers[0].syncTime();
             }
         }
-        if (timers[1].getTime(facePlace ? 500 : (long) explodeDelay.GetSlider())) {
+        if (timers[1].getTime(Keyboard.isKeyDown(facePlaceForceKey.GetKey()) && facePlaceSlow.GetSwitch() ? 500 : (long) explodeDelay.GetSlider())) {
             final EntityEnderCrystal entityEnderCrystal = calculateCrystal(player);
             if (entityEnderCrystal != null) {
                 explodeCrystal(entityEnderCrystal);
@@ -231,6 +231,9 @@ public class AutoCrystal extends Module {
             switched = true;
         }
         if (explodeRotate.GetSwitch()) {
+            if (!mc.player.onGround) {
+                return;
+            }
             Main.rotationManager.faceEntity(entityEnderCrystal, syncRotations.GetSwitch());
         }
         if (explodePacket.GetSwitch()) {
@@ -254,7 +257,7 @@ public class AutoCrystal extends Module {
         });
     }
 
-    protected void playPyroSound(final BlockPos pos){
+    protected void playPyroSound(final BlockPos pos) {
         mc.world.playSound(mc.player, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 1, 0);
     }
 
@@ -271,7 +274,10 @@ public class AutoCrystal extends Module {
             switched = true;
         }
         if (placeRotate.GetSwitch()) {
-            Main.rotationManager.facePos(pos, syncRotations.GetSwitch());
+            if (!mc.player.onGround) {
+                return;
+            }
+           Main.rotationManager.facePos(pos, syncRotations.GetSwitch());
         }
         final EnumHand finalHand = crystalHand == null ? EnumHand.MAIN_HAND : crystalHand;
         if (placePacket.GetSwitch()) {
