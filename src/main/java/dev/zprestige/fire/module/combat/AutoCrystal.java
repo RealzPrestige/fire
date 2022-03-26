@@ -90,9 +90,10 @@ public class AutoCrystal extends Module {
     public final Switch onePointThirteen = Menu.Switch("One Point Thirteen", false);
     public final Switch explodeAntiWeakness = Menu.Switch("Explode Anti Weakness", false);
     public final Switch autoMineTargetPrefer = Menu.Switch("Auto Mine Target Prefer", false);
+    public final Switch setDead = Menu.Switch("Set Dead", false);
     public final Switch destroyLoot = Menu.Switch("Destroy Loot", false);
     public final Switch multiTask = Menu.Switch("MultiTask", true);
-    public final Switch setDead = Menu.Switch("Set Dead", false);
+    public final Switch autoSwitch = Menu.Switch("Auto Switch", true);
     public final Switch pyroMode = Menu.Switch("Pyro Mode", true);
     public final ComboBox predict = Menu.ComboBox("Predict", "Normal", new String[]{
             "None",
@@ -193,8 +194,39 @@ public class AutoCrystal extends Module {
             performAutoCrystal(player);
         }
         checkDeaths();
+        handleSwitch();
     }
 
+
+    @Override
+    public void onEnable(){
+        if (mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL)){
+            final int crystalSlot = Main.inventoryManager.getItemFromHotbar(Items.END_CRYSTAL);
+            if (crystalSlot != -1){
+                mc.player.inventory.currentItem = crystalSlot;
+            }
+        }
+    }
+
+    protected void handleSwitch(){
+        if (autoSwitch.GetSwitch()){
+            if (mc.gameSettings.keyBindUseItem.isKeyDown()){
+                if (!mc.player.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE)){
+                    final int gappleSlot = Main.inventoryManager.getItemFromHotbar(Items.GOLDEN_APPLE);
+                    if (gappleSlot != -1){
+                        mc.player.inventory.currentItem = gappleSlot;
+                    }
+                }
+            } else {
+                if (!mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL)){
+                    final int crystalSlot = Main.inventoryManager.getItemFromHotbar(Items.END_CRYSTAL);
+                    if (crystalSlot != -1){
+                        mc.player.inventory.currentItem = crystalSlot;
+                    }
+                }
+            }
+        }
+    }
     protected void checkDeaths() {
         for (Map.Entry<PlayerManager.Player, Long> entry : new HashMap<>(deadPlayers).entrySet()) {
             if (entry.getValue() < System.currentTimeMillis()) {
