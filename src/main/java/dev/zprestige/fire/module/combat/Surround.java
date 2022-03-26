@@ -56,6 +56,11 @@ public class Surround extends Module {
             new Vec3i(1, 0, 0)
     };
 
+    @Override
+    public void onDisable(){
+        lastPos = null;
+    }
+
     @RegisterListener
     public void onTick(final TickEvent event) {
         final BlockPos pos = BlockUtil.getPosition();
