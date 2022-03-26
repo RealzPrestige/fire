@@ -16,24 +16,25 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.MovementInput;
 import org.lwjgl.input.Keyboard;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Speed extends Module {
-    public static Speed Instance;
     public final ComboBox speedMode = Menu.ComboBox("Speed Mode", "Strafe", new String[]{"OnGround", "Strafe"});
     public final Key switchKey = Menu.Key("Switch Key", Keyboard.KEY_NONE);
     public final Switch strict = Menu.Switch("Strict", false);
     public final Switch liquids = Menu.Switch("Liquids", false);
     public final Switch useTimer = Menu.Switch("Use Timer", false);
+    public final Switch velocityBoost = Menu.Switch("Velocity Boost", false);
+    public final ComboBox dataMode = Menu.ComboBox("Data Mode", "Mode", new String[]{"Mode", "Factor"});
+    public final Slider boostReduction = Menu.Slider("Velocity Boost Reduction", 10.0f, 1.0f, 20.0f);
     public final Slider timerAmount = Menu.Slider("Timer Amount", 1.0f, 0.9f, 2.0f);
     public final Slider strafeFactor = Menu.Slider("Strafe Factor", 1.0f, 0.1f, 3.0f);
-    public double previousDistance;
-    public double motionSpeed;
-    public int currentState = 1;
-
-    public Speed() {
-        Instance = this;
-    }
+    protected double previousDistance, motionSpeed;
+    protected float lastHealth;
+    protected int currentState = 1;
+    protected HashMap<Long, Float> damageMap = new HashMap<>();
 
     @Override
     public void onDisable() {
@@ -41,9 +42,9 @@ public class Speed extends Module {
     }
 
     @RegisterListener
-    public void onKeyEvent(final KeyEvent event){
-        if (switchKey.GetKey() == event.getKey()){
-            if (speedMode.GetCombo().equals("Strafe")){
+    public void onKeyEvent(final KeyEvent event) {
+        if (switchKey.GetKey() == event.getKey()) {
+            if (speedMode.GetCombo().equals("Strafe")) {
                 speedMode.setValue("OnGround");
             } else {
                 speedMode.setValue("Strafe");
@@ -52,23 +53,53 @@ public class Speed extends Module {
         }
     }
 
-    protected void sendSwitchMessage(){
-        Main.chatManager.sendRemovableMessage( ChatFormatting.WHITE + "" + ChatFormatting.BOLD + "Speed" + ChatFormatting.RESET + " mode switched to " + Main.chatManager.prefixColor + speedMode.GetCombo() + ChatFormatting.RESET + ".", 1);
+    protected void sendSwitchMessage() {
+        Main.chatManager.sendRemovableMessage(ChatFormatting.WHITE + "" + ChatFormatting.BOLD + "Speed" + ChatFormatting.RESET + " mode switched to " + Main.chatManager.prefixColor + speedMode.GetCombo() + ChatFormatting.RESET + ".", 1);
     }
+
     @RegisterListener
     public void onTick(final TickEvent event) {
         previousDistance = Math.sqrt((mc.player.posX - mc.player.prevPosX) * (mc.player.posX - mc.player.prevPosX) + (mc.player.posZ - mc.player.prevPosZ) * (mc.player.posZ - mc.player.prevPosZ));
-        if (useTimer.GetSwitch()){
+        if (useTimer.GetSwitch()) {
             mc.timer.tickLength = 50.0f / timerAmount.GetSlider();
         }
-        if (strict.GetSwitch()){
-            strafeFactor.setValue(0.9f);
+        final float health = mc.player.getHealth() + mc.player.getAbsorptionAmount();
+        float damage = 0.0f;
+        for (Map.Entry<Long, Float> entry : new HashMap<>(damageMap).entrySet()) {
+            double val = entry.getValue() / (((System.currentTimeMillis() - entry.getKey())) / boostReduction.GetSlider());
+            if (val < 0.1) {
+                damageMap.remove(entry.getKey());
+            }
+            damage += val;
         }
+        final float dmg = lastHealth - health;
+        if (dmg > 0) {
+            damageMap.put(System.currentTimeMillis(), dmg);
+        }
+        lastHealth = mc.player.getHealth() + mc.player.getAbsorptionAmount();
+        if (strict.GetSwitch()) {
+            strafeFactor.setValue(0.9f);
+        } else {
+            if (velocityBoost.GetSwitch()) {
+                strafeFactor.setValue(Math.max(1.0f, damage));
+            }
+        }
+    }
+
+    @Override
+    public String getData() {
+        switch (dataMode.GetCombo()) {
+            case "Factor":
+                return strafeFactor.GetSlider() + "";
+            case "Mode":
+                return speedMode.GetCombo();
+        }
+        return "";
     }
 
     @RegisterListener
     public void onMove(final MoveEvent event) {
-        if (!nullCheck()|| (!liquids.GetSwitch() && (mc.player.isInWater() || mc.player.isInLava() || mc.player.isSpectator())) || mc.player.isElytraFlying()) {
+        if (!nullCheck() || (!liquids.GetSwitch() && (mc.player.isInWater() || mc.player.isInLava() || mc.player.isSpectator())) || mc.player.isElytraFlying()) {
             return;
         }
         if (!mc.player.isSprinting()) {
@@ -88,7 +119,7 @@ public class Speed extends Module {
                         motionSpeed = previousDistance - previousDistance / 159.0;
                         break;
                     case 2:
-                        double var2 = strict.GetSwitch() ? 0.42 :0.40123128;
+                        double var2 = strict.GetSwitch() ? 0.42 : 0.40123128;
                         if ((mc.player.moveForward != 0.0f || mc.player.moveStrafing != 0.0f) && mc.player.onGround) {
                             if (mc.player.isPotionActive(MobEffects.JUMP_BOOST))
                                 var2 += (float) (Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.JUMP_BOOST)).getAmplifier() + 1) * 0.1f;
@@ -97,7 +128,7 @@ public class Speed extends Module {
                         }
                         break;
                     case 3:
-                        motionSpeed = previousDistance - 0.76 * (previousDistance - getBaseMotionSpeed() *  strafeFactor.GetSlider());
+                        motionSpeed = previousDistance - 0.76 * (previousDistance - getBaseMotionSpeed() * strafeFactor.GetSlider());
                 }
                 motionSpeed = Math.max(motionSpeed, getBaseMotionSpeed() * strafeFactor.GetSlider());
                 double var4 = mc.player.movementInput.moveForward;

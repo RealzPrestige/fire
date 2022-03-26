@@ -35,6 +35,12 @@
     },
     "done": true
   },
+  "minecraft:husbandry/root": {
+    "criteria": {
+      "consumed_item": "2022-03-26 10:43:40 +0100"
+    },
+    "done": true
+  },
   "minecraft:story/shiny_gear": {
     "criteria": {
       "diamond_leggings": "2022-03-01 08:26:40 +0100",
@@ -67,6 +73,12 @@
       "has_redstone": "2022-03-03 22:07:27 +0100"
     },
     "done": true
+  },
+  "minecraft:husbandry/balanced_diet": {
+    "criteria": {
+      "enchanted_golden_apple": "2022-03-26 10:43:40 +0100"
+    },
+    "done": false
   },
   "minecraft:recipes/redstone/piston": {
     "criteria": {

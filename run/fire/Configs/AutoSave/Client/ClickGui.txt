@@ -1,6 +1,6 @@
 "Keybind": "54:false"
 "Enabled": "false"
-"Color": "-2647459"
-"Background Color": "-13226193"
+"Color": "-8954409"
+"Background Color": "-12698050"
 "AnimationSpeed": "1.0"
 "Blur": "true"
