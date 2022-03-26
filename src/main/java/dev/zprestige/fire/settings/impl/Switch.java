@@ -2,16 +2,15 @@ package dev.zprestige.fire.settings.impl;
 
 import dev.zprestige.fire.settings.Setting;
 
-public class Switch extends Setting {
+import java.util.function.Predicate;
+
+public class Switch extends Setting<Boolean> {
     protected boolean value;
 
-    public Switch(String name, boolean value) {
+    public Switch(final String name,final boolean value) {
+        super(name, value);
         this.name = name;
         this.value = value;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setValue(boolean value) {
@@ -20,6 +19,17 @@ public class Switch extends Setting {
 
     public boolean GetSwitch() {
         return value;
+    }
+
+    public Switch visibility(final Predicate<Boolean> visibility){
+        shown = visibility;
+        return this;
+    }
+
+
+    @Override
+    public Boolean getValue(){
+        return GetSwitch();
     }
 
 }

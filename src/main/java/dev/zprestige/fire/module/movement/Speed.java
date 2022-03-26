@@ -26,9 +26,9 @@ public class Speed extends Module {
     public final Switch strict = Menu.Switch("Strict", false);
     public final Switch liquids = Menu.Switch("Liquids", false);
     public final Switch useTimer = Menu.Switch("Use Timer", false);
-    public final Switch velocityBoost = Menu.Switch("Velocity Boost", false);
     public final ComboBox dataMode = Menu.ComboBox("Data Mode", "Mode", new String[]{"Mode", "Factor"});
-    public final Slider boostReduction = Menu.Slider("Velocity Boost Reduction", 10.0f, 1.0f, 20.0f);
+    public final Switch velocityBoost = Menu.Switch("Velocity Boost", false);
+    public final Slider boostAmplifier = Menu.Slider("Velocity Boost Amplifier", 10.0f, 1.0f, 20.0f).visibility(z -> velocityBoost.GetSwitch());
     public final Slider timerAmount = Menu.Slider("Timer Amount", 1.0f, 0.9f, 2.0f);
     public final Slider strafeFactor = Menu.Slider("Strafe Factor", 1.0f, 0.1f, 3.0f);
     protected double previousDistance, motionSpeed;
@@ -66,7 +66,7 @@ public class Speed extends Module {
         final float health = mc.player.getHealth() + mc.player.getAbsorptionAmount();
         float damage = 0.0f;
         for (Map.Entry<Long, Float> entry : new HashMap<>(damageMap).entrySet()) {
-            double val = entry.getValue() / (((System.currentTimeMillis() - entry.getKey())) / boostReduction.GetSlider());
+            double val = entry.getValue() / (((System.currentTimeMillis() - entry.getKey())) / boostAmplifier.GetSlider());
             if (val < 0.1) {
                 damageMap.remove(entry.getKey());
             }

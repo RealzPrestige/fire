@@ -4,10 +4,10 @@ import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.util.impl.Vector2D;
 
 public abstract class AbstractSetting {
-    protected Setting setting;
+    protected Setting<?> setting;
     protected Vector2D position, size;
 
-    public AbstractSetting(Setting setting, Vector2D size){
+    public AbstractSetting(Setting<?> setting, Vector2D size){
         this.setting = setting;
         this.size = size;
     }
@@ -33,4 +33,8 @@ public abstract class AbstractSetting {
     }
 
     public abstract float getHeight();
+
+    public Setting<?> getSetting() {
+        return setting;
+    }
 }

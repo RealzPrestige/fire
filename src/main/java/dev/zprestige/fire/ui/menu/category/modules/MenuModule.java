@@ -52,11 +52,14 @@ public class MenuModule extends AbstractModule {
         }
         float totalHeight = size.getY() + 1;
         for (AbstractSetting abstractSetting : abstractSettings) {
+            if (!abstractSetting.getSetting().isVisible()){
+                continue;
+            }
             abstractSetting.setPosition(new Vector2D(position.getX() + 1, position.getY() + totalHeight));
             totalHeight += abstractSetting.getHeight() + 1;
         }
         RenderUtil.prepareScissor((int) position.getX(), (int) position.getY(), (int) size.getX(), (int) scissorHeight);
-        abstractSettings.stream().filter(abstractSetting -> abstractSetting.getPosition().getY() <  position.getY() + scissorHeight).forEach(abstractSetting -> abstractSetting.render(mouseX, mouseY));
+        abstractSettings.stream().filter(setting -> setting.getSetting().isVisible()).filter(abstractSetting -> abstractSetting.getPosition().getY() <  position.getY() + scissorHeight).forEach(abstractSetting -> abstractSetting.render(mouseX, mouseY));
         RenderUtil.releaseScissor();
         if (open) {
             scissorHeight = AnimationUtil.decreaseNumber(scissorHeight, totalHeight, MenuScreen.getAnimationSpeedAccordingly(scissorHeight, totalHeight));
@@ -78,21 +81,21 @@ public class MenuModule extends AbstractModule {
             }
         }
         if (open){
-            abstractSettings.forEach(abstractSetting -> abstractSetting.click(mouseX, mouseY, state));
+            abstractSettings.stream().filter(setting -> setting.getSetting().isVisible()).forEach(abstractSetting -> abstractSetting.click(mouseX, mouseY, state));
         }
     }
 
     @Override
     public void release(int mouseX, int mouseY, int state) {
         if (open){
-            abstractSettings.forEach(abstractSetting -> abstractSetting.release(mouseX, mouseY, state));
+            abstractSettings.stream().filter(setting -> setting.getSetting().isVisible()).forEach(abstractSetting -> abstractSetting.release(mouseX, mouseY, state));
         }
     }
 
     @Override
     public void type(char typedChar, int keyCode) {
         if (open){
-            abstractSettings.forEach(abstractSetting -> abstractSetting.type(typedChar, keyCode));
+            abstractSettings.stream().filter(setting -> setting.getSetting().isVisible()).forEach(abstractSetting -> abstractSetting.type(typedChar, keyCode));
         }
     }
 

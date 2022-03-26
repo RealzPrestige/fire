@@ -2,18 +2,18 @@ package dev.zprestige.fire.settings.impl;
 
 import dev.zprestige.fire.settings.Setting;
 
-public class Key extends Setting {
+import java.util.function.Predicate;
+
+
+public class Key extends Setting<Integer> {
     protected int key;
     protected boolean hold;
 
-    public Key(String name, int key) {
+    public Key(final String name,final int key) {
+        super(name, key);
         this.name = name;
         this.key = key;
         this.hold = false;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setValue(int value) {
@@ -30,5 +30,15 @@ public class Key extends Setting {
 
     public boolean isHold() {
         return hold;
+    }
+
+    public Key visibility(final Predicate<Integer> visibility){
+        shown = visibility;
+        return this;
+    }
+
+    @Override
+    public Integer getValue(){
+        return GetKey();
     }
 }

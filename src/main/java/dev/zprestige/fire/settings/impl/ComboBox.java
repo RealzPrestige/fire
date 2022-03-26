@@ -2,20 +2,18 @@ package dev.zprestige.fire.settings.impl;
 
 import dev.zprestige.fire.settings.Setting;
 
-public class ComboBox extends Setting {
+import java.util.function.Predicate;
+
+public class ComboBox extends Setting<String> {
     protected String value;
     protected String[] values;
 
-    public ComboBox(String name, String value, String[] values) {
+    public ComboBox(final String name,final String value,final String[] values) {
+        super(name, value);
         this.name = name;
         this.value = value;
         this.values = values;
     }
-
-    public String getName() {
-        return name;
-    }
-
     public void setValue(String value) {
         this.value = value;
     }
@@ -28,4 +26,13 @@ public class ComboBox extends Setting {
         return values;
     }
 
+    public ComboBox visibility(final Predicate<String> visibility){
+        shown = visibility;
+        return this;
+    }
+
+    @Override
+    public String getValue(){
+        return GetCombo();
+    }
 }
