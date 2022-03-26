@@ -22,15 +22,15 @@ import java.util.Objects;
 
 public class Speed extends Module {
     public final ComboBox speedMode = Menu.ComboBox("Speed Mode", "Strafe", new String[]{"OnGround", "Strafe"});
+    public final ComboBox dataMode = Menu.ComboBox("Data Mode", "Mode", new String[]{"Mode", "Factor"});
     public final Key switchKey = Menu.Key("Switch Key", Keyboard.KEY_NONE);
     public final Switch strict = Menu.Switch("Strict", false);
     public final Switch liquids = Menu.Switch("Liquids", false);
     public final Switch useTimer = Menu.Switch("Use Timer", false);
-    public final ComboBox dataMode = Menu.ComboBox("Data Mode", "Mode", new String[]{"Mode", "Factor"});
+    public final Slider timerAmount = Menu.Slider("Timer Amount", 1.0f, 0.9f, 2.0f);
     public final Switch velocityBoost = Menu.Switch("Velocity Boost", false);
     public final Slider boostAmplifier = Menu.Slider("Velocity Boost Amplifier", 10.0f, 1.0f, 20.0f).visibility(z -> velocityBoost.GetSwitch());
-    public final Slider timerAmount = Menu.Slider("Timer Amount", 1.0f, 0.9f, 2.0f);
-    public final Slider strafeFactor = Menu.Slider("Strafe Factor", 1.0f, 0.1f, 3.0f);
+    public final Slider strafeFactor = Menu.Slider("Strafe Factor", 1.0f, 0.1f, 3.0f).visibility(z -> !strict.GetSwitch());
     protected double previousDistance, motionSpeed;
     protected float lastHealth;
     protected int currentState = 1;

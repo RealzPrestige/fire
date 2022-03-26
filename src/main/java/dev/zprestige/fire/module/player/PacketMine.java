@@ -18,9 +18,9 @@ import java.awt.*;
 
 public class PacketMine extends Module {
     public final Switch render = Menu.Switch("Render", false);
-    public final ColorBox inactiveColor = Menu.Color("Inactive Color", Color.RED);
-    public final ColorBox activeColor = Menu.Color("Active Color", Color.GREEN);
-    public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f);
+    public final ColorBox inactiveColor = Menu.Color("Inactive Color", Color.RED).visibility(z -> render.GetSwitch());
+    public final ColorBox activeColor = Menu.Color("Active Color", Color.GREEN).visibility(z -> render.GetSwitch());
+    public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f).visibility(z -> render.GetSwitch());
     protected float size;
     protected boolean changed;
     protected EnumFacing facing;

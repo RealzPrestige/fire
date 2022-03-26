@@ -82,7 +82,7 @@ public class AutoCrystal extends Module {
     public final Slider explodeAntiSuicide = Menu.Slider("Explode Anti Suicide", 0.0f, 0.0f, 10.0f);
     public final Switch placeRotate = Menu.Switch("Place Rotate", false);
     public final Switch explodeRotate = Menu.Switch("Explode Rotate", false);
-    public final Switch syncRotations = Menu.Switch("Sync Rotations", false);
+    public final Switch syncRotations = Menu.Switch("Sync Rotations", false).visibility(z -> placeRotate.GetSwitch() || explodeRotate.GetSwitch());
     public final Switch placePacket = Menu.Switch("Place Packet", false);
     public final Switch explodePacket = Menu.Switch("Explode Packet", false);
     public final Switch placeSilentSwitch = Menu.Switch("Place Silent Switch", false);
@@ -105,12 +105,12 @@ public class AutoCrystal extends Module {
     public final Switch facePlaceSlow = Menu.Switch("Face Place Slow", false);
     public final Key facePlaceForceKey = Menu.Key("Face Place Force Key", Keyboard.KEY_NONE);
     public final Switch render = Menu.Switch("Render", false);
-    public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f);
-    public final Switch box = Menu.Switch("Box", false);
-    public final ColorBox boxColor = Menu.Color("Box Color", new Color(255, 255, 255, 120));
-    public final Switch outline = Menu.Switch("Outline", false);
-    public final ColorBox outlineColor = Menu.Color("Outline Color", new Color(255, 255, 255, 255));
-    public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f);
+    public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch());
+    public final Switch box = Menu.Switch("Box", false).visibility(z -> render.GetSwitch());
+    public final ColorBox boxColor = Menu.Color("Box Color", new Color(255, 255, 255, 120)).visibility(z -> box.GetSwitch() && render.GetSwitch());
+    public final Switch outline = Menu.Switch("Outline", false).visibility(z -> render.GetSwitch());
+    public final ColorBox outlineColor = Menu.Color("Outline Color", new Color(255, 255, 255, 255)).visibility(z -> render.GetSwitch() && outline.GetSwitch());
+    public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f).visibility(z -> render.GetSwitch() && outline.GetSwitch());
 
     protected final Timer[] timers = new Timer[]{new Timer(), new Timer()};
     protected final HashMap<PlayerManager.Player, Long> deadPlayers = new HashMap<>();

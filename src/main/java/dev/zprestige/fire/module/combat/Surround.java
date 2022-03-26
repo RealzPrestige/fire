@@ -24,7 +24,7 @@ public class Surround extends Module {
             "Instant",
             "Tick"
     });
-    public final Slider blocksPerTick = Menu.Slider("Blocks Per Tick", 10.0f, 1.0f, 20.0f);
+    public final Slider blocksPerTick = Menu.Slider("Blocks Per Tick", 10.0f, 1.0f, 20.0f).visibility(z -> mode.GetCombo().equals("Instant"));
     public final ComboBox item = Menu.ComboBox("Item", "Fallback", new String[]{
             "Fallback",
             "Obsidian",
@@ -37,12 +37,12 @@ public class Surround extends Module {
     public final Switch rotate = Menu.Switch("Rotate", false);
     public final Switch strict = Menu.Switch("Strict", false);
     public final Switch render = Menu.Switch("Render", false);
-    public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f);
-    public final Switch box = Menu.Switch("Box", false);
-    public final ColorBox boxColor = Menu.Color("Box Color", new Color(255, 255, 255, 120));
-    public final Switch outline = Menu.Switch("Outline", false);
-    public final ColorBox outlineColor = Menu.Color("Outline Color", new Color(255, 255, 255, 255));
-    public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f);
+    public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch() );
+    public final Switch box = Menu.Switch("Box", false).visibility(z -> render.GetSwitch());
+    public final ColorBox boxColor = Menu.Color("Box Color", new Color(255, 255, 255, 120)).visibility(z -> render.GetSwitch() && box.GetSwitch());
+    public final Switch outline = Menu.Switch("Outline", false).visibility(z -> render.GetSwitch());
+    public final ColorBox outlineColor = Menu.Color("Outline Color", new Color(255, 255, 255, 255)).visibility(z -> render.GetSwitch() && outline.GetSwitch());
+    public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f).visibility(z -> render.GetSwitch() && outline.GetSwitch());
     protected BlockPos lastPos = null;
     protected final Vec3i[] offsets = new Vec3i[]{
             new Vec3i(0, -1, 0),
