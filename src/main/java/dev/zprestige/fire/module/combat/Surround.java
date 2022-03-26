@@ -43,8 +43,8 @@ public class Surround extends Module {
     public final Switch outline = Menu.Switch("Outline", false);
     public final ColorBox outlineColor = Menu.Color("Outline Color", new Color(255, 255, 255, 255));
     public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f);
-
-    final Vec3i[] offsets = new Vec3i[]{
+    protected BlockPos lastPos = null;
+    protected final Vec3i[] offsets = new Vec3i[]{
             new Vec3i(0, -1, 0),
             new Vec3i(0, -1, -1),
             new Vec3i(0, -1, 1),
@@ -59,13 +59,14 @@ public class Surround extends Module {
     @RegisterListener
     public void onTick(final TickEvent event) {
         final BlockPos pos = BlockUtil.getPosition();
-        if (!mc.player.onGround || mc.player.stepHeight > 0.6f) {
+        if (!mc.player.onGround || mc.player.stepHeight > 0.6f || pos.getY() > lastPos.getY()) {
             disableModule();
             return;
         }
         if (!multiTask.GetSwitch() && mc.player.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE) && mc.gameSettings.keyBindUseItem.isKeyDown()) {
             return;
         }
+        lastPos = pos;
         int blocks = 0;
         switch (mode.GetCombo()) {
             case "Instant":
@@ -99,6 +100,7 @@ public class Surround extends Module {
                             } else {
                                 disableModule();
                             }
+
                         }
                     }
                 }

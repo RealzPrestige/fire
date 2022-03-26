@@ -1,11 +1,13 @@
 package dev.zprestige.fire.util.impl;
 
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.events.impl.MoveEvent;
 import dev.zprestige.fire.manager.PlayerManager;
 import dev.zprestige.fire.util.Utils;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.MobEffects;
 
 import java.util.Map;
 import java.util.Objects;
