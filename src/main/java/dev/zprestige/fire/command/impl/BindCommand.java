@@ -19,7 +19,7 @@ public class BindCommand extends Command {
                 if (module.getName().equalsIgnoreCase(split[1])) {
                     final int keybind = Keyboard.getKeyIndex(split[2]);
                     module.setKeybind(keybind);
-                    completeMessage("keybinded " + module.getName() + "'s keybind to " + split[2]);
+                    completeMessage("keybinded " + module.getName() + "'s keybind to " + split[2].toUpperCase());
                 }
             }
         } catch (Exception ignored) {
