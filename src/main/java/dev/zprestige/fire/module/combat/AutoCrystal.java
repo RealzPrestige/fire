@@ -121,7 +121,7 @@ public class AutoCrystal extends Module {
     public void onDeath(final DeathEvent event) {
         if (event.getEntity() instanceof EntityPlayer) {
             final PlayerManager.Player entity = new PlayerManager.Player((EntityPlayer) event.getEntity());
-            deadPlayers.put(entity, System.currentTimeMillis() + 3000L);
+            deadPlayers.put(entity, System.currentTimeMillis() + 10000L);
         }
     }
 
@@ -200,6 +200,9 @@ public class AutoCrystal extends Module {
 
     @Override
     public void onEnable(){
+        if (!nullCheck()){
+            return;
+        }
         if (mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL)){
             final int crystalSlot = Main.inventoryManager.getItemFromHotbar(Items.END_CRYSTAL);
             if (crystalSlot != -1){

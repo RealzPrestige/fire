@@ -1,11 +1,13 @@
 package dev.zprestige.fire.util.impl;
 
+import dev.zprestige.fire.Main;
 import dev.zprestige.fire.util.Utils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -15,9 +17,55 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 import java.util.Objects;
 
+import static org.lwjgl.opengl.GL11.*;
+
 public class RenderUtil implements Utils {
     protected static final Tessellator tessellator = Tessellator.getInstance();
     protected static final BufferBuilder bufferbuilder = tessellator.getBuffer();
+    public static double interpolateLastTickPos(double pos, double lastPos) {
+        return lastPos + (pos - lastPos) * mc.timer.renderPartialTicks;
+    }
+
+    public static Vec3d interpolateEntity(Entity entity) {
+        double x;
+        double y;
+        double z;
+        x = interpolateLastTickPos(entity.posX, entity.lastTickPosX) - mc.getRenderManager().renderPosX;
+        y = interpolateLastTickPos(entity.posY, entity.lastTickPosY) - mc.getRenderManager().renderPosY;
+        z = interpolateLastTickPos(entity.posZ, entity.lastTickPosZ) - mc.getRenderManager().renderPosZ;
+        return new Vec3d(x, y, z);
+    }
+
+    public static void draw3DText(final String text, double x, double y, double z, double scale, float red, float green, float blue, float alpha) {
+        glPushMatrix();
+        RenderUtil.drawNametag(text, x, y, z, scale / 1000, new Color(red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f).getRGB());
+        glColor4f(1f, 1f, 1f, 1f);
+        glPopMatrix();
+    }
+
+    public static void drawNametag(String text, double x, double y, double z, double scale, int color) {
+        double dist = ((mc.getRenderViewEntity() == null) ? mc.player : mc.getRenderViewEntity()).getDistance(x + mc.getRenderManager().viewerPosX, y + mc.getRenderManager().viewerPosY, z + mc.getRenderManager().viewerPosZ);
+        int textWidth = (int) (Main.fontManager.getStringWidth(text) / 2);
+        double scaling = dist <= 8.0 ? 0.0245 : 0.0018 + scale * dist;
+        GlStateManager.pushMatrix();
+        RenderHelper.enableStandardItemLighting();
+        GlStateManager.enablePolygonOffset();
+        GlStateManager.doPolygonOffset(1.0f, -1500000.0f);
+        GlStateManager.disableLighting();
+        GlStateManager.translate(x, y + 0.4000000059604645, z);
+        GlStateManager.rotate(-mc.getRenderManager().playerViewY, 0.0f, 1.0f, 0.0f);
+        GlStateManager.rotate(mc.getRenderManager().playerViewX, (mc.gameSettings.thirdPersonView == 2) ? -1.0f : 1.0f, 0.0f, 0.0f);
+        GlStateManager.scale(-scaling, -scaling, scaling);
+        GlStateManager.disableDepth();
+        GlStateManager.enableBlend();
+        mc.fontRenderer.drawStringWithShadow(text, (float) (-textWidth), -(mc.fontRenderer.FONT_HEIGHT - 1), color);
+        GlStateManager.disableBlend();
+        GlStateManager.enableDepth();
+        GlStateManager.disableBlend();
+        GlStateManager.disablePolygonOffset();
+        GlStateManager.doPolygonOffset(1.0f, 1500000.0f);
+        GlStateManager.popMatrix();
+    }
 
     public static void drawBBBoxWithHeight(final AxisAlignedBB BB, final Color color, final float height) {
         final AxisAlignedBB bb = new AxisAlignedBB(BB.minX - mc.getRenderManager().viewerPosX, BB.minY - mc.getRenderManager().viewerPosY, BB.minZ - mc.getRenderManager().viewerPosZ, BB.maxX - mc.getRenderManager().viewerPosX, BB.maxY - mc.getRenderManager().viewerPosY - 1 + height, BB.maxZ - mc.getRenderManager().viewerPosZ);
@@ -29,7 +77,7 @@ public class RenderUtil implements Utils {
         GlStateManager.depthMask(false);
         GL11.glEnable(2848);
         GL11.glHint(3154, 4354);
-        RenderGlobal.renderFilledBox(bb, color.getRed() / 255f, color.getGreen()/ 255f, color.getBlue()/ 255f, color.getAlpha()/ 255f);
+        RenderGlobal.renderFilledBox(bb, color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
         GL11.glDisable(2848);
         GlStateManager.depthMask(true);
         GlStateManager.enableDepth();
@@ -44,10 +92,10 @@ public class RenderUtil implements Utils {
     }
 
     public static void drawBlockOutlineWithHeight(final AxisAlignedBB bb, final Color color, final float lineWidth, final float height) {
-        float red = (float) color.getRed()/ 255f;
-        float green = (float) color.getGreen()/ 255f;
-        float blue = (float) color.getBlue()/ 255f;
-        float alpha = (float) color.getAlpha()/ 255f;
+        float red = (float) color.getRed() / 255f;
+        float green = (float) color.getGreen() / 255f;
+        float blue = (float) color.getBlue() / 255f;
+        float alpha = (float) color.getAlpha() / 255f;
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.disableDepth();

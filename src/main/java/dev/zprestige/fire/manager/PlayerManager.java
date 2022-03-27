@@ -45,10 +45,6 @@ public class PlayerManager extends RegisteredClass {
             return new BlockPos(Math.floor(entityPlayer.posX), Math.floor(entityPlayer.posY), Math.floor(entityPlayer.posZ));
         }
 
-        public double[] getCoordinates() {
-            return new double[]{Math.floor(entityPlayer.posX), Math.floor(entityPlayer.posY), Math.floor(entityPlayer.posZ)};
-        }
-
         public double getHealth() {
             return entityPlayer.getHealth() + entityPlayer.getAbsorptionAmount();
         }

@@ -31,8 +31,11 @@ public class SwitchButton extends AbstractSetting {
 
     @Override
     public void click(int mouseX, int mouseY, int state) {
-        if (inside(mouseX, mouseY) && state == 0){
-            setting.setValue(!setting.GetSwitch());
+        try {
+            if (inside(mouseX, mouseY) && state == 0) {
+                setting.setValue(!setting.GetSwitch());
+            }
+        } catch (Exception ignored){
         }
     }
 
