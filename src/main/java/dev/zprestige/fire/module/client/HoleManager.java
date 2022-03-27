@@ -6,11 +6,13 @@ import dev.zprestige.fire.events.impl.FrameEvent;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.Slider;
 
+import java.awt.*;
+
 public class HoleManager extends Module {
     public final Slider range = Menu.Slider("Range", 20.0f, 0.1f, 50.0f);
 
     public HoleManager(){
-        setEnabled(true);
+        enableModule();
     }
 
     @RegisterListener

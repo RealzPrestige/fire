@@ -87,21 +87,21 @@ public class AutoMine extends Module {
             case "Burrow":
                 final BlockPos burrowPos = getBurrowPos(player);
                 if (burrowPos != null) {
-                    breakPos(burrowPos, player);
+                    breakPos(burrowPos);
                     return true;
                 }
                 break;
             case "Surround":
                 final BlockPos surroundPos = getClosestSurroundPos(player);
                 if (surroundPos != null) {
-                    breakPos(surroundPos, player);
+                    breakPos(surroundPos);
                     return true;
                 }
                 break;
             case "City":
                 final BlockPos cityPos = getClosestCityPos(player);
                 if (cityPos != null) {
-                    breakPos(cityPos, player);
+                    breakPos(cityPos);
                     return true;
                 }
                 break;
@@ -146,7 +146,7 @@ public class AutoMine extends Module {
         return canMine(pos) && BlockUtil.canPosBeCrystalled(pos, thirteen) && (noExtra || BlockUtil.canPosBeCrystalledSoon(pos.down(), thirteen)) && mc.player.getDistanceSq(pos) < breakRange.GetSlider() * 2;
     }
 
-    protected void breakPos(final BlockPos pos, final PlayerManager.Player player) {
+    protected void breakPos(final BlockPos pos) {
         final EnumFacing enumFacing = Main.interactionManager.closestEnumFacing(pos);
         Main.interactionManager.interactBlock(pos, enumFacing);
         start(pos, enumFacing);
