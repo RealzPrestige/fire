@@ -1,0 +1,174 @@
+---- Minecraft Crash Report ----
+// Hi. I'm Minecraft, and I'm a crashaholic.
+
+Time: 3/27/22 12:56 PM
+Description: Unexpected error
+
+java.lang.IllegalArgumentException: Color parameter outside of expected range: Alpha
+	at java.awt.Color.testColorValueRange(Color.java:310)
+	at java.awt.Color.<init>(Color.java:395)
+	at java.awt.Color.<init>(Color.java:490)
+	at dev.zprestige.fire.ui.hudeditor.components.impl.Notifications$Notification.render(Notifications.java:86)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.hudeditor.components.impl.Notifications.render(Notifications.java:45)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1384)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.manager.HudManager.onFrame2D(HudManager.java:25)
+	at dev.zprestige.fire.events.eventbus.handler.impl.LambdaHandler.invoke(LambdaHandler.java:36)
+	at dev.zprestige.fire.events.eventbus.EventBus.lambda$post$1(EventBus.java:34)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.events.eventbus.EventBus.post(EventBus.java:34)
+	at dev.zprestige.fire.events.Listener.onRenderGameOverlayTextEvent(Listener.java:58)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_15_Listener_onRenderGameOverlayTextEvent_Text.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.client.GuiIngameForge.renderHUDText(GuiIngameForge.java:717)
+	at net.minecraftforge.client.GuiIngameForge.renderGameOverlay(GuiIngameForge.java:173)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1098)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1119)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:398)
+	at net.minecraft.client.main.Main.main(SourceFile:123)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at java.awt.Color.testColorValueRange(Color.java:310)
+	at java.awt.Color.<init>(Color.java:395)
+	at java.awt.Color.<init>(Color.java:490)
+	at dev.zprestige.fire.ui.hudeditor.components.impl.Notifications$Notification.render(Notifications.java:86)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.hudeditor.components.impl.Notifications.render(Notifications.java:45)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1384)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.manager.HudManager.onFrame2D(HudManager.java:25)
+	at dev.zprestige.fire.events.eventbus.handler.impl.LambdaHandler.invoke(LambdaHandler.java:36)
+	at dev.zprestige.fire.events.eventbus.EventBus.lambda$post$1(EventBus.java:34)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.events.eventbus.EventBus.post(EventBus.java:34)
+	at dev.zprestige.fire.events.Listener.onRenderGameOverlayTextEvent(Listener.java:58)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_15_Listener_onRenderGameOverlayTextEvent_Text.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.client.GuiIngameForge.renderHUDText(GuiIngameForge.java:717)
+	at net.minecraftforge.client.GuiIngameForge.renderGameOverlay(GuiIngameForge.java:173)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Player421'/196, l='MpServer', x=224.94, y=79.00, z=-241.69]]
+	Chunk stats: MultiplayerChunkCache: 169, 169
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (252,64,-242), Chunk: (at 12,4,14 in 15,-16; contains blocks 240,0,-256 to 255,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 2224297 game time, 1033 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Forced entities: 67 total; [EntitySkeleton['Skeleton'/131, l='MpServer', x=257.50, y=43.00, z=-309.50], EntitySkeleton['Skeleton'/132, l='MpServer', x=257.67, y=33.00, z=-279.49], EntitySkeleton['Skeleton'/133, l='MpServer', x=264.50, y=25.00, z=-276.50], EntitySkeleton['Skeleton'/134, l='MpServer', x=265.50, y=25.00, z=-277.50], EntitySkeleton['Skeleton'/135, l='MpServer', x=263.50, y=25.00, z=-276.50], EntityZombie['Zombie'/136, l='MpServer', x=271.50, y=26.00, z=-266.50], EntityZombie['Zombie'/137, l='MpServer', x=270.79, y=35.00, z=-266.44], EntitySkeleton['Skeleton'/138, l='MpServer', x=269.29, y=26.00, z=-230.49], EntitySkeleton['Skeleton'/143, l='MpServer', x=276.50, y=34.00, z=-271.35], EntityCreeper['Creeper'/144, l='MpServer', x=287.76, y=23.00, z=-194.36], EntityBat['Bat'/274, l='MpServer', x=186.39, y=44.23, z=-229.25], EntitySheep['Sheep'/148, l='MpServer', x=302.48, y=62.47, z=-301.55], EntityZombie['Zombie'/149, l='MpServer', x=290.44, y=19.00, z=-245.76], EntityZombie['Zombie'/152, l='MpServer', x=288.20, y=20.00, z=-198.52], EntityZombie['Zombie'/153, l='MpServer', x=292.50, y=22.00, z=-205.50], EntityZombie['Zombie'/154, l='MpServer', x=293.50, y=22.00, z=-206.50], EntitySkeleton['Skeleton'/155, l='MpServer', x=300.50, y=21.00, z=-204.86], EntityCreeper['Creeper'/285, l='MpServer', x=253.50, y=12.00, z=-321.50], EntityCreeper['Creeper'/42, l='MpServer', x=152.19, y=18.00, z=-305.36], EntitySkeleton['Skeleton'/43, l='MpServer', x=147.51, y=18.00, z=-308.22], EntityBat['Bat'/46, l='MpServer', x=152.36, y=22.76, z=-257.11], EntityBat['Bat'/47, l='MpServer', x=152.52, y=21.00, z=-259.29], EntityBat['Bat'/48, l='MpServer', x=157.75, y=28.10, z=-232.49], EntityBat['Bat'/49, l='MpServer', x=150.25, y=27.10, z=-215.75], EntityZombie['Zombie'/56, l='MpServer', x=163.50, y=58.00, z=-310.50], EntitySkeleton['Skeleton'/57, l='MpServer', x=161.50, y=28.00, z=-230.50], EntityBat['Bat'/58, l='MpServer', x=171.55, y=32.10, z=-226.25], EntityCreeper['Creeper'/59, l='MpServer', x=172.54, y=50.00, z=-224.82], EntityCreeper['Creeper'/60, l='MpServer', x=169.82, y=50.00, z=-224.53], EntityZombie['Zombie'/70, l='MpServer', x=180.48, y=48.00, z=-320.26], EntityCreeper['Creeper'/71, l='MpServer', x=190.50, y=42.00, z=-315.50], EntitySkeleton['Skeleton'/199, l='MpServer', x=214.50, y=38.00, z=-197.50], EntityBat['Bat'/72, l='MpServer', x=183.25, y=55.10, z=-307.43], EntityZombie['Zombie'/200, l='MpServer', x=294.50, y=42.00, z=-165.50], EntityCreeper['Creeper'/73, l='MpServer', x=184.30, y=55.00, z=-307.70], EntityPlayerSP['Player421'/196, l='MpServer', x=224.94, y=79.00, z=-241.69], EntitySkeleton['Skeleton'/74, l='MpServer', x=189.92, y=56.00, z=-308.48], EntitySkeleton['Skeleton'/75, l='MpServer', x=190.70, y=56.00, z=-308.49], EntityCreeper['Creeper'/76, l='MpServer', x=185.21, y=17.00, z=-252.41], EntityCreeper['Creeper'/77, l='MpServer', x=182.20, y=46.00, z=-243.44], EntitySkeleton['Skeleton'/78, l='MpServer', x=177.83, y=47.00, z=-232.43], EntitySheep['Sheep'/79, l='MpServer', x=181.49, y=75.00, z=-249.15], EntityBat['Bat'/80, l='MpServer', x=194.55, y=16.10, z=-230.25], EntityZombie['Zombie'/81, l='MpServer', x=190.42, y=22.00, z=-229.97], EntityCreeper['Creeper'/82, l='MpServer', x=182.03, y=46.00, z=-236.54], EntityZombie['Zombie'/83, l='MpServer', x=185.50, y=44.00, z=-229.50], EntityZombieVillager['Zombie Villager'/84, l='MpServer', x=181.57, y=32.00, z=-232.78], EntityZombie['Zombie'/85, l='MpServer', x=182.70, y=32.00, z=-233.30], EntityCreeper['Creeper'/86, l='MpServer', x=189.58, y=12.00, z=-223.16], EntitySkeleton['Skeleton'/87, l='MpServer', x=189.75, y=32.00, z=-208.47], EntityZombie['Zombie'/88, l='MpServer', x=186.50, y=27.00, z=-186.50], EntityCreeper['Creeper'/91, l='MpServer', x=192.50, y=41.00, z=-319.65], EntityEnderman['Enderman'/92, l='MpServer', x=206.73, y=44.00, z=-316.46], EntitySheep['Sheep'/93, l='MpServer', x=196.49, y=73.00, z=-255.30], EntityBat['Bat'/94, l='MpServer', x=201.27, y=36.10, z=-216.88], EntityEnderman['Enderman'/95, l='MpServer', x=204.32, y=36.00, z=-202.50], EntityCreeper['Creeper'/97, l='MpServer', x=217.70, y=15.00, z=-190.70], EntityBat['Bat'/100, l='MpServer', x=240.12, y=13.02, z=-321.31], EntitySkeleton['Skeleton'/101, l='MpServer', x=226.50, y=15.00, z=-314.50], EntityZombie['Zombie'/102, l='MpServer', x=234.25, y=27.00, z=-225.57], EntityCreeper['Creeper'/111, l='MpServer', x=247.54, y=49.00, z=-318.19], EntityZombie['Zombie'/112, l='MpServer', x=242.36, y=40.92, z=-314.99], EntityBat['Bat'/113, l='MpServer', x=240.76, y=41.77, z=-319.39], EntityBat['Bat'/114, l='MpServer', x=252.46, y=39.07, z=-280.25], EntitySheep['Sheep'/115, l='MpServer', x=247.30, y=65.00, z=-287.51], EntityBat['Bat'/116, l='MpServer', x=253.02, y=32.37, z=-288.50], EntityBat['Bat'/117, l='MpServer', x=253.66, y=37.88, z=-269.25]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:420)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2741)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:427)
+	at net.minecraft.client.main.Main.main(SourceFile:123)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_272, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Amazon.com Inc.
+	Memory: 463958880 bytes (442 MB) / 1204289536 bytes (1148 MB) up to 3801088000 bytes (3625 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2847 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                         | Signature |
+	|:------ |:--------- |:------------ |:---------------------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                  | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                  | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeBin-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | forge     | 14.23.5.2847 | forgeBin-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | fire      | 0.1          | fire-0.1.jar                                   | None      |
+
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 472.12' Renderer: 'NVIDIA GeForce RTX 3060/PCIe/SSE2'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: NVIDIA GeForce RTX 3060/PCIe/SSE2 GL version 4.6.0 NVIDIA 472.12, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 16x AMD Ryzen 7 2700X Eight-Core Processor 

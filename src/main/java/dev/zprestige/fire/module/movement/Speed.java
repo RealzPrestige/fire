@@ -54,6 +54,7 @@ public class Speed extends Module {
     }
 
     protected void sendSwitchMessage() {
+        Main.notificationManager.addNotifications("Speed mode switched to " + speedMode.GetCombo() + ".");
         Main.chatManager.sendRemovableMessage(ChatFormatting.WHITE + "" + ChatFormatting.BOLD + "Speed" + ChatFormatting.RESET + " mode switched to " + Main.chatManager.prefixColor + speedMode.GetCombo() + ChatFormatting.RESET + ".", 1);
     }
 

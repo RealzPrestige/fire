@@ -35,15 +35,15 @@
     },
     "done": true
   },
-  "minecraft:recipes/transportation/dark_oak_boat": {
-    "criteria": {
-      "entered_water": "2022-03-26 10:41:44 +0100"
-    },
-    "done": true
-  },
   "minecraft:husbandry/root": {
     "criteria": {
       "consumed_item": "2022-03-26 10:41:29 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/dark_oak_boat": {
+    "criteria": {
+      "entered_water": "2022-03-26 10:41:44 +0100"
     },
     "done": true
   },
@@ -131,7 +131,10 @@
   "minecraft:adventure/adventuring_time": {
     "criteria": {
       "forest": "2022-03-01 08:21:53 +0100",
-      "forest_hills": "2022-03-03 07:27:49 +0100"
+      "beaches": "2022-03-27 12:58:19 +0100",
+      "forest_hills": "2022-03-03 07:27:49 +0100",
+      "ocean": "2022-03-27 12:58:21 +0100",
+      "river": "2022-03-27 12:58:20 +0100"
     },
     "done": false
   }

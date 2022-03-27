@@ -40,6 +40,7 @@ public class Main {
     public static RotationManager rotationManager;
     public static HoleManager holeManager;
     public static TickManager tickManager;
+    public static NotificationManager notificationManager;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent ignoredEvent) {
@@ -64,6 +65,7 @@ public class Main {
         rotationManager = (RotationManager) new RotationManager().registerEventBus();
         holeManager = new HoleManager();
         tickManager = (TickManager) new TickManager().registerEventBus();
+        notificationManager = (NotificationManager) new NotificationManager().registerEventBus();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.save("AutoSave");
             configManager.savePrefix();

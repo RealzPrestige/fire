@@ -7,6 +7,7 @@ import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.util.impl.RenderUtil;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -40,8 +41,7 @@ public class DamageMarkers extends Module {
         playerMap.forEach((key, value) -> mc.world.playerEntities.stream().filter(entityPlayer -> !entityPlayer.equals(mc.player) && entityPlayer.getName().equals(key)).forEach(entityPlayer -> {
             final double val = Math.ceil(value - (entityPlayer.getHealth() + entityPlayer.getAbsorptionAmount()));
             if (val > 0) {
-                final Vec3d i = RenderUtil.interpolateEntity(entityPlayer);
-                damageMarkers.add(new DamageMarker(val, i.x + getRandom(), i.y + getRandom(), i.z + getRandom(), 255.0));
+                damageMarkers.add(new DamageMarker(val, entityPlayer, getRandom(), getRandom(), getRandom(), 255.0));
             }
         }));
         playerMap = mc.world.playerEntities.stream().filter(entityPlayer -> !entityPlayer.equals(mc.player)).collect(Collectors.toMap(EntityPlayer::getName, entityPlayer -> entityPlayer.getHealth() + entityPlayer.getAbsorptionAmount(), (a, b) -> b, HashMap::new));
@@ -54,18 +54,23 @@ public class DamageMarkers extends Module {
     }
 
     protected class DamageMarker {
-        protected double damage, x, y, z, alpha;
+        protected final Entity entity;
+        protected final double randX, randY, randZ;
+        protected double damage, alpha, y;
 
-        public DamageMarker(double damage, double x, double y, double z, double alpha) {
+
+        public DamageMarker(final double damage, final Entity entity, final double randX, final double randY, final double randZ, final double alpha) {
             this.damage = damage;
-            this.x = x;
-            this.y = y;
-            this.z = z;
+            this.entity = entity;
+            this.randX = randX;
+            this.randY = randY;
+            this.randZ = randZ;
             this.alpha = alpha;
         }
 
         public void render() {
-            RenderUtil.draw3DText(damage + "", x, y, z, scale.GetSlider(), color.GetColor().getRed(), color.GetColor().getGreen(), color.GetColor().getBlue(), (float) alpha);
+            final Vec3d i = RenderUtil.interpolateEntity(entity);
+            RenderUtil.draw3DText(damage + "", i.x + randX, i.y + y + randY, i.z + randZ, scale.GetSlider(), color.GetColor().getRed(), color.GetColor().getGreen(), color.GetColor().getBlue(), (float) alpha);
         }
 
         public void setAlpha(double alpha) {
