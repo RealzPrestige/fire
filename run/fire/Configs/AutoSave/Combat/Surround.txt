@@ -6,6 +6,7 @@
 "Multi Task": "true"
 "Extend": "true"
 "Packet": "true"
+"Center": "false"
 "Rotate": "false"
 "Strict": "false"
 "Render": "false"

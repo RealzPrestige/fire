@@ -50,7 +50,7 @@ public class DamageMarkers extends Module {
     protected final Random random = new Random();
 
     protected float getRandom() {
-        return MathHelper.clamp((float) 0.0 + random.nextFloat() * 1, (float) 0.0, (float) 1);
+        return MathHelper.clamp(-0.5f + random.nextFloat() * 0.5f, -0.5f, 0.5f);
     }
 
     protected class DamageMarker {
