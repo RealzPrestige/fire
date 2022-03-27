@@ -13,6 +13,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 
 import java.awt.*;
@@ -34,6 +35,7 @@ public class Surround extends Module {
     public final Switch multiTask = Menu.Switch("Multi Task", true);
     public final Switch extend = Menu.Switch("Extend", true);
     public final Switch packet = Menu.Switch("Packet", true);
+    public final Switch center = Menu.Switch("Center", false);
     public final Switch rotate = Menu.Switch("Rotate", false);
     public final Switch strict = Menu.Switch("Strict", false);
     public final Switch render = Menu.Switch("Render", false);
@@ -59,6 +61,29 @@ public class Surround extends Module {
     @Override
     public void onDisable(){
         lastPos = null;
+    }
+
+    @Override
+    public void onEnable(){
+        if (center.GetSwitch()){
+            moveToCenter();
+        }
+    }
+
+    protected Vec3d getCenter(double posX, double posY, double posZ) {
+        double x = Math.floor(posX) + 0.5;
+        double y = Math.floor(posY);
+        double z = Math.floor(posZ) + 0.5;
+        return new Vec3d(x, y, z);
+    }
+
+    protected void moveToCenter() {
+        if (mc.player.onGround) {
+            final Vec3d center = getCenter(mc.player.posX, mc.player.posY, mc.player.posZ);
+            if (mc.player.getDistanceSq(new BlockPos(center.x, center.y, center.z)) > 0.1f) {
+                mc.player.setPosition(center.x, center.y, center.z);
+            }
+        }
     }
 
     @RegisterListener
