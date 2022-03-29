@@ -33,8 +33,9 @@ public class Notifications extends HudComponent {
             notification.setY(deltaY);
             deltaY += notification.getHeight();
         }
-        notifications.forEach(notification -> notification.update((int) (Minecraft.getDebugFPS() / 20.0f)));
-        notifications.forEach(Notification::render);
+        final ArrayList<Notification> notifications1 = new ArrayList<>(notifications);
+        notifications1.forEach(notification -> notification.update((int) (Minecraft.getDebugFPS() / 20.0f)));
+        notifications1.forEach(Notification::render);
     }
 
     protected static boolean isWordEnable(final String string) {

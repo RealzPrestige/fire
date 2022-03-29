@@ -8,13 +8,29 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.MobEffects;
+import net.minecraft.potion.Potion;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 
 public class EntityUtil implements Utils {
+    public static double getBaseMotionSpeed() {
+        double event = 0.272;
+        if (mc.player.isPotionActive(MobEffects.SPEED)) {
+            int var3 = Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.SPEED)).getAmplifier();
+            event *= 1.0 + 0.2 * var3;
+        }
+        return event;
+    }
 
+    public static double getMaxSpeed() {
+        double maxModifier = 0.2873;
+        if (mc.player.isPotionActive(Objects.requireNonNull(Potion.getPotionById(1)))) {
+            maxModifier *= 1.0 + 0.2 * (Objects.requireNonNull(mc.player.getActivePotionEffect(Objects.requireNonNull(Potion.getPotionById(1)))).getAmplifier() + 1);
+        }
+        return maxModifier;
+    }
     public static PlayerManager.Player getClosestTarget(TargetPriority targetPriority, float range) {
         final TreeMap<Double, PlayerManager.Player> entityPlayerFloatTreeMap = new TreeMap<>();
         final TreeMap<Double, PlayerManager.Player> entityPlayerFloatTreeMap2 = new TreeMap<>();

@@ -1,10 +1,8 @@
 package dev.zprestige.fire.manager;
 
-import dev.zprestige.fire.Main;
 import dev.zprestige.fire.RegisteredClass;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.FrameEvent;
-import dev.zprestige.fire.events.impl.PacketEvent;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import net.minecraft.util.math.BlockPos;
 

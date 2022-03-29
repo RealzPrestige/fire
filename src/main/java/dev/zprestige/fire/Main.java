@@ -24,11 +24,12 @@ public class Main {
     public static EventBus eventBus;
     public static ThreadManager threadManager;
     public static Listener listener;
+    public static FileManager fileManager;
     public static ModuleManager moduleManager;
+    public static ShrinkManager shrinkManager;
     public static FadeManager fadeManager;
     public static ChatManager chatManager;
     public static FontManager fontManager;
-    public static FileManager fileManager;
     public static FriendManager friendManager;
     public static DiscordRPCManager discordRPCManager;
     public static HudManager hudManager;
@@ -49,11 +50,12 @@ public class Main {
         eventBus = new EventBus();
         threadManager = (ThreadManager) new ThreadManager().registerEventBus();
         listener = (Listener) new Listener().registerForge().registerEventBus();
+        fileManager = new FileManager();
         moduleManager = new ModuleManager().init();
+        shrinkManager = (ShrinkManager) new ShrinkManager().registerEventBus();
         fadeManager = (FadeManager) new FadeManager().registerEventBus();
         chatManager = new ChatManager();
         fontManager = new FontManager();
-        fileManager = new FileManager();
         friendManager = new FriendManager();
         discordRPCManager = new DiscordRPCManager().init();
         hudManager = (HudManager) new HudManager().init().registerEventBus();

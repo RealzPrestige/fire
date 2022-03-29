@@ -11,8 +11,8 @@ import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Key;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
+import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.init.MobEffects;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.MovementInput;
 import org.lwjgl.input.Keyboard;
 
@@ -27,7 +27,7 @@ public class Speed extends Module {
     public final Switch strict = Menu.Switch("Strict", false);
     public final Switch liquids = Menu.Switch("Liquids", false);
     public final Switch useTimer = Menu.Switch("Use Timer", false);
-    public final Slider timerAmount = Menu.Slider("Timer Amount", 1.0f, 0.9f, 2.0f);
+    public final Slider timerAmount = Menu.Slider("Timer Amount", 1.0f, 0.9f, 2.0f).visibility(z -> useTimer.GetSwitch());
     public final Switch velocityBoost = Menu.Switch("Velocity Boost", false);
     public final Slider boostAmplifier = Menu.Slider("Velocity Boost Amplifier", 10.0f, 1.0f, 20.0f).visibility(z -> velocityBoost.GetSwitch());
     public final Slider strafeFactor = Menu.Slider("Strafe Factor", 1.0f, 0.1f, 3.0f).visibility(z -> !strict.GetSwitch());
@@ -35,11 +35,6 @@ public class Speed extends Module {
     protected float lastHealth;
     protected int currentState = 1;
     protected HashMap<Long, Float> damageMap = new HashMap<>();
-
-    @Override
-    public void onDisable() {
-        mc.timer.tickLength = 50.0f;
-    }
 
     @RegisterListener
     public void onKeyEvent(final KeyEvent event) {
@@ -62,7 +57,7 @@ public class Speed extends Module {
     public void onTick(final TickEvent event) {
         previousDistance = Math.sqrt((mc.player.posX - mc.player.prevPosX) * (mc.player.posX - mc.player.prevPosX) + (mc.player.posZ - mc.player.prevPosZ) * (mc.player.posZ - mc.player.prevPosZ));
         if (useTimer.GetSwitch()) {
-            mc.timer.tickLength = 50.0f / timerAmount.GetSlider();
+            Main.tickManager.setTimer(timerAmount.GetSlider());
         }
         final float health = mc.player.getHealth() + mc.player.getAbsorptionAmount();
         float damage = 0.0f;
@@ -129,9 +124,9 @@ public class Speed extends Module {
                         }
                         break;
                     case 3:
-                        motionSpeed = previousDistance - 0.76 * (previousDistance - getBaseMotionSpeed() * strafeFactor.GetSlider());
+                        motionSpeed = previousDistance - 0.76 * (previousDistance - EntityUtil.getBaseMotionSpeed() * strafeFactor.GetSlider());
                 }
-                motionSpeed = Math.max(motionSpeed, getBaseMotionSpeed() * strafeFactor.GetSlider());
+                motionSpeed = Math.max(motionSpeed, EntityUtil.getBaseMotionSpeed() * strafeFactor.GetSlider());
                 double var4 = mc.player.movementInput.moveForward;
                 double var6 = mc.player.movementInput.moveStrafe;
                 double var8 = mc.player.rotationYaw;
@@ -164,28 +159,11 @@ public class Speed extends Module {
                         moveStrafe = moveStrafe == 0.0f ? moveStrafe : ((double) moveStrafe > 0.0 ? 1.0f : -1.0f);
                         final double cos = Math.cos(Math.toRadians(rotationYaw + 90.0f));
                         final double sin = Math.sin(Math.toRadians(rotationYaw + 90.0f));
-                        event.motionX = ((double) moveForward * getMaxSpeed() * cos + (double) moveStrafe * getMaxSpeed() * sin);
-                        event.motionZ = ((double) moveForward * getMaxSpeed() * sin - (double) moveStrafe * getMaxSpeed() * cos);
+                        event.motionX = ((double) moveForward * EntityUtil.getMaxSpeed() * cos + (double) moveStrafe * EntityUtil.getMaxSpeed() * sin);
+                        event.motionZ = ((double) moveForward * EntityUtil.getMaxSpeed() * sin - (double) moveStrafe * EntityUtil.getMaxSpeed() * cos);
                     }
                 }
                 break;
         }
-    }
-
-    protected double getBaseMotionSpeed() {
-        double event = 0.272;
-        if (mc.player.isPotionActive(MobEffects.SPEED)) {
-            int var3 = Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.SPEED)).getAmplifier();
-            event *= 1.0 + 0.2 * var3;
-        }
-        return event;
-    }
-
-    protected double getMaxSpeed() {
-        double maxModifier = 0.2873;
-        if (mc.player.isPotionActive(Objects.requireNonNull(Potion.getPotionById(1)))) {
-            maxModifier *= 1.0 + 0.2 * (Objects.requireNonNull(mc.player.getActivePotionEffect(Objects.requireNonNull(Potion.getPotionById(1)))).getAmplifier() + 1);
-        }
-        return maxModifier;
     }
 }
