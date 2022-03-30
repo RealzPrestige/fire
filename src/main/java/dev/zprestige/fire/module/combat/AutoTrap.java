@@ -86,7 +86,7 @@ public class AutoTrap extends Module {
             case "Instant":
                 int i = 0;
                 for (final Position position : positions) {
-                    if (i > blocksPerTick.GetSlider()) {
+                    if (i > blocksPerTick.GetSlider() || Main.inventoryManager.getBlockFromHotbar(Blocks.OBSIDIAN) == -1) {
                         return;
                     }
                     Main.interactionManager.placeBlockWithSwitch(position.getPos(), rotate.GetSwitch(), packet.GetSwitch(), strict.GetSwitch(), obsidian);
