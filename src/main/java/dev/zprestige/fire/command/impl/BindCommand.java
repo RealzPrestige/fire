@@ -17,7 +17,7 @@ public class BindCommand extends Command {
             final String[] split = string.split(" ");
             for (Module module : Main.moduleManager.getModules()) {
                 if (module.getName().equalsIgnoreCase(split[1])) {
-                    final int keybind = Keyboard.getKeyIndex(split[2]);
+                    final int keybind = Keyboard.getKeyIndex(split[2].toUpperCase());
                     module.setKeybind(keybind);
                     completeMessage("keybinded " + module.getName() + "'s keybind to " + split[2].toUpperCase());
                 }

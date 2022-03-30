@@ -300,7 +300,7 @@ public class AutoCrystal extends Module {
     public void explodeCrystal(final EntityEnderCrystal entityEnderCrystal) {
         boolean switched = false;
         int currentItem = -1;
-        PotionEffect weakness = mc.player.getActivePotionEffect(MobEffects.WEAKNESS);
+        final PotionEffect weakness = mc.player.getActivePotionEffect(MobEffects.WEAKNESS);
         if (explodeAntiWeakness.GetSwitch() && weakness != null && !mc.player.getHeldItemMainhand().getItem().equals(Items.DIAMOND_SWORD)) {
             int swordSlot = Main.inventoryManager.getItemFromHotbar(Items.DIAMOND_SWORD);
             currentItem = mc.player.inventory.currentItem;
@@ -509,9 +509,8 @@ public class AutoCrystal extends Module {
 
     @RegisterListener
     public void onFrame3D(final FrameEvent.FrameEvent3D event3D) {
-        final Long currentTime = System.currentTimeMillis();
-        crystalsPerSecond.removeIf(currentTimeMillis -> currentTimeMillis < currentTime);
-
+        final long currentTime = System.currentTimeMillis();
+        crystalsPerSecond.removeIf(currentTimeMillis -> currentTimeMillis + 1000L < currentTime);
         switch (animation.GetCombo()) {
             case "Interpolate":
                 if (bb != null) {
