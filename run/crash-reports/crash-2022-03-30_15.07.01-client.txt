@@ -1,0 +1,166 @@
+---- Minecraft Crash Report ----
+// Who set us up the TNT?
+
+Time: 3/30/22 3:07 PM
+Description: Ticking entity
+
+java.lang.NullPointerException: Ticking entity
+	at dev.zprestige.fire.module.misc.AutoSort.onTick(AutoSort.java:28)
+	at dev.zprestige.fire.events.eventbus.handler.impl.LambdaHandler.invoke(LambdaHandler.java:36)
+	at dev.zprestige.fire.events.eventbus.EventBus.lambda$post$1(EventBus.java:34)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.events.eventbus.EventBus.post(EventBus.java:34)
+	at dev.zprestige.fire.events.Listener.onLivingUpdateEvent(Listener.java:31)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_14_Listener_onLivingUpdateEvent_LivingUpdateEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.common.ForgeHooks.onLivingUpdate(ForgeHooks.java:581)
+	at net.minecraft.entity.EntityLivingBase.onUpdate(EntityLivingBase.java:2095)
+	at net.minecraft.entity.player.EntityPlayer.onUpdate(EntityPlayer.java:234)
+	at net.minecraft.client.entity.EntityPlayerSP.onUpdate(EntityPlayerSP.java:181)
+	at net.minecraft.world.World.updateEntityWithOptionalForce(World.java:1996)
+	at net.minecraft.world.World.updateEntity(World.java:1958)
+	at net.minecraft.world.World.updateEntities(World.java:1762)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1847)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1098)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:398)
+	at net.minecraft.client.main.Main.main(SourceFile:123)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at dev.zprestige.fire.module.misc.AutoSort.onTick(AutoSort.java:28)
+	at dev.zprestige.fire.events.eventbus.handler.impl.LambdaHandler.invoke(LambdaHandler.java:36)
+	at dev.zprestige.fire.events.eventbus.EventBus.lambda$post$1(EventBus.java:34)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.events.eventbus.EventBus.post(EventBus.java:34)
+	at dev.zprestige.fire.events.Listener.onLivingUpdateEvent(Listener.java:31)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_14_Listener_onLivingUpdateEvent_LivingUpdateEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.common.ForgeHooks.onLivingUpdate(ForgeHooks.java:581)
+	at net.minecraft.entity.EntityLivingBase.onUpdate(EntityLivingBase.java:2095)
+	at net.minecraft.entity.player.EntityPlayer.onUpdate(EntityPlayer.java:234)
+	at net.minecraft.client.entity.EntityPlayerSP.onUpdate(EntityPlayerSP.java:181)
+	at net.minecraft.world.World.updateEntityWithOptionalForce(World.java:1996)
+	at net.minecraft.world.World.updateEntity(World.java:1958)
+
+-- Entity being ticked --
+Details:
+	Entity Type: null (net.minecraft.client.entity.EntityPlayerSP)
+	Entity ID: 200
+	Entity Name: Player687
+	Entity's Exact location: 256.29, 65.00, -254.41
+	Entity's Block location: World: (256,65,-255), Chunk: (at 0,4,1 in 16,-16; contains blocks 256,0,-256 to 271,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Entity's Momentum: 0.00, -0.08, 0.00
+	Entity's Passengers: []
+	Entity's Vehicle: ~~ERROR~~ NullPointerException: null
+Stacktrace:
+	at net.minecraft.world.World.updateEntities(World.java:1762)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Player687'/200, l='MpServer', x=256.29, y=65.00, z=-254.41]]
+	Chunk stats: MultiplayerChunkCache: 169, 169
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (252,64,-242), Chunk: (at 12,4,14 in 15,-16; contains blocks 240,0,-256 to 255,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 2276529 game time, 1009 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Forced entities: 42 total; [EntityCreeper['Creeper'/135, l='MpServer', x=270.54, y=26.00, z=-272.75], EntityBat['Bat'/72, l='MpServer', x=183.75, y=56.10, z=-308.43], EntitySpider['Spider'/73, l='MpServer', x=179.95, y=49.00, z=-317.24], EntitySheep['Sheep'/74, l='MpServer', x=182.48, y=75.00, z=-245.71], EntitySheep['Sheep'/75, l='MpServer', x=182.48, y=75.00, z=-249.66], EntityBat['Bat'/203, l='MpServer', x=186.23, y=46.07, z=-231.83], EntityBat['Bat'/204, l='MpServer', x=188.72, y=43.02, z=-230.65], EntityBat['Bat'/77, l='MpServer', x=190.78, y=13.05, z=-221.13], EntitySheep['Sheep'/141, l='MpServer', x=285.33, y=67.26, z=-313.32], EntityCreeper['Creeper'/142, l='MpServer', x=272.69, y=26.00, z=-274.89], EntitySkeleton['Skeleton'/143, l='MpServer', x=285.54, y=17.00, z=-251.25], EntityBat['Bat'/208, l='MpServer', x=202.57, y=39.21, z=-211.79], EntityBat['Bat'/209, l='MpServer', x=204.55, y=39.99, z=-212.27], EntitySkeleton['Skeleton'/82, l='MpServer', x=204.48, y=19.00, z=-276.29], EntitySkeleton['Skeleton'/83, l='MpServer', x=194.50, y=21.00, z=-229.50], EntitySpider['Spider'/84, l='MpServer', x=186.70, y=44.57, z=-219.14], EntityCreeper['Creeper'/212, l='MpServer', x=334.16, y=25.00, z=-192.41], EntitySkeleton['Skeleton'/85, l='MpServer', x=192.50, y=19.00, z=-194.66], EntityCreeper['Creeper'/149, l='MpServer', x=288.54, y=18.00, z=-248.07], EntityPlayerSP['Player687'/200, l='MpServer', x=256.29, y=65.00, z=-254.41], EntitySkeleton['Skeleton'/86, l='MpServer', x=192.50, y=19.00, z=-193.99], EntityCreeper['Creeper'/150, l='MpServer', x=298.50, y=30.00, z=-203.50], EntityEnderman['Enderman'/87, l='MpServer', x=192.50, y=19.00, z=-193.30], EntityZombieVillager['Zombie Villager'/88, l='MpServer', x=212.23, y=34.00, z=-198.58], EntitySheep['Sheep'/152, l='MpServer', x=307.49, y=69.00, z=-319.23], EntityZombieVillager['Zombie Villager'/89, l='MpServer', x=207.50, y=34.00, z=-193.50], EntityCreeper['Creeper'/153, l='MpServer', x=317.77, y=25.00, z=-281.52], EntityCreeper['Creeper'/154, l='MpServer', x=317.54, y=26.00, z=-279.86], EntitySquid['Squid'/90, l='MpServer', x=209.85, y=61.43, z=-193.87], EntityCreeper['Creeper'/155, l='MpServer', x=313.56, y=25.00, z=-283.20], EntityCreeper['Creeper'/156, l='MpServer', x=319.50, y=37.00, z=-271.50], EntityZombie['Zombie'/157, l='MpServer', x=304.47, y=49.00, z=-220.77], EntitySkeleton['Skeleton'/95, l='MpServer', x=219.77, y=48.00, z=-320.53], EntitySheep['Sheep'/96, l='MpServer', x=211.79, y=64.00, z=-293.48], EntityCreeper['Creeper'/97, l='MpServer', x=208.19, y=30.00, z=-260.51], EntityZombie['Zombie'/98, l='MpServer', x=218.76, y=16.00, z=-199.42], EntityZombieVillager['Zombie Villager'/99, l='MpServer', x=214.30, y=34.00, z=-199.70], EntitySheep['Sheep'/163, l='MpServer', x=329.77, y=67.00, z=-325.47], EntitySkeleton['Skeleton'/105, l='MpServer', x=225.50, y=49.00, z=-327.11], EntityZombie['Zombie'/120, l='MpServer', x=251.52, y=32.00, z=-265.72], EntityZombie['Zombie'/121, l='MpServer', x=255.50, y=32.00, z=-271.50], EntityBat['Bat'/122, l='MpServer', x=244.95, y=39.42, z=-256.59]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:420)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2741)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:419)
+	at net.minecraft.client.main.Main.main(SourceFile:123)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_272, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Amazon.com Inc.
+	Memory: 252578488 bytes (240 MB) / 1062207488 bytes (1013 MB) up to 3801088000 bytes (3625 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2847 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                         | Signature |
+	|:------ |:--------- |:------------ |:---------------------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                  | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                  | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeBin-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | forge     | 14.23.5.2847 | forgeBin-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | fire      | 0.1          | fire-0.1.jar                                   | None      |
+
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 472.12' Renderer: 'NVIDIA GeForce RTX 3060/PCIe/SSE2'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: NVIDIA GeForce RTX 3060/PCIe/SSE2 GL version 4.6.0 NVIDIA 472.12, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 16x AMD Ryzen 7 2700X Eight-Core Processor 

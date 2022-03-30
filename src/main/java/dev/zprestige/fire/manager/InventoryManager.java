@@ -3,20 +3,28 @@ package dev.zprestige.fire.manager;
 import dev.zprestige.fire.Main;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
+
 public class InventoryManager {
     protected final Minecraft mc = Main.mc;
-
     public void switchToSlot(final int slot) {
         mc.player.connection.sendPacket(new CPacketHeldItemChange(slot));
         mc.player.inventory.currentItem = slot;
         mc.playerController.updateController();
     }
 
-    public void switchBack(final int slot){
+    public void switchBack(final int slot) {
         mc.player.inventory.currentItem = slot;
         mc.playerController.updateController();
     }

@@ -49,4 +49,8 @@ public class CommandManager extends RegisteredClass {
         }
         Main.chatManager.sendMessage(ChatFormatting.RED + "No such command found.");
     }
+
+    public ArrayList<Command> getCommands() {
+        return commands;
+    }
 }

@@ -63,7 +63,6 @@ public class FontRenderer {
 
         if ((currentColor & 0xFC000000) == 0) currentColor |= 0xFF000000;
 
-
         defaultFont.drawString(text, 0.0, 0.0, currentColor);
 
         GL11.glDisable(GL11.GL_LINE_SMOOTH);
