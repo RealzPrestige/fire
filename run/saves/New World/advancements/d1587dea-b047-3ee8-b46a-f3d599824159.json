@@ -76,6 +76,7 @@
   },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
+      "forest": "2022-03-31 19:17:57 +0100",
       "forest_hills": "2022-03-16 20:22:10 +0100"
     },
     "done": false

@@ -34,7 +34,6 @@ public abstract class MixinGuiButton {
     @Shadow
     protected abstract void mouseDragged(Minecraft mc, int mouseX, int mouseY);
 
-
     @Inject(method = {"drawButton"}, at = {@At("HEAD")}, cancellable = true)
     public void drawButton(Minecraft mc, int mouseX, int mouseY, float ignoredPartialTicks, CallbackInfo callbackInfo) {
         if (visible) {
