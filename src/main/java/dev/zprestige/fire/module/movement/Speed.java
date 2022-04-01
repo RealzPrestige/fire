@@ -36,6 +36,10 @@ public class Speed extends Module {
     protected int currentState = 1;
     protected HashMap<Long, Float> damageMap = new HashMap<>();
 
+    @Override
+    public void onDisable(){
+        Main.tickManager.syncTimer();
+    }
     @RegisterListener
     public void onKeyEvent(final KeyEvent event) {
         if (switchKey.GetKey() == event.getKey()) {

@@ -11,6 +11,7 @@ import dev.zprestige.fire.settings.impl.Switch;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.server.SPacketPlayerPosLook;
+
 import java.util.Objects;
 
 public class LongJump extends Module {
@@ -22,12 +23,17 @@ public class LongJump extends Module {
     protected double previousDistance, motionSpeed;
     protected int currentState = 1;
 
+    @Override
+    public void onDisable() {
+        Main.tickManager.syncTimer();
+    }
+
     @RegisterListener
     public void onTick(final TickEvent event) {
         previousDistance = Math.sqrt((mc.player.posX - mc.player.prevPosX) * (mc.player.posX - mc.player.prevPosX) + (mc.player.posZ - mc.player.prevPosZ) * (mc.player.posZ - mc.player.prevPosZ));
-    if (useTimer.GetSwitch()){
-        Main.tickManager.setTimer(timerAmount.GetSlider());
-    }
+        if (useTimer.GetSwitch()) {
+            Main.tickManager.setTimer(timerAmount.GetSlider());
+        }
     }
 
     @RegisterListener
@@ -71,10 +77,10 @@ public class LongJump extends Module {
     }
 
     @RegisterListener
-    public void onPacketReceive(final PacketEvent.PacketReceiveEvent event){
-        if (event.getPacket() instanceof SPacketPlayerPosLook){
+    public void onPacketReceive(final PacketEvent.PacketReceiveEvent event) {
+        if (event.getPacket() instanceof SPacketPlayerPosLook) {
             final SPacketPlayerPosLook packet = (SPacketPlayerPosLook) event.getPacket();
-            if (disableOnLag.GetSwitch()){
+            if (disableOnLag.GetSwitch()) {
                 disableModule();
             }
             mc.player.setPosition(packet.getX(), packet.getY(), packet.getZ());

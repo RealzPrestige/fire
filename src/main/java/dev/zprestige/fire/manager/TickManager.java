@@ -12,7 +12,9 @@ public class TickManager extends RegisteredClass {
 
     @RegisterListener
     public void onTick(final TickEvent event){
-        mc.timer.tickLength = 50.0f / timer;
+        if (timer != 1.0f) {
+            mc.timer.tickLength = 50.0f / timer;
+        }
     }
 
 
