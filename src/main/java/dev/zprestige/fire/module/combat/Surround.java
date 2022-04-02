@@ -37,6 +37,7 @@ public class Surround extends Module {
     public final Switch packet = Menu.Switch("Packet", true);
     public final Switch center = Menu.Switch("Center", false);
     public final Switch rotate = Menu.Switch("Rotate", false);
+    public final Switch preventRotationRubberband = Menu.Switch("Prevent Rotation Rubberband", false).visibility(z-> rotate.GetSwitch());
     public final Switch strict = Menu.Switch("Strict", false);
     public final Switch render = Menu.Switch("Render", false);
     public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch() );
@@ -101,7 +102,7 @@ public class Surround extends Module {
         switch (mode.GetCombo()) {
             case "Instant":
                 for (Vec3i vec3i : offsets) {
-                    if (blocks > blocksPerTick.GetSlider()) {
+                    if (blocks > blocksPerTick.GetSlider() || (preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations())) {
                         return;
                     }
                     final BlockPos pos1 = pos.add(vec3i);
@@ -118,12 +119,15 @@ public class Surround extends Module {
                 }
                 if (extend.GetSwitch()) {
                     for (BlockPos pos1 : extendedPosses()) {
-                        if (blocks > blocksPerTick.GetSlider()) {
+                        if (blocks > blocksPerTick.GetSlider() || (preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations())) {
                             return;
                         }
                         if (mc.world.getBlockState(pos1).getMaterial().isReplaceable() && !mc.player.getEntityBoundingBox().intersects(new AxisAlignedBB(pos1)) && isntIntersectingWithPlayer(pos1)) {
                             final int slot = getSlotByItem();
                             if (slot != -1) {
+                                if ((preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations())){
+                                    return;
+                                }
                                 Main.interactionManager.placeBlockWithSwitch(pos1, rotate.GetSwitch(), packet.GetSwitch(), strict.GetSwitch(), slot);
                                 addFade(pos1);
                                 blocks++;
@@ -137,6 +141,9 @@ public class Surround extends Module {
                 break;
             case "Tick":
                 for (Vec3i vec3i : offsets) {
+                    if (preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations()){
+                        return;
+                    }
                     final BlockPos pos1 = pos.add(vec3i);
                     if (mc.world.getBlockState(pos1).getMaterial().isReplaceable() && (!extend.GetSwitch() || !mc.player.getEntityBoundingBox().intersects(new AxisAlignedBB(pos1))) && isntIntersectingWithPlayer(pos1)) {
                         final int slot = getSlotByItem();
@@ -151,6 +158,9 @@ public class Surround extends Module {
                 }
                 if (extend.GetSwitch()) {
                     for (BlockPos pos1 : extendedPosses()) {
+                        if (preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations()){
+                            return;
+                        }
                         if (mc.world.getBlockState(pos1).getMaterial().isReplaceable() && !mc.player.getEntityBoundingBox().intersects(new AxisAlignedBB(pos1)) && isntIntersectingWithPlayer(pos1)) {
                             final int slot = getSlotByItem();
                             if (slot != -1) {

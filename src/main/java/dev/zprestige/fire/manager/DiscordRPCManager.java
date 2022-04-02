@@ -14,8 +14,11 @@ public class DiscordRPCManager {
     protected Thread thread;
 
     public DiscordRPCManager init() {
-        if (RPC.Instance.isEnabled()) {
-            start();
+        try {
+            if (RPC.Instance.isEnabled()) {
+                start();
+            }
+        } catch (Exception ignored){
         }
         return this;
     }

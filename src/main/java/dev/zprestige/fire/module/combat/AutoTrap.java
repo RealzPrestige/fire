@@ -41,6 +41,7 @@ public class AutoTrap extends Module {
     public final Switch liquids = Menu.Switch("Liquids", false);
     public final Switch packet = Menu.Switch("Packet", true);
     public final Switch rotate = Menu.Switch("Rotate", false);
+    public final Switch preventRotationRubberband = Menu.Switch("Prevent Rotation Rubberband", false).visibility(z-> rotate.GetSwitch());
     public final Switch strict = Menu.Switch("Strict", false);
     public final Switch render = Menu.Switch("Render", false);
     public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch());
@@ -93,7 +94,7 @@ public class AutoTrap extends Module {
             case "Instant":
                 int i = 0;
                 for (final Position position : positions) {
-                    if (i > blocksPerTick.GetSlider() || Main.inventoryManager.getBlockFromHotbar(Blocks.OBSIDIAN) == -1) {
+                    if (i > blocksPerTick.GetSlider() || Main.inventoryManager.getBlockFromHotbar(Blocks.OBSIDIAN) == -1 || (preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations())) {
                         return;
                     }
                     Main.interactionManager.placeBlockWithSwitch(position.getPos(), rotate.GetSwitch(), packet.GetSwitch(), strict.GetSwitch(), obsidian);
@@ -103,6 +104,9 @@ public class AutoTrap extends Module {
                 break;
             case "Tick":
                 for (final Position position : positions) {
+                    if (preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations()){
+                        return;
+                    }
                     Main.interactionManager.placeBlockWithSwitch(position.getPos(), rotate.GetSwitch(), packet.GetSwitch(), strict.GetSwitch(), obsidian);
                     addFade(position.getPos());
                     return;

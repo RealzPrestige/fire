@@ -88,14 +88,6 @@ public class InteractionManager {
                 final double[] rotations = BlockUtil.calculateAngle(vec);
                 mc.player.connection.sendPacket(new CPacketPlayer.Rotation((float) rotations[0], (float) rotations[1], mc.player.onGround));
             }
-            if (sneak) {
-                mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
-                mc.player.setSneaking(false);
-            }
-            if (sprint) {
-                mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SPRINTING));
-                mc.player.setSprinting(true);
-            }
             EnumActionResult clickBlock = null;
             if (packet){
                 final EnumFacing facing = getFirstEnumFacing(pos);
@@ -109,6 +101,14 @@ public class InteractionManager {
                 mc.player.swingArm(EnumHand.MAIN_HAND);
                 mc.rightClickDelayTimer = 4;
                 return;
+            }
+            if (sneak) {
+                mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
+                mc.player.setSneaking(false);
+            }
+            if (sprint) {
+                mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SPRINTING));
+                mc.player.setSprinting(true);
             }
         }
     }
