@@ -33,34 +33,37 @@ public class FastExp extends Module {
 
     @RegisterListener
     public void onTick(final TickEvent event) {
-        if (mc.currentScreen != null) {
+        if (mc.currentScreen == null) {
             switch (mode.GetCombo()) {
                 case "Vanilla":
-                    if (!handOnly.GetSwitch() || mc.player.getHeldItemMainhand().getItem().equals(Items.EXPERIENCE_BOTTLE)) {
-                        mc.rightClickDelayTimer = 0;
+                    if (handOnly.GetSwitch() && !mc.player.getHeldItemMainhand().getItem().equals(Items.EXPERIENCE_BOTTLE)) {
+                        return;
                     }
+                    mc.rightClickDelayTimer = 0;
+
                     break;
                 case "Packet":
-                    if (!activateMode.GetCombo().equals("RightClick") || mc.gameSettings.keyBindUseItem.isKeyDown()) {
-                        if (!activateMode.GetCombo().equals("MiddleClick") || Mouse.isButtonDown(2)) {
-                            if (!activateMode.GetCombo().equals("Custom") || Keyboard.isKeyDown(customKey.GetKey())) {
-                                final boolean holding = mc.player.getHeldItemMainhand().getItem().equals(Items.EXPERIENCE_BOTTLE);
-                                if (!handOnly.GetSwitch() || holding) {
-                                    final int slot = Main.inventoryManager.getItemSlot(Items.EXPERIENCE_BOTTLE);
-                                    if (slot != -1) {
-                                        if (!holding) {
-                                            mc.player.connection.sendPacket(new CPacketHeldItemChange(slot));
-                                        }
-                                        IntStream.range(0, (int) packets.GetSlider()).forEach(i -> mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND)));
-                                        if (!holding) {
-                                            mc.player.connection.sendPacket(new CPacketHeldItemChange(mc.player.inventory.currentItem));
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        break;
+                    if (activateMode.GetCombo().equals("RightClick") && !mc.gameSettings.keyBindUseItem.isKeyDown()) {
+                        return;
                     }
+                    if (activateMode.GetCombo().equals("MiddleClick") && !Mouse.isButtonDown(2)) {
+                        return;
+                    }
+                    if (activateMode.GetCombo().equals("Custom") && !Keyboard.isKeyDown(customKey.GetKey())) {
+                        return;
+                    }
+                    if (handOnly.GetSwitch() && !mc.player.getHeldItemMainhand().getItem().equals(Items.EXPERIENCE_BOTTLE)) {
+                        return;
+                    }
+                    final int slot = Main.inventoryManager.getItemSlot(Items.EXPERIENCE_BOTTLE);
+                    if (slot != -1) {
+                            mc.player.connection.sendPacket(new CPacketHeldItemChange(slot));
+
+                        IntStream.range(0, (int) packets.GetSlider()).forEach(i -> mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND)));
+                            mc.player.connection.sendPacket(new CPacketHeldItemChange(mc.player.inventory.currentItem));
+                    }
+
+                    break;
             }
         }
     }

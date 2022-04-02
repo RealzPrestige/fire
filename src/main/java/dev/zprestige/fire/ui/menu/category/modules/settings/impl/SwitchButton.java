@@ -19,23 +19,20 @@ public class SwitchButton extends AbstractSetting {
 
     @Override
     public void render(int mouseX, int mouseY) {
-        if (setting.GetSwitch()){
+        if (setting.GetSwitch()) {
             RenderUtil.drawRect(position, new Vector2D(position.getX() + size.getX(), position.getY() + size.getY()), ClickGui.Instance.color.GetColor().getRGB());
         }
         RenderUtil.drawOutline(position.getX(), position.getY(), position.getX() + size.getX(), position.getY() + size.getY(), new Color(0, 0, 0, 30), 1.0f);
         Main.fontManager.drawStringWithShadow(setting.getName(), new Vector2D(position.getX() + 2, position.getY() + size.getY() / 2 - Main.fontManager.getFontHeight() / 2), -1);
-        if (inside(mouseX, mouseY)){
+        if (inside(mouseX, mouseY)) {
             RenderUtil.drawRect(position, new Vector2D(position.getX() + size.getX(), position.getY() + size.getY()), new Color(0, 0, 0, 50).getRGB());
         }
     }
 
     @Override
     public void click(int mouseX, int mouseY, int state) {
-        try {
-            if (inside(mouseX, mouseY) && state == 0) {
-                setting.setValue(!setting.GetSwitch());
-            }
-        } catch (Exception ignored){
+        if (inside(mouseX, mouseY) && state == 0) {
+            setting.setValue(!setting.GetSwitch());
         }
     }
 

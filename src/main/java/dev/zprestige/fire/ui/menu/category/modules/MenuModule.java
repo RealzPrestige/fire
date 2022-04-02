@@ -52,14 +52,13 @@ public class MenuModule extends AbstractModule {
         }
         float totalHeight = size.getY() + 1;
         for (AbstractSetting abstractSetting : abstractSettings) {
-            if (!abstractSetting.getSetting().isVisible()){
-                continue;
-            }
             abstractSetting.setPosition(new Vector2D(position.getX() + 1, position.getY() + totalHeight));
-            totalHeight += abstractSetting.getHeight() + 1;
+            if (abstractSetting.getSetting().isVisible()) {
+                totalHeight += abstractSetting.getHeight() + 1;
+            }
         }
         RenderUtil.prepareScissor((int) position.getX(), (int) position.getY(), (int) size.getX(), (int) scissorHeight);
-        abstractSettings.stream().filter(setting -> setting.getSetting().isVisible()).filter(abstractSetting -> abstractSetting.getPosition().getY() <  position.getY() + scissorHeight).forEach(abstractSetting -> abstractSetting.render(mouseX, mouseY));
+            abstractSettings.stream().filter(setting -> setting.getSetting().isVisible()).filter(abstractSetting -> abstractSetting.getPosition().getY() < position.getY() + scissorHeight).forEach(abstractSetting -> abstractSetting.render(mouseX, mouseY));
         RenderUtil.releaseScissor();
         if (open) {
             scissorHeight = AnimationUtil.decreaseNumber(scissorHeight, totalHeight, MenuScreen.getAnimationSpeedAccordingly(scissorHeight, totalHeight));
