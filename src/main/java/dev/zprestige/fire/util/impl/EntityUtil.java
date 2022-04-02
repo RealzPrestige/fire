@@ -1,7 +1,6 @@
 package dev.zprestige.fire.util.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.events.impl.MoveEvent;
 import dev.zprestige.fire.manager.PlayerManager;
 import dev.zprestige.fire.util.Utils;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -15,6 +14,10 @@ import java.util.Objects;
 import java.util.TreeMap;
 
 public class EntityUtil implements Utils {
+
+    public static boolean isMoving() {
+        return mc.player.moveForward != 0.0 || mc.player.moveStrafing != 0.0 || mc.gameSettings.keyBindForward.isKeyDown() || mc.gameSettings.keyBindBack.isKeyDown() || mc.gameSettings.keyBindLeft.isKeyDown() || mc.gameSettings.keyBindRight.isKeyDown();
+    }
     public static double getBaseMotionSpeed() {
         double event = 0.272;
         if (mc.player.isPotionActive(MobEffects.SPEED)) {

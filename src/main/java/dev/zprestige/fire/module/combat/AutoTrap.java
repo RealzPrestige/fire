@@ -36,6 +36,7 @@ public class AutoTrap extends Module {
     });
     public final Slider blocksPerTick = Menu.Slider("Blocks Per Tick", 10.0f, 1.0f, 20.0f).visibility(z -> mode.GetCombo().equals("Instant"));
     public final Slider placeRange = Menu.Slider("Place Range", 5.0f, 0.1f, 6.0f);
+    public final Switch disableOnSelfMove = Menu.Switch("Disable On Self Move", false);
     public final Switch multiTask = Menu.Switch("Multi Task", true);
     public final Switch liquids = Menu.Switch("Liquids", false);
     public final Switch packet = Menu.Switch("Packet", true);
@@ -48,6 +49,7 @@ public class AutoTrap extends Module {
     public final Switch outline = Menu.Switch("Outline", false).visibility(z -> render.GetSwitch());
     public final ColorBox outlineColor = Menu.Color("Outline Color", new Color(255, 255, 255, 255)).visibility(z -> render.GetSwitch() && outline.GetSwitch());
     public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f).visibility(z -> render.GetSwitch() && outline.GetSwitch());
+    protected BlockPos pos;
     protected final Vec3i[] surroundings = new Vec3i[]{
             new Vec3i(0, 0, -1),
             new Vec3i(0, 0, 1),
@@ -70,10 +72,15 @@ public class AutoTrap extends Module {
     };
     protected final Vec3i top = new Vec3i(0, 2, 0);
 
+    @Override
+    public void onEnable(){
+        pos = BlockUtil.getPosition();
+    }
     @RegisterListener
     public void onTick(final TickEvent event) {
         final PlayerManager.Player entityPlayer = EntityUtil.getClosestTarget(EntityUtil.TargetPriority.Range, placeRange.GetSlider() - 1.0f);
-        if (entityPlayer == null || !BlockUtil.isPlayerSafe(entityPlayer) || multiTaskValid()) {
+        if (entityPlayer == null || !BlockUtil.isPlayerSafe(entityPlayer) || multiTaskValid() || (disableOnSelfMove.GetSwitch() && !BlockUtil.getPosition().equals(pos))) {
+            disableModule();
             return;
         }
         final BlockPos pos = entityPlayer.getPosition();
