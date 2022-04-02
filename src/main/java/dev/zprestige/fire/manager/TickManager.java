@@ -24,5 +24,6 @@ public class TickManager extends RegisteredClass {
 
     public void syncTimer(){
         this.timer = 1.0f;
+        mc.timer.tickLength = 50.0f;
     }
 }

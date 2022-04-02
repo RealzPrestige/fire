@@ -62,8 +62,14 @@ public class InteractionManager {
     );
 
     public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict) {
+        placeBlock(pos, rotate, packet, strict, false);
+    }
+    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final boolean excludeBottomEnumFacing) {
         for (EnumFacing enumFacing : EnumFacing.values()) {
             final BlockPos directionOffset = pos.offset(enumFacing);
+            if (excludeBottomEnumFacing && directionOffset.equals(pos.down())){
+                continue;
+            }
             for (Entity entity : mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos))) {
                 if (!(entity instanceof EntityItem || entity instanceof EntityEnderCrystal)) {
                     return;
@@ -78,22 +84,25 @@ public class InteractionManager {
                 mc.player.setSprinting(false);
             }
             final Block block = mc.world.getBlockState(directionOffset).getBlock();
-            final boolean sneak = sneakBlocks.contains(block) || shulkers.contains(block) && !mc.player.isSneaking();
+            boolean sneak = sneakBlocks.contains(block) || shulkers.contains(block) && !mc.player.isSneaking();
+            if (excludeBottomEnumFacing){
+                sneak = false;
+            }
             if (sneak) {
                 mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
                 mc.player.setSneaking(true);
             }
-            final Vec3d vec = new Vec3d(directionOffset).addVector(0.5, 0.5, 0.5).add(new Vec3d(enumFacing.getOpposite().getDirectionVec()).scale(0.5));
+            final Vec3d vec = new Vec3d(directionOffset).addVector(0.5, 0.5 + (excludeBottomEnumFacing ? 1 : 0.0), 0.5).add(new Vec3d(enumFacing.getOpposite().getDirectionVec()).scale(0.5));
             if (rotate) {
                 final double[] rotations = BlockUtil.calculateAngle(vec);
                 mc.player.connection.sendPacket(new CPacketPlayer.Rotation((float) rotations[0], (float) rotations[1], mc.player.onGround));
             }
             EnumActionResult clickBlock = null;
-            if (packet){
+            if (packet) {
                 final EnumFacing facing = getFirstEnumFacing(pos);
                 final EnumFacing opposite = facing.getOpposite();
                 final BlockPos closest = pos.offset(facing);
-                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(closest, opposite, EnumHand.MAIN_HAND, (float) (vec.x - closest.getX()), (float) (vec.y -  closest.getY()), (float) (vec.z - closest.getZ())));
+                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(closest, opposite, EnumHand.MAIN_HAND, (float) (vec.x - closest.getX()), (float) (vec.y - closest.getY()), (float) (vec.z - closest.getZ())));
             } else {
                 clickBlock = mc.playerController.processRightClickBlock(mc.player, mc.world, directionOffset, enumFacing.getOpposite(), vec, EnumHand.MAIN_HAND);
             }
@@ -113,7 +122,7 @@ public class InteractionManager {
         }
     }
 
-    public EnumFacing getFirstEnumFacing(final BlockPos pos){
+    public EnumFacing getFirstEnumFacing(final BlockPos pos) {
         return getEnumFacingSides(pos).stream().findFirst().orElse(null);
     }
 
@@ -129,6 +138,7 @@ public class InteractionManager {
         });
         return sides;
     }
+
     public ArrayList<EnumFacing> getVisibleSides(final BlockPos pos) {
         final ArrayList<EnumFacing> sides = new ArrayList<>();
         final Vec3d vec = new Vec3d(pos).addVector(0.5, 0.5, 0.5);
@@ -163,11 +173,11 @@ public class InteractionManager {
         return sides;
     }
 
-    protected boolean isVisible(final BlockPos pos){
+    protected boolean isVisible(final BlockPos pos) {
         return !mc.world.getBlockState(pos).isFullBlock() || !mc.world.isAirBlock(pos);
     }
 
-    public void placeBlockWithSwitch(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final int slot){
+    public void placeBlockWithSwitch(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final int slot) {
         int currentItem = mc.player.inventory.currentItem;
         Main.inventoryManager.switchToSlot(slot);
         placeBlock(pos, rotate, packet, strict);
@@ -175,21 +185,21 @@ public class InteractionManager {
         mc.playerController.updateController();
     }
 
-    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final Timer timer){
+    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final Timer timer) {
         placeBlock(pos, rotate, packet, strict);
         timer.syncTime();
     }
 
-    public void placeBlockWithSwitch(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final int slot, final Timer timer){
+    public void placeBlockWithSwitch(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final int slot, final Timer timer) {
         placeBlockWithSwitch(pos, rotate, packet, strict, slot);
         timer.syncTime();
     }
 
-    public void interactBlock(final BlockPos pos, final EnumFacing enumFacing){
+    public void interactBlock(final BlockPos pos, final EnumFacing enumFacing) {
         mc.playerController.onPlayerDamageBlock(pos, enumFacing);
     }
 
-    public EnumFacing closestEnumFacing(final BlockPos pos){
+    public EnumFacing closestEnumFacing(final BlockPos pos) {
         final TreeMap<Double, EnumFacing> enumFacingTreeMap = Main.interactionManager.getVisibleSides(pos).stream().collect(Collectors.toMap(enumFacing -> getDistanceToFace(pos, enumFacing), enumFacing -> enumFacing, (a, b) -> b, TreeMap::new));
         return enumFacingTreeMap.firstEntry().getValue();
     }
