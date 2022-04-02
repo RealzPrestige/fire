@@ -16,7 +16,7 @@ public class Module {
     public final Menu Menu = new Menu(this);
     protected float listX = 0.0f;
     protected final EventBus eventBus = Main.eventBus;
-    protected final ArrayList<Setting> settings = new ArrayList<>();
+    protected final ArrayList<Setting<?>> settings = new ArrayList<>();
     protected final Minecraft mc = Minecraft.getMinecraft();
     protected final Key keybind = Menu.Key("Keybind", Keyboard.KEY_NONE);
     protected final Switch enabled = Menu.Switch("Enabled", false);
@@ -111,7 +111,7 @@ public class Module {
         return mc.world != null && mc.player != null;
     }
 
-    public ArrayList<Setting> getSettings() {
+    public ArrayList<Setting<?>> getSettings() {
         return settings;
     }
 

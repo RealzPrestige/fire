@@ -19,6 +19,8 @@ import net.minecraft.util.math.Vec3i;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class Surround extends Module {
     public final ComboBox mode = Menu.ComboBox("Mode", "Instant", new String[]{
@@ -32,15 +34,17 @@ public class Surround extends Module {
             "Echest",
             "Webs (OP)"
     });
+    public final Switch smartPriority = Menu.Switch("Smart Priority", true);
+    public final Switch onePointThirteen = Menu.Switch("One Point Thirteen", true).visibility(z -> smartPriority.GetSwitch());
     public final Switch multiTask = Menu.Switch("Multi Task", true);
     public final Switch extend = Menu.Switch("Extend", true);
     public final Switch packet = Menu.Switch("Packet", true);
     public final Switch center = Menu.Switch("Center", false);
     public final Switch rotate = Menu.Switch("Rotate", false);
-    public final Switch preventRotationRubberband = Menu.Switch("Prevent Rotation Rubberband", false).visibility(z-> rotate.GetSwitch());
+    public final Switch preventRotationRubberband = Menu.Switch("Prevent Rotation Rubberband", false).visibility(z -> rotate.GetSwitch());
     public final Switch strict = Menu.Switch("Strict", false);
     public final Switch render = Menu.Switch("Render", false);
-    public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch() );
+    public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch());
     public final Switch box = Menu.Switch("Box", false).visibility(z -> render.GetSwitch());
     public final ColorBox boxColor = Menu.Color("Box Color", new Color(255, 255, 255, 120)).visibility(z -> render.GetSwitch() && box.GetSwitch());
     public final Switch outline = Menu.Switch("Outline", false).visibility(z -> render.GetSwitch());
@@ -60,13 +64,13 @@ public class Surround extends Module {
     };
 
     @Override
-    public void onDisable(){
+    public void onDisable() {
         lastPos = null;
     }
 
     @Override
-    public void onEnable(){
-        if (center.GetSwitch()){
+    public void onEnable() {
+        if (center.GetSwitch()) {
             moveToCenter();
         }
     }
@@ -101,11 +105,15 @@ public class Surround extends Module {
         int blocks = 0;
         switch (mode.GetCombo()) {
             case "Instant":
-                for (Vec3i vec3i : offsets) {
+                ArrayList<Position> offs = getOffsets(pos);
+                if (smartPriority.GetSwitch()){
+                    offs = offs.stream().sorted(Comparator.comparing(Position::getPriority).reversed()).collect(Collectors.toCollection(ArrayList::new));
+                }
+                for (final Position position : offs) {
                     if (blocks > blocksPerTick.GetSlider() || (preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations())) {
                         return;
                     }
-                    final BlockPos pos1 = pos.add(vec3i);
+                    final BlockPos pos1 = position.getPos();
                     if (mc.world.getBlockState(pos1).getMaterial().isReplaceable() && (!extend.GetSwitch() || !mc.player.getEntityBoundingBox().intersects(new AxisAlignedBB(pos1))) && isntIntersectingWithPlayer(pos1)) {
                         final int slot = getSlotByItem();
                         if (slot != -1) {
@@ -118,14 +126,19 @@ public class Surround extends Module {
                     }
                 }
                 if (extend.GetSwitch()) {
-                    for (BlockPos pos1 : extendedPosses()) {
+                    ArrayList<Position> positions = extendedPosses();
+                    if (smartPriority.GetSwitch()){
+                        positions = positions.stream().sorted(Comparator.comparing(Position::getPriority).reversed()).collect(Collectors.toCollection(ArrayList::new));
+                    }
+                    for (final Position position : positions) {
                         if (blocks > blocksPerTick.GetSlider() || (preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations())) {
                             return;
                         }
+                        final BlockPos pos1 = position.getPos();
                         if (mc.world.getBlockState(pos1).getMaterial().isReplaceable() && !mc.player.getEntityBoundingBox().intersects(new AxisAlignedBB(pos1)) && isntIntersectingWithPlayer(pos1)) {
                             final int slot = getSlotByItem();
                             if (slot != -1) {
-                                if ((preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations())){
+                                if ((preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations())) {
                                     return;
                                 }
                                 Main.interactionManager.placeBlockWithSwitch(pos1, rotate.GetSwitch(), packet.GetSwitch(), strict.GetSwitch(), slot);
@@ -140,11 +153,15 @@ public class Surround extends Module {
                 }
                 break;
             case "Tick":
-                for (Vec3i vec3i : offsets) {
-                    if (preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations()){
+                ArrayList<Position> offs1 = getOffsets(pos);
+                if (smartPriority.GetSwitch()){
+                    offs1 = offs1.stream().sorted(Comparator.comparing(Position::getPriority).reversed()).collect(Collectors.toCollection(ArrayList::new));
+                }
+                for (final Position position : offs1) {
+                    if (preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations()) {
                         return;
                     }
-                    final BlockPos pos1 = pos.add(vec3i);
+                    final BlockPos pos1 = position.getPos();
                     if (mc.world.getBlockState(pos1).getMaterial().isReplaceable() && (!extend.GetSwitch() || !mc.player.getEntityBoundingBox().intersects(new AxisAlignedBB(pos1))) && isntIntersectingWithPlayer(pos1)) {
                         final int slot = getSlotByItem();
                         if (slot != -1) {
@@ -157,15 +174,20 @@ public class Surround extends Module {
                     }
                 }
                 if (extend.GetSwitch()) {
-                    for (BlockPos pos1 : extendedPosses()) {
-                        if (preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations()){
+                    ArrayList<Position> positions = extendedPosses();
+                    if (smartPriority.GetSwitch()){
+                        positions = positions.stream().sorted(Comparator.comparing(Position::getPriority).reversed()).collect(Collectors.toCollection(ArrayList::new));
+                    }
+                    for (final Position position : positions) {
+                        if (preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations()) {
                             return;
                         }
+                        final BlockPos pos1 = position.getPos();
                         if (mc.world.getBlockState(pos1).getMaterial().isReplaceable() && !mc.player.getEntityBoundingBox().intersects(new AxisAlignedBB(pos1)) && isntIntersectingWithPlayer(pos1)) {
                             final int slot = getSlotByItem();
                             if (slot != -1) {
                                 Main.interactionManager.placeBlockWithSwitch(pos1, rotate.GetSwitch(), packet.GetSwitch(), strict.GetSwitch(), slot);
-                               addFade(pos1);
+                                addFade(pos1);
                                 return;
                             } else {
                                 disableModule();
@@ -177,7 +199,7 @@ public class Surround extends Module {
         }
     }
 
-    protected boolean isntIntersectingWithPlayer(final BlockPos pos){
+    protected boolean isntIntersectingWithPlayer(final BlockPos pos) {
         return mc.world.playerEntities.stream().noneMatch(entityPlayer -> entityPlayer.getEntityBoundingBox().shrink(0.1).intersects(new AxisAlignedBB(pos)));
     }
 
@@ -187,13 +209,26 @@ public class Surround extends Module {
         }
     }
 
-    protected ArrayList<BlockPos> extendedPosses() {
+    protected ArrayList<Position> getOffsets(final BlockPos pos){
+        final ArrayList<Position> positions = new ArrayList<>();
+        for (final Vec3i vec3i : offsets){
+            final BlockPos pos1 = pos.add(vec3i);
+            final boolean crystallable = BlockUtil.canPosBeCrystalled(pos1.down(), onePointThirteen.GetSwitch());
+            positions.add(new Position(pos1, crystallable ? Priority.HIGH : Priority.NORMAL));
+        }
+        return positions;
+    }
+
+    protected ArrayList<Position> extendedPosses() {
         final BlockPos pos = BlockUtil.getPosition();
-        final ArrayList<BlockPos> extensions = new ArrayList<>();
+        final ArrayList<Position> extensions = new ArrayList<>();
         Arrays.stream(offsets).map(pos::add).filter(pos1 -> mc.world.getBlockState(pos1).getMaterial().isReplaceable()).forEach(pos1 -> {
             final AxisAlignedBB bb = new AxisAlignedBB(pos1);
             if (mc.player.getEntityBoundingBox().intersects(bb) && BlockUtil.getState(pos1).equals(Blocks.AIR)) {
-                Arrays.stream(offsets).map(pos1::add).forEach(extensions::add);
+                Arrays.stream(offsets).map(pos1::add).forEach(pos2 -> {
+                    final boolean crystallable = BlockUtil.canPosBeCrystalled(pos2.down(), onePointThirteen.GetSwitch());
+                    extensions.add(new Position(pos2, crystallable ? Priority.HIGH : Priority.NORMAL));
+                });
             }
         });
         return extensions;
@@ -232,17 +267,36 @@ public class Surround extends Module {
         return -1;
     }
 
-    protected enum Priority{
+    protected static class Position {
+        protected static BlockPos pos;
+        protected static Priority priority;
+
+        public Position(final BlockPos pos, Priority priority) {
+            Position.pos = pos;
+            Position.priority = priority;
+        }
+
+        public BlockPos getPos() {
+            return pos;
+        }
+
+        public static int getPriority(final Position position) {
+            return priority.getPriority();
+        }
+    }
+
+    protected enum Priority {
         HIGH(1000),
         NORMAL(0);
 
         private final int priority;
-        Priority(int priority){
+
+        Priority(int priority) {
             this.priority = priority;
         }
 
         public int getPriority() {
-            return priority;
+            return this.priority;
         }
     }
 }
