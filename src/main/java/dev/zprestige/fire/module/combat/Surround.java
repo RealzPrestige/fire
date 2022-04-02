@@ -268,21 +268,25 @@ public class Surround extends Module {
     }
 
     protected static class Position {
-        protected static BlockPos pos;
-        protected static Priority priority;
+        protected final BlockPos pos;
+        protected final Priority priority;
 
-        public Position(final BlockPos pos, Priority priority) {
-            Position.pos = pos;
-            Position.priority = priority;
+        public Position(final BlockPos pos, final Priority priority) {
+            this.pos = pos;
+            this.priority = priority;
         }
 
         public BlockPos getPos() {
             return pos;
         }
 
-        public static int getPriority(final Position position) {
+        public int getPriority() {
             return priority.getPriority();
         }
+    }
+
+    public int getPriority(final Position position){
+        return position.getPriority();
     }
 
     protected enum Priority {
