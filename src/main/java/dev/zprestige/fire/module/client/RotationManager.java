@@ -15,9 +15,6 @@ public class RotationManager extends Module {
     @RegisterListener
     public void onTick(final TickEvent event) {
         Main.rotationManager.setMax((int) maxRotations.GetSlider());
-        if (Main.rotationManager.maxRotations()){
-            Main.chatManager.sendMessage("Reached max rotations!");
-        }
     }
 
     @Override
