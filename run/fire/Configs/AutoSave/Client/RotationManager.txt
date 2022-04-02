@@ -1,0 +1,3 @@
+"Keybind": "0:false"
+"Enabled": "true"
+"Max Rotations": "2.0"

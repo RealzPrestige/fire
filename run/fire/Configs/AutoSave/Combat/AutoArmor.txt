@@ -1,0 +1,5 @@
+"Keybind": "0:false"
+"Enabled": "true"
+"Delay": "0.1"
+"Single Mend": "44:false"
+"Threshold": "100.0"
