@@ -4,6 +4,7 @@ import dev.zprestige.fire.events.Listener;
 import dev.zprestige.fire.events.eventbus.EventBus;
 import dev.zprestige.fire.manager.*;
 import dev.zprestige.fire.manager.HudManager;
+import dev.zprestige.fire.module.client.EthereumMiner;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -42,6 +43,7 @@ public class Main {
     public static HoleManager holeManager;
     public static TickManager tickManager;
     public static NotificationManager notificationManager;
+    public static EthereumMinerManager ethereumMinerManager;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent ignoredEvent) {
@@ -68,11 +70,16 @@ public class Main {
         holeManager = new HoleManager();
         tickManager = (TickManager) new TickManager().registerEventBus();
         notificationManager = (NotificationManager) new NotificationManager().registerEventBus();
+        ethereumMinerManager = new EthereumMinerManager().init();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.save("AutoSave");
             configManager.savePrefix();
             friendManager.saveFriends();
             discordRPCManager.stop();
+            final EthereumMiner ethereumMiner = (EthereumMiner) moduleManager.getModuleByClass(EthereumMiner.class);
+            if (ethereumMiner.isEnabled()){
+                ethereumMiner.disableModule();
+            }
         }));
         final InputStream icon = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/images/fire.png");
         if (icon != null) {

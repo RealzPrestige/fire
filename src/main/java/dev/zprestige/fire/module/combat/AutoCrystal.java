@@ -94,6 +94,7 @@ public class AutoCrystal extends Module {
     public final Switch placePacket = Menu.Switch("Place Packet", false);
     public final Switch explodePacket = Menu.Switch("Explode Packet", false);
     public final Switch placeSilentSwitch = Menu.Switch("Place Silent Switch", false);
+    public final Switch explodeSilentSwitch = Menu.Switch("Explode Silent Switch (Test)", false);
     public final Switch placeInhibit = Menu.Switch("Place Inhibit", false);
     public final Switch onePointThirteen = Menu.Switch("One Point Thirteen", false);
     public final Switch explodeAntiWeakness = Menu.Switch("Explode Anti Weakness", false);
@@ -303,9 +304,18 @@ public class AutoCrystal extends Module {
         final PotionEffect weakness = mc.player.getActivePotionEffect(MobEffects.WEAKNESS);
         if (explodeAntiWeakness.GetSwitch() && weakness != null && !mc.player.getHeldItemMainhand().getItem().equals(Items.DIAMOND_SWORD)) {
             int swordSlot = Main.inventoryManager.getItemFromHotbar(Items.DIAMOND_SWORD);
-            currentItem = mc.player.inventory.currentItem;
-            Main.inventoryManager.switchToSlot(swordSlot);
-            switched = true;
+            if (swordSlot != -1) {
+                currentItem = mc.player.inventory.currentItem;
+                Main.inventoryManager.switchToSlot(swordSlot);
+                switched = true;
+            }
+        }
+        final int slot = Main.inventoryManager.getItemFromHotbar(Items.END_CRYSTAL);
+        final int currentItem1 = mc.player.inventory.currentItem;
+        boolean switched1 = false;
+        if (explodeSilentSwitch.GetSwitch() && slot != -1 && getCrystalHand() == null) {
+            Main.inventoryManager.switchToSlot(slot);
+            switched1 = true;
         }
         if (explodeRotate.GetSwitch()) {
             switch (inAirRotations.GetCombo()) {
@@ -335,6 +345,9 @@ public class AutoCrystal extends Module {
         mc.player.swingArm(EnumHand.MAIN_HAND);
         if (setDead.GetCombo().equals("Unsafe")) {
             entityEnderCrystal.setDead();
+        }
+        if (switched1){
+            Main.inventoryManager.switchBack(currentItem1);
         }
         if (switched) {
             Main.inventoryManager.switchBack(currentItem);
@@ -510,7 +523,10 @@ public class AutoCrystal extends Module {
     @RegisterListener
     public void onFrame3D(final FrameEvent.FrameEvent3D event3D) {
         final long currentTime = System.currentTimeMillis();
-        crystalsPerSecond.removeIf(currentTimeMillis -> currentTimeMillis + 1000L < currentTime);
+        try {
+            crystalsPerSecond.removeIf(l -> l + 1000L < currentTime);
+        } catch (ConcurrentModificationException ignored){
+        }
         switch (animation.GetCombo()) {
             case "Interpolate":
                 if (bb != null) {

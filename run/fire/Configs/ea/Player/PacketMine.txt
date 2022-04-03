@@ -1,0 +1,6 @@
+"Keybind": "0:false"
+"Enabled": "false"
+"Render": "false"
+"Inactive Color": "-65536"
+"Active Color": "-16711936"
+"Outline Width": "1.0"

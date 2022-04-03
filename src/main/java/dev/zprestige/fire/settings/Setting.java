@@ -4,7 +4,8 @@ import dev.zprestige.fire.module.Module;
 
 import java.util.function.Predicate;
 
-public class Setting<T> {
+public class
+Setting<T> {
     protected Module module;
     protected String name;
     protected T value;
