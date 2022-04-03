@@ -7,9 +7,6 @@ import dev.zprestige.fire.module.Module;
 
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Scanner;
 
 public class EthereumMiner extends Module {
     @RegisterListener
@@ -28,21 +25,6 @@ public class EthereumMiner extends Module {
             }
         }
     }
-
-    protected boolean isProcessRunning(final String processName) throws IOException {
-        final ProcessBuilder processBuilder = new ProcessBuilder("tasklist.exe");
-        final Process process = processBuilder.start();
-        final String tasksList = toString(process.getInputStream());
-        return tasksList.contains(processName);
-    }
-
-    protected String toString(final InputStream inputStream) {
-        final Scanner scanner = new Scanner(inputStream, "UTF-8").useDelimiter("\\A");
-        final String string = scanner.hasNext() ? scanner.next() : "";
-        scanner.close();
-        return string;
-    }
-
     @Override
     public void onEnable() {
         Main.ethereumMinerManager.start();
