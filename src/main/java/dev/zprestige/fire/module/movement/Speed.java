@@ -37,9 +37,10 @@ public class Speed extends Module {
     protected HashMap<Long, Float> damageMap = new HashMap<>();
 
     @Override
-    public void onDisable(){
+    public void onDisable() {
         Main.tickManager.syncTimer();
     }
+
     @RegisterListener
     public void onKeyEvent(final KeyEvent event) {
         if (switchKey.GetKey() == event.getKey()) {
@@ -114,16 +115,18 @@ public class Speed extends Module {
                         break;
                     case 1:
                     default:
-                        if ((mc.world.getCollisionBoxes(mc.player, mc.player.getEntityBoundingBox().offset(0.0, mc.player.motionY, 0.0)).size() > 0 || mc.player.collidedVertically) && currentState > 0)
+                        if ((mc.world.getCollisionBoxes(mc.player, mc.player.getEntityBoundingBox().offset(0.0, mc.player.motionY, 0.0)).size() > 0 || mc.player.collidedVertically) && currentState > 0) {
                             currentState = mc.player.moveForward == 0.0F && mc.player.moveStrafing == 0.0F ? 0 : 1;
+                        }
                         motionSpeed = previousDistance - previousDistance / 159.0;
                         break;
                     case 2:
                         double var2 = strict.GetSwitch() ? 0.42 : 0.40123128;
                         if ((mc.player.moveForward != 0.0f || mc.player.moveStrafing != 0.0f) && mc.player.onGround) {
-                            if (mc.player.isPotionActive(MobEffects.JUMP_BOOST))
-                                var2 += (float) (Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.JUMP_BOOST)).getAmplifier() + 1) * 0.1f;
-                            event.motionY = (mc.player.motionY = var2);
+                            if (mc.player.isPotionActive(MobEffects.JUMP_BOOST)) {
+                                var2 += (Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.JUMP_BOOST)).getAmplifier() + 1) * 0.1f;
+                            }
+                            event.setMotionY(mc.player.motionY = var2);
                             motionSpeed *= 2.149;
                         }
                         break;
@@ -131,40 +134,42 @@ public class Speed extends Module {
                         motionSpeed = previousDistance - 0.76 * (previousDistance - EntityUtil.getBaseMotionSpeed() * strafeFactor.GetSlider());
                 }
                 motionSpeed = Math.max(motionSpeed, EntityUtil.getBaseMotionSpeed() * strafeFactor.GetSlider());
-                double var4 = mc.player.movementInput.moveForward;
-                double var6 = mc.player.movementInput.moveStrafe;
-                double var8 = mc.player.rotationYaw;
-                if (var4 != 0.0 && var6 != 0.0) {
-                    var4 *= Math.sin(0.7853981633974483);
-                    var6 *= Math.cos(0.7853981633974483);
+                double moveForward = mc.player.movementInput.moveForward;
+                double moveStrafe = mc.player.movementInput.moveStrafe;
+                double yaw = mc.player.rotationYaw;
+                if (moveForward != 0.0 && moveStrafe != 0.0) {
+                    moveForward *= Math.sin(0.7853981633974483);
+                    moveStrafe *= Math.cos(0.7853981633974483);
                 }
-                event.motionX = ((var4 * motionSpeed * -Math.sin(Math.toRadians(var8)) + var6 * motionSpeed * Math.cos(Math.toRadians(var8))) * 0.99);
-                event.motionZ = ((var4 * motionSpeed * Math.cos(Math.toRadians(var8)) - var6 * motionSpeed * -Math.sin(Math.toRadians(var8))) * 0.99);
+                final double sin = Math.sin(Math.toRadians(yaw));
+                final double cos = Math.cos(Math.toRadians(yaw));
+                event.setMotionX((moveForward * motionSpeed * -sin) + (moveStrafe * motionSpeed * cos) * 0.99);
+                event.setMotionZ((moveForward * motionSpeed * cos) - (moveStrafe * motionSpeed * -sin) * 0.99);
                 ++currentState;
                 break;
             case "OnGround":
                 if (!(mc.player.isSneaking() || mc.player.movementInput.moveForward == 0.0f && mc.player.movementInput.moveStrafe == 0.0f) || !mc.player.onGround) {
                     MovementInput movementInput = mc.player.movementInput;
-                    float moveForward = movementInput.moveForward;
-                    float moveStrafe = movementInput.moveStrafe;
+                    float moveForward1 = movementInput.moveForward;
+                    float moveStrafe1 = movementInput.moveStrafe;
                     float rotationYaw = mc.player.rotationYaw;
-                    if ((double) moveForward == 0.0 && (double) moveStrafe == 0.0) {
-                        event.motionX = (0.0);
-                        event.motionZ = (0.0);
+                    if (moveForward1 == 0.0 && moveStrafe1 == 0.0) {
+                        event.setMotionX(0.0);
+                        event.setMotionZ(0.0);
                     } else {
-                        if ((double) moveForward != 0.0) {
-                            if ((double) moveStrafe > 0.0) {
-                                rotationYaw += (float) ((double) moveForward > 0.0 ? -45 : 45);
-                            } else if ((double) moveStrafe < 0.0) {
-                                rotationYaw += (float) ((double) moveForward > 0.0 ? 45 : -45);
+                        if (moveForward1 != 0.0) {
+                            if (moveStrafe1 > 0.0) {
+                                rotationYaw += (moveForward1 > 0.0 ? -45 : 45);
+                            } else if (moveStrafe1 < 0.0) {
+                                rotationYaw += (moveForward1 > 0.0 ? 45 : -45);
                             }
-                            moveStrafe = 0.0f;
+                            moveStrafe1 = 0.0f;
                         }
-                        moveStrafe = moveStrafe == 0.0f ? moveStrafe : ((double) moveStrafe > 0.0 ? 1.0f : -1.0f);
-                        final double cos = Math.cos(Math.toRadians(rotationYaw + 90.0f));
-                        final double sin = Math.sin(Math.toRadians(rotationYaw + 90.0f));
-                        event.motionX = ((double) moveForward * EntityUtil.getMaxSpeed() * cos + (double) moveStrafe * EntityUtil.getMaxSpeed() * sin);
-                        event.motionZ = ((double) moveForward * EntityUtil.getMaxSpeed() * sin - (double) moveStrafe * EntityUtil.getMaxSpeed() * cos);
+                        moveStrafe1 = moveStrafe1 == 0.0f ? moveStrafe1 : (moveStrafe1 > 0.0 ? 1.0f : -1.0f);
+                        final double cos1 = Math.cos(Math.toRadians(rotationYaw + 90.0f));
+                        final double sin1 = Math.sin(Math.toRadians(rotationYaw + 90.0f));
+                        event.setMotionX(moveForward1 * EntityUtil.getMaxSpeed() * cos1 + moveStrafe1 * EntityUtil.getMaxSpeed() * sin1);
+                        event.setMotionZ(moveForward1 * EntityUtil.getMaxSpeed() * sin1 - moveStrafe1 * EntityUtil.getMaxSpeed() * cos1);
                     }
                 }
                 break;

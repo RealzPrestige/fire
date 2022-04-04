@@ -16,6 +16,8 @@ import java.util.Objects;
 
 public class LongJump extends Module {
     public final Slider factor = Menu.Slider("Factor", 5.0f, 0.1f, 20.0f);
+    public final Slider accelerationFactor = Menu.Slider("Acceleration Factor", 2.0f, 0.1f, 10.0f);
+    public final Slider verticalFactor = Menu.Slider("Vertical Factor", 4.0f, 0.1f, 6.0f);
     public final Switch useTimer = Menu.Switch("Use Timer", false);
     public final Slider timerAmount = Menu.Slider("Timer Amount", 1.0f, 0.9f, 2.0f).visibility(z -> useTimer.GetSwitch());
     public final Switch liquids = Menu.Switch("Liquids", false);
@@ -46,32 +48,36 @@ public class LongJump extends Module {
                     break;
                 case 1:
                 default:
-                    if ((mc.world.getCollisionBoxes(mc.player, mc.player.getEntityBoundingBox().offset(0.0, mc.player.motionY, 0.0)).size() > 0 || mc.player.collidedVertically) && currentState > 0)
+                    if ((mc.world.getCollisionBoxes(mc.player, mc.player.getEntityBoundingBox().offset(0.0, mc.player.motionY, 0.0)).size() > 0 || mc.player.collidedVertically) && currentState > 0) {
                         currentState = mc.player.moveForward == 0.0F && mc.player.moveStrafing == 0.0F ? 0 : 1;
+                    }
                     motionSpeed = previousDistance - previousDistance / 159.0;
                     break;
                 case 2:
-                    double height = 0.40123128;
+                    double height = verticalFactor.GetSlider() / 10.0f ;
                     if ((mc.player.moveForward != 0.0f || mc.player.moveStrafing != 0.0f) && mc.player.onGround) {
-                        if (mc.player.isPotionActive(MobEffects.JUMP_BOOST))
+                        if (mc.player.isPotionActive(MobEffects.JUMP_BOOST)) {
                             height += (float) (Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.JUMP_BOOST)).getAmplifier() + 1) * 0.1f;
-                        event.motionY = (mc.player.motionY = height);
-                        motionSpeed *= 2.149;
+                        }
+                        event.setMotionY((mc.player.motionY = height));
+                        motionSpeed *= accelerationFactor.GetSlider();
                     }
                     break;
                 case 3:
                     motionSpeed = previousDistance - 0.76 * (previousDistance - EntityUtil.getBaseMotionSpeed() * factor.GetSlider());
             }
             motionSpeed = Math.max(motionSpeed, EntityUtil.getBaseMotionSpeed() * factor.GetSlider());
-            double var4 = mc.player.movementInput.moveForward;
-            double var6 = mc.player.movementInput.moveStrafe;
-            double var8 = mc.player.rotationYaw;
-            if (var4 != 0.0 && var6 != 0.0) {
-                var4 *= Math.sin(0.7853981633974483);
-                var6 *= Math.cos(0.7853981633974483);
+            double moveForward = mc.player.movementInput.moveForward;
+            double moveStrafe = mc.player.movementInput.moveStrafe;
+            double yaw = mc.player.rotationYaw;
+            if (moveForward != 0.0 && moveStrafe != 0.0) {
+                moveForward *= Math.sin(0.7853981633974483);
+                moveStrafe *= Math.cos(0.7853981633974483);
             }
-            event.motionX = ((var4 * motionSpeed * -Math.sin(Math.toRadians(var8)) + var6 * motionSpeed * Math.cos(Math.toRadians(var8))) * 0.99);
-            event.motionZ = ((var4 * motionSpeed * Math.cos(Math.toRadians(var8)) - var6 * motionSpeed * -Math.sin(Math.toRadians(var8))) * 0.99);
+            final double sin = Math.sin(Math.toRadians(yaw));
+            final double cos = Math.cos(Math.toRadians(yaw));
+            event.setMotionX((moveForward * motionSpeed * -sin) + (moveStrafe * motionSpeed * cos) * 0.99);
+            event.setMotionZ((moveForward * motionSpeed * cos) - (moveStrafe * motionSpeed * -sin) * 0.99);
             currentState++;
         }
     }
@@ -83,6 +89,7 @@ public class LongJump extends Module {
             if (disableOnLag.GetSwitch()) {
                 disableModule();
             }
+            motionSpeed = 0.0f;
             mc.player.setPosition(packet.getX(), packet.getY(), packet.getZ());
         }
     }

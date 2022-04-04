@@ -1,13 +1,13 @@
 version:1343
 invertYMouse:false
 mouseSensitivity:0.2535211
-fov:1.0
-gamma:1.0
+fov:1.5
+gamma:1000.0
 saturation:0.0
-renderDistance:6
+renderDistance:10
 guiScale:2
 particles:0
-bobView:true
+bobView:false
 anaglyph3d:false
 maxFps:260
 fboEnable:true
