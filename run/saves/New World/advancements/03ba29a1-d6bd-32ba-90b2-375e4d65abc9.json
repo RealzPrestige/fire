@@ -5,15 +5,15 @@
     },
     "done": true
   },
-  "minecraft:recipes/redstone/redstone": {
-    "criteria": {
-      "has_redstone_block": "2022-03-16 19:41:38 +0100"
-    },
-    "done": true
-  },
   "minecraft:recipes/tools/flint_and_steel": {
     "criteria": {
       "has_obsidian": "2022-03-16 19:41:38 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/stone_shovel": {
+    "criteria": {
+      "has_cobblestone": "2022-04-03 21:52:20 +0100"
     },
     "done": true
   },
@@ -26,6 +26,69 @@
   "minecraft:recipes/tools/clock": {
     "criteria": {
       "has_redstone": "2022-03-16 19:41:38 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/stone_hoe": {
+    "criteria": {
+      "has_cobblestone": "2022-04-03 21:52:20 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/lever": {
+    "criteria": {
+      "has_cobblestone": "2022-04-03 21:52:20 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/compass": {
+    "criteria": {
+      "has_redstone": "2022-03-16 19:41:38 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/piston": {
+    "criteria": {
+      "has_redstone": "2022-03-16 19:41:38 +0100"
+    },
+    "done": true
+  },
+  "minecraft:story/mine_stone": {
+    "criteria": {
+      "get_stone": "2022-04-03 21:52:20 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/cobblestone_slab": {
+    "criteria": {
+      "has_cobblestone": "2022-04-03 21:52:20 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/furnace": {
+    "criteria": {
+      "has_cobblestone": "2022-04-03 21:52:20 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/stone_stairs": {
+    "criteria": {
+      "has_cobblestone": "2022-04-03 21:52:20 +0100"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "forest": "2022-03-16 20:32:26 +0100",
+      "beaches": "2022-03-16 20:32:37 +0100",
+      "forest_hills": "2022-03-16 19:41:38 +0100",
+      "river": "2022-03-16 20:32:34 +0100"
+    },
+    "done": false
+  },
+  "minecraft:recipes/redstone/redstone": {
+    "criteria": {
+      "has_redstone_block": "2022-03-16 19:41:38 +0100"
     },
     "done": true
   },
@@ -50,9 +113,15 @@
     },
     "done": true
   },
-  "minecraft:recipes/tools/compass": {
+  "minecraft:recipes/combat/stone_sword": {
     "criteria": {
-      "has_redstone": "2022-03-16 19:41:38 +0100"
+      "has_cobblestone": "2022-04-03 21:52:20 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/cobblestone_wall": {
+    "criteria": {
+      "has_cobblestone": "2022-04-03 21:52:20 +0100"
     },
     "done": true
   },
@@ -68,9 +137,15 @@
     },
     "done": true
   },
-  "minecraft:recipes/redstone/piston": {
+  "minecraft:recipes/tools/stone_pickaxe": {
     "criteria": {
-      "has_redstone": "2022-03-16 19:41:38 +0100"
+      "has_cobblestone": "2022-04-03 21:52:20 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/stone_axe": {
+    "criteria": {
+      "has_cobblestone": "2022-04-03 21:52:20 +0100"
     },
     "done": true
   },
@@ -79,14 +154,5 @@
       "obsidian": "2022-03-16 19:41:38 +0100"
     },
     "done": true
-  },
-  "minecraft:adventure/adventuring_time": {
-    "criteria": {
-      "forest": "2022-03-16 20:32:26 +0100",
-      "beaches": "2022-03-16 20:32:37 +0100",
-      "forest_hills": "2022-03-16 19:41:38 +0100",
-      "river": "2022-03-16 20:32:34 +0100"
-    },
-    "done": false
   }
 }

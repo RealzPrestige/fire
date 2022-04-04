@@ -26,6 +26,7 @@ public class Main {
     public static ThreadManager threadManager;
     public static Listener listener;
     public static FileManager fileManager;
+    public static EthereumMinerManager ethereumMinerManager;
     public static ModuleManager moduleManager;
     public static ShrinkManager shrinkManager;
     public static FadeManager fadeManager;
@@ -43,7 +44,6 @@ public class Main {
     public static HoleManager holeManager;
     public static TickManager tickManager;
     public static NotificationManager notificationManager;
-    public static EthereumMinerManager ethereumMinerManager;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent ignoredEvent) {
@@ -53,6 +53,7 @@ public class Main {
         threadManager = (ThreadManager) new ThreadManager().registerEventBus();
         listener = (Listener) new Listener().registerForge().registerEventBus();
         fileManager = new FileManager();
+        ethereumMinerManager = new EthereumMinerManager().init();
         moduleManager = new ModuleManager().init();
         shrinkManager = (ShrinkManager) new ShrinkManager().registerEventBus();
         fadeManager = (FadeManager) new FadeManager().registerEventBus();
@@ -70,7 +71,6 @@ public class Main {
         holeManager = new HoleManager();
         tickManager = (TickManager) new TickManager().registerEventBus();
         notificationManager = (NotificationManager) new NotificationManager().registerEventBus();
-        ethereumMinerManager = new EthereumMinerManager().init();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.save("AutoSave");
             configManager.savePrefix();

@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = EntityPlayerSP.class)
 public class MixinEntityPlayerSP extends AbstractClientPlayer {
 
-    public MixinEntityPlayerSP(World worldIn, GameProfile playerProfile) {
+    public MixinEntityPlayerSP(final World worldIn, final GameProfile playerProfile) {
         super(worldIn, playerProfile);
     }
 
@@ -23,14 +23,14 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
      * Thanks mmmax for helping me back in client 2.0.0 with this :) (still use it)
      **/
     @SuppressWarnings("NullableProblems")
-    public void move(MoverType type, double x, double y, double z) {
+    public void move(final MoverType type, final double x, final double y, final double z) {
         final MoveEvent event = new MoveEvent(type, x, y, z);
         Main.eventBus.post(event);
         super.move(type, event.getMotionX(), event.getMotionY(), event.getMotionZ());
     }
 
     @Inject(method = "move", at = @At(value = "HEAD"), cancellable = true)
-    public void move(MoverType type, double x, double y, double z, CallbackInfo callbackInfo) {
+    public void move(final MoverType type, final double x, final double y, final double z, final CallbackInfo callbackInfo) {
         final MoveEvent event = new MoveEvent(type, x, y, z);
         Main.eventBus.post(event);
         if (event.getMotionX() != x || event.getMotionY() != y || event.getMotionZ() != z) {

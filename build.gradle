@@ -32,7 +32,7 @@ minecraft {
     version = "1.12.2-14.23.5.2847"
     runDir = 'run'
     mappings = "snapshot_20171003"
-    coreMod = 'dev.zprestige.fire.mixins.MixinLoader------------------------'
+    coreMod = 'dev.zprestige.fire.mixins.MixinLoader'
     makeObfSourceJar = false
 }
 

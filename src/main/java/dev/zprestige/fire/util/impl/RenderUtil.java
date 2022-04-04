@@ -319,6 +319,9 @@ public class RenderUtil implements Utils {
     }
 
     public static void image(ResourceLocation resourceLocation, int x, int y, int width, int height) {
+        if (mc == null){
+            return;
+        }
         mc.getTextureManager().bindTexture(resourceLocation);
         Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
     }

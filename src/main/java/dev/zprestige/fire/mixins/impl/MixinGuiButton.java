@@ -32,17 +32,17 @@ public abstract class MixinGuiButton {
     protected boolean hovered;
 
     @Shadow
-    protected abstract void mouseDragged(Minecraft mc, int mouseX, int mouseY);
+    protected abstract void mouseDragged(final Minecraft mc, final int mouseX, final int mouseY);
 
     @Inject(method = {"drawButton"}, at = {@At("HEAD")}, cancellable = true)
-    public void drawButton(Minecraft mc, int mouseX, int mouseY, float ignoredPartialTicks, CallbackInfo callbackInfo) {
+    public void drawButton(final Minecraft mc, final int mouseX, final int mouseY, final float ignoredPartialTicks, final CallbackInfo callbackInfo) {
         if (visible) {
             hovered = (mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height);
             RenderUtil.drawRect(new Vector2D(x, y), new Vector2D(x + width, y + height), ClickGui.Instance.backgroundColor.GetColor().getRGB());
             RenderUtil.drawRect(new Vector2D(x + 1, y + 1), new Vector2D(x + width - 1, y + 2), ClickGui.Instance.color.GetColor().getRGB());
-            RenderUtil.drawOutline(x, y, x + width, y + height, new Color(0,0 ,0, 50), 1.0f);
+            RenderUtil.drawOutline(x, y, x + width, y + height, new Color(0, 0, 0, 50), 1.0f);
             Main.fontManager.drawStringWithShadow(displayString, new Vector2D(x + width / 2f - Main.fontManager.getStringWidth(displayString) / 2f, y + height / 2f - Main.fontManager.getFontHeight() / 2f), -1);
-            if (hovered){
+            if (hovered) {
                 RenderUtil.drawRect(new Vector2D(x, y), new Vector2D(x + width, y + height), new Color(0, 0, 0, 30).getRGB());
             }
             mouseDragged(mc, mouseX, mouseY);

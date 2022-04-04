@@ -19,15 +19,18 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public class MixinGuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
     @ModifyArg(method = "initGui", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 2))
-    public Object moveLanguageButton(Object buttonIn) {
+    public Object moveLanguageButton(final Object buttonIn) {
         final GuiButton guiButton = (GuiButton) buttonIn;
         // fuck u ugly bitch
         guiButton.x += 9999;
         return guiButton;
     }
 
+    /**
+     * @author zp
+     */
     @Overwrite
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void drawScreen(final int mouseX,final  int mouseY,final  float partialTicks) {
         RenderUtil.image(new ResourceLocation("textures/images/background.png"), 0, 0, width, height);
         final String name = Main.name + " ";
         Main.fontManager.drawStringWithShadow(name, new Vector2D(2, height - 10), ClickGui.Instance.color.GetColor().getRGB());

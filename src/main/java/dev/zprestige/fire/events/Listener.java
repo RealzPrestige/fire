@@ -11,6 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.server.SPacketEntityStatus;
 import net.minecraft.profiler.Profiler;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -58,6 +59,16 @@ public class Listener extends RegisteredClass {
             eventBus.post(frameEvent2D);
         }
     }
+
+    @SubscribeEvent
+    public void onFogColor(final EntityViewRenderEvent.FogColors event) {
+        final FogEvent fogEvent = new FogEvent(event);
+        Main.eventBus.post(fogEvent);
+        event.setRed(fogEvent.getFogColors().getRed());
+        event.setGreen(fogEvent.getFogColors().getGreen());
+        event.setBlue(fogEvent.getFogColors().getBlue());
+    }
+
 
     @SubscribeEvent
     public void onClientConnect(FMLNetworkEvent.ClientConnectedToServerEvent ignoredEvent) {
