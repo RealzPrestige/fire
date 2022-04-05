@@ -1,6 +1,6 @@
 "Keybind": "33:false"
-"Enabled": "false"
-"Drawn": "false"
+"Enabled": "true"
+"Drawn": "true"
 "Target Range": "9.0"
 "Target Priority": "UnSafe"
 "Place Delay": "0.0"

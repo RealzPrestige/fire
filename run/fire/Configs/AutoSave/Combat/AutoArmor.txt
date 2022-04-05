@@ -1,6 +1,6 @@
 "Keybind": "0:false"
 "Enabled": "false"
-"Drawn": "false"
+"Drawn": "true"
 "Delay": "50.0"
 "Strict": "false"
 "Elytra Swap": "0:false"

@@ -1,4 +1,4 @@
 "Keybind": "0:false"
 "Enabled": "true"
-"Drawn": "false"
+"Drawn": "true"
 "Max Rotations": "2.0"

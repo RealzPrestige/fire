@@ -1,5 +1,5 @@
 "Keybind": "0:false"
-"Enabled": "true"
+"Enabled": "false"
 "Drawn": "true"
 "Height": "1.0"
 "Bedrock Box": "false"

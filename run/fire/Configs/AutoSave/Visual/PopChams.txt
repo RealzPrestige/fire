@@ -1,5 +1,5 @@
 "Keybind": "0:false"
-"Enabled": "true"
+"Enabled": "false"
 "Drawn": "true"
 "Animate Vertical": "false"
 "Vertical Animation Speed": "2.5"

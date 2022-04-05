@@ -1,6 +1,6 @@
 "Keybind": "0:false"
 "Enabled": "false"
-"Drawn": "false"
+"Drawn": "true"
 "Speed Mode": "Strafe"
 "Data Mode": "Mode"
 "Switch Key": "0:false"
