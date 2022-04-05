@@ -41,7 +41,7 @@ public class AutoArmor extends Module {
             takingOff = !takingOff;
         }
         if (event.getKey() == elytraSwap.GetKey()) {
-            elytra = !elytra;
+            elytra = !elytra ;
         }
     }
 

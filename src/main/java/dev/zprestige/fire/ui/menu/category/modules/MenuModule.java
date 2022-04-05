@@ -1,5 +1,6 @@
 package dev.zprestige.fire.ui.menu.category.modules;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.module.client.ClickGui;
@@ -76,6 +77,10 @@ public class MenuModule extends AbstractModule {
                     break;
                 case 1:
                     open = !open;
+                    break;
+                case 2:
+                    module.toggleDrawn();
+                    Main.chatManager.sendMessage("Updated drawn for " + Main.chatManager.prefixColor + module.getName() + ChatFormatting.RESET + " to " + module.getDrawn());
                     break;
             }
         }

@@ -25,6 +25,9 @@ public class ModuleList extends HudComponent {
         float listY = position.getY();
         Main.moduleManager.getModules().forEach(Module::updateListPosition);
         for (Module module : modules) {
+            if (!module.getDrawn()){
+                continue;
+            }
             final String data = module.getData();
             final boolean hadData = !data.equals("");
             final float nameWidth = Main.fontManager.getStringWidth(module.getName() + (hadData ? " [" : ""));

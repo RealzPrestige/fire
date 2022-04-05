@@ -19,7 +19,7 @@ public class Module {
     protected final ArrayList<Setting<?>> settings = new ArrayList<>();
     protected final Minecraft mc = Minecraft.getMinecraft();
     protected final Key keybind = Menu.Key("Keybind", Keyboard.KEY_NONE);
-    protected final Switch enabled = Menu.Switch("Enabled", false);
+    protected final Switch enabled = Menu.Switch("Enabled", false), drawn = Menu.Switch("Drawn", false);
     protected String name;
     protected Category category;
 
@@ -126,5 +126,13 @@ public class Module {
         } else {
             return Main.fontManager.getStringWidth(name + "[" + getData() +"]");
         }
+    }
+
+    public boolean getDrawn(){
+        return drawn.GetSwitch();
+    }
+
+    public void toggleDrawn(){
+        drawn.setValue(!drawn.GetSwitch());
     }
 }
