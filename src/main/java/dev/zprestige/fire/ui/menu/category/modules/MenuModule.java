@@ -21,7 +21,7 @@ public class MenuModule extends AbstractModule {
     public MenuModule(Module module, Vector2D position, Vector2D size) {
         super(module, position, size);
         final Vector2D settingSize = new Vector2D(size.getX() - 2, size.getY());
-        module.getSettings().stream().filter(setting -> !setting.getName().equals("Enabled")).forEach(setting -> {
+        module.getSettings().stream().filter(setting -> !setting.getName().equals("Enabled") && !setting.getName().equals("Drawn")).forEach(setting -> {
             if (setting instanceof Switch) {
                  abstractSettings.add(new SwitchButton((Switch) setting, settingSize));
             }
