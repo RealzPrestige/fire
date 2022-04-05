@@ -1,0 +1,5 @@
+"Keybind": "0:false"
+"Enabled": "true"
+"Drawn": "true"
+"Nametag": "true"
+"Health": "true"

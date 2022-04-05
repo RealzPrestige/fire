@@ -346,7 +346,7 @@ public class AutoCrystal extends Module {
         if (setDead.GetCombo().equals("Unsafe")) {
             entityEnderCrystal.setDead();
         }
-        if (switched1){
+        if (switched1) {
             Main.inventoryManager.switchBack(currentItem1);
         }
         if (switched) {
@@ -525,7 +525,7 @@ public class AutoCrystal extends Module {
         final long currentTime = System.currentTimeMillis();
         try {
             crystalsPerSecond.removeIf(l -> l + 1000L < currentTime);
-        } catch (ConcurrentModificationException ignored){
+        } catch (ConcurrentModificationException ignored) {
         }
         switch (animation.GetCombo()) {
             case "Interpolate":
@@ -534,17 +534,18 @@ public class AutoCrystal extends Module {
                         AxisAlignedBB cc = new AxisAlignedBB(pos);
                         if (!bb.equals(cc)) {
                             bb = bb.offset((pos.getX() - bb.minX) * (interpolateSpeed.GetSlider() / 1000f), (pos.getY() - bb.minY) * (interpolateSpeed.GetSlider() / 1000f), (pos.getZ() - bb.minZ) * (interpolateSpeed.GetSlider() / 1000f));
-                            if (box.GetSwitch()) {
-                                RenderUtil.drawBBBoxWithHeight(bb, boxColor.GetColor(), 1);
-                            }
-                            if (outline.GetSwitch()) {
-                                RenderUtil.drawBlockOutlineBBWithHeight(bb, boxColor.GetColor(), outlineWidth.GetSlider(), 1);
-                            }
-                            if (renderCPS.GetSwitch()) {
-                                RenderUtil.draw3DText(crystalsPerSecond.size() + "", bb.minX + 0.5f - mc.getRenderManager().renderPosX, bb.minY - mc.getRenderManager().renderPosY, bb.minZ + 0.5f - mc.getRenderManager().renderPosZ, 5, 255, 255, 255, 255);
-                            }
+                        }
+                        if (box.GetSwitch()) {
+                            RenderUtil.drawBBBoxWithHeight(bb, boxColor.GetColor(), 1);
+                        }
+                        if (outline.GetSwitch()) {
+                            RenderUtil.drawBlockOutlineBBWithHeight(bb, boxColor.GetColor(), outlineWidth.GetSlider(), 1);
+                        }
+                        if (renderCPS.GetSwitch()) {
+                            RenderUtil.draw3DText(crystalsPerSecond.size() + "", bb.minX + 0.5f - mc.getRenderManager().renderPosX, bb.minY - mc.getRenderManager().renderPosY, bb.minZ + 0.5f - mc.getRenderManager().renderPosZ, 5, 255, 255, 255, 255);
                         }
                     }
+
                 }
                 break;
             case "None":

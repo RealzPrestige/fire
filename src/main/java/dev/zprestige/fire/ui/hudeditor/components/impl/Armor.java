@@ -20,10 +20,10 @@ public class Armor extends HudComponent {
     public void render() {
         final int[] armorOffset = {0};
         mc.player.inventory.armorInventory.stream().filter(itemStack -> !itemStack.isEmpty()).forEach(itemStack -> {
-            RenderUtil.prepareScale(0.8f);
+            RenderUtil.prepareScale(0.7f);
             final double percent = Math.floor(getPercentage(itemStack));
             final String string = (percent + "%").replace(".0", "");
-            Main.fontManager.drawStringWithShadow(string, new Vector2D(((position.getX() + armorOffset[0]) + (11 - (Main.fontManager.getStringWidth(string) / 2f))) / 0.8f, position.getY() / 0.8f), new Color(redByPercentage(percent) / 255.0f, greenByPercentage(percent) / 255.0f, 0.0f).getRGB());
+            Main.fontManager.drawStringWithShadow(string, new Vector2D(((position.getX() + armorOffset[0]) + (12 - (Main.fontManager.getStringWidth(string) / 2f))) / 0.7f, (position.getY() - 2) / 0.7f), new Color(redByPercentage(percent) / 255.0f, greenByPercentage(percent) / 255.0f, 0.0f).getRGB());
             RenderUtil.releaseScale();
             GlStateManager.pushMatrix();
             RenderHelper.enableGUIStandardItemLighting();

@@ -23,7 +23,7 @@ public class Totems extends HudComponent {
         if (totems > 0) {
             RenderUtil.prepareScale(0.8f);
             final String totemString = totems + "";
-            Main.fontManager.drawStringWithShadow(totemString, new Vector2D(((position.getX()) + (9 - (Main.fontManager.getStringWidth(totemString) / 2f))) / 0.8f, position.getY() / 0.8f), new Color(red(totems) / 255.0f, green(totems) / 255.0f, 0.0f).getRGB());
+            Main.fontManager.drawStringWithShadow(totemString, new Vector2D(((position.getX()) + (9 - (Main.fontManager.getStringWidth(totemString) / 2f))) / 0.8f, (position.getY() - 2) / 0.8f), new Color(red(totems) / 255.0f, green(totems) / 255.0f, 0.0f).getRGB());
             RenderUtil.releaseScale();
             GlStateManager.pushMatrix();
             RenderHelper.enableGUIStandardItemLighting();

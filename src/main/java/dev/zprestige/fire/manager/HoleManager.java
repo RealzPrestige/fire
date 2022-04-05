@@ -149,6 +149,10 @@ public class HoleManager  {
         public Type getHoleType() {
             return holeType;
         }
+
+        public boolean isDouble(){
+            return holeType.equals(HoleManager.Type.DoubleBedrockNorth) || holeType.equals(Type.DoubleBedrockWest) || holeType.equals(Type.DoubleObsidianNorth) || holeType.equals(Type.DoubleObsidianWest);
+        }
     }
 
     public enum Type {

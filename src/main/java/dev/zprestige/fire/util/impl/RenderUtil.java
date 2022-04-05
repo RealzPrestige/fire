@@ -77,14 +77,12 @@ public class RenderUtil implements Utils {
 
     public static void draw3DText(final String text, double x, double y, double z, double scale, float red, float green, float blue, float alpha) {
         glPushMatrix();
-        RenderUtil.drawNametag(text, x, y, z, scale / 1000, new Color(red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f).getRGB());
-        glColor4f(1f, 1f, 1f, 1f);
+        RenderUtil.drawNametag(text, x, y, z, scale, new Color(red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f).getRGB());
         glPopMatrix();
     }
 
-    public static void drawNametag(String text, double x, double y, double z, double scale, int color) {
+    public static void prepare3D(final double x, final double y, final double z, final double scale) {
         double dist = ((mc.getRenderViewEntity() == null) ? mc.player : mc.getRenderViewEntity()).getDistance(x + mc.getRenderManager().viewerPosX, y + mc.getRenderManager().viewerPosY, z + mc.getRenderManager().viewerPosZ);
-        int textWidth = (int) (Main.fontManager.getStringWidth(text) / 2);
         double scaling = dist <= 8.0 ? 0.0245 : 0.0018 + scale * dist;
         GlStateManager.pushMatrix();
         RenderHelper.enableStandardItemLighting();
@@ -97,13 +95,23 @@ public class RenderUtil implements Utils {
         GlStateManager.scale(-scaling, -scaling, scaling);
         GlStateManager.disableDepth();
         GlStateManager.enableBlend();
-        Main.fontManager.drawStringWithShadow(text, new Vector2D(-textWidth, -(mc.fontRenderer.FONT_HEIGHT - 1)), color);
+    }
+
+    public static void release3D() {
+        glColor4f(1f, 1f, 1f, 1f);
         GlStateManager.disableBlend();
         GlStateManager.enableDepth();
         GlStateManager.disableBlend();
         GlStateManager.disablePolygonOffset();
         GlStateManager.doPolygonOffset(1.0f, 1500000.0f);
         GlStateManager.popMatrix();
+    }
+
+    public static void drawNametag(final String text, final double x, final double y, final double z, final double scale, final int color) {
+        prepare3D(x, y, z, scale);
+        int textWidth = (int) (Main.fontManager.getStringWidth(text) / 2);
+        Main.fontManager.drawStringWithShadow(text, new Vector2D(-textWidth, -(mc.fontRenderer.FONT_HEIGHT - 1)), color);
+        release3D();
     }
 
     public static void drawBBBoxWithHeight(final AxisAlignedBB BB, final Color color, final float height) {
@@ -312,52 +320,12 @@ public class RenderUtil implements Utils {
         GlStateManager.disableBlend();
     }
 
-    public static void image(ResourceLocation resourceLocation, int x, int y, int width, int height, Color color) {
-        GlStateManager.color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
-        mc.getTextureManager().bindTexture(resourceLocation);
-        Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
-    }
-
     public static void image(ResourceLocation resourceLocation, int x, int y, int width, int height) {
-        if (mc == null){
+        if (mc == null) {
             return;
         }
         mc.getTextureManager().bindTexture(resourceLocation);
         Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
-    }
-
-    public static void drawRoundedRect(double x, double y, double width, double height, final double radius, final Color color) {
-        GL11.glPushAttrib(0);
-        GL11.glScaled(0.5, 0.5, 0.5);
-        x *= 2.0;
-        y *= 2.0;
-        width *= 2.0;
-        height *= 2.0;
-        GL11.glEnable(3042);
-        GL11.glDisable(3553);
-        GL11.glColor4f(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, color.getAlpha() / 255.0f);
-        GL11.glEnable(2848);
-        GL11.glBegin(9);
-        for (int i = 0; i <= 90; ++i) {
-            GL11.glVertex2d(x + radius + Math.sin(i * Math.PI / 180.0) * radius * -1.0, y + radius + Math.cos(i * Math.PI / 180.0) * radius * -1.0);
-        }
-        for (int i = 90; i <= 180; ++i) {
-            GL11.glVertex2d(x + radius + Math.sin(i * Math.PI / 180.0) * radius * -1.0, height - radius + Math.cos(i * Math.PI / 180.0) * radius * -1.0);
-        }
-        for (int i = 0; i <= 90; ++i) {
-            GL11.glVertex2d(width - radius + Math.sin(i * Math.PI / 180.0) * radius, height - radius + Math.cos(i * Math.PI / 180.0) * radius);
-        }
-        for (int i = 90; i <= 180; ++i) {
-            GL11.glVertex2d(width - radius + Math.sin(i * Math.PI / 180.0) * radius, y + radius + Math.cos(i * Math.PI / 180.0) * radius);
-        }
-        GL11.glEnd();
-        GL11.glEnable(3553);
-        GL11.glDisable(3042);
-        GL11.glDisable(2848);
-        GL11.glDisable(3042);
-        GL11.glEnable(3553);
-        GL11.glScaled(2.0, 2.0, 2.0);
-        GL11.glPopAttrib();
     }
 
     public static AxisAlignedBB getViewerPos(final BlockPos pos) {

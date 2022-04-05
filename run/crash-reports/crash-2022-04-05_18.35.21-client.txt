@@ -1,0 +1,138 @@
+---- Minecraft Crash Report ----
+// Why did you do that?
+
+Time: 4/5/22 6:35 PM
+Description: Updating screen events
+
+java.lang.IllegalArgumentException: Invalid UUID string: no
+	at java.util.UUID.fromString(UUID.java:194)
+	at dev.zprestige.fire.module.visual.Chams.onEnable(Chams.java:35)
+	at dev.zprestige.fire.module.Module.enableModule(Module.java:36)
+	at dev.zprestige.fire.module.Module.toggleModule(Module.java:50)
+	at dev.zprestige.fire.ui.menu.category.modules.MenuModule.click(MenuModule.java:76)
+	at dev.zprestige.fire.ui.menu.category.MenuCategory.lambda$click$6(MenuCategory.java:76)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.menu.category.MenuCategory.click(MenuCategory.java:76)
+	at dev.zprestige.fire.ui.menu.MenuScreen.lambda$mouseClicked$3(MenuScreen.java:122)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.menu.MenuScreen.mouseClicked(MenuScreen.java:122)
+	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:533)
+	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:501)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1759)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1098)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:398)
+	at net.minecraft.client.main.Main.main(SourceFile:123)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at java.util.UUID.fromString(UUID.java:194)
+	at dev.zprestige.fire.module.visual.Chams.onEnable(Chams.java:35)
+	at dev.zprestige.fire.module.Module.enableModule(Module.java:36)
+	at dev.zprestige.fire.module.Module.toggleModule(Module.java:50)
+	at dev.zprestige.fire.ui.menu.category.modules.MenuModule.click(MenuModule.java:76)
+	at dev.zprestige.fire.ui.menu.category.MenuCategory.lambda$click$6(MenuCategory.java:76)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.menu.category.MenuCategory.click(MenuCategory.java:76)
+	at dev.zprestige.fire.ui.menu.MenuScreen.lambda$mouseClicked$3(MenuScreen.java:122)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.menu.MenuScreen.mouseClicked(MenuScreen.java:122)
+	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:533)
+	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:501)
+
+-- Affected screen --
+Details:
+	Screen name: dev.zprestige.fire.ui.menu.MenuScreen
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['zPrestige_'/155, l='MpServer', x=237.91, y=4.00, z=-268.54]]
+	Chunk stats: MultiplayerChunkCache: 441, 441
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (252,64,-242), Chunk: (at 12,4,14 in 15,-16; contains blocks 240,0,-256 to 255,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 3629801 game time, 91289 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Forced entities: 51 total; [EntitySheep['Sheep'/9, l='MpServer', x=185.57, y=66.00, z=-320.77], EntitySheep['Sheep'/11, l='MpServer', x=197.28, y=74.00, z=-242.23], EntityXPOrb['Experience Orb'/14, l='MpServer', x=213.29, y=4.00, z=-277.48], EntityXPOrb['Experience Orb'/15, l='MpServer', x=213.95, y=4.00, z=-277.12], EntityXPOrb['Experience Orb'/16, l='MpServer', x=213.65, y=4.00, z=-277.00], EntityXPOrb['Experience Orb'/17, l='MpServer', x=211.97, y=4.00, z=-277.71], EntityXPOrb['Experience Orb'/18, l='MpServer', x=212.62, y=4.00, z=-277.80], EntityXPOrb['Experience Orb'/19, l='MpServer', x=215.17, y=4.00, z=-276.78], EntityXPOrb['Experience Orb'/20, l='MpServer', x=212.31, y=4.00, z=-277.57], EntityXPOrb['Experience Orb'/21, l='MpServer', x=215.28, y=4.00, z=-276.60], EntityXPOrb['Experience Orb'/22, l='MpServer', x=212.85, y=4.00, z=-276.88], EntityXPOrb['Experience Orb'/23, l='MpServer', x=212.24, y=4.00, z=-277.19], EntityXPOrb['Experience Orb'/24, l='MpServer', x=213.14, y=4.00, z=-276.69], EntityXPOrb['Experience Orb'/25, l='MpServer', x=216.80, y=4.00, z=-275.98], EntityXPOrb['Experience Orb'/26, l='MpServer', x=211.49, y=4.00, z=-277.34], EntityXPOrb['Experience Orb'/27, l='MpServer', x=213.96, y=4.00, z=-276.74], EntityPlayerSP['zPrestige_'/155, l='MpServer', x=237.91, y=4.00, z=-268.54], EntityXPOrb['Experience Orb'/28, l='MpServer', x=209.83, y=4.00, z=-277.68], EntityXPOrb['Experience Orb'/29, l='MpServer', x=211.17, y=4.00, z=-277.42], EntityXPOrb['Experience Orb'/30, l='MpServer', x=211.93, y=4.00, z=-277.10], EntityXPOrb['Experience Orb'/31, l='MpServer', x=210.98, y=4.00, z=-277.33], EntityXPOrb['Experience Orb'/32, l='MpServer', x=212.33, y=4.00, z=-276.80], EntityXPOrb['Experience Orb'/33, l='MpServer', x=211.68, y=4.00, z=-277.22], EntityXPOrb['Experience Orb'/34, l='MpServer', x=212.03, y=4.00, z=-277.58], EntityXPOrb['Experience Orb'/35, l='MpServer', x=212.09, y=4.00, z=-276.89], EntityXPOrb['Experience Orb'/36, l='MpServer', x=213.80, y=4.00, z=-277.23], EntityXPOrb['Experience Orb'/37, l='MpServer', x=214.10, y=4.00, z=-277.18], EntityXPOrb['Experience Orb'/38, l='MpServer', x=212.92, y=4.00, z=-277.04], EntityXPOrb['Experience Orb'/39, l='MpServer', x=208.82, y=4.00, z=-276.97], EntityXPOrb['Experience Orb'/40, l='MpServer', x=213.47, y=4.00, z=-276.89], EntityXPOrb['Experience Orb'/41, l='MpServer', x=209.25, y=4.00, z=-275.77], EntityXPOrb['Experience Orb'/42, l='MpServer', x=208.17, y=4.00, z=-277.19], EntityXPOrb['Experience Orb'/43, l='MpServer', x=215.91, y=4.00, z=-276.98], EntityXPOrb['Experience Orb'/44, l='MpServer', x=212.80, y=4.00, z=-276.85], EntityXPOrb['Experience Orb'/45, l='MpServer', x=211.77, y=4.00, z=-278.20], EntityXPOrb['Experience Orb'/46, l='MpServer', x=217.15, y=4.00, z=-276.09], EntityXPOrb['Experience Orb'/47, l='MpServer', x=218.15, y=4.00, z=-274.60], EntityItem['item.tile.gravel'/49, l='MpServer', x=234.13, y=9.00, z=-287.76], EntityItem['item.tile.stonebrick'/50, l='MpServer', x=233.92, y=4.00, z=-287.88], EntityXPOrb['Experience Orb'/87, l='MpServer', x=224.49, y=4.00, z=-276.76], EntityXPOrb['Experience Orb'/91, l='MpServer', x=224.13, y=4.00, z=-274.79], EntitySheep['Sheep'/96, l='MpServer', x=245.55, y=76.00, z=-337.45], EntitySheep['Sheep'/97, l='MpServer', x=256.23, y=78.00, z=-343.68], EntitySheep['Sheep'/98, l='MpServer', x=246.27, y=73.00, z=-326.51], EntitySheep['Sheep'/99, l='MpServer', x=247.75, y=77.00, z=-335.37], EntitySheep['Sheep'/102, l='MpServer', x=270.96, y=75.00, z=-344.40], EntitySheep['Sheep'/103, l='MpServer', x=262.46, y=79.00, z=-347.27], EntitySheep['Sheep'/104, l='MpServer', x=260.48, y=77.00, z=-340.77], EntitySheep['Sheep'/106, l='MpServer', x=271.49, y=66.00, z=-329.27], EntitySheep['Sheep'/116, l='MpServer', x=300.73, y=69.00, z=-319.54], EntityEnderCrystal['entity.EnderCrystal.name'/251, l='MpServer', x=238.50, y=4.00, z=-270.50]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:420)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2741)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:419)
+	at net.minecraft.client.main.Main.main(SourceFile:123)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_272, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Amazon.com Inc.
+	Memory: 644450472 bytes (614 MB) / 1062207488 bytes (1013 MB) up to 3801088000 bytes (3625 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2847 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                         | Signature |
+	|:------ |:--------- |:------------ |:---------------------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                  | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                  | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeBin-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | forge     | 14.23.5.2847 | forgeBin-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | fire      | 0.1          | main                                           | None      |
+
+	Loaded coremods (and transformers): 
+MixinLoader (unknown)
+  
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 472.12' Renderer: 'NVIDIA GeForce RTX 3060/PCIe/SSE2'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: NVIDIA GeForce RTX 3060/PCIe/SSE2 GL version 4.6.0 NVIDIA 472.12, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 16x AMD Ryzen 7 2700X Eight-Core Processor 
