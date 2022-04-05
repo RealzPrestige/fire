@@ -1,5 +1,6 @@
 "Keybind": "0:false"
 "Enabled": "false"
+"Drawn": "false"
 "Place Mode": "Default"
 "Mode": "Instant"
 "Blocks Per Tick": "10.0"

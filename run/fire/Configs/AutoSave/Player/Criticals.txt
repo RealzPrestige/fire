@@ -1,4 +1,5 @@
 "Keybind": "0:false"
 "Enabled": "false"
+"Drawn": "false"
 "Offset": "0.1"
 "Allow Moving": "false"

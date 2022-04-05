@@ -1,3 +1,4 @@
 "Keybind": "0:false"
 "Enabled": "true"
+"Drawn": "false"
 "Modules": "true"

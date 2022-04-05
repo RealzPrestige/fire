@@ -1,5 +1,6 @@
 "Keybind": "0:false"
 "Enabled": "false"
+"Drawn": "false"
 "Render": "false"
 "Inactive Color": "-65536"
 "Active Color": "-16711936"

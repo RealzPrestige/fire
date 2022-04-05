@@ -1,5 +1,6 @@
 "Keybind": "0:false"
 "Enabled": "false"
+"Drawn": "false"
 "Target Range": "9.0"
 "Break Range": "5.0"
 "Damage": "false"

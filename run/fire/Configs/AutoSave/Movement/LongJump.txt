@@ -1,5 +1,6 @@
 "Keybind": "0:false"
 "Enabled": "false"
+"Drawn": "false"
 "Factor": "5.0"
 "Acceleration Factor": "2.0"
 "Vertical Factor": "4.0"

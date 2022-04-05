@@ -1,5 +1,6 @@
 "Keybind": "0:false"
-"Enabled": "false"
+"Enabled": "true"
+"Drawn": "true"
 "Fov": "130.0"
 "Weather": "Clear"
 "Time": "10000.0"

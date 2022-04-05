@@ -1,5 +1,6 @@
 "Keybind": "0:false"
-"Enabled": "false"
+"Enabled": "true"
+"Drawn": "true"
 "Height": "1.0"
 "Bedrock Box": "false"
 "Bedrock Box Color": "-16711936"
