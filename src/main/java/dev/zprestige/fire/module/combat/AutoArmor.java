@@ -24,6 +24,7 @@ import java.util.stream.IntStream;
 public class AutoArmor extends Module {
     public final Slider delay = Menu.Slider("Delay", 50.0f, 0.1f, 500.0f);
     public final Switch strict = Menu.Switch("Strict", false);
+    public final Key elytraSwap = Menu.Key("Elytra Swap", Keyboard.KEY_NONE);
     public final Key singleMend = Menu.Key("Single Mend", Keyboard.KEY_NONE);
     public final Switch safety = Menu.Switch("Safety", false).visibility(z -> singleMend.GetKey() != Keyboard.KEY_NONE);
     public final Switch autoExp = Menu.Switch("Auto Exp", false).visibility(z -> singleMend.GetKey() != Keyboard.KEY_NONE);
@@ -32,13 +33,15 @@ public class AutoArmor extends Module {
     public final Slider enemyRange = Menu.Slider("Enemy Range", 20.0f, 0.1f, 50.0f).visibility(z -> safety.GetSwitch() && singleMend.GetKey() != Keyboard.KEY_NONE);
     public final Slider threshold = Menu.Slider("Threshold", 85.0f, 0.1f, 100.0f).visibility(z -> singleMend.GetKey() != Keyboard.KEY_NONE);
     protected final Timer timer = new Timer();
-    protected boolean takingOff = false;
-    protected boolean announced = false;
+    protected boolean takingOff = false, announced = false, elytra = false;
 
     @RegisterListener
     public void onKeyEvent(final KeyEvent event) {
         if (event.getKey() == singleMend.GetKey()) {
             takingOff = !takingOff;
+        }
+        if (event.getKey() == elytraSwap.GetKey()) {
+            elytra = !elytra;
         }
     }
 
@@ -50,15 +53,18 @@ public class AutoArmor extends Module {
         if (singleMend.isHold()) {
             takingOff = Keyboard.isKeyDown(singleMend.GetKey());
         }
+        if (elytraSwap.isHold()) {
+            elytra = Keyboard.isKeyDown(elytraSwap.GetKey());
+        }
         if (takingOff && canTakeOff()) {
-            if (!announced){
+            if (!announced) {
                 Main.chatManager.sendRemovableMessage("Started single mending.", 1);
                 announced = true;
             }
             takeOffSingle();
             return;
-        } else if (announced){
-            if (!canTakeOff()){
+        } else if (announced) {
+            if (!canTakeOff()) {
                 Main.chatManager.sendRemovableMessage("Enemy in range, stopping single mend.", 1);
             } else {
                 Main.chatManager.sendRemovableMessage("Finished single mend", 1);
@@ -66,17 +72,41 @@ public class AutoArmor extends Module {
             announced = false;
         }
         final int slot = findSlot();
-        if (slot != -1 && timer.getTime((long) delay.GetSlider())) {
-            clickSlot(slot);
+        if (timer.getTime((long) delay.GetSlider())) {
+            if (elytra) {
+                final int e = Main.inventoryManager.getItemSlot(Items.ELYTRA);
+                if (e != -1) {
+                    if (air(38)) {
+                        clickSlot(e);
+                    } else if (!elytra()){
+                        clickSlot(6);
+                    }
+                    return;
+                }
+            }
+            if (!elytra && elytra()) {
+                final int chest = Main.inventoryManager.getItemSlot(Items.DIAMOND_CHESTPLATE);
+                if (chest != -1) {
+                    if (air(38)) {
+                        clickSlot(chest);
+                    } else if (!chestplate()){
+                        clickSlot(6);
+                    }
+                    return;
+                }
+            }
+            if (slot != -1) {
+                clickSlot(slot);
+            }
         }
     }
 
-    protected boolean canTakeOff(){
+    protected boolean canTakeOff() {
         return EntityUtil.getClosestTarget(EntityUtil.TargetPriority.Range, enemyRange.GetSlider()) == null;
     }
 
     protected void takeOffSingle() {
-        if (autoExp.GetSwitch()){
+        if (autoExp.GetSwitch()) {
             int slot = Main.inventoryManager.getItemFromHotbar(Items.EXPERIENCE_BOTTLE);
             if (slot != -1) {
                 final float pitch = mc.player.rotationPitch;
@@ -123,7 +153,7 @@ public class AutoArmor extends Module {
                 }
             }
         } else {
-            if(!timer.getTime((long) delay.GetSlider())){
+            if (!timer.getTime((long) delay.GetSlider())) {
                 return;
             }
             final int helmet = Main.inventoryManager.getItemSlot(Items.DIAMOND_HELMET);
@@ -178,6 +208,13 @@ public class AutoArmor extends Module {
         return mc.player.inventory.getStackInSlot(slot).getItem().equals(Items.AIR);
     }
 
+    protected boolean elytra() {
+        return mc.player.inventory.getStackInSlot(38).getItem().equals(Items.ELYTRA);
+    }
+
+    protected boolean chestplate() {
+        return mc.player.inventory.getStackInSlot(38).getItem().equals(Items.DIAMOND_CHESTPLATE);
+    }
     protected void clickSlot(final int slot) {
         mc.playerController.windowClick(mc.player.inventoryContainer.windowId, slot, 0, ClickType.QUICK_MOVE, mc.player);
         timer.syncTime();

@@ -1,7 +1,6 @@
 package dev.zprestige.fire.module.visual;
 
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
-import dev.zprestige.fire.events.impl.DeathEvent;
 import dev.zprestige.fire.events.impl.FrameEvent;
 import dev.zprestige.fire.events.impl.TotemPopEvent;
 import dev.zprestige.fire.module.Module;
