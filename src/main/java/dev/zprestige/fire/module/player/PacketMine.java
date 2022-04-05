@@ -7,9 +7,11 @@ import dev.zprestige.fire.events.impl.FrameEvent;
 import dev.zprestige.fire.events.impl.TickEvent;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ColorBox;
+
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
 import dev.zprestige.fire.util.impl.BlockUtil;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;

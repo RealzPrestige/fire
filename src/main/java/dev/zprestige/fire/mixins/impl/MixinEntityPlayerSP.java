@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = EntityPlayerSP.class, priority = 1001)
+@Mixin(value = EntityPlayerSP.class, priority = 999)
 public class MixinEntityPlayerSP extends AbstractClientPlayer {
 
     public MixinEntityPlayerSP(final World worldIn, final GameProfile playerProfile) {
