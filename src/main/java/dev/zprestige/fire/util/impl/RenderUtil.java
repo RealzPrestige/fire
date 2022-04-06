@@ -320,6 +320,11 @@ public class RenderUtil implements Utils {
         GlStateManager.disableBlend();
     }
 
+    public static void image(ResourceLocation resourceLocation, int x, int y, int width, int height, Color color) {
+        GlStateManager.color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+        mc.getTextureManager().bindTexture(resourceLocation);
+        Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
+    }
     public static void image(ResourceLocation resourceLocation, int x, int y, int width, int height) {
         if (mc == null) {
             return;

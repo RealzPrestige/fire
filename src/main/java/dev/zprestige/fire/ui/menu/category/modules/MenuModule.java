@@ -11,6 +11,7 @@ import dev.zprestige.fire.ui.menu.category.modules.settings.impl.*;
 import dev.zprestige.fire.util.impl.AnimationUtil;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import dev.zprestige.fire.util.impl.Vector2D;
+import net.minecraft.util.ResourceLocation;
 
 
 import java.awt.*;
