@@ -6,8 +6,10 @@ import dev.zprestige.fire.util.Utils;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.Map;
 import java.util.Objects;
@@ -15,6 +17,9 @@ import java.util.TreeMap;
 
 public class EntityUtil implements Utils {
 
+    public static BlockPos getPlayerPos(EntityPlayer player) {
+        return new BlockPos(Math.floor(player.posX), Math.floor(player.posY), Math.floor(player.posZ));
+    }
     public static boolean isMoving() {
         return mc.player.moveForward != 0.0 || mc.player.moveStrafing != 0.0 || mc.gameSettings.keyBindForward.isKeyDown() || mc.gameSettings.keyBindBack.isKeyDown() || mc.gameSettings.keyBindLeft.isKeyDown() || mc.gameSettings.keyBindRight.isKeyDown();
     }

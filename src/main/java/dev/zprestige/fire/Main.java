@@ -44,6 +44,7 @@ public class Main {
     public static HoleManager holeManager;
     public static TickManager tickManager;
     public static NotificationManager notificationManager;
+    public static MotionPredictionManager motionPredictionManager;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent ignoredEvent) {
@@ -71,6 +72,7 @@ public class Main {
         holeManager = new HoleManager();
         tickManager = (TickManager) new TickManager().registerEventBus();
         notificationManager = (NotificationManager) new NotificationManager().registerEventBus();
+        motionPredictionManager = (MotionPredictionManager) new MotionPredictionManager().registerEventBus();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.save("AutoSave");
             configManager.savePrefix();

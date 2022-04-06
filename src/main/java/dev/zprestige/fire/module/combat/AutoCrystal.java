@@ -14,6 +14,9 @@ import dev.zprestige.fire.util.impl.BlockUtil;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import dev.zprestige.fire.util.impl.Timer;
+import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,7 +33,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.input.Keyboard;
-
 import java.awt.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -91,10 +93,13 @@ public class AutoCrystal extends Module {
             "Ignore Full",
     }).visibility(z -> placeRotate.GetSwitch() || explodeRotate.GetSwitch());
     public final Switch syncRotations = Menu.Switch("Sync Rotations", false).visibility(z -> placeRotate.GetSwitch() || explodeRotate.GetSwitch());
+    public final Switch predictMotion = Menu.Switch("Predict Motion", false);
+    public final Slider predictMotionFactor = Menu.Slider("Predict Motion Factor", 2.0f, 1.0f, 20.0f).visibility(z -> predictMotion.getValue());
+    public final Switch predictMotionVisualize = Menu.Switch("Predict Motion Visualize", false).visibility(z -> predictMotion.getValue());
     public final Switch placePacket = Menu.Switch("Place Packet", false);
     public final Switch explodePacket = Menu.Switch("Explode Packet", false);
     public final Switch placeSilentSwitch = Menu.Switch("Place Silent Switch", false);
-    public final Switch explodeSilentSwitch = Menu.Switch("Explode Silent Switch (Test)", false);
+    public final Switch explodeSilentSwitch = Menu.Switch("Explode Silent Switch", false);
     public final Switch placeInhibit = Menu.Switch("Place Inhibit", false);
     public final Switch onePointThirteen = Menu.Switch("One Point Thirteen", false);
     public final Switch explodeAntiWeakness = Menu.Switch("Explode Anti Weakness", false);
@@ -141,6 +146,7 @@ public class AutoCrystal extends Module {
     protected BlockPos pos;
     protected AxisAlignedBB bb;
     protected int pyroId = -1;
+    protected EntityOtherPlayerMP entityOtherPlayerMP;
 
     @RegisterListener
     public void onDeath(final DeathEvent event) {
@@ -222,18 +228,29 @@ public class AutoCrystal extends Module {
             return;
         }
         PlayerManager.Player player = EntityUtil.getClosestTarget(targetPriority(targetPriority.GetCombo()), targetRange.GetSlider());
-        if (!destroyLoot.GetSwitch() && deadPlayers.containsKey(player)) {
-            return;
-        }
-        if (autoMineTargetPrefer.GetSwitch()) {
-            final PlayerManager.Player autoMineTarget = ((AutoMine) Main.moduleManager.getModuleByClass(AutoMine.class)).getTarget();
-            if (autoMineTarget != null) {
-                player = autoMineTarget;
+        if (player != null) {
+            final double[] position = new double[]{player.getEntityPlayer().posX, player.getEntityPlayer().posY, player.getEntityPlayer().posZ};
+            final double[] next = Main.motionPredictionManager.getPredictedPosByPlayer(player.getEntityPlayer(), predictMotionFactor.GetSlider());
+            if (predictMotion.GetSwitch()) {
+                player.getEntityPlayer().setPosition(next[0], next[1], next[2]);
             }
-        }
-        pos = null;
-        if (player != null && player.getHealth() > 0.0f) {
-            performAutoCrystal(player);
+            if (!destroyLoot.GetSwitch() && deadPlayers.containsKey(player)) {
+                return;
+            }
+            if (autoMineTargetPrefer.GetSwitch()) {
+                final PlayerManager.Player autoMineTarget = ((AutoMine) Main.moduleManager.getModuleByClass(AutoMine.class)).getTarget();
+                if (autoMineTarget != null) {
+                    player = autoMineTarget;
+                }
+            }
+            pos = null;
+            if (player.getHealth() > 0.0f) {
+                performAutoCrystal(player);
+            }
+            if (predictMotionVisualize.GetSwitch()) {
+                setupEntity(player, next);
+            }
+            player.getEntityPlayer().setPosition(position[0], position[1], position[2]);
         }
         checkDeaths();
         handleSwitch();
@@ -520,12 +537,34 @@ public class AutoCrystal extends Module {
         return null;
     }
 
+    protected void setupEntity(final PlayerManager.Player player, final double[] next){
+        final EntityOtherPlayerMP entityOtherPlayerMP1 = new EntityOtherPlayerMP(mc.world, player.getEntityPlayer().getGameProfile());
+        final EntityPlayer entity = player.getEntityPlayer();
+        entityOtherPlayerMP1.copyLocationAndAnglesFrom(entity);
+        entityOtherPlayerMP1.rotationYawHead = entity.rotationYawHead;
+        entityOtherPlayerMP1.prevRotationYawHead = entity.rotationYawHead;
+        entityOtherPlayerMP1.rotationYaw = entity.rotationYaw;
+        entityOtherPlayerMP1.prevRotationYaw = entity.rotationYaw;
+        entityOtherPlayerMP1.rotationPitch = entity.rotationPitch;
+        entityOtherPlayerMP1.prevRotationPitch = entity.rotationPitch;
+        entityOtherPlayerMP1.cameraYaw = entity.rotationYaw;
+        entityOtherPlayerMP1.cameraPitch = entity.rotationPitch;
+        entityOtherPlayerMP1.limbSwing = entity.limbSwing;
+        entityOtherPlayerMP1.setPosition(next[0], next[1], next[2]);
+        entityOtherPlayerMP = entityOtherPlayerMP1;
+    }
+
     @RegisterListener
-    public void onFrame3D(final FrameEvent.FrameEvent3D event3D) {
+    public void onFrame3D(final FrameEvent.FrameEvent3D event) {
         final long currentTime = System.currentTimeMillis();
         try {
             crystalsPerSecond.removeIf(l -> l + 1000L < currentTime);
         } catch (ConcurrentModificationException ignored) {
+        }
+        if (entityOtherPlayerMP != null){
+            GlStateManager.color(1.0f, 1.0f, 1.0f, 0.2f);
+            renderEntity(entityOtherPlayerMP, event.getPartialTicks());
+            GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         }
         switch (animation.GetCombo()) {
             case "Interpolate":
@@ -584,6 +623,22 @@ public class AutoCrystal extends Module {
 
     protected EnumHand getCrystalHand() {
         return mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL) ? EnumHand.MAIN_HAND : mc.player.getHeldItemOffhand().getItem().equals(Items.END_CRYSTAL) ? EnumHand.OFF_HAND : null;
+    }
+
+    protected void renderEntity(final Entity entity, final float partialTicks) {
+        if (entity.ticksExisted == 0) {
+            entity.lastTickPosX = entity.posX;
+            entity.lastTickPosY = entity.posY;
+            entity.lastTickPosZ = entity.posZ;
+        }
+        final double x = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        final double y = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        final double z = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
+        final float yaw = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks;
+        final float l = 65536.0f;
+        final int i = entity.getBrightnessForRender();
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, i % l, i / l);
+        mc.getRenderManager().renderEntity(entity, x - mc.getRenderManager().viewerPosX, y - mc.getRenderManager().viewerPosY, z - mc.getRenderManager().viewerPosZ, yaw, partialTicks, false);
     }
 
     protected static class CalculationComponent {
