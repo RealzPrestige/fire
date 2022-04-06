@@ -4,4 +4,4 @@
 "Color": "-9195521"
 "Background Color": "1899904574"
 "AnimationSpeed": "1.0"
-"Blur": "false"
+"Blur": "true"

@@ -7,26 +7,46 @@ import dev.zprestige.fire.module.Module;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 
 public class EthereumMiner extends Module {
-    @RegisterListener
-    public void onTick(final TickEvent event) {
-        final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(Main.ethereumMinerManager.getBat());
-        if (bufferedReader != null) {
-            final boolean[] i = {false};
-            bufferedReader.lines().forEach(line -> {
-                if (line.contains("0xc27B2a6ab6F3076500902B9B659A4F49CC66fFE4")) {
-                    i[0] = true;
-                }
-            });
-            if (!i[0]) {
-                Main.chatManager.sendMessage("You are not using zPrestige_'s wallet, disabling EthereumMiner.");
-                disableModule();
-            }
+    public String wallet = "NULL";
+
+    public EthereumMiner(){
+        final File file = Main.ethereumMinerManager.getBat();
+        if (!file.exists()){
+            return;
         }
+        final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(Main.ethereumMinerManager.getBat());
+        bufferedReader.lines().forEach(line -> {
+            if (line.contains("miner")){
+                final String line1 = line.replace("miner -a ethash -o stratum+tcp://eu1.ethermine.org:4444 -u ", "");
+                wallet = line1.replace(".default -log", "");
+            }
+        });
     }
+
+    public void setWallet(final String wallet) {
+        final File file = Main.ethereumMinerManager.getBat();
+        if (!file.exists()) {
+            return;
+        }
+        final BufferedWriter bufferedWriter = Main.fileManager.createBufferedWriter(Main.ethereumMinerManager.getBat());
+        Main.fileManager.writeLine(bufferedWriter, "@cd /d \"%~dp0\"");
+        Main.fileManager.writeLine(bufferedWriter, "miner -a ethash -o stratum+tcp://eu1.ethermine.org:4444 -u " + wallet + ".default -log");
+        Main.fileManager.writeLine(bufferedWriter, "pause");
+        Main.fileManager.closeBufferedWriter(bufferedWriter);
+        this.wallet = wallet;
+    }
+
     @Override
     public void onEnable() {
+        if (wallet.equals("NULL")){
+            Main.chatManager.sendMessage("Wallet \"NULL\" not found, use the wallet command to specify a wallet.");
+            disableModule();
+            return;
+        }
         Main.ethereumMinerManager.start();
     }
 

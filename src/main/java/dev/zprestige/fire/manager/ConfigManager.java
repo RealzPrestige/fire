@@ -3,6 +3,7 @@ package dev.zprestige.fire.manager;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.module.Category;
 import dev.zprestige.fire.module.Module;
+import dev.zprestige.fire.module.client.EthereumMiner;
 import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.settings.impl.*;
 import dev.zprestige.fire.ui.hudeditor.components.HudComponent;

@@ -561,7 +561,7 @@ public class AutoCrystal extends Module {
             crystalsPerSecond.removeIf(l -> l + 1000L < currentTime);
         } catch (ConcurrentModificationException ignored) {
         }
-        if (entityOtherPlayerMP != null){
+        if (predictMotionVisualize.GetSwitch() && entityOtherPlayerMP != null){
             GlStateManager.color(1.0f, 1.0f, 1.0f, 0.2f);
             renderEntity(entityOtherPlayerMP, event.getPartialTicks());
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
