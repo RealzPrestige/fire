@@ -51,20 +51,21 @@ public class AutoCrystal extends Module {
     public final Slider explodeDelay = Menu.Slider("Explode Delay", 50, 0, 500).panel("Timing");
     public final Slider placeRange = Menu.Slider("Place Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
     public final Slider explodeRange = Menu.Slider("Explode Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
+    public final Switch advancedRaytrace = Menu.Switch("Advanced Raytrace", false).panel("Ranges");
     public final ComboBox placeRaytrace = Menu.ComboBox("Place Raytrace", "None", new String[]{
             "Center",
             "Single",
             "Double",
             "Triple",
             "None"
-    }).panel("Ranges");
+    }).visibility(z -> !advancedRaytrace.GetSwitch()).panel("Ranges");
     public final ComboBox explodeRaytrace = Menu.ComboBox("Explode Raytrace", "None", new String[]{
             "Center",
             "Single",
             "Double",
             "Triple",
             "None"
-    }).panel("Ranges");
+    }).visibility(z -> !advancedRaytrace.GetSwitch()).panel("Ranges");
     public final Slider placeWallRange = Menu.Slider("Place Wall Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
     public final Slider explodeWallRange = Menu.Slider("Explode Wall Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
     public final ComboBox placeCalculations = Menu.ComboBox("Place Calculations", "Highest Damage", new String[]{
@@ -330,7 +331,6 @@ public class AutoCrystal extends Module {
             }
         }
         final int slot = Main.inventoryManager.getItemFromHotbar(Items.END_CRYSTAL);
-        final int currentItem1 = mc.player.inventory.currentItem;
         boolean switched1 = false;
         if (explodeSilentSwitch.GetSwitch() && slot != -1 && getCrystalHand() == null) {
             Main.inventoryManager.switchToSlot(slot);
@@ -366,7 +366,7 @@ public class AutoCrystal extends Module {
             entityEnderCrystal.setDead();
         }
         if (switched1) {
-            Main.inventoryManager.switchBack(currentItem1);
+            Main.inventoryManager.switchBack(currentItem);
         }
         if (switched) {
             Main.inventoryManager.switchBack(currentItem);
@@ -385,8 +385,19 @@ public class AutoCrystal extends Module {
 
     public void placeCrystal(final BlockPos pos) {
         final EnumHand crystalHand = getCrystalHand();
-        if (!placeSilentSwitch.GetSwitch() && crystalHand == null || (placeInhibit.GetSwitch() && !mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.up())).isEmpty())) {
+        if ((!placeSilentSwitch.GetSwitch() && crystalHand == null) || (placeInhibit.GetSwitch() && !mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.up())).isEmpty())) {
             return;
+        }
+        final BlockUtil.EnumOffset enumOffset = BlockUtil.getVisibleEnumFacing(pos);
+        float x = 0, y = 0, z = 0;
+        if (advancedRaytrace.GetSwitch()) {
+            if (enumOffset == null) {
+                return;
+            } else {
+                x = enumOffset.getX();
+                y = enumOffset.getY();
+                z = enumOffset.getZ();
+            }
         }
         final int slot = Main.inventoryManager.getItemFromHotbar(Items.END_CRYSTAL);
         final int currentItem = mc.player.inventory.currentItem;
@@ -417,7 +428,7 @@ public class AutoCrystal extends Module {
         final EnumHand finalHand = crystalHand == null ? EnumHand.MAIN_HAND : crystalHand;
         if (placePacket.GetSwitch()) {
             if (mc.getConnection() != null) {
-                mc.getConnection().getNetworkManager().channel().writeAndFlush(new CPacketPlayerTryUseItemOnBlock(pos, EnumFacing.UP, finalHand, 0.5f, 0.5f, 0.5f));
+                mc.getConnection().getNetworkManager().channel().writeAndFlush(new CPacketPlayerTryUseItemOnBlock(pos, EnumFacing.UP, finalHand, advancedRaytrace.GetSwitch() ? x : 0.5f, advancedRaytrace.GetSwitch() ? y :0.5f, advancedRaytrace.GetSwitch() ? z :0.5f));
             }
         } else {
             mc.playerController.processRightClickBlock(mc.player, mc.world, pos, EnumFacing.UP, new Vec3d(mc.player.posX, -mc.player.posY, -mc.player.posZ), finalHand);
@@ -502,7 +513,7 @@ public class AutoCrystal extends Module {
         final HashMap<BlockPos, CalculationComponent> posses = new HashMap<>();
         for (BlockPos pos : BlockUtil.getCrystallableBlocks(placeRange.GetSlider() * 2, onePointThirteen.GetSwitch())) {
             final ArrayList<Entity> intersecting = mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up())).stream().filter(entity -> !(entity instanceof EntityEnderCrystal)).collect(Collectors.toCollection(ArrayList::new));
-            if (!intersecting.isEmpty() || mc.player.getDistanceSq(pos) > (BlockUtil.isNotVisible(pos, raytrace(placeRaytrace.GetCombo()).getOffset()) ? placeWallRange.GetSlider() * 3 : placeRange.GetSlider() * 3)) {
+            if (!intersecting.isEmpty() || mc.player.getDistanceSq(pos) / 2 > (BlockUtil.isNotVisible(pos, raytrace(placeRaytrace.GetCombo()).getOffset()) ? placeWallRange.GetSlider() * 3 : placeRange.GetSlider() * 3)) {
                 continue;
             }
             final double damage = BlockUtil.calculatePosDamage(pos, player);

@@ -6,7 +6,7 @@
 "Switch Key": "0:false"
 "Strict": "false"
 "Liquids": "false"
-"Use Timer": "false"
+"Use Timer": "true"
 "Timer Amount": "1.0"
 "Velocity Boost": "false"
 "Velocity Boost Amplifier": "10.0"

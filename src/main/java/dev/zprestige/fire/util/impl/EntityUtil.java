@@ -17,6 +17,26 @@ import java.util.TreeMap;
 
 public class EntityUtil implements Utils {
 
+    public static float[] getSpeed(double speed) {
+        float moveForward = mc.player.movementInput.moveForward;
+        float moveStrafe = mc.player.movementInput.moveStrafe;
+        float rotationYaw = mc.player.prevRotationYaw + (mc.player.rotationYaw - mc.player.prevRotationYaw) * mc.getRenderPartialTicks();
+        if (moveForward != 0.0f) {
+            if (moveStrafe > 0.0f)
+                rotationYaw +=  (moveForward > 0.0f ? -45 : 45);
+            else if (moveStrafe < 0.0f)
+                rotationYaw +=  (moveForward > 0.0f ? 45 : -45);
+            moveStrafe = 0.0f;
+            if (moveForward > 0.0f)
+                moveForward = 1.0f;
+            else if (moveForward < 0.0f)
+                moveForward = -1.0f;
+        }
+        final float posX = (float) (moveForward * speed * -Math.sin(Math.toRadians(rotationYaw)) +  moveStrafe * speed * Math.cos(Math.toRadians(rotationYaw)));
+        final float posZ = (float) (moveForward * speed * Math.cos(Math.toRadians(rotationYaw)) -  moveStrafe * speed * -Math.sin(Math.toRadians(rotationYaw)));
+        return new float[]{posX, posZ};
+    }
+
     public static BlockPos getPlayerPos(EntityPlayer player) {
         return new BlockPos(Math.floor(player.posX), Math.floor(player.posY), Math.floor(player.posZ));
     }

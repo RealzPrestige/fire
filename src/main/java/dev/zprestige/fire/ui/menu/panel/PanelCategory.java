@@ -15,7 +15,7 @@ public class PanelCategory {
     protected final ArrayList<PanelModule> panelModules = new ArrayList<>();
     protected final Category category;
     protected final float offset = 131.6666666666667f;
-    protected float[] col = new float[]{1.0f, 1.0f, 1.0f};
+    protected float[] col;
     protected float x, y, width, height, alpha;
 
     public PanelCategory(final Category category, final float x, final float y, final float width, final float height) {
@@ -25,6 +25,7 @@ public class PanelCategory {
         this.width = width;
         this.height = height;
         setupPanelModules();
+        col = new float[]{1.0f, 1.0f, 1.0f};
     }
 
     public void render(int mouseX, int mouseY) {

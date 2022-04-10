@@ -1,0 +1,8 @@
+"Keybind": "0:false"
+"Enabled": "false"
+"Drawn": "true"
+"Mode": "Ncp"
+"Height": "2.0"
+"Entities": "false"
+"Use Timer": "true"
+"Timer Amount": "0.1"

@@ -13,6 +13,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.util.CombatRules;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -25,12 +26,60 @@ import java.util.stream.Collectors;
 
 public class BlockUtil implements Utils {
 
+    public static EnumOffset getVisibleEnumFacing(final BlockPos pos) {
+        for (final EnumFacing enumFacing : EnumFacing.values()) {
+            final BlockPos pos1 = pos.offset(enumFacing);
+            for (int x = 0; x <= 10; x++) {
+                final float xOffset = x / 10.0f;
+                for (int y = 0; y <= 10; y++) {
+                    final float yOffset = y / 10.0f;
+                    for (int z = 0; z <= 10; z++) {
+                        final float zOffset = z / 10.0f;
+                        if (mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(pos1.getX() + xOffset, pos1.getY() + yOffset, pos.getZ() + zOffset), false, true, false) != null) {
+                            return new EnumOffset(enumFacing, xOffset, yOffset, zOffset);
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static class EnumOffset {
+        protected final EnumFacing enumFacing;
+        protected final float x, y, z;
+
+        public EnumOffset(final EnumFacing enumFacing, final float x, final float y, final float z) {
+            this.enumFacing = enumFacing;
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        public EnumFacing getEnumFacing() {
+            return enumFacing;
+        }
+
+        public float getX() {
+            return x;
+        }
+
+        public float getY() {
+            return y;
+        }
+
+        public float getZ() {
+            return z;
+        }
+    }
+
     public static boolean isNotVisible(BlockPos position, double offset) {
         if (offset > 50 || offset < -50) {
             return false;
         }
         return mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(position.getX() + 0.5, position.getY() + offset, position.getZ() + 0.5), false, true, false) != null;
     }
+
     public static float calculateEntityDamage(final EntityEnderCrystal crystal, final PlayerManager.Player player) {
         return calculatePosDamage(crystal.posX, crystal.posY, crystal.posZ, player.getEntityPlayer());
     }
@@ -86,7 +135,7 @@ public class BlockUtil implements Utils {
         return damage;
     }
 
-    public static List<BlockPos> getCrystallableBlocks(final double range, final boolean onePointThirteen){
+    public static List<BlockPos> getCrystallableBlocks(final double range, final boolean onePointThirteen) {
         return getBlocksInRadius(range).stream().filter(pos -> canPosBeCrystalled(pos, onePointThirteen)).collect(Collectors.toList());
     }
 
@@ -114,14 +163,15 @@ public class BlockUtil implements Utils {
         return posses;
     }
 
-    public static boolean canPosBeCrystalled(final BlockPos pos, final boolean onePointThirteen){
+    public static boolean canPosBeCrystalled(final BlockPos pos, final boolean onePointThirteen) {
         return (getState(pos).equals(Blocks.OBSIDIAN) || getState(pos).equals(Blocks.BEDROCK)) && getState(pos.up()).equals(Blocks.AIR) && (getState(pos.up().up()).equals(Blocks.AIR) || onePointThirteen);
     }
 
-    public static boolean canPosBeCrystalledSoon(final BlockPos pos, final boolean onePointThirteen){
+    public static boolean canPosBeCrystalledSoon(final BlockPos pos, final boolean onePointThirteen) {
         return (getState(pos).equals(Blocks.OBSIDIAN) || getState(pos).equals(Blocks.BEDROCK)) && (getState(pos.up().up()).equals(Blocks.AIR) || onePointThirteen);
     }
-    public static Vec3d getPositionEyes(){
+
+    public static Vec3d getPositionEyes() {
         return mc.player.getPositionEyes(1);
     }
 
@@ -136,7 +186,7 @@ public class BlockUtil implements Utils {
         return new BlockPos(Math.floor(mc.player.posX), Math.floor(mc.player.posY), Math.floor(mc.player.posZ));
     }
 
-    public static Block getState(final BlockPos pos){
+    public static Block getState(final BlockPos pos) {
         return mc.world.getBlockState(pos).getBlock();
     }
 

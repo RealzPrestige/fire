@@ -46,12 +46,12 @@ public class PanelSocials extends PanelDrawable {
             }
             RenderUtil.prepareScissor((int) PanelScreen.x, (int) (PanelScreen.y + PanelScreen.secondStartY), (int) PanelScreen.width, (int) (PanelScreen.height - PanelScreen.secondEndY));
             if (clickingFrame) {
-                allPlayers.stream().filter(player -> player.position.getY() + player.size.getY() < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(player -> player.click(mouseX, mouseY));
-                friendPlayers.stream().filter(friendPlayer -> friendPlayer.position.getY() + friendPlayer.size.getY() < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(friendPlayer -> friendPlayer.click(mouseX, mouseY));
+                allPlayers.stream().filter(player -> player.size.getY() < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(player -> player.click(mouseX, mouseY));
+                friendPlayers.stream().filter(friendPlayer -> friendPlayer.size.getY() < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(friendPlayer -> friendPlayer.click(mouseX, mouseY));
                 clickingFrame = false;
             }
-            allPlayers.stream().filter(player -> player.position.getY() + player.size.getY() < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(player -> player.render(mouseX, mouseY));
-            friendPlayers.stream().filter(friend -> friend.position.getY() + friend.size.getY() < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(friendPlayer -> friendPlayer.render(mouseX, mouseY));
+            allPlayers.stream().filter(player -> player.size.getY() < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(player -> player.render(mouseX, mouseY));
+            friendPlayers.stream().filter(friend -> friend.size.getY() < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(friendPlayer -> friendPlayer.render(mouseX, mouseY));
             RenderUtil.releaseScissor();
         }
     }

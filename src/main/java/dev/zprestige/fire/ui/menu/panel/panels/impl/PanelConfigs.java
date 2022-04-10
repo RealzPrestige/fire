@@ -1,7 +1,6 @@
 package dev.zprestige.fire.ui.menu.panel.panels.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.module.Category;
 import dev.zprestige.fire.module.client.Panel;
 import dev.zprestige.fire.ui.menu.panel.PanelScreen;
 import dev.zprestige.fire.ui.menu.panel.panels.PanelDrawable;
