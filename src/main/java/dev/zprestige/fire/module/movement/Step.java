@@ -37,8 +37,9 @@ public class Step extends Module {
                 case "Ncp":
                     if (canStep()) {
                         final int height = (int) this.height.GetSlider();
-                        if (checkEmpty(height)) {
-                            performStep(height, EntityUtil.getSpeed(0.1f));
+                        final float[] i = EntityUtil.getSpeed(0.1f);
+                        if (checkEmpty(height, i)) {
+                            performStep(height, i);
                         }
                     }
                     break;
@@ -50,8 +51,7 @@ public class Step extends Module {
         return !(!entities.GetSwitch() && mc.player.isRiding());
     }
 
-    protected boolean checkEmpty(final int amount) {
-        final float[] i = EntityUtil.getSpeed(0.1f);
+    protected boolean checkEmpty(final int amount, final float[] i) {
         return amount == 1 ? checkFirstHeight(i) : (checkFirstHeight(i)) || (isBoundingEmpty(i, 2.1f) && !isBoundingEmpty(i, 1.9f));
     }
 
