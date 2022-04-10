@@ -1,0 +1,63 @@
+[13:53:53] INFO - ----------------------------------------------
+[13:53:53] INFO - |                                            |
+[13:53:53] INFO - |                                            |
+[13:53:53] INFO - |                                            |
+[13:53:53] INFO - |                                            |
+[13:53:53] INFO - |                                            |
+[13:53:53] INFO - |                                            |
+[13:53:53] INFO - |                                            |
+[13:53:53] INFO - |         NBMiner - Crypto GPU Miner         |
+[13:53:53] INFO - |                    40.1                    |
+[13:53:53] INFO - |                                            |
+[13:53:53] INFO - ----------------------------------------------
+[13:53:53] INFO - ------------------- System -------------------
+[13:53:53] INFO - OS:     Windows 10 Version 2009, 10.0.22000
+[13:53:53] INFO - CPU:    AMD Ryzen 7 2700X Eight-Core Processor         
+[13:53:53] INFO - RAM:    3186 MB / 16309 MB
+[13:53:53] INFO - VMEM:   26800 MB / 48053 MB
+[13:53:53] INFO - CU_DRV: 11.4, 472.12
+[13:53:53] INFO - ------------------- Config -------------------
+[13:53:53] INFO - ALGO:   ethash
+[13:53:53] INFO - URL:    stratum+tcp://eu1.ethermine.org:4444
+[13:53:53] INFO - USER:   0xc27B2a6ab6F3076500902B9B659A4F49CC66fFE4.default
+[13:53:53] INFO - TEMP:   limit 90C, start 85C
+[13:53:53] INFO - ------------------- Device -------------------
+[13:53:53] INFO -  |ID|PCI|  CC|Memory|CU|
+[13:53:53] INFO - *| 0|  9|  86|12288M|28| NVIDIA GeForce RTX 3060 LHR
+[13:53:53] INFO - ----------------------------------------------
+[13:53:53] INFO - ethash - Logging in to eu1.ethermine.org(2606:4700:90:0:5a66:8b85:453f:4bc6):4444 ...
+[13:53:54] INFO - ethash - Login succeeded.
+[13:53:54] INFO - API:  0.0.0.0:22333
+[13:53:54] INFO - API server started.
+[13:53:54] INFO - ethash - New job: eu1.ethermine.org:4444, ID: a4c31980, HEIGHT: 14551607, DIFF: 4.295G
+[13:53:56] INFO - ethash - New job: eu1.ethermine.org:4444, ID: cfeea15b, HEIGHT: 14551607, DIFF: 4.295G
+[13:53:56] INFO - Device 0 started, Free mem = 11282 MB.
+[13:53:56] INFO - Device 0: 3060, using LHR mode 1, lhr = 74.0
+[13:53:58] INFO - ethash - New job: eu1.ethermine.org:4444, ID: b14a2e5f, HEIGHT: 14551607, DIFF: 4.295G
+[13:53:59] INFO - ethash - New job: eu1.ethermine.org:4444, ID: d48f70f8, HEIGHT: 14551607, DIFF: 4.295G
+[13:53:59] INFO - Light cache built, 3.35 s.
+[13:54:01] INFO - ethash - New job: eu1.ethermine.org:4444, ID: a544647f, HEIGHT: 14551607, DIFF: 4.295G
+[13:54:01] INFO - Device 0: DAG - Building, EPOCH 485
+[13:54:02] INFO - ethash - New job: eu1.ethermine.org:4444, ID: c8c57b62, HEIGHT: 14551607, DIFF: 4.295G
+[13:54:04] INFO - ethash - New job: eu1.ethermine.org:4444, ID: 671b9e22, HEIGHT: 14551607, DIFF: 4.295G
+[13:54:06] INFO - ethash - New job: eu1.ethermine.org:4444, ID: 7110c745, HEIGHT: 14551607, DIFF: 4.295G
+[13:54:08] INFO - ethash - New job: eu1.ethermine.org:4444, ID: 68b71f56, HEIGHT: 14551607, DIFF: 4.295G
+[13:54:10] INFO - ethash - New job: eu1.ethermine.org:4444, ID: 344fa886, HEIGHT: 14551607, DIFF: 4.295G
+[13:54:11] INFO - ethash - New job: eu1.ethermine.org:4444, ID: 8f0f0a34, HEIGHT: 14551608, DIFF: 4.295G
+[13:54:11] INFO - ethash - New job: eu1.ethermine.org:4444, ID: d433aba6, HEIGHT: 14551608, DIFF: 4.295G
+[13:54:13] INFO - ethash - New job: eu1.ethermine.org:4444, ID: 95a9dd5c, HEIGHT: 14551608, DIFF: 4.295G
+[13:54:14] INFO - ethash - New job: eu1.ethermine.org:4444, ID: f37cce3c, HEIGHT: 14551609, DIFF: 4.295G
+[13:54:14] INFO - ethash - New job: eu1.ethermine.org:4444, ID: cd0752ec, HEIGHT: 14551609, DIFF: 4.295G
+[13:54:15] INFO - ethash - New job: eu1.ethermine.org:4444, ID: e48cdc26, HEIGHT: 14551609, DIFF: 4.295G
+[13:54:17] INFO - ethash - New job: eu1.ethermine.org:4444, ID: 51222734, HEIGHT: 14551609, DIFF: 4.295G
+[13:54:19] INFO - ethash - New job: eu1.ethermine.org:4444, ID: 153386dd, HEIGHT: 14551609, DIFF: 4.295G
+[13:54:21] INFO - ethash - New job: eu1.ethermine.org:4444, ID: 9c1a2738, HEIGHT: 14551609, DIFF: 4.295G
+[13:54:22] INFO - Device 0: DAG - Built, 21.17 s.
+[13:54:23] INFO - ethash - New job: eu1.ethermine.org:4444, ID: e67fe607, HEIGHT: 14551609, DIFF: 4.295G
+[13:54:24] INFO - ===================== [nbminer v40.1] Summary 2022-04-09 13:54:24 =====================
+[13:54:24] INFO - |ID|Device|Hashrate| LHR|Accept|Reject|Inv|Powr|CTmp|MTmp|Fan|CClk|GMClk|MUtl|Eff/Watt|
+[13:54:24] INFO - | 0|  3060|  0.000 |  74|     0|     0|  0| 124|  60|    | 63|2010| 7500|  85|  0.000 |
+[13:54:24] INFO - |------------------+----+------+------+---+----+--------------------------------------|
+[13:54:24] INFO - |    Total:  0.000 |    |     0|     0|  0| 124| Uptime:  0D 00:00:30        CPU: 33% |
+[13:54:24] INFO - =======================================================================================
+[13:54:24] INFO - ethash - On Pool   10m:  0.000    4h:  0.000    24h:  0.000 

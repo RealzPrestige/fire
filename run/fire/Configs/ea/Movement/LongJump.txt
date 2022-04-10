@@ -1,7 +1,0 @@
-"Keybind": "0:false"
-"Enabled": "false"
-"Factor": "5.0"
-"Use Timer": "false"
-"Timer Amount": "1.0"
-"Liquids": "false"
-"Disable On Lag": "false"

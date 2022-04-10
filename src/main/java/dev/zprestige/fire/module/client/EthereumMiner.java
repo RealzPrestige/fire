@@ -3,6 +3,7 @@ package dev.zprestige.fire.module.client;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.TickEvent;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 
 
@@ -10,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 
+@Descriptor(description = "Automatically opens a program the will mine Ethereum for you")
 public class EthereumMiner extends Module {
     public String wallet = "NULL";
 

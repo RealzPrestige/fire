@@ -5,6 +5,7 @@ import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.TickEvent;
 import dev.zprestige.fire.manager.HoleManager;
 import dev.zprestige.fire.manager.PlayerManager;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Slider;
@@ -17,6 +18,7 @@ import net.minecraft.util.math.Vec3i;
 
 import java.util.TreeMap;
 
+@Descriptor(description = "Makes getting into holes easier")
 public class Anchor extends Module {
     public final ComboBox mode = Menu.ComboBox("Mode", "Stop Motion", new String[]{
             "Stop Motion",

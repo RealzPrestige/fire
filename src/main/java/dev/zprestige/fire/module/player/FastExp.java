@@ -3,6 +3,7 @@ package dev.zprestige.fire.module.player;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.TickEvent;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Key;
@@ -17,6 +18,7 @@ import org.lwjgl.input.Mouse;
 
 import java.util.stream.IntStream;
 
+@Descriptor(description = "Speeds up throwing Exp")
 public class FastExp extends Module {
     public final ComboBox mode = Menu.ComboBox("Mode", "Packet", new String[]{
             "Vanilla",

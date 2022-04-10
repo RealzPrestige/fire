@@ -26,6 +26,10 @@ public class Switch extends Setting<Boolean> {
         return this;
     }
 
+    public Switch panel(final String panel){
+        this.panel = panel;
+        return this;
+    }
 
     @Override
     public Boolean getValue(){

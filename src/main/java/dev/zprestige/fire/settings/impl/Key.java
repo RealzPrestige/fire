@@ -37,6 +37,11 @@ public class Key extends Setting<Integer> {
         return this;
     }
 
+    public Key panel(final String panel){
+        this.panel = panel;
+        return this;
+    }
+
     @Override
     public Integer getValue(){
         return GetKey();

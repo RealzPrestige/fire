@@ -2,6 +2,7 @@ package dev.zprestige.fire.module.player;
 
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.TickEvent;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.stream.IntStream;
 
+@Descriptor(description = "Refills non full stacks in your hotbar")
 public class Refill extends Module {
     public final Switch strict = Menu.Switch("Strict", false);
     public final Slider delay = Menu.Slider("Delay", 50, 0, 500);

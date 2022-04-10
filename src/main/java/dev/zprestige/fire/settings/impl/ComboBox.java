@@ -31,6 +31,10 @@ public class ComboBox extends Setting<String> {
         return this;
     }
 
+    public ComboBox panel(final String panel){
+        this.panel = panel;
+        return this;
+    }
     @Override
     public String getValue(){
         return GetCombo();

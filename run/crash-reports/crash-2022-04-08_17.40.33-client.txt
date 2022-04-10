@@ -1,0 +1,132 @@
+---- Minecraft Crash Report ----
+// I let you down. Sorry :(
+
+Time: 4/8/22 5:40 PM
+Description: Rendering screen
+
+java.lang.IllegalArgumentException: Color parameter outside of expected range: Alpha
+	at java.awt.Color.testColorValueRange(Color.java:310)
+	at java.awt.Color.<init>(Color.java:395)
+	at java.awt.Color.<init>(Color.java:490)
+	at dev.zprestige.fire.ui.menu.panel.PanelModule.render(PanelModule.java:47)
+	at dev.zprestige.fire.ui.menu.panel.PanelCategory.render(PanelCategory.java:51)
+	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$3(PanelScreen.java:103)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:103)
+	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:442)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at java.awt.Color.testColorValueRange(Color.java:310)
+	at java.awt.Color.<init>(Color.java:395)
+	at java.awt.Color.<init>(Color.java:490)
+	at dev.zprestige.fire.ui.menu.panel.PanelModule.render(PanelModule.java:47)
+	at dev.zprestige.fire.ui.menu.panel.PanelCategory.render(PanelCategory.java:51)
+	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$3(PanelScreen.java:103)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:103)
+	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
+
+-- Screen render details --
+Details:
+	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Mouse location: Scaled: (851, 122). Absolute: (1702, 764)
+	Screen size: Scaled: (960, 505). Absolute: (1920, 1009). Scale factor of 2
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['zPrestige_'/78, l='MpServer', x=219.72, y=4.00, z=-267.80]]
+	Chunk stats: MultiplayerChunkCache: 441, 441
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (252,64,-242), Chunk: (at 12,4,14 in 15,-16; contains blocks 240,0,-256 to 255,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 4657133 game time, 1118621 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Forced entities: 13 total; [EntitySheep['Sheep'/33, l='MpServer', x=277.55, y=75.00, z=-346.55], EntitySheep['Sheep'/34, l='MpServer', x=285.48, y=70.92, z=-334.54], EntitySheep['Sheep'/35, l='MpServer', x=285.56, y=70.00, z=-333.22], EntitySheep['Sheep'/36, l='MpServer', x=297.81, y=69.00, z=-333.50], EntitySheep['Sheep'/6, l='MpServer', x=155.14, y=69.00, z=-342.58], EntitySheep['Sheep'/11, l='MpServer', x=197.28, y=72.00, z=-255.47], EntitySheep['Sheep'/14, l='MpServer', x=236.81, y=64.00, z=-331.51], EntityPlayerSP['zPrestige_'/78, l='MpServer', x=219.72, y=4.00, z=-267.80], EntitySheep['Sheep'/22, l='MpServer', x=255.57, y=78.00, z=-345.79], EntitySheep['Sheep'/23, l='MpServer', x=250.49, y=76.00, z=-329.30], EntitySheep['Sheep'/26, l='MpServer', x=259.79, y=78.00, z=-345.52], EntitySheep['Sheep'/27, l='MpServer', x=267.49, y=74.00, z=-339.27], EntitySheep['Sheep'/29, l='MpServer', x=270.22, y=64.00, z=-320.56]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:461)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2889)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:463)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_272, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Amazon.com Inc.
+	Memory: 437061736 bytes (416 MB) / 944242688 bytes (900 MB) up to 3801088000 bytes (3625 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2847 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                         | Signature |
+	|:------ |:--------- |:------------ |:---------------------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                  | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                  | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | forge     | 14.23.5.2847 | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | fire      | 0.1          | main                                           | None      |
+
+	Loaded coremods (and transformers): 
+MixinLoader (unknown)
+  
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 472.12' Renderer: 'NVIDIA GeForce RTX 3060/PCIe/SSE2'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: NVIDIA GeForce RTX 3060/PCIe/SSE2 GL version 4.6.0 NVIDIA 472.12, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 16x AMD Ryzen 7 2700X Eight-Core Processor 

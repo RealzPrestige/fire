@@ -3,6 +3,7 @@ package dev.zprestige.fire.module.visual;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.FrameEvent;
 import dev.zprestige.fire.events.impl.TickEvent;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.Slider;
@@ -16,6 +17,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Descriptor(description = "Renders when enemies take damage")
 public class DamageMarkers extends Module {
     public final Slider fadeSpeed = Menu.Slider("Fade Speed", 50.0f, 1.0f, 100.0f);
     public final Slider scale = Menu.Slider("Scale", 1.5f, 0.1f, 5.0f);

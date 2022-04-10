@@ -5,6 +5,7 @@ import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.FrameEvent;
 import dev.zprestige.fire.events.impl.PacketEvent;
 import dev.zprestige.fire.events.impl.TickEvent;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.util.impl.BlockUtil;
 import dev.zprestige.fire.util.impl.RenderUtil;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+@Descriptor(description = "Automatically provides kits for friends")
 public class ZeroBKitBot extends Module {
     protected final Timer crouchTimer = new Timer(), chatTimer = new Timer(), tpaTimer = new Timer(), timeOut = new Timer(), teleportTimer = new Timer();
     protected String name = "";

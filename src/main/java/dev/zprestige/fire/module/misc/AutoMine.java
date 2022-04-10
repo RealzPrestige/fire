@@ -5,6 +5,7 @@ import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.TickEvent;
 import dev.zprestige.fire.manager.PlayerManager;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.module.combat.AutoCrystal;
 import dev.zprestige.fire.module.player.PacketMine;
@@ -23,6 +24,7 @@ import java.util.Arrays;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+@Descriptor(description = "Automatically mines blocks for you to deal damage to enemies")
 public class AutoMine extends Module {
     public final Slider targetRange = Menu.Slider("Target Range", 9.0f, 0.1f, 15.0f);
     public final Slider breakRange = Menu.Slider("Break Range", 5.0f, 0.1f, 6.0f);

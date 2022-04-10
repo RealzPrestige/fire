@@ -2,16 +2,18 @@ package dev.zprestige.fire.module.client;
 
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.TickEvent;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
 import dev.zprestige.fire.ui.hudeditor.HudEditorScreen;
-import dev.zprestige.fire.ui.menu.MenuScreen;
+import dev.zprestige.fire.ui.menu.dropdown.MenuScreen;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 
+@Descriptor(description = "Opens Fire's clickgui")
 public class ClickGui extends Module {
     public static ClickGui Instance;
     public final ColorBox color = Menu.Color("Color", new Color(0xD79A5D));

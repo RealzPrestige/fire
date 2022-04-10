@@ -4,6 +4,7 @@ import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.KeyEvent;
 import dev.zprestige.fire.events.impl.TickEvent;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.Key;
 import dev.zprestige.fire.settings.impl.Slider;
@@ -21,6 +22,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.stream.IntStream;
 
+@Descriptor(description = "Automatically controls which pieces of armor you wear")
 public class AutoArmor extends Module {
     public final Slider delay = Menu.Slider("Delay", 50.0f, 0.1f, 500.0f);
     public final Switch strict = Menu.Switch("Strict", false);
@@ -51,10 +53,10 @@ public class AutoArmor extends Module {
             return;
         }
         if (singleMend.isHold()) {
-            takingOff = Keyboard.isKeyDown(singleMend.GetKey());
+            takingOff = singleMend.GetKey() != -1 && Keyboard.isKeyDown(singleMend.GetKey());
         }
         if (elytraSwap.isHold()) {
-            elytra = Keyboard.isKeyDown(elytraSwap.GetKey());
+            elytra = elytraSwap.GetKey() != -1 && Keyboard.isKeyDown(elytraSwap.GetKey());
         }
         if (takingOff && canTakeOff()) {
             if (!announced) {

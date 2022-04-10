@@ -1,0 +1,8 @@
+"Keybind": "0:false"
+"Enabled": "false"
+"Drawn": "true"
+"Target Range": "9.0"
+"Break Range": "5.0"
+"Damage": "false"
+"One Point Thirteen": "false"
+"Priority": "Burrow-City-Surround"

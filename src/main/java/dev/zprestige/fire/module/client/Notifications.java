@@ -4,9 +4,11 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.ModuleToggleEvent;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.Switch;
 
+@Descriptor(description = "Notifies you when things happen")
 public class Notifications extends Module {
     public final Switch modules = Menu.Switch("Modules", true);
 

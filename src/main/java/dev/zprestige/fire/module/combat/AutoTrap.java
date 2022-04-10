@@ -4,6 +4,7 @@ import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.TickEvent;
 import dev.zprestige.fire.manager.PlayerManager;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.ComboBox;
@@ -25,6 +26,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.TreeMap;
 
+@Descriptor(description = "Traps players with obsidian")
 public class AutoTrap extends Module {
     public final ComboBox placeMode = Menu.ComboBox("Place Mode", "Default", new String[]{
             "Default",

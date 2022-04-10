@@ -1,6 +1,8 @@
 package dev.zprestige.fire.util.impl;
 
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.module.client.ClickGui;
+import dev.zprestige.fire.ui.menu.panel.PanelScreen;
 import dev.zprestige.fire.util.Utils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -21,6 +23,153 @@ import static org.lwjgl.opengl.GL11.*;
 public class RenderUtil implements Utils {
     protected static final Tessellator tessellator = Tessellator.getInstance();
     protected static final BufferBuilder bufferbuilder = tessellator.getBuffer();
+
+    public static void drawPickerBase(int pickerX, int pickerY, int pickerWidth, int pickerHeight, float red, float green, float blue, float alpha) {
+        GL11.glPushMatrix();
+        glEnable(GL_BLEND);
+        glDisable(GL_TEXTURE_2D);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glShadeModel(GL_SMOOTH);
+        glBegin(GL_POLYGON);
+        glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+        glVertex2f(pickerX, pickerY);
+        glVertex2f(pickerX, pickerY + pickerHeight);
+        glColor4f(red, green, blue, alpha);
+        glVertex2f(pickerX + pickerWidth, pickerY + pickerHeight);
+        glVertex2f(pickerX + pickerWidth, pickerY);
+        glEnd();
+        glDisable(GL_ALPHA_TEST);
+        glBegin(GL_POLYGON);
+        glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
+        glVertex2f(pickerX, pickerY);
+        glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+        glVertex2f(pickerX, pickerY + pickerHeight);
+        glVertex2f(pickerX + pickerWidth, pickerY + pickerHeight);
+        glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
+        glVertex2f(pickerX + pickerWidth, pickerY);
+        glEnd();
+        glEnable(GL_ALPHA_TEST);
+        glShadeModel(GL_FLAT);
+        glEnable(GL_TEXTURE_2D);
+        glDisable(GL_BLEND);
+        GL11.glPopMatrix();
+    }
+
+    public static void drawLeftGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {
+        GL11.glPushMatrix();
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.disableAlpha();
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.shadeModel(GL_SMOOTH);
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuffer();
+        buffer.begin(GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+        buffer.pos(right, top, 0).color((float) (endColor >> 24 & 255) / 255.0F, (float) (endColor >> 16 & 255) / 255.0F, (float) (endColor >> 8 & 255) / 255.0F, (float) (endColor >> 24 & 255) / 255.0F).endVertex();
+        buffer.pos(left, top, 0).color((float) (startColor >> 16 & 255) / 255.0F, (float) (startColor >> 8 & 255) / 255.0F, (float) (startColor & 255) / 255.0F, (float) (startColor >> 24 & 255) / 255.0F).endVertex();
+        buffer.pos(left, bottom, 0).color((float) (startColor >> 16 & 255) / 255.0F, (float) (startColor >> 8 & 255) / 255.0F, (float) (startColor & 255) / 255.0F, (float) (startColor >> 24 & 255) / 255.0F).endVertex();
+        buffer.pos(right, bottom, 0).color((float) (endColor >> 24 & 255) / 255.0F, (float) (endColor >> 16 & 255) / 255.0F, (float) (endColor >> 8 & 255) / 255.0F, (float) (endColor >> 24 & 255) / 255.0F).endVertex();
+        tessellator.draw();
+        GlStateManager.shadeModel(GL_FLAT);
+        GlStateManager.disableBlend();
+        GlStateManager.enableAlpha();
+        GlStateManager.enableTexture2D();
+        GL11.glPopMatrix();
+    }
+
+    public static void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {
+        float f = (float)(startColor >> 24 & 255) / 255.0F;
+        float f1 = (float)(startColor >> 16 & 255) / 255.0F;
+        float f2 = (float)(startColor >> 8 & 255) / 255.0F;
+        float f3 = (float)(startColor & 255) / 255.0F;
+        float f4 = (float)(endColor >> 24 & 255) / 255.0F;
+        float f5 = (float)(endColor >> 16 & 255) / 255.0F;
+        float f6 = (float)(endColor >> 8 & 255) / 255.0F;
+        float f7 = (float)(endColor & 255) / 255.0F;
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.disableAlpha();
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.shadeModel(GL_SMOOTH);
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        bufferbuilder.pos((double)right, (double)top, (double)0).color(f1, f2, f3, f).endVertex();
+        bufferbuilder.pos((double)left, (double)top, (double)0).color(f1, f2, f3, f).endVertex();
+        bufferbuilder.pos((double)left, (double)bottom, (double)0).color(f5, f6, f7, f4).endVertex();
+        bufferbuilder.pos((double)right, (double)bottom, (double)0).color(f5, f6, f7, f4).endVertex();
+        tessellator.draw();
+        GlStateManager.shadeModel(GL_FLAT);
+        GlStateManager.disableBlend();
+        GlStateManager.enableAlpha();
+        GlStateManager.enableTexture2D();
+    }
+
+
+
+    public static void drawGradientRect(int left, int top, int right, int bottom, int coltl, int colbl, int coltr, int colbr, int zLevel) {
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.disableAlpha();
+        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+        GlStateManager.shadeModel(GL_SMOOTH);
+
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuffer();
+        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+        buffer.pos(right, top, zLevel).color((coltr & 0x00ff0000) >> 16, (coltr & 0x0000ff00) >> 8,
+                (coltr & 0x000000ff), (coltr & 0xff000000) >>> 24).endVertex();
+        buffer.pos(left, top, zLevel).color((coltl & 0x00ff0000) >> 16, (coltl & 0x0000ff00) >> 8, (coltl & 0x000000ff),
+                (coltl & 0xff000000) >>> 24).endVertex();
+        buffer.pos(left, bottom, zLevel).color((colbl & 0x00ff0000) >> 16, (colbl & 0x0000ff00) >> 8,
+                (colbl & 0x000000ff), (colbl & 0xff000000) >>> 24).endVertex();
+        buffer.pos(right, bottom, zLevel).color((colbr & 0x00ff0000) >> 16, (colbr & 0x0000ff00) >> 8,
+                (colbr & 0x000000ff), (colbr & 0xff000000) >>> 24).endVertex();
+        tessellator.draw();
+        GlStateManager.shadeModel(GL11.GL_FLAT);
+        GlStateManager.disableBlend();
+        GlStateManager.enableAlpha();
+        GlStateManager.enableTexture2D();
+    }
+
+    public static void drawRoundedRect(double x, double y, double width, double height, final double radius, final Color color) {
+        glPushAttrib(GL_POINTS);
+        glScaled(0.5, 0.5, 0.5);
+        {
+            x *= 2;
+            y *= 2;
+            width *= 2;
+            height *= 2;
+            glEnable(GL_BLEND);
+            glDisable(GL_TEXTURE_2D);
+            glColor4f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, color.getAlpha() / 255F);
+            glEnable(GL_LINE_SMOOTH);
+            glBegin(GL_POLYGON);
+            final double pi = Math.PI;
+            int i;
+            for (i = 0; i <= 90; i++) {
+                glVertex2d(x + radius + Math.sin(i * pi / 180.0D) * radius * -1.0D, y + radius + Math.cos(i * pi / 180.0D) * radius * -1.0D);
+            }
+            for (i = 90; i <= 180; i++) {
+                glVertex2d(x + radius + Math.sin(i * pi / 180.0D) * radius * -1.0D, height - radius + Math.cos(i * pi / 180.0D) * radius * -1.0D);
+            }
+            for (i = 0; i <= 90; i++) {
+                glVertex2d(width - radius + Math.sin(i * pi / 180.0D) * radius, height - radius + Math.cos(i * pi / 180.0D) * radius);
+            }
+            for (i = 90; i <= 180; i++) {
+                glVertex2d(width - radius + Math.sin(i * pi / 180.0D) * radius, y + radius + Math.cos(i * pi / 180.0D) * radius);
+            }
+            glEnd();
+            glEnable(GL_TEXTURE_2D);
+            glDisable(GL_BLEND);
+            glDisable(GL_LINE_SMOOTH);
+            glDisable(GL_BLEND);
+            glEnable(GL_TEXTURE_2D);
+        }
+
+        glScaled(2, 2, 2);
+        glPopAttrib();
+    }
 
     public static void drawCustomBB(Color color, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
         final AxisAlignedBB bb1 = new AxisAlignedBB(minX - mc.getRenderManager().viewerPosX, minY - mc.getRenderManager().viewerPosY, minZ - mc.getRenderManager().viewerPosZ, maxX - mc.getRenderManager().viewerPosX, maxY - mc.getRenderManager().viewerPosY, maxZ - mc.getRenderManager().viewerPosZ);
@@ -325,6 +474,7 @@ public class RenderUtil implements Utils {
         mc.getTextureManager().bindTexture(resourceLocation);
         Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
     }
+
     public static void image(ResourceLocation resourceLocation, int x, int y, int width, int height) {
         if (mc == null) {
             return;

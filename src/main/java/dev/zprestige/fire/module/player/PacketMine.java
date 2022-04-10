@@ -5,6 +5,7 @@ import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.BlockInteractEvent;
 import dev.zprestige.fire.events.impl.FrameEvent;
 import dev.zprestige.fire.events.impl.TickEvent;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ColorBox;
 
@@ -22,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 
 import java.awt.*;
 
+@Descriptor(description = "Assists and renders when you mine blocks")
 public class PacketMine extends Module {
     public final Switch render = Menu.Switch("Render", false);
     public final ComboBox renderMode = Menu.ComboBox("Render Mode", "Fade", new String[]{

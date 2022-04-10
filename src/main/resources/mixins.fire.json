@@ -3,6 +3,7 @@
   "compatibilityLevel": "JAVA_8",
   "package": "dev.zprestige.fire.mixins.impl",
   "refmap": "mixins.fire.refmap.json",
+  "minVersion": "",
   "mixins": [
     "MixinChunkRenderDispatcher",
     "MixinEntityPlayerSP",

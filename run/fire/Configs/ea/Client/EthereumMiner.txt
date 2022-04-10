@@ -1,2 +1,0 @@
-"Keybind": "0:false"
-"Enabled": "false"

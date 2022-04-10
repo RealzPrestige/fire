@@ -18,8 +18,9 @@ public class Module {
     protected final EventBus eventBus = Main.eventBus;
     protected final ArrayList<Setting<?>> settings = new ArrayList<>();
     protected final Minecraft mc = Minecraft.getMinecraft();
-    protected final Key keybind = Menu.Key("Keybind", Keyboard.KEY_NONE);
-    protected final Switch enabled = Menu.Switch("Enabled", false), drawn = Menu.Switch("Drawn", true);
+    protected final Key keybind = Menu.Key("Keybind", Keyboard.KEY_NONE).panel("Module");
+    protected final Switch enabled = Menu.Switch("Enabled", false).panel("Module"), drawn = Menu.Switch("Drawn", true).panel("Module");
+    protected final String description = getClass().getAnnotation(Descriptor.class).description();
     protected String name;
     protected Category category;
 
@@ -87,6 +88,10 @@ public class Module {
 
     public Key getKeySetting(){
         return keybind;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Module withSuper(String name, Category category){

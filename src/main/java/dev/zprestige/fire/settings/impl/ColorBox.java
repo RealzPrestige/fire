@@ -26,6 +26,11 @@ public class ColorBox extends Setting<Color> {
         return this;
     }
 
+    public ColorBox panel(final String panel){
+        this.panel = panel;
+        return this;
+    }
+
     @Override
     public Color getValue(){
         return GetColor();

@@ -5,6 +5,7 @@ import dev.zprestige.fire.events.impl.FogEvent;
 import dev.zprestige.fire.events.impl.FrameEvent;
 import dev.zprestige.fire.events.impl.PacketEvent;
 import dev.zprestige.fire.events.impl.ParticleEvent;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.ComboBox;
@@ -14,6 +15,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.network.play.server.SPacketEffect;
 import java.awt.*;
 
+@Descriptor(description = "Tweaks your vision and how the world looks")
 public class ViewTweaks extends Module {
     public final Slider fov = Menu.Slider("Fov", 130.0f, 50.0f, 200.0f);
     public final ComboBox weather = Menu.ComboBox("Weather", "Clear", new String[]{

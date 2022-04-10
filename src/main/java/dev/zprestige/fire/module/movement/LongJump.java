@@ -5,6 +5,7 @@ import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.MoveEvent;
 import dev.zprestige.fire.events.impl.PacketEvent;
 import dev.zprestige.fire.events.impl.TickEvent;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
@@ -14,6 +15,7 @@ import net.minecraft.network.play.server.SPacketPlayerPosLook;
 
 import java.util.Objects;
 
+@Descriptor(description = "Allows you to jump further than usual")
 public class LongJump extends Module {
     public final Slider factor = Menu.Slider("Factor", 5.0f, 0.1f, 20.0f);
     public final Slider accelerationFactor = Menu.Slider("Acceleration Factor", 2.0f, 0.1f, 10.0f);

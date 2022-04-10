@@ -1,5 +1,0 @@
-"Keybind": "0:false"
-"Enabled": "false"
-"Strict": "false"
-"Delay": "50.0"
-"Fill At": "60.0"

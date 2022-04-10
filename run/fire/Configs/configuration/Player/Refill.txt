@@ -1,0 +1,6 @@
+"Keybind": "0:false"
+"Enabled": "false"
+"Drawn": "true"
+"Strict": "false"
+"Delay": "50.0"
+"Fill At": "60.0"

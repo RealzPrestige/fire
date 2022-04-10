@@ -4,6 +4,7 @@ import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.FrameEvent;
 import dev.zprestige.fire.manager.HoleManager;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.Slider;
@@ -16,6 +17,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import java.awt.*;
 import java.util.Objects;
 
+@Descriptor(description = "Draws holes you can walk into and not take crystal damage in")
 public class HoleESP extends Module {
     public final Slider height = Menu.Slider("Height", 1.0f, 0.0f, 2.0f);
     public final Switch bedrockBox = Menu.Switch("Bedrock Box", false);

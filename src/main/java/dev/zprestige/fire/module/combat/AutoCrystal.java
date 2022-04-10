@@ -7,6 +7,7 @@ import dev.zprestige.fire.events.impl.FrameEvent;
 import dev.zprestige.fire.events.impl.PacketEvent;
 import dev.zprestige.fire.events.impl.TickEvent;
 import dev.zprestige.fire.manager.PlayerManager;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.module.misc.AutoMine;
 import dev.zprestige.fire.settings.impl.*;
@@ -37,107 +38,108 @@ import java.awt.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Descriptor(description = "Places and breaks crystals to damage enemies")
 public class AutoCrystal extends Module {
-    public final Slider targetRange = Menu.Slider("Target Range", 9.0f, 0.1f, 15.0f);
+    public final Slider targetRange = Menu.Slider("Target Range", 9.0f, 0.1f, 15.0f).panel("Target");
     public final ComboBox targetPriority = Menu.ComboBox("Target Priority", "UnSafe", new String[]{
             "Range",
             "UnSafe",
             "Health",
             "Fov",
-    });
-    public final Slider placeDelay = Menu.Slider("Place Delay", 0, 0, 500);
-    public final Slider explodeDelay = Menu.Slider("Explode Delay", 50, 0, 500);
-    public final Slider placeRange = Menu.Slider("Place Range", 5.0f, 0.1f, 6.0f);
-    public final Slider explodeRange = Menu.Slider("Explode Range", 5.0f, 0.1f, 6.0f);
+    }).panel("Target");
+    public final Slider placeDelay = Menu.Slider("Place Delay", 0, 0, 500).panel("Timing");
+    public final Slider explodeDelay = Menu.Slider("Explode Delay", 50, 0, 500).panel("Timing");
+    public final Slider placeRange = Menu.Slider("Place Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
+    public final Slider explodeRange = Menu.Slider("Explode Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
     public final ComboBox placeRaytrace = Menu.ComboBox("Place Raytrace", "None", new String[]{
             "Center",
             "Single",
             "Double",
             "Triple",
             "None"
-    });
+    }).panel("Ranges");
     public final ComboBox explodeRaytrace = Menu.ComboBox("Explode Raytrace", "None", new String[]{
             "Center",
             "Single",
             "Double",
             "Triple",
             "None"
-    });
-    public final Slider placeWallRange = Menu.Slider("Place Wall Range", 5.0f, 0.1f, 6.0f);
-    public final Slider explodeWallRange = Menu.Slider("Explode Wall Range", 5.0f, 0.1f, 6.0f);
+    }).panel("Ranges");
+    public final Slider placeWallRange = Menu.Slider("Place Wall Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
+    public final Slider explodeWallRange = Menu.Slider("Explode Wall Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
     public final ComboBox placeCalculations = Menu.ComboBox("Place Calculations", "Highest Damage", new String[]{
             "Highest Damage",
             "Lowest Distance",
             "Min Damage Distance",
             "Damage Minus Self Damage",
             "Adaptive"
-    });
+    }).panel("Calculations");
     public final ComboBox explodeCalculations = Menu.ComboBox("Explode Calculations", "Highest Damage", new String[]{
             "Highest Damage",
             "Lowest Distance",
             "Min Damage Distance",
             "Damage Minus Self Damage",
             "Adaptive"
-    });
-    public final Slider minPlaceDamage = Menu.Slider("Min Place Damage", 6.0f, 0.1f, 12.0f);
-    public final Slider minExplodeDamage = Menu.Slider("Min Explode Damage", 6.0f, 0.1f, 12.0f);
-    public final Slider maxSelfPlaceDamage = Menu.Slider("Max Self Place Damage", 8.0f, 0.1f, 12.0f);
-    public final Slider maxSelfExplodeDamage = Menu.Slider("Max Self Explode Damage", 8.0f, 0.1f, 12.0f);
-    public final Slider placeAntiSuicide = Menu.Slider("Place Anti Suicide", 0.0f, 0.0f, 10.0f);
-    public final Slider explodeAntiSuicide = Menu.Slider("Explode Anti Suicide", 0.0f, 0.0f, 10.0f);
-    public final Switch placeRotate = Menu.Switch("Place Rotate", false);
-    public final Switch explodeRotate = Menu.Switch("Explode Rotate", false);
+    }).panel("Calculations");
+    public final Slider minPlaceDamage = Menu.Slider("Min Place Damage", 6.0f, 0.1f, 12.0f).panel("Calculations");
+    public final Slider minExplodeDamage = Menu.Slider("Min Explode Damage", 6.0f, 0.1f, 12.0f).panel("Calculations");
+    public final Slider maxSelfPlaceDamage = Menu.Slider("Max Self Place Damage", 8.0f, 0.1f, 12.0f).panel("Calculations");
+    public final Slider maxSelfExplodeDamage = Menu.Slider("Max Self Explode Damage", 8.0f, 0.1f, 12.0f).panel("Calculations");
+    public final Slider placeAntiSuicide = Menu.Slider("Place Anti Suicide", 0.0f, 0.0f, 10.0f).panel("Calculations");
+    public final Slider explodeAntiSuicide = Menu.Slider("Explode Anti Suicide", 0.0f, 0.0f, 10.0f).panel("Calculations");
+    public final Switch placeRotate = Menu.Switch("Place Rotate", false).panel("Rotations");
+    public final Switch explodeRotate = Menu.Switch("Explode Rotate", false).panel("Rotations");
     public final ComboBox inAirRotations = Menu.ComboBox("InAir", "Ignore Full", new String[]{
             "None",
             "Ignore Rotations",
             "Ignore Full",
-    }).visibility(z -> placeRotate.GetSwitch() || explodeRotate.GetSwitch());
-    public final Switch syncRotations = Menu.Switch("Sync Rotations", false).visibility(z -> placeRotate.GetSwitch() || explodeRotate.GetSwitch());
-    public final Switch predictMotion = Menu.Switch("Predict Motion", false);
-    public final Slider predictMotionFactor = Menu.Slider("Predict Motion Factor", 2.0f, 1.0f, 20.0f).visibility(z -> predictMotion.getValue());
-    public final Switch predictMotionVisualize = Menu.Switch("Predict Motion Visualize", false).visibility(z -> predictMotion.getValue());
-    public final Switch placePacket = Menu.Switch("Place Packet", false);
-    public final Switch explodePacket = Menu.Switch("Explode Packet", false);
-    public final Switch placeSilentSwitch = Menu.Switch("Place Silent Switch", false);
-    public final Switch explodeSilentSwitch = Menu.Switch("Explode Silent Switch", false);
-    public final Switch placeInhibit = Menu.Switch("Place Inhibit", false);
-    public final Switch onePointThirteen = Menu.Switch("One Point Thirteen", false);
-    public final Switch explodeAntiWeakness = Menu.Switch("Explode Anti Weakness", false);
-    public final Switch autoMineTargetPrefer = Menu.Switch("Auto Mine Target Prefer", false);
+    }).visibility(z -> placeRotate.GetSwitch() || explodeRotate.GetSwitch()).panel("Rotations");
+    public final Switch syncRotations = Menu.Switch("Sync Rotations", false).visibility(z -> placeRotate.GetSwitch() || explodeRotate.GetSwitch()).panel("Rotations");
+    public final Switch predictMotion = Menu.Switch("Predict Motion", false).panel("Predict Motion");
+    public final Slider predictMotionFactor = Menu.Slider("Predict Motion Factor", 2.0f, 1.0f, 20.0f).visibility(z -> predictMotion.getValue()).panel("Predict Motion");
+    public final Switch predictMotionVisualize = Menu.Switch("Predict Motion Visualize", false).visibility(z -> predictMotion.getValue()).panel("Predict Motion");
+    public final Switch placePacket = Menu.Switch("Place Packet", false).panel("Other");
+    public final Switch explodePacket = Menu.Switch("Explode Packet", false).panel("Other");
+    public final Switch placeSilentSwitch = Menu.Switch("Place Silent Switch", false).panel("Other");
+    public final Switch explodeSilentSwitch = Menu.Switch("Explode Silent Switch", false).panel("Other");
+    public final Switch placeInhibit = Menu.Switch("Place Inhibit", false).panel("Other");
+    public final Switch onePointThirteen = Menu.Switch("One Point Thirteen", false).panel("Other");
+    public final Switch explodeAntiWeakness = Menu.Switch("Explode Anti Weakness", false).panel("Other");
+    public final Switch autoMineTargetPrefer = Menu.Switch("Auto Mine Target Prefer", false).panel("Other");
+    public final Switch destroyLoot = Menu.Switch("Destroy Loot", false).panel("Other");
+    public final Switch multiTask = Menu.Switch("MultiTask", true).panel("Other");
+    public final Switch autoSwitch = Menu.Switch("Auto Switch", true).panel("Other");
+    public final Switch pyroMode = Menu.Switch("Pyro Mode", true).panel("Predicting");
     public final ComboBox setDead = Menu.ComboBox("Set Dead", "None", new String[]{
             "None",
             "Safe",
             "Unsafe"
-    });
-    public final Switch destroyLoot = Menu.Switch("Destroy Loot", false);
-    public final Switch multiTask = Menu.Switch("MultiTask", true);
-    public final Switch autoSwitch = Menu.Switch("Auto Switch", true);
-    public final Switch pyroMode = Menu.Switch("Pyro Mode", true);
+    }).panel("Predicting");
     public final ComboBox predict = Menu.ComboBox("Predict", "Normal", new String[]{
             "None",
             "Normal",
             "Ultra",
             "UltraChain"
-    });
-    public final Slider facePlaceHealth = Menu.Slider("Face Place Health", 15.0f, 0.1f, 36.0f);
-    public final Switch facePlaceSlow = Menu.Switch("Face Place Slow", false);
-    public final Key facePlaceForceKey = Menu.Key("Face Place Force Key", Keyboard.KEY_NONE);
-    public final Switch render = Menu.Switch("Render", false);
+    }).panel("Predicting");
+    public final Slider facePlaceHealth = Menu.Slider("Face Place Health", 15.0f, 0.1f, 36.0f).panel("Faceplacing");
+    public final Switch facePlaceSlow = Menu.Switch("Face Place Slow", false).panel("Faceplacing");
+    public final Key facePlaceForceKey = Menu.Key("Face Place Force Key", Keyboard.KEY_NONE).panel("Faceplacing");
+    public final Switch render = Menu.Switch("Render", false).panel("Rendering");
     public final ComboBox animation = Menu.ComboBox("Animation", "Fade", new String[]{
             "None",
             "Fade",
             "Interpolate",
             "Shrink"
-    }).visibility(z -> render.GetSwitch());
-    public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch() && animation.GetCombo().equals("Fade"));
-    public final Slider interpolateSpeed = Menu.Slider("Interpolate Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch() && animation.GetCombo().equals("Interpolate"));
-    public final Slider shrinkSpeed = Menu.Slider("Shrink Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch() && animation.GetCombo().equals("Shrink"));
-    public final Switch renderCPS = Menu.Switch("Render CPS", false);
-    public final Switch box = Menu.Switch("Box", false).visibility(z -> render.GetSwitch());
-    public final ColorBox boxColor = Menu.Color("Box Color", new Color(255, 255, 255, 120)).visibility(z -> box.GetSwitch() && render.GetSwitch());
-    public final Switch outline = Menu.Switch("Outline", false).visibility(z -> render.GetSwitch());
-    public final ColorBox outlineColor = Menu.Color("Outline Color", new Color(255, 255, 255, 255)).visibility(z -> render.GetSwitch() && outline.GetSwitch());
-    public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f).visibility(z -> render.GetSwitch() && outline.GetSwitch());
+    }).visibility(z -> render.GetSwitch()).panel("Rendering");
+    public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch() && animation.GetCombo().equals("Fade")).panel("Rendering");
+    public final Slider interpolateSpeed = Menu.Slider("Interpolate Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch() && animation.GetCombo().equals("Interpolate")).panel("Rendering");
+    public final Slider shrinkSpeed = Menu.Slider("Shrink Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch() && animation.GetCombo().equals("Shrink")).panel("Rendering");
+    public final Switch renderCPS = Menu.Switch("Render CPS", false).panel("Rendering");
+    public final Switch box = Menu.Switch("Box", false).visibility(z -> render.GetSwitch()).panel("Rendering");
+    public final ColorBox boxColor = Menu.Color("Box Color", new Color(255, 255, 255, 120)).visibility(z -> box.GetSwitch() && render.GetSwitch()).panel("Rendering");
+    public final Switch outline = Menu.Switch("Outline", false).visibility(z -> render.GetSwitch()).panel("Rendering");
+    public final ColorBox outlineColor = Menu.Color("Outline Color", new Color(255, 255, 255, 255)).visibility(z -> render.GetSwitch() && outline.GetSwitch()).panel("Rendering");
+    public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f).visibility(z -> render.GetSwitch() && outline.GetSwitch()).panel("Rendering");
 
     protected final Timer[] timers = new Timer[]{new Timer(), new Timer()};
     protected final HashMap<PlayerManager.Player, Long> deadPlayers = new HashMap<>();

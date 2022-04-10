@@ -1,4 +1,0 @@
-"Keybind": "0:false"
-"Enabled": "false"
-"Timing": "Tick"
-"Shulkers Per Tick": "1.0"

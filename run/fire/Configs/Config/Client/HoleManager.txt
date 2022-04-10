@@ -1,3 +1,0 @@
-"Keybind": "0:false"
-"Enabled": "true"
-"Range": "20.3"

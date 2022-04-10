@@ -94,7 +94,7 @@ public class ConfigManager {
                 final String[] finalLine = line.replace("\"", "").replace(" ", "").split(":");
                 final String settingName = finalLine[0];
                 final String value = finalLine[1];
-                final Setting setting = isStringSetting(settingName, module);
+                final Setting<?> setting = isStringSetting(settingName, module);
                 if (setting instanceof ColorBox) {
                     if (!String.valueOf(((ColorBox) setting).GetColor().getRGB()).equals(value)) {
                         same.set(false);
@@ -194,7 +194,7 @@ public class ConfigManager {
             for (Module module : Main.moduleManager.getModulesInCategory(category)) {
                 final File moduleFile = Main.fileManager.registerFileAndCreate(categoryFolder + separator + module.getName() + ".txt");
                 final BufferedWriter bufferedWriter = Main.fileManager.createBufferedWriter(moduleFile);
-                for (Setting setting : module.getSettings()) {
+                for (Setting<?> setting : module.getSettings()) {
                     if (setting instanceof ColorBox) {
                         saveValue(bufferedWriter, setting.getName(), String.valueOf(((ColorBox) setting).GetColor().getRGB()));
                         continue;
@@ -265,15 +265,14 @@ public class ConfigManager {
     public void loadModule(final Module module, final String line, final boolean preserveKeybinds) {
         final String[] finalLine = line.replace("\"", "").replace(" ", "").split(":");
         final String settingName = finalLine[0];
-        if (preserveKeybinds && settingName.equals("Keybind")) {
-            return;
-        }
         final String value = finalLine[1];
-        final Setting setting = getSettingByNameAndModule(module, settingName);
-        setValueFromSetting(setting, value, settingName.equals("Enabled"), setting instanceof Key ? finalLine[2] : "");
+        final Setting<?> setting = getSettingByNameAndModule(module, settingName);
+        if (!preserveKeybinds || !(setting instanceof Key)) {
+            setValueFromSetting(setting, value, settingName.equals("Enabled"), setting instanceof Key ? finalLine[2] : "");
+        }
     }
 
-    protected void setValueFromSetting(Setting setting, String line, boolean enabled, String hold) {
+    protected void setValueFromSetting(Setting<?> setting, String line, boolean enabled, String hold) {
         if (enabled) {
             final Module module = setting.getModule();
             if (line.equals("true") && !module.isEnabled()) {

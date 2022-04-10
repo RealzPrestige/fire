@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 public class
 Setting<T> {
     protected Module module;
-    protected String name;
+    protected String name, panel = "Main";
     protected T value;
     protected Predicate<T> shown;
 
@@ -30,6 +30,10 @@ Setting<T> {
 
     public T getValue() {
         return value;
+    }
+
+    public String getPanel() {
+        return panel;
     }
 
     public boolean isVisible() {

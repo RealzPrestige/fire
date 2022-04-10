@@ -36,6 +36,11 @@ public class Slider extends Setting<Float> {
         return this;
     }
 
+    public Slider panel(final String panel){
+        this.panel = panel;
+        return this;
+    }
+
     @Override
     public Float getValue() {
         return GetSlider();

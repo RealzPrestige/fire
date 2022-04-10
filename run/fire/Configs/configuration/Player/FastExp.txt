@@ -1,0 +1,8 @@
+"Keybind": "0:false"
+"Enabled": "false"
+"Drawn": "true"
+"Mode": "Packet"
+"Activate Mode": "RightClick"
+"Custom Key": "0:false"
+"Packets": "2.0"
+"Hand Only": "false"

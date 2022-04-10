@@ -1,5 +1,0 @@
-"Keybind": "0:false"
-"Enabled": "false"
-"Fade Speed": "50.0"
-"Scale": "1.5"
-"Color": "-1"

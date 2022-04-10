@@ -6,6 +6,7 @@ import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.KeyEvent;
 import dev.zprestige.fire.events.impl.MoveEvent;
 import dev.zprestige.fire.events.impl.TickEvent;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Key;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+@Descriptor(description = "Speeds up and controls moving")
 public class Speed extends Module {
     public final ComboBox speedMode = Menu.ComboBox("Speed Mode", "Strafe", new String[]{"OnGround", "Strafe"});
     public final ComboBox dataMode = Menu.ComboBox("Data Mode", "Mode", new String[]{"Mode", "Factor"});

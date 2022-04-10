@@ -5,6 +5,7 @@ import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.FrameEvent;
 import dev.zprestige.fire.events.impl.TickEvent;
 import dev.zprestige.fire.manager.PlayerManager;
+import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.util.impl.BlockUtil;
@@ -18,6 +19,7 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
 
+@Descriptor(description = "Predicts when enemies will run out of holes")
 public class RunDetect extends Module {
     public final Slider radius = Menu.Slider("Radius", 3.0f, 0.1f, 15.0f);
     protected final ArrayList<EntityPlayer> potentialRunnersList = new ArrayList<>(), swordedPotentialRunnersList = new ArrayList<>(), finalRunningPlayers = new ArrayList<>();

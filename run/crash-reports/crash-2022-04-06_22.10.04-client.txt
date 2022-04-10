@@ -1,0 +1,130 @@
+---- Minecraft Crash Report ----
+// Why did you do that?
+
+Time: 4/6/22 10:10 PM
+Description: Rendering screen
+
+java.lang.IllegalArgumentException: Color parameter outside of expected range: Red Green Blue
+	at java.awt.Color.testColorValueRange(Color.java:310)
+	at java.awt.Color.<init>(Color.java:395)
+	at java.awt.Color.<init>(Color.java:490)
+	at dev.zprestige.fire.ui.menu.panel.PanelCategory.render(PanelCategory.java:30)
+	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$3(PanelScreen.java:57)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:57)
+	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:442)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at java.awt.Color.testColorValueRange(Color.java:310)
+	at java.awt.Color.<init>(Color.java:395)
+	at java.awt.Color.<init>(Color.java:490)
+	at dev.zprestige.fire.ui.menu.panel.PanelCategory.render(PanelCategory.java:30)
+	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$3(PanelScreen.java:57)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:57)
+	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
+
+-- Screen render details --
+Details:
+	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Mouse location: Scaled: (806, 119). Absolute: (1613, 840)
+	Screen size: Scaled: (960, 540). Absolute: (1920, 1080). Scale factor of 2
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['zPrestige_'/83, l='MpServer', x=224.49, y=4.00, z=-277.28]]
+	Chunk stats: MultiplayerChunkCache: 420, 420
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (252,64,-242), Chunk: (at 12,4,14 in 15,-16; contains blocks 240,0,-256 to 255,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 3721927 game time, 183415 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: true), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Forced entities: 17 total; [EntitySheep['Sheep'/32, l='MpServer', x=259.26, y=76.00, z=-336.51], EntitySheep['Sheep'/33, l='MpServer', x=257.79, y=76.00, z=-332.49], EntitySheep['Sheep'/35, l='MpServer', x=278.45, y=75.00, z=-347.45], EntitySheep['Sheep'/36, l='MpServer', x=282.73, y=72.00, z=-344.50], EntitySheep['Sheep'/38, l='MpServer', x=303.27, y=69.00, z=-326.53], EntitySheep['Sheep'/6, l='MpServer', x=158.26, y=70.00, z=-329.62], EntitySheep['Sheep'/11, l='MpServer', x=194.68, y=74.00, z=-252.18], EntityEnderCrystal['entity.EnderCrystal.name'/15, l='MpServer', x=234.50, y=4.00, z=-266.50], EntityEnderCrystal['entity.EnderCrystal.name'/16, l='MpServer', x=236.50, y=4.00, z=-265.50], EntityEnderCrystal['entity.EnderCrystal.name'/17, l='MpServer', x=234.50, y=4.00, z=-263.50], EntityEnderCrystal['entity.EnderCrystal.name'/18, l='MpServer', x=237.50, y=4.00, z=-262.50], EntityPlayerSP['zPrestige_'/83, l='MpServer', x=224.49, y=4.00, z=-277.28], EntitySheep['Sheep'/25, l='MpServer', x=250.47, y=78.00, z=-340.25], EntitySheep['Sheep'/26, l='MpServer', x=255.52, y=75.00, z=-337.99], EntitySheep['Sheep'/29, l='MpServer', x=262.49, y=77.00, z=-355.71], EntitySheep['Sheep'/30, l='MpServer', x=261.50, y=79.00, z=-350.23], EntitySheep['Sheep'/31, l='MpServer', x=268.73, y=71.00, z=-337.51]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:461)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2889)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:463)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_272, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Amazon.com Inc.
+	Memory: 534240664 bytes (509 MB) / 901251072 bytes (859 MB) up to 3801088000 bytes (3625 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2847 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                         | Signature |
+	|:------ |:--------- |:------------ |:---------------------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                  | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                  | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | forge     | 14.23.5.2847 | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | fire      | 0.1          | main                                           | None      |
+
+	Loaded coremods (and transformers): 
+MixinLoader (unknown)
+  
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 472.12' Renderer: 'NVIDIA GeForce RTX 3060/PCIe/SSE2'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: NVIDIA GeForce RTX 3060/PCIe/SSE2 GL version 4.6.0 NVIDIA 472.12, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 16x AMD Ryzen 7 2700X Eight-Core Processor 
