@@ -38,7 +38,7 @@ public class Step extends Module {
                     if (canStep()) {
                         final int height = (int) this.height.GetSlider();
                         if (checkEmpty(height)) {
-                            performStep(height);
+                            performStep(height, EntityUtil.getSpeed(0.1f));
                         }
                     }
                     break;
@@ -52,22 +52,26 @@ public class Step extends Module {
 
     protected boolean checkEmpty(final int amount) {
         final float[] i = EntityUtil.getSpeed(0.1f);
-        return amount == 1 ? (isBoundingEmpty(i, 1.1f) && !isBoundingEmpty(i, 0.9f)) : (isBoundingEmpty(i, 2.1f) && !isBoundingEmpty(i, 1.9f));
+        return amount == 1 ? checkFirstHeight(i) : (checkFirstHeight(i)) || (isBoundingEmpty(i, 2.1f) && !isBoundingEmpty(i, 1.9f));
+    }
+
+    protected boolean checkFirstHeight(final float[] i) {
+        return isBoundingEmpty(i, 1.1f) && !isBoundingEmpty(i, 0.9f);
     }
 
     protected boolean canStep() {
         return mc.player.collidedHorizontally && mc.player.onGround;
     }
 
-    protected void performStep(final int amount) {
-        sendOffsets(amount);
+    protected void performStep(final int amount, final float[] i) {
+        sendOffsets(amount, i);
     }
 
-    protected void sendOffsets(final int amount) {
-        for (float i : amount == 1 ? singleOffsets : doubleOffsets) {
-            mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + i, mc.player.posZ, mc.player.onGround));
+    protected void sendOffsets(final int amount, final float[] i) {
+        for (float j : amount == 1 ? singleOffsets : checkFirstHeight(i) ? singleOffsets : doubleOffsets) {
+            mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + j, mc.player.posZ, mc.player.onGround));
         }
-        mc.player.setPosition(mc.player.posX, mc.player.posY + amount, mc.player.posZ);
+        mc.player.setPosition(mc.player.posX, mc.player.posY + (amount == 2 ? checkFirstHeight(i) ? 1 : 2 : 1), mc.player.posZ);
     }
 
     protected boolean isBoundingEmpty(final float[] i, final float y) {
