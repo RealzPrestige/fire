@@ -12,18 +12,23 @@ import java.awt.*;
 @Descriptor(description = "Controls how far the client should load holes")
 public class HoleManager extends Module {
     public final Slider range = Menu.Slider("Range", 20.0f, 0.1f, 50.0f);
+    protected float lastRange = 0.0f;
 
-    public HoleManager(){
+    public HoleManager() {
         enableModule();
     }
 
     @RegisterListener
-    public void onFrame3D(FrameEvent.FrameEvent3D event){
-            Main.holeManager.loadHoles(range.GetSlider());
+    public void onFrame3D(FrameEvent.FrameEvent3D event) {
+        if (lastRange != range.GetSlider()){
+            Main.holeManager.getHoles().clear();
+        }
+        Main.holeManager.loadHoles(range.GetSlider());
+        lastRange = range.GetSlider();
     }
 
     @Override
-    public String getData(){
+    public String getData() {
         return String.valueOf(range.GetSlider());
     }
 }

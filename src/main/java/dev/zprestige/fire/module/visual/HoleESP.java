@@ -30,8 +30,9 @@ public class HoleESP extends Module {
             "Grow",
             "Pop"
     });
-    protected final Slider fadeAmount = Menu.Slider("Fade Amount", 30.0f, 0.1f, 50.0f);
+    protected final Slider fadeAmount = Menu.Slider("Fade Amount", 30.0f, 0.1f, 50.0f).visibility(z -> animation.GetCombo().equals("Fade"));
     public final Slider animationSpeed = Menu.Slider("Animation Speed", 1.0f, 1.0f, 10.0f).visibility(z -> animation.GetCombo().equals("Grow") || animation.GetCombo().equals("Pop"));
+    public final Switch fadePop = Menu.Switch("Fade Pop", false).visibility(z -> animation.GetCombo().equals("Pop"));
     public final Slider startY = Menu.Slider("Start Y", 1.0f, 0.1f, 10.0f).visibility(z -> animation.GetCombo().equals("Pop"));
     public final Slider height = Menu.Slider("Height", 1.0f, 0.0f, 2.0f);
     public final Switch bedrockBox = Menu.Switch("Bedrock Box", false);
@@ -135,9 +136,19 @@ public class HoleESP extends Module {
                     break;
                 case "Pop":
                     if (remove) {
+                        if (fadePop.GetSwitch()) {
+                            scale = AnimationUtil.decreaseNumber(scale, 0.0f, (scale / Minecraft.getDebugFPS()) * animationSpeed.GetSlider());
+                        }
                         y = AnimationUtil.increaseNumber(y, startY.GetSlider() / 10.0f, ((startY.GetSlider() / 10.0f - y) / Minecraft.getDebugFPS()) * animationSpeed.GetSlider());
                     } else {
+                        if (fadePop.GetSwitch()) {
+                            scale = AnimationUtil.increaseNumber(scale, color.getAlpha() / 255.0f, (((color.getAlpha() / 255.0f) - scale) / Minecraft.getDebugFPS()) * animationSpeed.GetSlider());
+                        }
                         y = AnimationUtil.decreaseNumber(y, 0.0f, (y / Minecraft.getDebugFPS()) * animationSpeed.GetSlider());
+                    }
+                    if (fadePop.GetSwitch()) {
+                        color = new Color(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, scale);
+                        outlineColor = new Color(outlineColor.getRed() / 255.0f, outlineColor.getGreen() / 255.0f, outlineColor.getBlue() / 255.0f, scale);
                     }
                     bb = new AxisAlignedBB(bb.minX, bb.minY - y, bb.minZ, bb.maxX, bb.maxY - y, bb.maxZ);
                     break;
