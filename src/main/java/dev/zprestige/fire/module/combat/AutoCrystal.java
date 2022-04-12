@@ -639,19 +639,24 @@ public class AutoCrystal extends Module {
     }
 
     protected void renderEntity(final Entity entity, final float partialTicks) {
-        if (entity.ticksExisted == 0) {
-            entity.lastTickPosX = entity.posX;
-            entity.lastTickPosY = entity.posY;
-            entity.lastTickPosZ = entity.posZ;
+        if (mc.player != null && mc.world != null && entity != null) {
+            if (entity.ticksExisted == 0) {
+                entity.lastTickPosX = entity.posX;
+                entity.lastTickPosY = entity.posY;
+                entity.lastTickPosZ = entity.posZ;
+            }
+            final double x = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+            final double y = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+            final double z = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
+            final float yaw = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks;
+            final float l = 65536.0f;
+            final int i = entity.getBrightnessForRender();
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, i % l, i / l);
+            try {
+                mc.getRenderManager().renderEntity(entity, x - mc.getRenderManager().viewerPosX, y - mc.getRenderManager().viewerPosY, z - mc.getRenderManager().viewerPosZ, yaw, partialTicks, false);
+            } catch (Exception ignored){
+            }
         }
-        final double x = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
-        final double y = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
-        final double z = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
-        final float yaw = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks;
-        final float l = 65536.0f;
-        final int i = entity.getBrightnessForRender();
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, i % l, i / l);
-        mc.getRenderManager().renderEntity(entity, x - mc.getRenderManager().viewerPosX, y - mc.getRenderManager().viewerPosY, z - mc.getRenderManager().viewerPosZ, yaw, partialTicks, false);
     }
 
     protected static class CalculationComponent {

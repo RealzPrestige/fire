@@ -486,6 +486,8 @@
   "minecraft:adventure/adventuring_time": {
     "criteria": {
       "forest": "2022-04-03 21:24:42 +0100",
+      "birch_forest": "2022-04-11 08:47:24 +0100",
+      "deep_ocean": "2022-04-11 07:23:06 +0100",
       "beaches": "2022-04-03 21:24:55 +0100",
       "forest_hills": "2022-04-03 21:23:31 +0100",
       "river": "2022-04-04 15:47:23 +0100"

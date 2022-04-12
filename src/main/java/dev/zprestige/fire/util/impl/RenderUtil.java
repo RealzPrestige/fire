@@ -225,9 +225,7 @@ public class RenderUtil implements Utils {
     }
 
     public static void draw3DText(final String text, double x, double y, double z, double scale, float red, float green, float blue, float alpha) {
-        glPushMatrix();
         RenderUtil.drawNametag(text, x, y, z, scale, new Color(red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f).getRGB());
-        glPopMatrix();
     }
 
     public static void prepare3D(final double x, final double y, final double z, final double scale) {
@@ -257,8 +255,8 @@ public class RenderUtil implements Utils {
     }
 
     public static void drawNametag(final String text, final double x, final double y, final double z, final double scale, final int color) {
-        prepare3D(x, y, z, scale);
         int textWidth = (int) (Main.fontManager.getStringWidth(text) / 2);
+        prepare3D(x, y, z, scale);
         Main.fontManager.drawStringWithShadow(text, new Vector2D(-textWidth, -(mc.fontRenderer.FONT_HEIGHT - 1)), color);
         release3D();
     }

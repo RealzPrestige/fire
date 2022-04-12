@@ -56,7 +56,7 @@ public class PacketMine extends Module {
 
     @RegisterListener
     public void onFrame3D(FrameEvent.FrameEvent3D event) {
-        if (render.GetSwitch() && activePos != null) {
+        if (mc.player != null && mc.world != null && render.GetSwitch() && activePos != null) {
             final float factor = (Minecraft.getDebugFPS() / 20.0f);
             final float updateValue = updateValue(activePos);
             if (size < 1.0f) {
