@@ -150,6 +150,13 @@ public class HoleManager  {
             return holeType;
         }
 
+        public boolean isBedrock(){
+            return holeType.equals(Type.Bedrock) || holeType.equals(Type.DoubleBedrockWest) || holeType.equals(Type.DoubleBedrockNorth);
+        }
+
+        public boolean isWestDouble(){
+            return holeType.equals(Type.DoubleBedrockWest) || holeType.equals(Type.DoubleObsidianWest);
+        }
         public boolean isDouble(){
             return holeType.equals(HoleManager.Type.DoubleBedrockNorth) || holeType.equals(Type.DoubleBedrockWest) || holeType.equals(Type.DoubleObsidianNorth) || holeType.equals(Type.DoubleObsidianWest);
         }
