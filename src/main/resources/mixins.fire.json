@@ -12,6 +12,7 @@
     "MixinNetworkManager",
     "MixinParticleManager",
     "MixinPlayerControllerMP",
-    "MixinRenderEnderCrystal"
+    "MixinRenderEnderCrystal",
+    "MixinRenderItem"
   ]
 }

@@ -34,7 +34,7 @@ public abstract class MixinGuiButton {
     @Shadow
     protected abstract void mouseDragged(final Minecraft mc, final int mouseX, final int mouseY);
 
-    @Inject(method = {"drawButton"}, at = {@At("HEAD")}, cancellable = true)
+    @Inject(method = "drawButton", at = @At("HEAD"), cancellable = true)
     public void drawButton(final Minecraft mc, final int mouseX, final int mouseY, final float ignoredPartialTicks, final CallbackInfo callbackInfo) {
         if (visible) {
             hovered = (mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height);

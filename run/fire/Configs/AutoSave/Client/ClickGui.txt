@@ -1,5 +1,5 @@
 "Keybind": "54:false"
-"Enabled": "true"
+"Enabled": "false"
 "Drawn": "true"
 "Color": "-11527195"
 "Background Color": "1446261812"
