@@ -45,6 +45,7 @@ public class Main {
     public static TickManager tickManager;
     public static NotificationManager notificationManager;
     public static MotionPredictionManager motionPredictionManager;
+    public static ParticleManager particleManager;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent ignoredEvent) {
@@ -73,6 +74,7 @@ public class Main {
         tickManager = (TickManager) new TickManager().registerEventBus();
         notificationManager = (NotificationManager) new NotificationManager().registerEventBus();
         motionPredictionManager = (MotionPredictionManager) new MotionPredictionManager().registerEventBus();
+        particleManager = (ParticleManager) new ParticleManager().registerEventBus();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.save("AutoSave");
             configManager.savePrefix();
