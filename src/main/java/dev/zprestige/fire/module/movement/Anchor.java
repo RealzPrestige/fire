@@ -40,14 +40,14 @@ public class Anchor extends Module {
     protected BlockPos pos;
 
     @RegisterListener
-    public void onTick(final TickEvent event){
-        if (pos != null && mc.player.getDistanceSq(pos) > range.GetSlider() * 2.0f){
+    public void onTick(final TickEvent event) {
+        if (pos != null && mc.player.getDistanceSq(pos) > range.GetSlider() * 2.0f) {
             pos = null;
         }
-        if (pos != null && !Main.holeManager.contains(pos)){
+        if (pos != null && !Main.holeManager.contains(pos)) {
             pos = null;
         }
-        if (BlockUtil.isPlayerSafe(new PlayerManager.Player(mc.player))){
+        if (BlockUtil.isPlayerSafe(new PlayerManager.Player(mc.player))) {
             pos = null;
             timer.syncTime();
             return;
@@ -55,49 +55,51 @@ public class Anchor extends Module {
         if (pos == null) {
             final TreeMap<Double, BlockPos> posses = new TreeMap<>();
             for (final HoleManager.HolePos holePos : Main.holeManager.getHoles()) {
-                if (holePos.isDouble()){
+                if (holePos.isDouble()) {
                     continue;
                 }
                 final BlockPos pos1 = holePos.getPos();
                 final double dist = mc.player.getDistanceSq(pos1);
-                if (mode.GetCombo().equals("Snap") ? mc.player.posY > pos1.getY() : mc.player.posY >= pos1.getY() && dist < range.GetSlider() * 2.0f){
+                if (mode.GetCombo().equals("Snap") ? mc.player.posY > pos1.getY() : mc.player.posY >= pos1.getY() && dist < range.GetSlider() * 2.0f) {
                     posses.put(dist, pos1);
                 }
             }
-            if (!posses.isEmpty()){
+            if (!posses.isEmpty()) {
                 pos = posses.firstEntry().getValue();
             }
-        } else if (timer.getTime(1000)){
-            switch (mode.GetCombo()){
-                case "Stop Motion":
-                    if (isOver(pos) && intersects(pos)){
-                        mc.player.motionX = 0;
-                        mc.player.motionZ =0;
+        } else if (timer.getTime(1000)) {
+            if (pos.getY() < mc.player.posY) {
+                switch (mode.GetCombo()) {
+                    case "Stop Motion":
+                        if (isOver(pos) && intersects(pos)) {
+                            mc.player.motionX = 0;
+                            mc.player.motionZ = 0;
+                            setMovementsFalse();
+                        }
+                        break;
+                    case "Pull":
+                        final AxisAlignedBB bb = new AxisAlignedBB(pos).shrink(0.35f);
+                        final float speed = pullSpeed.GetSlider() / 10.0f;
+                        if (mc.player.posX > bb.maxX) {
+                            mc.player.motionX = -speed;
+                        } else if (mc.player.posX < bb.minX) {
+                            mc.player.motionX = speed;
+                        }
+                        if (mc.player.posZ > bb.maxZ) {
+                            mc.player.motionZ = -speed;
+                        } else if (mc.player.posZ < bb.minZ) {
+                            mc.player.motionZ = speed;
+                        }
                         setMovementsFalse();
-                    }
-                    break;
-                case "Pull":
-                    final AxisAlignedBB bb = new AxisAlignedBB(pos).shrink(0.35f);
-                    final float speed = pullSpeed.GetSlider() / 10.0f;
-                    if (mc.player.posX > bb.maxX){
-                        mc.player.motionX = -speed;
-                    } else if (mc.player.posX < bb.minX){
-                        mc.player.motionX = speed;
-                    }
-                    if (mc.player.posZ > bb.maxZ){
-                        mc.player.motionZ = -speed;
-                    } else if (mc.player.posZ < bb.minZ){
-                        mc.player.motionZ = speed;
-                    }
-                    setMovementsFalse();
-                    break;
-                case "Snap":
-                    if (!onGround.GetSwitch() || mc.player.onGround) {
-                        mc.player.setPosition(pos.getX() + 0.5f, mc.player.posY, pos.getZ() + 0.5f);
-                    }
-                    mc.player.motionY = -snapFall.GetSlider();
-                    setMovementsFalse();
-                    break;
+                        break;
+                    case "Snap":
+                        if (!onGround.GetSwitch() || mc.player.onGround) {
+                            mc.player.setPosition(pos.getX() + 0.5f, mc.player.posY, pos.getZ() + 0.5f);
+                        }
+                        mc.player.motionY = -snapFall.GetSlider();
+                        setMovementsFalse();
+                        break;
+                }
             }
         }
     }
