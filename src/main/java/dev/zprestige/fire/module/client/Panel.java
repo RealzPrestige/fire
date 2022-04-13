@@ -8,6 +8,7 @@ import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
 import dev.zprestige.fire.ui.menu.panel.PanelScreen;
+import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
 
@@ -19,20 +20,22 @@ public class Panel extends Module {
     public final Slider particleSpeed = Menu.Slider("Particle Speed", 0.5f, 0.0f, 2.0f).visibility(z -> particles.GetSwitch());
     public final Slider particleSize = Menu.Slider("Particle Size", 1.0f, 0.5f, 10.0f).visibility(z -> particles.GetSwitch());
     public final Slider particleAmount = Menu.Slider("Particle Amount", 200.0f, 1.0f, 1000.0f).visibility(z -> particles.GetSwitch());
+    public final Switch blur = Menu.Switch("Blur", true);
+
     @RegisterListener
-    public void onTick(final TickEvent event){
-        if (!(mc.currentScreen instanceof PanelScreen)){
+    public void onTick(final TickEvent event) {
+        if (!(mc.currentScreen instanceof PanelScreen)) {
             disableModule();
         }
     }
 
     @Override
-    public void onEnable(){
+    public void onEnable() {
         mc.displayGuiScreen(new PanelScreen());
     }
 
     @Override
-    public void onDisable(){
+    public void onDisable() {
         mc.displayGuiScreen(null);
     }
 }

@@ -407,7 +407,7 @@ public class AutoCrystal extends Module {
             switched = true;
         }
         if (placeRotate.GetSwitch()) {
-            Main.rotationManager.facePos(pos, syncRotations.GetSwitch());
+            Main.rotationManager.facePos(pos.add(x, y, z), syncRotations.GetSwitch());
             switch (inAirRotations.GetCombo()) {
                 case "None":
                     Main.rotationManager.facePos(pos, syncRotations.GetSwitch());
