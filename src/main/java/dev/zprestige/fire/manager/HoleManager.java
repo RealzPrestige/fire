@@ -129,6 +129,10 @@ public class HoleManager  {
         return !mc.world.getBlockState(pos).getBlock().equals(Blocks.BEDROCK);
     }
 
+    public boolean contains(final BlockPos pos){
+        return Main.holeManager.getHoles().stream().anyMatch(holePos -> holePos.getPos().equals(pos));
+    }
+
     public List<HolePos> getHoles() {
         return holes;
     }

@@ -147,8 +147,8 @@ public class HoleESP extends Module {
                         y = AnimationUtil.decreaseNumber(y, 0.0f, (y / Minecraft.getDebugFPS()) * animationSpeed.GetSlider());
                     }
                     if (fadePop.GetSwitch()) {
-                        color = new Color(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, scale);
-                        outlineColor = new Color(outlineColor.getRed() / 255.0f, outlineColor.getGreen() / 255.0f, outlineColor.getBlue() / 255.0f, scale);
+                        color = new Color(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, Math.min(1.0f, Math.max(0.0f, scale)));
+                        outlineColor = new Color(outlineColor.getRed() / 255.0f, outlineColor.getGreen() / 255.0f, outlineColor.getBlue() / 255.0f, Math.min(1.0f, Math.max(0.0f, scale)));
                     }
                     bb = new AxisAlignedBB(bb.minX, bb.minY - y, bb.minZ, bb.maxX, bb.maxY - y, bb.maxZ);
                     break;

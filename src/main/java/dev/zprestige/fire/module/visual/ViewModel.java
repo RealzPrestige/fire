@@ -48,7 +48,7 @@ public class ViewModel extends Module {
 
     @RegisterListener
     public void onFrame3D(final FrameEvent.FrameEvent3D event) {
-        if (removeSway.GetSwitch()) {
+        if (mc.player.ticksExisted >= 20 && removeSway.GetSwitch()) {
             mc.player.renderArmYaw -= (mc.player.rotationYaw - mc.player.renderArmYaw) * 0.5f;
             mc.player.renderArmPitch -= (mc.player.rotationPitch - mc.player.renderArmPitch) * 0.5f;
         }

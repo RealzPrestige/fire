@@ -44,6 +44,9 @@ public class Anchor extends Module {
         if (pos != null && mc.player.getDistanceSq(pos) > range.GetSlider() * 2.0f){
             pos = null;
         }
+        if (pos != null && !Main.holeManager.contains(pos)){
+            pos = null;
+        }
         if (BlockUtil.isPlayerSafe(new PlayerManager.Player(mc.player))){
             pos = null;
             timer.syncTime();
