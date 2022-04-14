@@ -389,7 +389,7 @@ public class AutoCrystal extends Module {
             return;
         }
         final BlockUtil.EnumOffset enumOffset = BlockUtil.getVisibleEnumFacing(pos);
-        float x = 0, y = 0, z = 0;
+        float x = 0.5f, y = 0.5f, z = 0.5f;
         if (advancedRaytrace.GetSwitch()) {
             if (enumOffset == null) {
                 return;
@@ -428,7 +428,7 @@ public class AutoCrystal extends Module {
         final EnumHand finalHand = crystalHand == null ? EnumHand.MAIN_HAND : crystalHand;
         if (placePacket.GetSwitch()) {
             if (mc.getConnection() != null) {
-                mc.getConnection().getNetworkManager().channel().writeAndFlush(new CPacketPlayerTryUseItemOnBlock(pos, EnumFacing.UP, finalHand, advancedRaytrace.GetSwitch() ? x : 0.5f, advancedRaytrace.GetSwitch() ? y :0.5f, advancedRaytrace.GetSwitch() ? z :0.5f));
+                mc.getConnection().getNetworkManager().channel().writeAndFlush(new CPacketPlayerTryUseItemOnBlock(pos, EnumFacing.UP, finalHand, x, y, z));
             }
         } else {
             mc.playerController.processRightClickBlock(mc.player, mc.world, pos, EnumFacing.UP, new Vec3d(mc.player.posX, -mc.player.posY, -mc.player.posZ), finalHand);

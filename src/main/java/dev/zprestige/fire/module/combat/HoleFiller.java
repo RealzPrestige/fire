@@ -100,7 +100,6 @@ public class HoleFiller extends Module {
                     }
                     final BlockPos pos1 = pos.getPos();
                     if (bpt <= blocksPerTick.GetSlider() && inRange(pos1) && checkRotations()) {
-                        Main.chatManager.sendMessage("csa");
                         placeBlock(pos1, slot);
                         if (timing.GetCombo().equals("Normal")) {
                             return;
@@ -214,7 +213,7 @@ public class HoleFiller extends Module {
                 if (slot == -1) {
                     return Main.inventoryManager.getBlockFromHotbar(Blocks.ENDER_CHEST);
                 }
-                break;
+                return slot;
             case "Webs":
                 return Main.inventoryManager.getBlockFromHotbar(Blocks.WEB);
         }

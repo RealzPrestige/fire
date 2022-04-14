@@ -34,6 +34,10 @@ public class NoInterpolation extends Module {
         mc.world.playerEntities.stream().filter(entityPlayer -> !entityPlayer.equals(mc.player) && !contains(entityPlayer)).forEach(entityPlayer -> noInterpolatedPlayers.add(new NoInterpolatedPlayer(entityPlayer)));
         new ArrayList<>(noInterpolatedPlayers).forEach(noInterpolatedPlayer -> {
             final EntityPlayer entityPlayer = noInterpolatedPlayer.getEntityPlayer();
+            if (entityPlayer.isDead){
+                noInterpolatedPlayers.remove(noInterpolatedPlayer);
+                return;
+            }
             noInterpolatedPlayer.updatePosition();
             fixPos(noInterpolatedPlayer.getEntityPlayer());
             if (sneak.GetSwitch()) {
@@ -58,8 +62,8 @@ public class NoInterpolation extends Module {
         entityPlayer.limbSwing = 0;
         entityPlayer.limbSwingAmount = 0;
         entityPlayer.prevLimbSwingAmount = 0;
-        entityPlayer.rotationYawHead = 0;
-        entityPlayer.prevRotationYawHead = 0;
+        entityPlayer.rotationPitch = 0;
+        entityPlayer.prevRotationPitch = 0;
     }
     
     protected boolean contains(final EntityPlayer entityPlayer){
