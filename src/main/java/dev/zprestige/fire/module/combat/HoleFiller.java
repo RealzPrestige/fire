@@ -177,7 +177,7 @@ public class HoleFiller extends Module {
 
     protected boolean inRange(final BlockPos pos) {
         final double dist = mc.player.getDistanceSq(pos) / 2.0f;
-        return mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos)).isEmpty() && dist <= placeRange.GetSlider() * 2 && (!antiSelf.GetSwitch() || dist > minSelfRange.GetSlider() * 2);
+        return mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos)).isEmpty() && dist <= placeRange.GetSlider() * 2 && ((!antiSelf.GetSwitch() || dist > minSelfRange.GetSlider() * 2) || BlockUtil.isPlayerSafe(new PlayerManager.Player(mc.player)));
     }
 
     protected boolean inSmartRange(final PlayerManager.Player player, final BlockPos pos) {

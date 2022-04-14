@@ -9,6 +9,7 @@
     "MixinEntityPlayerSP",
     "MixinGuiButton",
     "MixinGuiMainMenu",
+    "MixinMinecraft",
     "MixinNetworkManager",
     "MixinParticleManager",
     "MixinPlayerControllerMP",
