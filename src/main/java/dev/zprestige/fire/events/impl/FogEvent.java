@@ -13,4 +13,5 @@ public class FogEvent extends Event {
     public EntityViewRenderEvent.FogColors getFogColors() {
         return fogColors;
     }
+
 }

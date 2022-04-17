@@ -24,6 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.network.play.server.SPacketSoundEffect;
@@ -32,8 +33,10 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.input.Keyboard;
+
 import java.awt.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -96,6 +99,9 @@ public class AutoCrystal extends Module {
             "Ignore Full",
     }).visibility(z -> placeRotate.GetSwitch() || explodeRotate.GetSwitch()).panel("Rotations");
     public final Switch syncRotations = Menu.Switch("Sync Rotations", false).visibility(z -> placeRotate.GetSwitch() || explodeRotate.GetSwitch()).panel("Rotations");
+    public final Switch raytraceFix = Menu.Switch("Raytrace Fix", false).panel("Rotations");
+    public final Slider raytraceTicks = Menu.Slider("Raytrace Ticks ", 10.0f, 0.1f, 40.0f).visibility(z -> raytraceFix.GetSwitch()).panel("Rotations");
+    public final Slider raytraceTimeoutTicks = Menu.Slider("Raytrace Timeout Ticks ", 2.0f, 0.1f, 40.0f).visibility(z -> raytraceFix.GetSwitch()).panel("Rotations");
     public final Switch predictMotion = Menu.Switch("Predict Motion", false).panel("Predict Motion");
     public final Slider predictMotionFactor = Menu.Slider("Predict Motion Factor", 2.0f, 1.0f, 20.0f).visibility(z -> predictMotion.getValue()).panel("Predict Motion");
     public final Switch predictMotionVisualize = Menu.Switch("Predict Motion Visualize", false).visibility(z -> predictMotion.getValue()).panel("Predict Motion");
@@ -146,10 +152,13 @@ public class AutoCrystal extends Module {
     protected final HashMap<PlayerManager.Player, Long> deadPlayers = new HashMap<>();
     protected final ArrayList<EntityEnderCrystal> pyroCrystals = new ArrayList<>(), attackedCrystals = new ArrayList<>();
     protected final ArrayList<Long> crystalsPerSecond = new ArrayList<>();
+    protected int ticks = 0, timeoutTicks = 0;
     protected BlockPos pos;
     protected AxisAlignedBB bb;
     protected int pyroId = -1;
     protected EntityOtherPlayerMP entityOtherPlayerMP;
+    protected final Random random = new Random();
+    protected boolean shouldChange;
 
     @RegisterListener
     public void onDeath(final DeathEvent event) {
@@ -171,6 +180,11 @@ public class AutoCrystal extends Module {
 
     @RegisterListener
     public void onPacketSend(final PacketEvent.PacketSendEvent event) {
+        if (event.getPacket() instanceof CPacketPlayer && !mc.player.isHandActive() && shouldChange){
+            final CPacketPlayer packet = (CPacketPlayer) event.getPacket();
+            packet.yaw = -mc.player.rotationYaw;
+            packet.pitch = rand();
+        }
         if (event.getPacket() instanceof CPacketPlayerTryUseItemOnBlock) {
             if (predict.GetCombo().equals("Ultra") || predict.GetCombo().equals("UltraChain")) {
                 final BlockPos eventPos = ((CPacketPlayerTryUseItemOnBlock) event.getPacket()).getPos();
@@ -301,12 +315,34 @@ public class AutoCrystal extends Module {
         }
     }
 
+    protected float rand() {
+        return MathHelper.clamp(-20 + random.nextFloat() * 20, -20, 20);
+    }
+
     protected void performAutoCrystal(final PlayerManager.Player player) {
+        if (raytraceFix.GetSwitch()) {
+            if (ticks >= raytraceTicks.GetSlider()) {
+                if (timeoutTicks >= raytraceTimeoutTicks.GetSlider()) {
+                    ticks = 0;
+                    timeoutTicks = 0;
+                    return;
+                }
+                shouldChange = true;
+                timeoutTicks++;
+                return;
+            } else {
+                shouldChange = false;
+            }
+        }
+        boolean rotated = false;
         if (timers[0].getTime((long) placeDelay.GetSlider())) {
             final BlockPos pos = calculatePosition(player);
             if (pos != null) {
                 placeCrystal(pos);
                 timers[0].syncTime();
+                if (placeRotate.GetSwitch()) {
+                    rotated = true;
+                }
             }
         }
         if (timers[1].getTime(Keyboard.isKeyDown(facePlaceForceKey.GetKey()) && facePlaceSlow.GetSwitch() ? 500 : (long) explodeDelay.GetSlider())) {
@@ -314,7 +350,13 @@ public class AutoCrystal extends Module {
             if (entityEnderCrystal != null) {
                 explodeCrystal(entityEnderCrystal);
                 timers[1].syncTime();
+                if (explodeRotate.GetSwitch()) {
+                    rotated = true;
+                }
             }
+        }
+        if (rotated) {
+            ticks++;
         }
     }
 
@@ -550,7 +592,7 @@ public class AutoCrystal extends Module {
         return null;
     }
 
-    protected void setupEntity(final PlayerManager.Player player, final double[] next){
+    protected void setupEntity(final PlayerManager.Player player, final double[] next) {
         final EntityOtherPlayerMP entityOtherPlayerMP1 = new EntityOtherPlayerMP(mc.world, player.getEntityPlayer().getGameProfile());
         final EntityPlayer entity = player.getEntityPlayer();
         entityOtherPlayerMP1.copyLocationAndAnglesFrom(entity);
@@ -574,7 +616,7 @@ public class AutoCrystal extends Module {
             crystalsPerSecond.removeIf(l -> l + 1000L < currentTime);
         } catch (ConcurrentModificationException ignored) {
         }
-        if (predictMotionVisualize.GetSwitch() && entityOtherPlayerMP != null){
+        if (predictMotionVisualize.GetSwitch() && entityOtherPlayerMP != null) {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 0.2f);
             renderEntity(entityOtherPlayerMP, event.getPartialTicks());
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -654,7 +696,7 @@ public class AutoCrystal extends Module {
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, i % l, i / l);
             try {
                 mc.getRenderManager().renderEntity(entity, x - mc.getRenderManager().viewerPosX, y - mc.getRenderManager().viewerPosY, z - mc.getRenderManager().viewerPosZ, yaw, partialTicks, false);
-            } catch (Exception ignored){
+            } catch (Exception ignored) {
             }
         }
     }

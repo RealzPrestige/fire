@@ -2,9 +2,11 @@ package dev.zprestige.fire.mixins.impl;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.impl.PacketEvent;
+import dev.zprestige.fire.module.visual.RotationRender;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.CPacketPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,6 +20,10 @@ public class MixinNetworkManager {
         Main.eventBus.post(event);
         if (event.isCancelled()) {
             callbackInfo.cancel();
+        } else if (event.getPacket() instanceof CPacketPlayer.Rotation || event.getPacket() instanceof CPacketPlayer.PositionRotation) {
+            RotationRender.yaw = (((CPacketPlayer) event.getPacket()).getYaw(0));
+            RotationRender.pitch = (((CPacketPlayer) event.getPacket()).getPitch(0));
+
         }
     }
 

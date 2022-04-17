@@ -110,7 +110,7 @@ public class HoleFiller extends Module {
                 break;
             case "Smart":
                 final PlayerManager.Player player = EntityUtil.getClosestTarget(targetPriority(targetPriority.GetCombo()), targetRange.GetSlider());
-                if (player == null || (enemyUnsafe.GetSwitch() && !BlockUtil.isPlayerSafe(player))) {
+                if (player == null || player.getEntityPlayer() == null || player.getEntityPlayer().isDead || (enemyUnsafe.GetSwitch() && !BlockUtil.isPlayerSafe(player))) {
                     return;
                 }
                 final double[] position = new double[]{player.getEntityPlayer().posX, player.getEntityPlayer().posY, player.getEntityPlayer().posZ};

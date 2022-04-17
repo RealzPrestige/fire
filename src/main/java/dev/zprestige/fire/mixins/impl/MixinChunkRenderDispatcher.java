@@ -14,7 +14,7 @@ public class MixinChunkRenderDispatcher {
     @Inject(method = "getNextChunkUpdate", at = @At("HEAD"))
     protected void limitChunkUpdates(final CallbackInfoReturnable<ChunkCompileTaskGenerator> cir) throws InterruptedException {
         final ViewTweaks viewTweaks = (ViewTweaks) Main.moduleManager.getModuleByClass(ViewTweaks.class);
-        if (viewTweaks.isEnabled()){
+        if (viewTweaks.isEnabled() && !Main.mc.isSingleplayer()){
             Thread.sleep((long) viewTweaks.chunkLoadDelay.GetSlider());
         }
     }

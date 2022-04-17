@@ -1,10 +1,7 @@
 package dev.zprestige.fire.module.visual;
 
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
-import dev.zprestige.fire.events.impl.FogEvent;
-import dev.zprestige.fire.events.impl.FrameEvent;
-import dev.zprestige.fire.events.impl.PacketEvent;
-import dev.zprestige.fire.events.impl.ParticleEvent;
+import dev.zprestige.fire.events.impl.*;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ColorBox;
@@ -73,6 +70,11 @@ public class ViewTweaks extends Module {
         event.getFogColors().setRed(fogColor.GetColor().getRed() / 255.0f);
         event.getFogColors().setGreen(fogColor.GetColor().getGreen() / 255.0f);
         event.getFogColors().setBlue(fogColor.GetColor().getBlue() / 255.0f);
+    }
+
+    @RegisterListener
+    public void onDensity(final DensityEvent event){
+        event.setDensity(0.0f);
     }
 
     @RegisterListener

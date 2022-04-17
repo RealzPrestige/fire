@@ -11,7 +11,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.server.SPacketEntityStatus;
 import net.minecraft.profiler.Profiler;
-import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -70,6 +69,11 @@ public class Listener extends RegisteredClass {
         event.setBlue(fogEvent.getFogColors().getBlue());
     }
 
+    @SubscribeEvent
+    public void onDensity(final EntityViewRenderEvent.FogDensity event){
+        final DensityEvent densityEvent = new DensityEvent(event.getDensity());
+        event.setDensity(densityEvent.getDensity());
+    }
 
     @SubscribeEvent
     public void onClientConnect(FMLNetworkEvent.ClientConnectedToServerEvent ignoredEvent) {

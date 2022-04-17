@@ -79,4 +79,8 @@ public class RotationManager extends RegisteredClass {
     public boolean maxRotations(){
         return rotationsPerTick.size() > max;
     }
+
+    public boolean needsRotations() {
+        return needsRotations;
+    }
 }
