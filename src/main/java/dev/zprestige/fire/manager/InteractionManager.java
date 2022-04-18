@@ -62,17 +62,19 @@ public class InteractionManager {
     );
 
     public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict) {
-        placeBlock(pos, rotate, packet, strict, false);
+        placeBlock(pos, rotate, packet, strict, false, false);
     }
-    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final boolean excludeBottomEnumFacing) {
+    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final boolean excludeBottomEnumFacing, final boolean ignoreEntities) {
         for (EnumFacing enumFacing : EnumFacing.values()) {
             final BlockPos directionOffset = pos.offset(enumFacing);
             if (excludeBottomEnumFacing && directionOffset.equals(pos.down())){
                 continue;
             }
-            for (Entity entity : mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos))) {
-                if (!(entity instanceof EntityItem || entity instanceof EntityEnderCrystal)) {
-                    return;
+            if (!ignoreEntities) {
+                for (Entity entity : mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos))) {
+                    if (!(entity instanceof EntityItem || entity instanceof EntityEnderCrystal)) {
+                        return;
+                    }
                 }
             }
             if (strict && !getVisibleSides(directionOffset).contains(enumFacing.getOpposite()) || mc.world.getBlockState(directionOffset).getMaterial().isReplaceable()) {
@@ -181,6 +183,14 @@ public class InteractionManager {
         int currentItem = mc.player.inventory.currentItem;
         Main.inventoryManager.switchToSlot(slot);
         placeBlock(pos, rotate, packet, strict);
+        mc.player.inventory.currentItem = currentItem;
+        mc.playerController.updateController();
+    }
+
+    public void placeBlockWithSwitchIgnoringEntities(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final int slot) {
+        int currentItem = mc.player.inventory.currentItem;
+        Main.inventoryManager.switchToSlot(slot);
+        placeBlock(pos, rotate, packet, strict, false, true);
         mc.player.inventory.currentItem = currentItem;
         mc.playerController.updateController();
     }
