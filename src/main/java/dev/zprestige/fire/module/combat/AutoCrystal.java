@@ -618,7 +618,7 @@ public class AutoCrystal extends Module {
         }
         if (predictMotionVisualize.GetSwitch() && entityOtherPlayerMP != null) {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 0.2f);
-            renderEntity(entityOtherPlayerMP, event.getPartialTicks());
+            RenderUtil.renderEntity(entityOtherPlayerMP, event.getPartialTicks());
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         }
         switch (animation.GetCombo()) {
@@ -678,27 +678,6 @@ public class AutoCrystal extends Module {
 
     protected EnumHand getCrystalHand() {
         return mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL) ? EnumHand.MAIN_HAND : mc.player.getHeldItemOffhand().getItem().equals(Items.END_CRYSTAL) ? EnumHand.OFF_HAND : null;
-    }
-
-    protected void renderEntity(final Entity entity, final float partialTicks) {
-        if (mc.player != null && mc.world != null && entity != null) {
-            if (entity.ticksExisted == 0) {
-                entity.lastTickPosX = entity.posX;
-                entity.lastTickPosY = entity.posY;
-                entity.lastTickPosZ = entity.posZ;
-            }
-            final double x = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
-            final double y = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
-            final double z = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
-            final float yaw = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks;
-            final float l = 65536.0f;
-            final int i = entity.getBrightnessForRender();
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, i % l, i / l);
-            try {
-                mc.getRenderManager().renderEntity(entity, x - mc.getRenderManager().viewerPosX, y - mc.getRenderManager().viewerPosY, z - mc.getRenderManager().viewerPosZ, yaw, partialTicks, false);
-            } catch (Exception ignored) {
-            }
-        }
     }
 
     protected static class CalculationComponent {

@@ -17,7 +17,6 @@ public class ModuleManager extends RegisteredClass {
         modules = ClassFinder.getModules();
         return this;
     }
-
     public ArrayList<Module> getModulesInCategory(Category category){
         return modules.stream().filter(module -> module.getCategory().equals(category)).collect(Collectors.toCollection(ArrayList::new));
     }

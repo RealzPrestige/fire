@@ -78,19 +78,19 @@ public class Anchor extends Module {
                         }
                         break;
                     case "Pull":
-                        final AxisAlignedBB bb = new AxisAlignedBB(pos).shrink(0.35f);
-                        final float speed = pullSpeed.GetSlider() / 10.0f;
-                        if (mc.player.posX > bb.maxX) {
-                            mc.player.motionX = -speed;
-                        } else if (mc.player.posX < bb.minX) {
-                            mc.player.motionX = speed;
-                        }
-                        if (mc.player.posZ > bb.maxZ) {
-                            mc.player.motionZ = -speed;
-                        } else if (mc.player.posZ < bb.minZ) {
-                            mc.player.motionZ = speed;
-                        }
-                        setMovementsFalse();
+                            final AxisAlignedBB bb = new AxisAlignedBB(pos).shrink(0.35f);
+                            final float speed = pullSpeed.GetSlider() / 10.0f;
+                            if (mc.player.posX > bb.maxX) {
+                                mc.player.motionX = -speed;
+                            } else if (mc.player.posX < bb.minX) {
+                                mc.player.motionX = speed;
+                            }
+                            if (mc.player.posZ > bb.maxZ) {
+                                mc.player.motionZ = -speed;
+                            } else if (mc.player.posZ < bb.minZ) {
+                                mc.player.motionZ = speed;
+                            }
+                            setMovementsFalse();
                         break;
                     case "Snap":
                         if (!onGround.GetSwitch() || mc.player.onGround) {
