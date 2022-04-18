@@ -34,6 +34,7 @@ public class Blink extends Module {
 
     @Override
     public void onEnable() {
+        entity = null;
         spawnEntity();
     }
 
@@ -79,13 +80,18 @@ public class Blink extends Module {
     }
 
     protected void spawnEntity() {
-        entity = new EntityOtherPlayerMP(mc.world, mc.session.getProfile());
-        entity.copyLocationAndAnglesFrom(entity);
-        entity.prevRotationYawHead = entity.rotationYawHead;
-        entity.prevRotationYaw = entity.rotationYaw;
-        entity.prevRotationPitch = entity.rotationPitch;
-        entity.cameraYaw = entity.rotationYaw;
-        entity.cameraPitch = entity.rotationPitch;
+        final EntityOtherPlayerMP entity = new EntityOtherPlayerMP(mc.world, mc.player.getGameProfile());
+        entity.copyLocationAndAnglesFrom(mc.player);
+        entity.rotationYawHead = mc.player.rotationYawHead;
+        entity.prevRotationYawHead = mc.player.rotationYawHead;
+        entity.rotationYaw = mc.player.rotationYaw;
+        entity.prevRotationYaw = mc.player.rotationYaw;
+        entity.rotationPitch = mc.player.rotationPitch;
+        entity.prevRotationPitch = mc.player.rotationPitch;
+        entity.cameraYaw = mc.player.rotationYaw;
+        entity.cameraPitch = mc.player.rotationPitch;
+        entity.limbSwing = mc.player.limbSwing;
+        this.entity = entity;
     }
 
     protected void poll(final boolean reEnable) {
