@@ -80,10 +80,12 @@ public class Blink extends Module {
 
     protected void spawnEntity() {
         entity = new EntityOtherPlayerMP(mc.world, mc.session.getProfile());
-        entity.copyLocationAndAnglesFrom(mc.player);
-        entity.rotationYaw = mc.player.rotationYaw;
-        entity.rotationYawHead = mc.player.rotationYawHead;
-        entity.inventory.copyInventory(mc.player.inventory);
+        entity.copyLocationAndAnglesFrom(entity);
+        entity.prevRotationYawHead = entity.rotationYawHead;
+        entity.prevRotationYaw = entity.rotationYaw;
+        entity.prevRotationPitch = entity.rotationPitch;
+        entity.cameraYaw = entity.rotationYaw;
+        entity.cameraPitch = entity.rotationPitch;
     }
 
     protected void poll(final boolean reEnable) {
