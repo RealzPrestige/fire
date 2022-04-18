@@ -1,0 +1,8 @@
+"Keybind": "0:false"
+"Enabled": "false"
+"Drawn": "true"
+"OnGround Speed": "5.0"
+"Air Speed": "5.0"
+"Strict": "false"
+"AirStrict": "false"
+"Items": "true"

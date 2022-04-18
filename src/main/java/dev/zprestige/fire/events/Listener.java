@@ -12,9 +12,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.server.SPacketEntityStatus;
 import net.minecraft.profiler.Profiler;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -63,7 +65,7 @@ public class Listener extends RegisteredClass {
     @SubscribeEvent
     public void onFogColor(final EntityViewRenderEvent.FogColors event) {
         final FogEvent fogEvent = new FogEvent(event);
-        Main.eventBus.post(fogEvent);
+        eventBus.post(fogEvent);
         event.setRed(fogEvent.getFogColors().getRed());
         event.setGreen(fogEvent.getFogColors().getGreen());
         event.setBlue(fogEvent.getFogColors().getBlue());
@@ -71,8 +73,12 @@ public class Listener extends RegisteredClass {
 
     @SubscribeEvent
     public void onDensity(final EntityViewRenderEvent.FogDensity event){
-        final DensityEvent densityEvent = new DensityEvent(event.getDensity());
-        event.setDensity(densityEvent.getDensity());
+        final FogDensityEvent fogDensityEvent = new FogDensityEvent(event.getDensity());
+        eventBus.post(fogDensityEvent);
+        event.setDensity(fogDensityEvent.getDensity());
+        if (event.isCanceled()){
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent
@@ -97,9 +103,21 @@ public class Listener extends RegisteredClass {
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (checkNull() && Keyboard.getEventKeyState()) {
             final KeyEvent keyEvent = new KeyEvent(Keyboard.getEventKey());
-            Main.eventBus.post(keyEvent);
+            eventBus.post(keyEvent);
             Main.moduleManager.getModules().stream().filter(module -> module.getKeybind() == Keyboard.getEventKey()).forEach(Module::toggleModule);
         }
+    }
+
+    @SubscribeEvent
+    public void onInputUpdate(InputUpdateEvent event) {
+        final ItemInputUpdateEvent itemInputUpdateEvent = new ItemInputUpdateEvent(event.getMovementInput());
+        eventBus.post(itemInputUpdateEvent);
+    }
+
+    @SubscribeEvent
+    public void onLivingEntityUseItem(final LivingEntityUseItemEvent event) {
+        final EntityUseItemEvent entityUseItemEvent = new EntityUseItemEvent();
+        eventBus.post(entityUseItemEvent);
     }
 
     @RegisterListener
@@ -109,7 +127,7 @@ public class Listener extends RegisteredClass {
             final Entity entity = packet.getEntity(mc.world);
             if (entity instanceof EntityPlayer && packet.getOpCode() == 35) {
                 final TotemPopEvent totemPopEvent = new TotemPopEvent((EntityPlayer) entity);
-                Main.eventBus.post(totemPopEvent);
+                eventBus.post(totemPopEvent);
             }
         }
     }

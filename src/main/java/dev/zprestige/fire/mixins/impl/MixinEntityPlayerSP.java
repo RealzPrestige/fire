@@ -30,7 +30,7 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
         super.move(type, event.getMotionX(), event.getMotionY(), event.getMotionZ());
     }
 
-    @Inject(method = "move", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "move", at = @At("HEAD"), cancellable = true)
     public void move(final MoverType type, final double x, final double y, final double z, final CallbackInfo callbackInfo) {
         final MoveEvent event = new MoveEvent(type, x, y, z);
         Main.eventBus.post(event);

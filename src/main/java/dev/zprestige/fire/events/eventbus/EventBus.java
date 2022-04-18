@@ -16,6 +16,7 @@ public class EventBus {
     protected final Set<Object> subscribers = Collections.synchronizedSet(new HashSet<>());
     protected final Map<Class<?>, List<Handler>> handlerMap = new ConcurrentHashMap<>();
     protected final Class<? extends Handler> handlerType = LambdaHandler.class;
+
     public void register(Object subscriber) {
         if (subscriber == null || subscribers.contains(subscriber))
             return;

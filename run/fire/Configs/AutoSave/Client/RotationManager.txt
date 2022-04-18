@@ -2,3 +2,7 @@
 "Enabled": "true"
 "Drawn": "true"
 "Max Rotations": "2.0"
+"No Force Rotations": "false"
+"Rotate To Target On Idle": "false"
+"Target Range": "9.0"
+"Target Priority": "UnSafe"

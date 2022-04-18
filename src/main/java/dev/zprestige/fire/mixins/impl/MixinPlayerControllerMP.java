@@ -12,13 +12,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = PlayerControllerMP.class)
 public class MixinPlayerControllerMP {
-    @Inject(method = "clickBlock", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "clickBlock", at = @At("HEAD"), cancellable = true)
     public void onClickBlock(final BlockPos pos, final EnumFacing facing, final CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
         final BlockInteractEvent.ClickBlock event = new BlockInteractEvent.ClickBlock(pos, facing);
         Main.eventBus.post(event);
     }
 
-    @Inject(method = "onPlayerDamageBlock", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "onPlayerDamageBlock", at = @At("HEAD"), cancellable = true)
     public void onPlayerDamageBlock(final BlockPos pos, final EnumFacing facing, final CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
         final BlockInteractEvent.DamageBlock event = new BlockInteractEvent.DamageBlock(pos, facing);
         Main.eventBus.post(event);
