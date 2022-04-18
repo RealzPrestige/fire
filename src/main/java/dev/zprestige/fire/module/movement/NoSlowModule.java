@@ -1,11 +1,13 @@
 package dev.zprestige.fire.module.movement;
 
+import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.*;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
+import net.minecraft.init.Items;
 import net.minecraft.network.play.client.*;
 
 @Descriptor(description = "Removes slow down from doing stuff")
@@ -15,31 +17,17 @@ public class NoSlowModule extends Module {
     public final Switch strict = Menu.Switch("Strict", false);
     public final Switch airStrict = Menu.Switch("AirStrict", false);
     public final Switch items = Menu.Switch("Items", true);
-    protected boolean airSneaking = false, groundSneaking;
+    protected boolean airSneaking = false;
 
     @RegisterListener
     public void onTick(final TickEvent event) {
+        if (strict.GetSwitch() && mc.player.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE) && mc.gameSettings.keyBindUseItem.isKeyDown()) {
+            mc.player.connection.sendPacket(new CPacketHeldItemChange(Main.inventoryManager.getItemFromHotbar(Items.GOLDEN_APPLE)));
+        }
         if (airSneaking && airStrict.getValue() && !mc.player.isHandActive()) {
             airSneaking = false;
-
             if (mc.getConnection() != null) {
                 mc.getConnection().getNetworkManager().sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
-            }
-        }
-
-        if (groundSneaking && strict.GetSwitch()) {
-            if (!mc.player.isHandActive()) {
-                groundSneaking = false;
-
-                if (mc.getConnection() != null) {
-                    mc.getConnection().getNetworkManager().sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
-                }
-            }
-            if (airSneaking) {
-                airSneaking = false;
-                if (mc.getConnection() != null) {
-                    mc.getConnection().getNetworkManager().sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
-                }
             }
         }
     }
@@ -58,12 +46,6 @@ public class NoSlowModule extends Module {
         if (isSlowed()) {
             if (airStrict.getValue() && !airSneaking) {
                 airSneaking = true;
-                if (mc.getConnection() != null) {
-                    mc.getConnection().getNetworkManager().sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
-                }
-            }
-            if (strict.GetSwitch() && !groundSneaking) {
-                groundSneaking = true;
                 if (mc.getConnection() != null) {
                     mc.getConnection().getNetworkManager().sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
                 }

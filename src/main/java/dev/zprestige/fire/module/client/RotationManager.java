@@ -20,28 +20,9 @@ import java.util.Set;
 public class RotationManager extends Module {
     public final Slider maxRotations = Menu.Slider("Max Rotations", 2.0f, 0.1f, 10.0f);
     public final Switch noForceRotations = Menu.Switch("No Force Rotations", false);
-    public final Switch rotateToTargetOnIdle = Menu.Switch("Rotate To Target On Idle", false);
-    public final Slider targetRange = Menu.Slider("Target Range", 9.0f, 0.1f, 15.0f).visibility(z -> rotateToTargetOnIdle.GetSwitch());
-    public final ComboBox targetPriority = Menu.ComboBox("Target Priority", "UnSafe", new String[]{
-            "Range",
-            "UnSafe",
-            "Health",
-            "Fov",
-    }).visibility(z -> rotateToTargetOnIdle.GetSwitch());
 
     public RotationManager() {
         enableModule();
-    }
-
-    @RegisterListener
-    public void onTick(final TickEvent event) {
-        Main.rotationManager.setMax((int) maxRotations.GetSlider());
-        if (rotateToTargetOnIdle.GetSwitch() && !Main.rotationManager.needsRotations()) {
-            final PlayerManager.Player player = EntityUtil.getClosestTarget(targetPriority(targetPriority.GetCombo()), targetRange.GetSlider());
-            if (player != null) {
-                Main.rotationManager.faceEntity(player.getEntityPlayer(), true);
-            }
-        }
     }
 
     @Override
@@ -60,9 +41,4 @@ public class RotationManager extends Module {
             flags.remove(SPacketPlayerPosLook.EnumFlags.Y_ROT);
         }
     }
-
-    protected EntityUtil.TargetPriority targetPriority(final String string) {
-        return Arrays.stream(EntityUtil.TargetPriority.values()).filter(targetPriority1 -> targetPriority1.toString().equals(string)).findFirst().orElse(null);
-    }
-
 }
