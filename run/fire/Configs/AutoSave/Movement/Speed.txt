@@ -1,5 +1,5 @@
 "Keybind": "-1:false"
-"Enabled": "false"
+"Enabled": "true"
 "Drawn": "true"
 "Speed Mode": "OnGround"
 "Data Mode": "Mode"
