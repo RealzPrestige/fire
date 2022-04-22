@@ -13,8 +13,6 @@ import java.util.Set;
 @Descriptor(description = "Controls the max amount of rotations the client can send per tick")
 public class RotationManager extends Module {
     public final Slider maxRotations = Menu.Slider("Max Rotations", 2.0f, 0.1f, 10.0f);
-    public final Switch yawStep = Menu.Switch("Yaw Step", false);
-    public final Slider maxYaw = Menu.Slider("Max Yaw", 90.0f, 0.1f, 180.0f).visibility(z -> yawStep.GetSwitch());
     public final Switch noForceRotations = Menu.Switch("No Force Rotations", false);
 
     public RotationManager() {
