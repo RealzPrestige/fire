@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class CommandManager extends RegisteredClass {
-    protected ArrayList<Command> commands = new ArrayList<>();
+    protected ArrayList<Command> commands;
     protected final Minecraft mc = Main.mc;
     protected String prefix = ".";
 
-    public CommandManager init() {
+    public CommandManager() {
+        super(true, false);
         commands = ClassFinder.commandArrayList();
-        return this;
     }
 
     public String getPrefix() {

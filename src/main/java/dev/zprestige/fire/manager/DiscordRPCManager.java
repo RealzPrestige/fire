@@ -13,14 +13,13 @@ public class DiscordRPCManager {
     protected final DiscordRPC rpc = DiscordRPC.INSTANCE;
     protected Thread thread;
 
-    public DiscordRPCManager init() {
+    public DiscordRPCManager() {
         try {
             if (RPC.Instance.isEnabled()) {
                 start();
             }
         } catch (Exception ignored){
         }
-        return this;
     }
 
     @SuppressWarnings("BusyWait")

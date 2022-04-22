@@ -17,9 +17,16 @@ public class PlayerManager extends RegisteredClass {
     protected static final Minecraft mc = Main.mc;
     protected List<Player> players = new ArrayList<>();
 
+    public PlayerManager(){
+        super(true, false);
+    }
     @RegisterListener
     public void onTick(TickEvent event) {
-        Main.threadManager.run(() -> players = mc.world.playerEntities.stream().filter(entityPlayer -> !entityPlayer.equals(mc.player)).map(Player::new).collect(Collectors.toCollection(ArrayList::new)));
+        Main.threadManager.run(() -> {
+            if (mc.player != null && mc.world != null) {
+                players = mc.world.playerEntities.stream().filter(entityPlayer -> !entityPlayer.equals(mc.player)).map(Player::new).collect(Collectors.toCollection(ArrayList::new));
+            }
+        });
     }
 
     public Player getPlayerByEntityID(final int entityId) {

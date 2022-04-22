@@ -3,7 +3,6 @@ package dev.zprestige.fire.manager;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.module.Category;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.module.client.EthereumMiner;
 import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.settings.impl.*;
 import dev.zprestige.fire.ui.hudeditor.components.HudComponent;
@@ -12,11 +11,16 @@ import dev.zprestige.fire.util.impl.Vector2D;
 import java.awt.*;
 import java.io.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.LogManager;
 
 public class ConfigManager {
     protected final File configFolder = new File(Main.fileManager.getDirectory() + File.separator + "Configs");
     protected final String separator = File.separator;
+
+    public ConfigManager() {
+        loadActiveConfig();
+        loadSavedFriends();
+        loadPrefix();
+    }
 
     public void savePrefix() {
         final File file = Main.fileManager.registerFileAndCreate(configFolder + separator + "Prefix.txt");
@@ -25,10 +29,10 @@ public class ConfigManager {
         Main.fileManager.closeBufferedWriter(bufferedWriter);
     }
 
-    public ConfigManager loadPrefix() {
+    public void loadPrefix() {
         final File file = Main.fileManager.registerFileAndCreate(configFolder + separator + "Prefix.txt");
         if (!file.exists()) {
-            return this;
+            return;
         }
         final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file);
         try {
@@ -39,16 +43,14 @@ public class ConfigManager {
         } catch (IOException ignored) {
         }
         Main.fileManager.closeBufferedReader(bufferedReader);
-        return this;
     }
 
-    public ConfigManager loadActiveConfig() {
+    public void loadActiveConfig() {
         final String active = getActiveConfig();
         if (active == null || active.equals("")) {
-            return this;
+            return;
         }
         load(active.replace("\"", ""), false);
-        return this;
     }
 
     public String getActiveConfig() {
@@ -64,15 +66,14 @@ public class ConfigManager {
         }
     }
 
-    public ConfigManager loadSavedFriends() {
+    public void loadSavedFriends() {
         final File file = Main.fileManager.registerFileAndCreate(configFolder + separator + "Friends.txt");
         if (!file.exists()) {
-            return this;
+            return;
         }
         final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file);
         bufferedReader.lines().forEach(line -> Main.friendManager.addFriend(line.replace("\"", "")));
         Main.fileManager.closeBufferedReader(bufferedReader);
-        return this;
     }
 
     protected void saveActiveConfig(final String folder) {
@@ -145,7 +146,7 @@ public class ConfigManager {
         return Main.moduleManager.getModules().stream().filter(module1 -> module1.getName().equals(module.replace(".txt", ""))).findFirst().orElse(null);
     }
 
-    protected Setting isStringSetting(final String name, final Module module) {
+    protected Setting<?> isStringSetting(final String name, final Module module) {
         return module.getSettings().stream().filter(setting -> name.equals(setting.getName())).findFirst().orElse(null);
     }
 
@@ -306,8 +307,8 @@ public class ConfigManager {
     }
 
 
-    protected Setting getSettingByNameAndModule(Module module, String name) {
-        for (Setting setting : module.getSettings()) {
+    protected Setting<?> getSettingByNameAndModule(Module module, String name) {
+        for (Setting<?> setting : module.getSettings()) {
             if (setting.getName().replace(" ", "").equals(name.replace(" ", ""))) {
                 return setting;
             }

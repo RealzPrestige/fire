@@ -12,13 +12,12 @@ import java.util.ArrayList;
 
 public class HudManager extends RegisteredClass {
     protected final Minecraft mc = Main.mc;
-    protected ArrayList<HudComponent> hudComponents = new ArrayList<>();
+    protected ArrayList<HudComponent> hudComponents;
 
-    public HudManager init() {
+    public HudManager() {
+        super(true, false);
         hudComponents = ClassFinder.hudComponentArrayList();
-        return this;
     }
-
     @RegisterListener
     public void onFrame2D(FrameEvent.FrameEvent2D event) {
         if (Main.listener.checkNull()) {

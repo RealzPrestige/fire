@@ -27,6 +27,10 @@ public class Listener extends RegisteredClass {
     protected final Minecraft mc = Main.mc;
     protected final EventBus eventBus = Main.eventBus;
 
+    public Listener(){
+        super(true, true);
+    }
+
     @SubscribeEvent
     public void onLivingUpdateEvent(LivingEvent.LivingUpdateEvent event) {
         if (checkNull() && event.getEntity().getEntityWorld().isRemote && event.getEntityLiving().equals(mc.player)) {

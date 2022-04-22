@@ -4,13 +4,19 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class RegisteredClass {
 
-    protected RegisteredClass registerEventBus(){
+    public RegisteredClass(final boolean eventBus, final boolean forge){
+        if (eventBus){
+            registerEventBus();
+        }
+        if (forge){
+            registerForge();
+        }
+    }
+    protected void registerEventBus(){
         Main.eventBus.register(this);
-        return this;
     }
 
-    protected RegisteredClass registerForge(){
+    protected void registerForge(){
         MinecraftForge.EVENT_BUS.register(this);
-        return this;
     }
 }

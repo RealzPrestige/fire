@@ -12,6 +12,10 @@ public class NotificationManager extends RegisteredClass {
     protected final Minecraft mc = Main.mc;
     protected final Notifications notifications = getNotificationsComponent();
 
+    public NotificationManager(){
+        super(true, false);
+    }
+
     public void addNotifications(final String text) {
         if (!notifications.isEnabled()) {
             return;

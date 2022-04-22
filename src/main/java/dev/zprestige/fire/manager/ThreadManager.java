@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ThreadManager extends RegisteredClass {
+public class ThreadManager {
     protected final Minecraft mc = Main.mc;
     protected ExecutorService executorService = Executors.newFixedThreadPool(2);
 

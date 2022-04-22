@@ -1,0 +1,8 @@
+"Keybind": "0:false"
+"Enabled": "true"
+"Drawn": "true"
+"Box": "true"
+"Box Color": "1610612735"
+"Outline": "true"
+"Outline Color": "-1"
+"Outline Width": "1.0"

@@ -20,6 +20,9 @@ public class MotionPredictionManager extends RegisteredClass {
     protected final Minecraft mc = Main.mc;
     protected ArrayList<Player> players = new ArrayList<>();
 
+    public MotionPredictionManager(){
+        super(true, false);
+    }
     @RegisterListener
     public void onTick(final TickEvent  event){
         this.players = mc.world.playerEntities.stream().map(Player::new).collect(Collectors.toCollection(ArrayList::new));

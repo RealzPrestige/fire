@@ -14,6 +14,9 @@ import java.util.Map;
 public class ShrinkManager extends RegisteredClass {
     protected final HashMap<ShrinkPosition, Float> shrinkPositions = new HashMap<>();
 
+    public ShrinkManager(){
+        super(true, false);
+    }
     @RegisterListener
     public void onFrame3D(final FrameEvent.FrameEvent3D event) {
         final HashMap<ShrinkPosition, Float> shrinkPositions1 = new HashMap<>(shrinkPositions);

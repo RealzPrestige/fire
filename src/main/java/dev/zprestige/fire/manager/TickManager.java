@@ -10,6 +10,10 @@ public class TickManager extends RegisteredClass {
     protected final Minecraft mc = Main.mc;
     protected float timer = 1.0f;
 
+    public TickManager(){
+        super(true, false);
+    }
+
     @RegisterListener
     public void onTick(final TickEvent event){
         if (timer != 1.0f) {

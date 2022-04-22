@@ -10,12 +10,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ModuleManager extends RegisteredClass {
-    protected ArrayList<Module> modules = new ArrayList<>();
+    protected ArrayList<Module> modules;
     protected final Category[] categories = Category.values();
 
-    public ModuleManager init(){
+    public ModuleManager(){
         modules = ClassFinder.getModules();
-        return this;
     }
     public ArrayList<Module> getModulesInCategory(Category category){
         return modules.stream().filter(module -> module.getCategory().equals(category)).collect(Collectors.toCollection(ArrayList::new));

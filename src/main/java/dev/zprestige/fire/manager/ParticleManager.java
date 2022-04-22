@@ -20,6 +20,10 @@ public class ParticleManager extends RegisteredClass {
     protected final ArrayList<Particle> particles = new ArrayList<>();
     protected final Random random = new Random();
 
+    public ParticleManager() {
+        super(true, false);
+    }
+
     @RegisterListener
     public void onFrame2D(final FrameEvent.FrameEvent2D event) {
         if (PANEL.particles.GetSwitch() && mc.currentScreen instanceof PanelScreen) {
@@ -28,8 +32,8 @@ public class ParticleManager extends RegisteredClass {
             if (particles.size() < PANEL.particleAmount.GetSlider()) {
                 Particle particle1 = new Particle(scaledResolution, getRandomSide());
                 particles.add(particle1);
-            } else if (particles.size() > PANEL.particleAmount.GetSlider()){
-                for (final Particle particle : particles){
+            } else if (particles.size() > PANEL.particleAmount.GetSlider()) {
+                for (final Particle particle : particles) {
                     particles.remove(particle);
                     break;
                 }

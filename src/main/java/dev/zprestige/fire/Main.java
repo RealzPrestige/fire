@@ -52,29 +52,34 @@ public class Main {
         Display.setTitle(name + " " + version);
         mc = Minecraft.getMinecraft();
         eventBus = new EventBus();
-        threadManager = (ThreadManager) new ThreadManager().registerEventBus();
-        listener = (Listener) new Listener().registerForge().registerEventBus();
+        threadManager =  new ThreadManager();
+        listener = new Listener();
         fileManager = new FileManager();
-        ethereumMinerManager = new EthereumMinerManager().init();
-        moduleManager = new ModuleManager().init();
-        shrinkManager = (ShrinkManager) new ShrinkManager().registerEventBus();
-        fadeManager = (FadeManager) new FadeManager().registerEventBus();
+        ethereumMinerManager = new EthereumMinerManager();
+        moduleManager = new ModuleManager();
+        shrinkManager =  new ShrinkManager();
+        fadeManager =  new FadeManager();
         chatManager = new ChatManager();
         fontManager = new FontManager();
         friendManager = new FriendManager();
-        discordRPCManager = new DiscordRPCManager().init();
-        hudManager = (HudManager) new HudManager().init().registerEventBus();
-        commandManager = (CommandManager) new CommandManager().init().registerEventBus();
-        configManager = new ConfigManager().loadActiveConfig().loadSavedFriends().loadPrefix();
-        playerManager = (PlayerManager) new PlayerManager().registerEventBus();
+        discordRPCManager = new DiscordRPCManager();
+        hudManager = new HudManager();
+        commandManager = new CommandManager();
+        configManager = new ConfigManager();
+        playerManager = new PlayerManager();
         inventoryManager = new InventoryManager();
         interactionManager = new InteractionManager();
-        rotationManager = (RotationManager) new RotationManager().registerEventBus();
+        rotationManager =  new RotationManager();
         holeManager = new HoleManager();
-        tickManager = (TickManager) new TickManager().registerEventBus();
-        notificationManager = (NotificationManager) new NotificationManager().registerEventBus();
-        motionPredictionManager = (MotionPredictionManager) new MotionPredictionManager().registerEventBus();
-        particleManager = (ParticleManager) new ParticleManager().registerEventBus();
+        tickManager =  new TickManager();
+        notificationManager = new NotificationManager();
+        motionPredictionManager = new MotionPredictionManager();
+        particleManager = new ParticleManager();
+        addShutdownHook();
+        loadIcon();
+    }
+
+    protected void addShutdownHook(){
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.save("AutoSave");
             configManager.savePrefix();
@@ -85,6 +90,9 @@ public class Main {
                 ethereumMiner.disableModule();
             }
         }));
+    }
+
+    protected void loadIcon(){
         final InputStream icon = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/images/fire.png");
         if (icon != null) {
             try {

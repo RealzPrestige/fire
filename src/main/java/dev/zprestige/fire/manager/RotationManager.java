@@ -20,8 +20,12 @@ public class RotationManager extends RegisteredClass {
     protected final Minecraft mc = Main.mc;
     protected final ArrayList<Long> rotationsPerTick = new ArrayList<>();
     protected int max;
+
+    public RotationManager(){
+        super(true, false);
+    }
     @RegisterListener
-    public void onFrame3D(final FrameEvent.FrameEvent3D event) {
+    public void onTick(final FrameEvent.FrameEvent3D event) {
         final long time = System.currentTimeMillis();
         rotationsPerTick.removeIf(l -> l < time);
     }

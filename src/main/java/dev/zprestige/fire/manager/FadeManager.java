@@ -13,6 +13,9 @@ import java.util.Map;
 public class FadeManager extends RegisteredClass {
     protected final HashMap<FadePosition, Float> fadePositions = new HashMap<>();
 
+    public FadeManager(){
+        super(true, false);
+    }
     @RegisterListener
     public void onFrame3D(FrameEvent.FrameEvent3D event) {
         final HashMap<FadePosition, Float> fadePositions1 = new HashMap<>(fadePositions);
