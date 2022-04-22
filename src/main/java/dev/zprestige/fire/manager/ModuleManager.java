@@ -1,6 +1,5 @@
 package dev.zprestige.fire.manager;
 
-import dev.zprestige.fire.RegisteredClass;
 import dev.zprestige.fire.module.Category;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.util.impl.ClassFinder;
@@ -9,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ModuleManager extends RegisteredClass {
+public class ModuleManager {
     protected ArrayList<Module> modules;
     protected final Category[] categories = Category.values();
 
