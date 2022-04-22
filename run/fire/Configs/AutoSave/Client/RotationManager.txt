@@ -2,6 +2,4 @@
 "Enabled": "true"
 "Drawn": "true"
 "Max Rotations": "2.0"
-"Yaw Step": "false"
-"Max Yaw": "90.0"
 "No Force Rotations": "false"

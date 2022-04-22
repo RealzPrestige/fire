@@ -4,6 +4,7 @@ import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.BlockInteractEvent;
 import dev.zprestige.fire.events.impl.FrameEvent;
+import dev.zprestige.fire.events.impl.PacketEvent;
 import dev.zprestige.fire.events.impl.TickEvent;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
@@ -17,6 +18,8 @@ import dev.zprestige.fire.util.impl.BlockUtil;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -25,6 +28,13 @@ import java.awt.*;
 
 @Descriptor(description = "Assists and renders when you mine blocks")
 public class PacketMine extends Module {
+    public final ComboBox silentSwitch = Menu.ComboBox("Silent On Finish", "None", new String[]{
+            "None",
+            "Clicked",
+            "Auto"
+    });
+    public final Switch abortOnSwitch = Menu.Switch("Abort On Switch", false);
+    public final Switch reBreak = Menu.Switch("ReBreak", false);
     public final Switch render = Menu.Switch("Render", false);
     public final ComboBox renderMode = Menu.ComboBox("Render Mode", "Fade", new String[]{
             "Fade",
@@ -40,9 +50,9 @@ public class PacketMine extends Module {
     public final ColorBox activeColor = Menu.Color("Active Color", Color.GREEN).visibility(z -> render.GetSwitch());
     public final Slider outlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f).visibility(z -> render.GetSwitch());
     protected float size;
-    protected boolean changed;
-    protected EnumFacing facing;
-    protected BlockPos activePos;
+    protected boolean changed, attemptingReBreak;
+    protected EnumFacing facing, prevFace;
+    protected BlockPos activePos, prevPos;
     protected float[] col = new float[]{};
 
     @RegisterListener
@@ -50,6 +60,24 @@ public class PacketMine extends Module {
         if (activePos != null) {
             if (BlockUtil.getState(activePos).equals(Blocks.AIR)) {
                 end();
+            }
+        }
+        if (attemptingReBreak && !BlockUtil.getState(prevPos).equals(Blocks.AIR)) {
+            initiateBreaking(prevPos, prevFace);
+            attemptingReBreak = false;
+            size = 0.0f;
+        }
+    }
+
+    @RegisterListener
+    public void onPacketSend(final PacketEvent.PacketSendEvent event) {
+        if (abortOnSwitch.GetSwitch() && activePos != null && facing != null && event.getPacket() instanceof CPacketHeldItemChange) {
+            final CPacketHeldItemChange packet = (CPacketHeldItemChange) event.getPacket();
+            if (!mc.player.inventory.getStackInSlot(packet.getSlotId()).getItem().equals(Items.DIAMOND_PICKAXE)) {
+                abortWithoutEnding(activePos, facing);
+                initiateBreaking(activePos, facing);
+                col = new float[]{inactiveColor.GetColor().getRed(), inactiveColor.GetColor().getGreen(), inactiveColor.GetColor().getBlue(), inactiveColor.GetColor().getAlpha()};
+                size = 0.0f;
             }
         }
     }
@@ -77,7 +105,7 @@ public class PacketMine extends Module {
                     col[1] = updateColor(col[1], active.getGreen(), fac);
                     col[2] = updateColor(col[2], active.getBlue(), fac);
                     col[3] = updateColor(col[3], active.getAlpha(), fac);
-                    color = new Color(col[0] / 255.0f,  col[1] / 255.0f, col[2] / 255.0f, col[3] / 255.0f);
+                    color = new Color(col[0] / 255.0f, col[1] / 255.0f, col[2] / 255.0f, col[3] / 255.0f);
                     break;
             }
             switch (renderMode.GetCombo()) {
@@ -110,16 +138,19 @@ public class PacketMine extends Module {
                     Main.fadeManager.createFadePosition(activePos, colorBox.GetColor(), colorBox.GetColor(), true, true, outlineWidth.GetSlider(), 50, colorBox.GetColor().getAlpha());
                     break;
             }
+            if (silentSwitch.GetCombo().equals("Auto") && size >= 1.0f) {
+                attemptBreak(activePos, facing);
+            }
         }
     }
 
     @RegisterListener
     public void onClickBlock(final BlockInteractEvent.ClickBlock event) {
-        if (mc.playerController.curBlockDamageMP > 0.1f) {
+        if (mc.playerController.curBlockDamageMP > 0.0f) {
             mc.playerController.isHittingBlock = true;
         }
-        if (activePos != null) {
-            Main.interactionManager.attemptBreak(activePos, facing);
+        if (activePos != null && silentSwitch.GetCombo().equals("Clicked")) {
+            attemptBreak(activePos, facing);
         }
     }
 
@@ -154,8 +185,17 @@ public class PacketMine extends Module {
         return input;
     }
 
+    public void attemptBreak(final BlockPos pos, final EnumFacing enumFacing){
+        Main.interactionManager.attemptBreak(pos, enumFacing);
+        if (reBreak.GetSwitch() && BlockUtil.getState(pos).equals(Blocks.AIR)){
+            prevPos = pos;
+            prevFace = enumFacing;
+            attemptingReBreak = true;
+        }
+    }
+
     protected void initiateBreaking(final BlockPos pos, final EnumFacing enumFacing) {
-        Main.interactionManager.initiateBreaking(pos, enumFacing);
+        Main.interactionManager.initiateBreaking(pos, enumFacing, true);
         activePos = pos;
         col = new float[]{inactiveColor.GetColor().getRed(), inactiveColor.GetColor().getGreen(), inactiveColor.GetColor().getBlue(), inactiveColor.GetColor().getAlpha()};
         facing = enumFacing;
@@ -164,6 +204,10 @@ public class PacketMine extends Module {
     protected void abort(final BlockPos pos, final EnumFacing enumFacing) {
         Main.interactionManager.abort(pos, enumFacing);
         end();
+    }
+
+    protected void abortWithoutEnding(final BlockPos pos, final EnumFacing enumFacing) {
+        Main.interactionManager.abort(pos, enumFacing);
     }
 
     protected void end() {

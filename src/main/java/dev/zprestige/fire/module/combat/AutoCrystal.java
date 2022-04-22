@@ -20,7 +20,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.network.play.server.SPacketSoundEffect;
@@ -162,7 +161,6 @@ public class AutoCrystal extends Module {
     protected int pyroId = -1;
     protected EntityOtherPlayerMP entityOtherPlayerMP;
     protected final Random random = new Random();
-    protected boolean shouldChange;
 
     @RegisterListener
     public void onDeath(final DeathEvent event) {
@@ -184,11 +182,6 @@ public class AutoCrystal extends Module {
 
     @RegisterListener
     public void onPacketSend(final PacketEvent.PacketSendEvent event) {
-        if (event.getPacket() instanceof CPacketPlayer && !mc.player.isHandActive() && shouldChange) {
-            final CPacketPlayer packet = (CPacketPlayer) event.getPacket();
-            packet.yaw = -mc.player.rotationYaw;
-            packet.pitch = rand();
-        }
         if (event.getPacket() instanceof CPacketPlayerTryUseItemOnBlock) {
             if (predict.GetCombo().equals("Ultra") || predict.GetCombo().equals("UltraChain")) {
                 final BlockPos eventPos = ((CPacketPlayerTryUseItemOnBlock) event.getPacket()).getPos();
@@ -333,11 +326,10 @@ public class AutoCrystal extends Module {
                     timeoutTicks = 0;
                     return;
                 }
-                shouldChange = true;
+                event.setYaw(-mc.player.rotationYaw);
+                event.setPitch(rand());
                 timeoutTicks++;
                 return;
-            } else {
-                shouldChange = false;
             }
         }
         boolean rotated = false;
@@ -425,6 +417,9 @@ public class AutoCrystal extends Module {
             playPyroSound(entityEnderCrystal1.getPosition());
         });
         attackedCrystals.add(entityEnderCrystal);
+        if (pos == null){
+            this.pos = entityEnderCrystal.getPosition().down();
+        }
     }
 
     protected void playPyroSound(final BlockPos pos) {

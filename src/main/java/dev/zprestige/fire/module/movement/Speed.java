@@ -105,7 +105,7 @@ public class Speed extends Module {
         if (!nullCheck() || (!liquids.GetSwitch() && (mc.player.isInWater() || mc.player.isInLava() || mc.player.isSpectator())) || mc.player.isElytraFlying()) {
             return;
         }
-        if (!mc.player.isSprinting()) {
+        if (!mc.player.isSprinting() && EntityUtil.isMoving()) {
             mc.player.setSprinting(true);
         }
         switch (speedMode.GetCombo()) {

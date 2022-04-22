@@ -249,10 +249,12 @@ public class InteractionManager {
         }
     }
 
-    public void initiateBreaking(final BlockPos pos, final EnumFacing enumFacing) {
+    public void initiateBreaking(final BlockPos pos, final EnumFacing enumFacing, final boolean swing) {
         mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, pos, enumFacing));
         mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, enumFacing));
-        mc.player.swingArm(EnumHand.MAIN_HAND);
+        if (swing) {
+            mc.player.swingArm(EnumHand.MAIN_HAND);
+        }
     }
 
     public void abort(final BlockPos pos, final EnumFacing enumFacing) {
