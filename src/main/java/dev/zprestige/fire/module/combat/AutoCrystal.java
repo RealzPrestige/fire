@@ -98,8 +98,7 @@ public class AutoCrystal extends Module {
             "Ignore Rotations",
             "Ignore Full",
     }).visibility(z -> placeRotate.GetSwitch() || explodeRotate.GetSwitch()).panel("Rotations");
-    public final Switch syncRotations = Menu.Switch("Sync Rotations", false).visibility(z -> placeRotate.GetSwitch() || explodeRotate.GetSwitch()).panel("Rotations");
-    public final Switch raytraceFix = Menu.Switch("Raytrace Fix", false).panel("Rotations");
+   public final Switch raytraceFix = Menu.Switch("Raytrace Fix", false).panel("Rotations");
     public final Slider raytraceTicks = Menu.Slider("Raytrace Ticks ", 10.0f, 0.1f, 40.0f).visibility(z -> raytraceFix.GetSwitch()).panel("Rotations");
     public final Slider raytraceTimeoutTicks = Menu.Slider("Raytrace Timeout Ticks ", 2.0f, 0.1f, 40.0f).visibility(z -> raytraceFix.GetSwitch()).panel("Rotations");
 
@@ -561,9 +560,9 @@ public class AutoCrystal extends Module {
 
     protected BlockPos calculatePosition(final PlayerManager.Player player) {
         final HashMap<BlockPos, CalculationComponent> posses = new HashMap<>();
-        for (BlockPos pos : BlockUtil.getCrystallableBlocks(placeRange.GetSlider() * 2, onePointThirteen.GetSwitch())) {
+        for (BlockPos pos : BlockUtil.getCrystallableBlocks(placeRange.GetSlider(), onePointThirteen.GetSwitch())) {
             final ArrayList<Entity> intersecting = mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up())).stream().filter(entity -> !(entity instanceof EntityEnderCrystal)).collect(Collectors.toCollection(ArrayList::new));
-            if (!intersecting.isEmpty() || mc.player.getDistanceSq(pos) / 2 > (BlockUtil.isNotVisible(pos, raytrace(placeRaytrace.GetCombo()).getOffset()) ? placeWallRange.GetSlider() * 3 : placeRange.GetSlider() * 3)) {
+            if (!intersecting.isEmpty() || mc.player.getDistanceSq(pos) / 2 > (BlockUtil.isNotVisible(pos, raytrace(placeRaytrace.GetCombo()).getOffset()) ? placeWallRange.GetSlider(): placeRange.GetSlider())) {
                 continue;
             }
             final double damage = BlockUtil.calculatePosDamage(pos, player);
