@@ -5,7 +5,6 @@
   "refmap": "mixins.fire.refmap.json",
   "minVersion": "",
   "mixins": [
-    "MixinBlockRendererDispatcher",
     "MixinChunkRenderDispatcher",
     "MixinEntityPlayerSP",
     "MixinMinecraft",
