@@ -7,8 +7,6 @@
   "mixins": [
     "MixinChunkRenderDispatcher",
     "MixinEntityPlayerSP",
-    "MixinGuiButton",
-    "MixinGuiMainMenu",
     "MixinMinecraft",
     "MixinNetworkManager",
     "MixinParticleManager",
