@@ -22,8 +22,8 @@ public class ViewTweaks extends Module {
     });
     public final Slider time = Menu.Slider("Time", 10000.0f, 0.0f, 24000.0f);
     public final ColorBox fogColor = Menu.Color("Fog Color", Color.WHITE);
-    public final Slider fogDensity = Menu.Slider("Fog Density", 0.0f, 0.0f, 255.0f);
-    public final Switch fogCancel = Menu.Switch("Fog Cancel", false);
+    public final Switch keepFog = Menu.Switch("Keep Fog", false);
+    public final Slider fogDensity = Menu.Slider("Fog Density", 0.0f, 0.0f, 100.0f).visibility(z -> keepFog.GetSwitch());
     public final Switch fullBright = Menu.Switch("FullBright", false);
     public final Slider chunkLoadDelay = Menu.Slider("Chunk Load Delay", 0.0f, 0.0f, 300.0f);
     public final Switch removeParticles = Menu.Switch("Remove Particles", false);
@@ -76,10 +76,7 @@ public class ViewTweaks extends Module {
 
     @RegisterListener
     public void onFogDensity(final FogDensityEvent event){
-        event.setDensity(fogDensity.GetSlider());
-        if (fogCancel.GetSwitch()){
-            event.setCancelled(true);
-        }
+        event.setDensity(fogDensity.GetSlider() / 1000.0f);
     }
 
     @RegisterListener

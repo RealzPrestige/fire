@@ -2,10 +2,7 @@ package dev.zprestige.fire.module.combat;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
-import dev.zprestige.fire.events.impl.DeathEvent;
-import dev.zprestige.fire.events.impl.FrameEvent;
-import dev.zprestige.fire.events.impl.PacketEvent;
-import dev.zprestige.fire.events.impl.TickEvent;
+import dev.zprestige.fire.events.impl.*;
 import dev.zprestige.fire.manager.PlayerManager;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
@@ -17,7 +14,6 @@ import dev.zprestige.fire.util.impl.RenderUtil;
 import dev.zprestige.fire.util.impl.Timer;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -50,8 +46,10 @@ public class AutoCrystal extends Module {
             "Health",
             "Fov",
     }).panel("Target");
+
     public final Slider placeDelay = Menu.Slider("Place Delay", 0, 0, 500).panel("Timing");
     public final Slider explodeDelay = Menu.Slider("Explode Delay", 50, 0, 500).panel("Timing");
+
     public final Slider placeRange = Menu.Slider("Place Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
     public final Slider explodeRange = Menu.Slider("Explode Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
     public final Switch advancedRaytrace = Menu.Switch("Advanced Raytrace", false).panel("Ranges");
@@ -71,6 +69,7 @@ public class AutoCrystal extends Module {
     }).visibility(z -> !advancedRaytrace.GetSwitch()).panel("Ranges");
     public final Slider placeWallRange = Menu.Slider("Place Wall Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
     public final Slider explodeWallRange = Menu.Slider("Explode Wall Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
+
     public final ComboBox placeCalculations = Menu.ComboBox("Place Calculations", "Highest Damage", new String[]{
             "Highest Damage",
             "Lowest Distance",
@@ -91,6 +90,7 @@ public class AutoCrystal extends Module {
     public final Slider maxSelfExplodeDamage = Menu.Slider("Max Self Explode Damage", 8.0f, 0.1f, 12.0f).panel("Calculations");
     public final Slider placeAntiSuicide = Menu.Slider("Place Anti Suicide", 0.0f, 0.0f, 10.0f).panel("Calculations");
     public final Slider explodeAntiSuicide = Menu.Slider("Explode Anti Suicide", 0.0f, 0.0f, 10.0f).panel("Calculations");
+
     public final Switch placeRotate = Menu.Switch("Place Rotate", false).panel("Rotations");
     public final Switch explodeRotate = Menu.Switch("Explode Rotate", false).panel("Rotations");
     public final ComboBox inAirRotations = Menu.ComboBox("InAir", "Ignore Full", new String[]{
@@ -102,9 +102,11 @@ public class AutoCrystal extends Module {
     public final Switch raytraceFix = Menu.Switch("Raytrace Fix", false).panel("Rotations");
     public final Slider raytraceTicks = Menu.Slider("Raytrace Ticks ", 10.0f, 0.1f, 40.0f).visibility(z -> raytraceFix.GetSwitch()).panel("Rotations");
     public final Slider raytraceTimeoutTicks = Menu.Slider("Raytrace Timeout Ticks ", 2.0f, 0.1f, 40.0f).visibility(z -> raytraceFix.GetSwitch()).panel("Rotations");
+
     public final Switch predictMotion = Menu.Switch("Predict Motion", false).panel("Predict Motion");
     public final Slider predictMotionFactor = Menu.Slider("Predict Motion Factor", 2.0f, 1.0f, 20.0f).visibility(z -> predictMotion.getValue()).panel("Predict Motion");
     public final Switch predictMotionVisualize = Menu.Switch("Predict Motion Visualize", false).visibility(z -> predictMotion.getValue()).panel("Predict Motion");
+
     public final Switch placePacket = Menu.Switch("Place Packet", false).panel("Other");
     public final Switch explodePacket = Menu.Switch("Explode Packet", false).panel("Other");
     public final Switch placeSilentSwitch = Menu.Switch("Place Silent Switch", false).panel("Other");
@@ -116,6 +118,7 @@ public class AutoCrystal extends Module {
     public final Switch destroyLoot = Menu.Switch("Destroy Loot", false).panel("Other");
     public final Switch multiTask = Menu.Switch("MultiTask", true).panel("Other");
     public final Switch autoSwitch = Menu.Switch("Auto Switch", true).panel("Other");
+
     public final Switch pyroMode = Menu.Switch("Pyro Mode", true).panel("Predicting");
     public final ComboBox setDead = Menu.ComboBox("Set Dead", "None", new String[]{
             "None",
@@ -128,9 +131,11 @@ public class AutoCrystal extends Module {
             "Ultra",
             "UltraChain"
     }).panel("Predicting");
+
     public final Slider facePlaceHealth = Menu.Slider("Face Place Health", 15.0f, 0.1f, 36.0f).panel("Faceplacing");
     public final Switch facePlaceSlow = Menu.Switch("Face Place Slow", false).panel("Faceplacing");
     public final Key facePlaceForceKey = Menu.Key("Face Place Force Key", Keyboard.KEY_NONE).panel("Faceplacing");
+
     public final Switch render = Menu.Switch("Render", false).panel("Rendering");
     public final ComboBox animation = Menu.ComboBox("Animation", "Fade", new String[]{
             "None",
@@ -180,7 +185,7 @@ public class AutoCrystal extends Module {
 
     @RegisterListener
     public void onPacketSend(final PacketEvent.PacketSendEvent event) {
-        if (event.getPacket() instanceof CPacketPlayer && !mc.player.isHandActive() && shouldChange){
+        if (event.getPacket() instanceof CPacketPlayer && !mc.player.isHandActive() && shouldChange) {
             final CPacketPlayer packet = (CPacketPlayer) event.getPacket();
             packet.yaw = -mc.player.rotationYaw;
             packet.pitch = rand();
@@ -198,9 +203,9 @@ public class AutoCrystal extends Module {
                 } catch (ConcurrentModificationException ignored) {
                 }
                 if (entityEnderCrystal != null) {
-                    explodeCrystal(entityEnderCrystal);
+                    explodeCrystal(entityEnderCrystal, null);
                     if (predict.GetCombo().equals("UltraChain")) {
-                        placeCrystal(eventPos);
+                        placeCrystal(eventPos, null);
                     }
                 }
             }
@@ -215,7 +220,7 @@ public class AutoCrystal extends Module {
         try {
             if (predict.GetCombo().equals("Normal") && event.getPacket() instanceof SPacketSpawnObject && ((SPacketSpawnObject) event.getPacket()).getType() == 51 && mc.world.getEntityByID(((SPacketSpawnObject) event.getPacket()).getEntityID()) instanceof EntityEnderCrystal) {
                 final EntityEnderCrystal entityEnderCrystal = (EntityEnderCrystal) mc.world.getEntityByID(((SPacketSpawnObject) event.getPacket()).getEntityID());
-                explodeCrystal(entityEnderCrystal);
+                explodeCrystal(entityEnderCrystal, null);
             }
         } catch (ConcurrentModificationException ignored) {
         }
@@ -240,37 +245,39 @@ public class AutoCrystal extends Module {
 
 
     @RegisterListener
-    public void onTick(TickEvent event) {
-        if (!multiTask.GetSwitch() && mc.player.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE) && mc.gameSettings.keyBindUseItem.isKeyDown()) {
-            return;
-        }
-        PlayerManager.Player player = EntityUtil.getClosestTarget(targetPriority(targetPriority.GetCombo()), targetRange.GetSlider());
-        if (player != null) {
-            final double[] position = new double[]{player.getEntityPlayer().posX, player.getEntityPlayer().posY, player.getEntityPlayer().posZ};
-            final double[] next = Main.motionPredictionManager.getPredictedPosByPlayer(player.getEntityPlayer(), predictMotionFactor.GetSlider());
-            if (predictMotion.GetSwitch()) {
-                player.getEntityPlayer().setPosition(next[0], next[1], next[2]);
-            }
-            if (!destroyLoot.GetSwitch() && deadPlayers.containsKey(player)) {
+    public void onMotionUpdate(final MotionUpdateEvent event) {
+        if (event.getStage().equals(MotionUpdateEvent.Stage.Pre)) {
+            if (!multiTask.GetSwitch() && mc.player.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE) && mc.gameSettings.keyBindUseItem.isKeyDown()) {
                 return;
             }
-            if (autoMineTargetPrefer.GetSwitch()) {
-                final PlayerManager.Player autoMineTarget = ((AutoMine) Main.moduleManager.getModuleByClass(AutoMine.class)).getTarget();
-                if (autoMineTarget != null) {
-                    player = autoMineTarget;
+            PlayerManager.Player player = EntityUtil.getClosestTarget(targetPriority(targetPriority.GetCombo()), targetRange.GetSlider());
+            if (player != null) {
+                final double[] position = new double[]{player.getEntityPlayer().posX, player.getEntityPlayer().posY, player.getEntityPlayer().posZ};
+                final double[] next = Main.motionPredictionManager.getPredictedPosByPlayer(player.getEntityPlayer(), predictMotionFactor.GetSlider());
+                if (predictMotion.GetSwitch()) {
+                    player.getEntityPlayer().setPosition(next[0], next[1], next[2]);
                 }
+                if (!destroyLoot.GetSwitch() && deadPlayers.containsKey(player)) {
+                    return;
+                }
+                if (autoMineTargetPrefer.GetSwitch()) {
+                    final PlayerManager.Player autoMineTarget = ((AutoMine) Main.moduleManager.getModuleByClass(AutoMine.class)).getTarget();
+                    if (autoMineTarget != null) {
+                        player = autoMineTarget;
+                    }
+                }
+                pos = null;
+                if (player.getHealth() > 0.0f) {
+                    performAutoCrystal(player, event);
+                }
+                if (predictMotionVisualize.GetSwitch()) {
+                    setupEntity(player, next);
+                }
+                player.getEntityPlayer().setPosition(position[0], position[1], position[2]);
             }
-            pos = null;
-            if (player.getHealth() > 0.0f) {
-                performAutoCrystal(player);
-            }
-            if (predictMotionVisualize.GetSwitch()) {
-                setupEntity(player, next);
-            }
-            player.getEntityPlayer().setPosition(position[0], position[1], position[2]);
+            checkDeaths();
+            handleSwitch();
         }
-        checkDeaths();
-        handleSwitch();
     }
 
 
@@ -319,7 +326,7 @@ public class AutoCrystal extends Module {
         return MathHelper.clamp(-20 + random.nextFloat() * 20, -20, 20);
     }
 
-    protected void performAutoCrystal(final PlayerManager.Player player) {
+    protected void performAutoCrystal(final PlayerManager.Player player, final MotionUpdateEvent event) {
         if (raytraceFix.GetSwitch()) {
             if (ticks >= raytraceTicks.GetSlider()) {
                 if (timeoutTicks >= raytraceTimeoutTicks.GetSlider()) {
@@ -338,7 +345,7 @@ public class AutoCrystal extends Module {
         if (timers[0].getTime((long) placeDelay.GetSlider())) {
             final BlockPos pos = calculatePosition(player);
             if (pos != null) {
-                placeCrystal(pos);
+                placeCrystal(pos, event);
                 timers[0].syncTime();
                 if (placeRotate.GetSwitch()) {
                     rotated = true;
@@ -348,7 +355,7 @@ public class AutoCrystal extends Module {
         if (timers[1].getTime(Keyboard.isKeyDown(facePlaceForceKey.GetKey()) && facePlaceSlow.GetSwitch() ? 500 : (long) explodeDelay.GetSlider())) {
             final EntityEnderCrystal entityEnderCrystal = calculateCrystal(player);
             if (entityEnderCrystal != null) {
-                explodeCrystal(entityEnderCrystal);
+                explodeCrystal(entityEnderCrystal, event);
                 timers[1].syncTime();
                 if (explodeRotate.GetSwitch()) {
                     rotated = true;
@@ -360,7 +367,7 @@ public class AutoCrystal extends Module {
         }
     }
 
-    public void explodeCrystal(final EntityEnderCrystal entityEnderCrystal) {
+    public void explodeCrystal(final EntityEnderCrystal entityEnderCrystal, final MotionUpdateEvent event) {
         boolean switched = false;
         int currentItem = -1;
         final PotionEffect weakness = mc.player.getActivePotionEffect(MobEffects.WEAKNESS);
@@ -378,21 +385,21 @@ public class AutoCrystal extends Module {
             Main.inventoryManager.switchToSlot(slot);
             switched1 = true;
         }
-        if (explodeRotate.GetSwitch()) {
+        if (explodeRotate.GetSwitch() && event != null) {
             switch (inAirRotations.GetCombo()) {
                 case "None":
-                    Main.rotationManager.faceEntity(entityEnderCrystal, syncRotations.GetSwitch());
+                    Main.rotationManager.faceEntity(entityEnderCrystal, event);
                     break;
                 case "Ignore Rotations":
                     if (mc.player.onGround) {
-                        Main.rotationManager.faceEntity(entityEnderCrystal, syncRotations.GetSwitch());
+                        Main.rotationManager.faceEntity(entityEnderCrystal, event);
                     }
                     break;
                 case "Ignore Full":
                     if (!mc.player.onGround) {
                         return;
                     }
-                    Main.rotationManager.faceEntity(entityEnderCrystal, syncRotations.GetSwitch());
+                    Main.rotationManager.faceEntity(entityEnderCrystal, event);
                     break;
             }
         }
@@ -425,7 +432,7 @@ public class AutoCrystal extends Module {
         mc.world.playSound(mc.player, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 1, 0);
     }
 
-    public void placeCrystal(final BlockPos pos) {
+    public void placeCrystal(final BlockPos pos, final MotionUpdateEvent event) {
         final EnumHand crystalHand = getCrystalHand();
         if ((!placeSilentSwitch.GetSwitch() && crystalHand == null) || (placeInhibit.GetSwitch() && !mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.up())).isEmpty())) {
             return;
@@ -448,22 +455,21 @@ public class AutoCrystal extends Module {
             Main.inventoryManager.switchToSlot(slot);
             switched = true;
         }
-        if (placeRotate.GetSwitch()) {
-            Main.rotationManager.facePos(pos.add(x, y, z), syncRotations.GetSwitch());
+        if (placeRotate.GetSwitch() && event != null) {
             switch (inAirRotations.GetCombo()) {
                 case "None":
-                    Main.rotationManager.facePos(pos, syncRotations.GetSwitch());
+                    Main.rotationManager.facePos(pos.add(x, y, z), event);
                     break;
                 case "Ignore Rotations":
                     if (mc.player.onGround) {
-                        Main.rotationManager.facePos(pos, syncRotations.GetSwitch());
+                        Main.rotationManager.facePos(pos.add(x, y, z), event);
                     }
                     break;
                 case "Ignore Full":
                     if (!mc.player.onGround) {
                         return;
                     }
-                    Main.rotationManager.facePos(pos, syncRotations.GetSwitch());
+                    Main.rotationManager.facePos(pos.add(x, y, z), event);
                     break;
             }
         }
@@ -546,7 +552,9 @@ public class AutoCrystal extends Module {
                         break;
                 }
             }
-            return crystals2.lastEntry().getValue();
+            if (!crystals2.isEmpty()) {
+                return crystals2.lastEntry().getValue();
+            }
         }
         return null;
     }
@@ -587,7 +595,9 @@ public class AutoCrystal extends Module {
                         break;
                 }
             }
-            return posses2.lastEntry().getValue();
+            if (!posses2.isEmpty()) {
+                return posses2.lastEntry().getValue();
+            }
         }
         return null;
     }

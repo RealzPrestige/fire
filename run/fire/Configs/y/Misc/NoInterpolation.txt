@@ -1,0 +1,6 @@
+"Keybind": "0:false"
+"Enabled": "false"
+"Drawn": "true"
+"Delay": "1.0"
+"Sneak": "false"
+"Cancel Animations": "false"

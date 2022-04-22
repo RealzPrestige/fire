@@ -13,7 +13,7 @@ maxFps:260
 fboEnable:true
 difficulty:3
 fancyGraphics:false
-ao:0
+ao:2
 renderClouds:false
 resourcePacks:[]
 incompatibleResourcePacks:[]
@@ -29,7 +29,7 @@ fullscreen:true
 enableVsync:false
 useVbo:false
 hideServerAddress:false
-advancedItemTooltips:false
+advancedItemTooltips:true
 pauseOnLostFocus:true
 touchscreen:false
 overrideWidth:0
@@ -72,7 +72,7 @@ key_key.togglePerspective:63
 key_key.smoothCamera:0
 key_key.fullscreen:87
 key_key.spectatorOutlines:0
-key_key.swapHands:33
+key_key.swapHands:0
 key_key.saveToolbarActivator:46
 key_key.loadToolbarActivator:45
 key_key.advancements:38

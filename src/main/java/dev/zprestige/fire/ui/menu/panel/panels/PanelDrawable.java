@@ -35,9 +35,13 @@ public class PanelDrawable {
 
     public void render(int mouseX, int mouseY) {
         hoverColor(mouseX, mouseY, PanelScreen.animationFactor());
-        color = new Color(col[0], col[1], col[2], 1.0f);
+        color = new Color(fixColor(col[0]), fixColor(col[1]), fixColor(col[2]), 1.0f);
         RenderUtil.image(new ResourceLocation("textures/images/" + string.toLowerCase() + ".png"), (int) (x + 5.0f), (int) y + 3, 9, 9, color);
         Main.fontManager.drawStringWithShadow(string, new Vector2D(x + 20, y + (height / 2f) - (Main.fontManager.getFontHeight() / 2f)), color.getRGB());
+    }
+
+    protected float fixColor(final float i){
+        return Math.max(0.0f, Math.min(1.0f, i));
     }
 
     public void click(int mouseX, int mouseY, int state) {

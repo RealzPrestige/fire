@@ -11,10 +11,7 @@ public class ThreadManager extends RegisteredClass {
     protected final Minecraft mc = Main.mc;
     protected ExecutorService executorService = Executors.newFixedThreadPool(2);
 
-    public void run(Runnable command) {
-        try {
-            executorService.execute(command);
-        } catch (Exception ignored) {
-        }
+    public void run(final Runnable command) {
+        executorService.execute(command);
     }
 }

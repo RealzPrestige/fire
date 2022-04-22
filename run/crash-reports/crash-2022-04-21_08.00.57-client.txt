@@ -1,0 +1,130 @@
+---- Minecraft Crash Report ----
+// Hey, that tickles! Hehehe!
+
+Time: 4/21/22 8:00 AM
+Description: Batching chunks
+
+java.lang.IndexOutOfBoundsException: Index: 100, Size: 100
+	at java.util.ArrayList.rangeCheck(ArrayList.java:659)
+	at java.util.ArrayList.remove(ArrayList.java:498)
+	at net.minecraft.client.gui.GuiNewChat.setChatLine(GuiNewChat.java:176)
+	at net.minecraft.client.gui.GuiNewChat.printChatMessageWithOptionalDeletion(GuiNewChat.java:148)
+	at net.minecraft.client.gui.GuiNewChat.printChatMessage(GuiNewChat.java:140)
+	at net.minecraft.client.entity.EntityPlayerSP.sendMessage(EntityPlayerSP.java:653)
+	at dev.zprestige.fire.manager.ChatManager.sendRawMessage(ChatManager.java:15)
+	at dev.zprestige.fire.manager.ChatManager.sendMessage(ChatManager.java:21)
+	at dev.zprestige.fire.module.visual.Search.renderBlock(Search.java:46)
+	at dev.zprestige.fire.events.eventbus.handler.impl.LambdaHandler.invoke(LambdaHandler.java:36)
+	at dev.zprestige.fire.events.eventbus.EventBus.lambda$post$1(EventBus.java:35)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.events.eventbus.EventBus.post(EventBus.java:35)
+	at net.minecraft.client.renderer.BlockRendererDispatcher.handler$renderBlock$zza000(BlockRendererDispatcher.java:521)
+	at net.minecraft.client.renderer.BlockRendererDispatcher.renderBlock(BlockRendererDispatcher.java)
+	at net.minecraft.client.renderer.chunk.RenderChunk.rebuildChunk(RenderChunk.java:203)
+	at net.minecraft.client.renderer.chunk.ChunkRenderWorker.processTask(ChunkRenderWorker.java:122)
+	at net.minecraft.client.renderer.chunk.ChunkRenderWorker.run(ChunkRenderWorker.java:50)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at java.util.ArrayList.rangeCheck(ArrayList.java:659)
+	at java.util.ArrayList.remove(ArrayList.java:498)
+	at net.minecraft.client.gui.GuiNewChat.setChatLine(GuiNewChat.java:176)
+	at net.minecraft.client.gui.GuiNewChat.printChatMessageWithOptionalDeletion(GuiNewChat.java:148)
+	at net.minecraft.client.gui.GuiNewChat.printChatMessage(GuiNewChat.java:140)
+	at net.minecraft.client.entity.EntityPlayerSP.sendMessage(EntityPlayerSP.java:653)
+	at dev.zprestige.fire.manager.ChatManager.sendRawMessage(ChatManager.java:15)
+	at dev.zprestige.fire.manager.ChatManager.sendMessage(ChatManager.java:21)
+	at dev.zprestige.fire.module.visual.Search.renderBlock(Search.java:46)
+	at dev.zprestige.fire.events.eventbus.handler.impl.LambdaHandler.invoke(LambdaHandler.java:36)
+	at dev.zprestige.fire.events.eventbus.EventBus.lambda$post$1(EventBus.java:35)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.events.eventbus.EventBus.post(EventBus.java:35)
+	at net.minecraft.client.renderer.BlockRendererDispatcher.handler$renderBlock$zza000(BlockRendererDispatcher.java:521)
+	at net.minecraft.client.renderer.BlockRendererDispatcher.renderBlock(BlockRendererDispatcher.java)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['zPrestige_'/90, l='MpServer', x=243.37, y=82.62, z=-362.21]]
+	Chunk stats: MultiplayerChunkCache: 430, 430
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (252,64,-242), Chunk: (at 12,4,14 in 15,-16; contains blocks 240,0,-256 to 255,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 5761481 game time, 1037 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 29 total; [EntitySheep['Sheep'/7, l='MpServer', x=166.20, y=70.00, z=-328.51], EntitySheep['Sheep'/11, l='MpServer', x=191.56, y=64.00, z=-422.28], EntitySheep['Sheep'/12, l='MpServer', x=188.57, y=66.00, z=-416.18], EntitySheep['Sheep'/14, l='MpServer', x=205.81, y=66.00, z=-382.51], EntitySheep['Sheep'/16, l='MpServer', x=210.50, y=69.00, z=-344.77], EntityEnderCrystal['entity.EnderCrystal.name'/17, l='MpServer', x=215.50, y=5.00, z=-250.50], EntityEnderCrystal['entity.EnderCrystal.name'/18, l='MpServer', x=223.50, y=5.00, z=-249.50], EntitySheep['Sheep'/25, l='MpServer', x=262.96, y=69.00, z=-380.55], EntitySheep['Sheep'/26, l='MpServer', x=240.53, y=71.00, z=-371.73], EntityPlayerSP['zPrestige_'/90, l='MpServer', x=243.37, y=82.62, z=-362.21], EntitySheep['Sheep'/27, l='MpServer', x=254.50, y=78.00, z=-350.79], EntitySheep['Sheep'/28, l='MpServer', x=247.50, y=77.00, z=-334.25], EntitySheep['Sheep'/30, l='MpServer', x=271.16, y=69.00, z=-361.84], EntitySheep['Sheep'/31, l='MpServer', x=270.55, y=69.00, z=-357.03], EntitySheep['Sheep'/32, l='MpServer', x=253.58, y=78.00, z=-349.77], EntitySheep['Sheep'/33, l='MpServer', x=266.81, y=78.00, z=-349.64], EntitySheep['Sheep'/34, l='MpServer', x=273.73, y=68.00, z=-358.70], EntitySheep['Sheep'/35, l='MpServer', x=253.49, y=78.00, z=-342.49], EntitySheep['Sheep'/36, l='MpServer', x=265.50, y=78.00, z=-350.90], EntitySheep['Sheep'/41, l='MpServer', x=288.77, y=69.00, z=-344.52], EntitySheep['Sheep'/42, l='MpServer', x=284.22, y=70.00, z=-332.64], EntitySheep['Sheep'/44, l='MpServer', x=298.52, y=66.00, z=-344.23], EntitySheep['Sheep'/45, l='MpServer', x=292.23, y=69.00, z=-319.52], EntitySheep['Sheep'/46, l='MpServer', x=300.52, y=67.00, z=-308.77], EntitySheep['Sheep'/50, l='MpServer', x=306.50, y=68.00, z=-333.79], EntitySheep['Sheep'/51, l='MpServer', x=301.52, y=68.00, z=-333.23], EntitySheep['Sheep'/115, l='MpServer', x=197.16, y=64.00, z=-435.84], EntitySheep['Sheep'/52, l='MpServer', x=302.52, y=70.00, z=-324.23], EntityMinecartChest['Minecart with Chest'/116, l='MpServer', x=235.50, y=33.06, z=-433.50]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:461)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2889)
+	at net.minecraft.client.renderer.chunk.ChunkRenderWorker.run(ChunkRenderWorker.java:60)
+	at java.lang.Thread.run(Thread.java:748)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_272, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Amazon.com Inc.
+	Memory: 606437656 bytes (578 MB) / 1430257664 bytes (1364 MB) up to 3801088000 bytes (3625 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 13, tallocated: 95
+	FML: MCP 9.42 Powered by Forge 14.23.5.2847 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                         | Signature |
+	|:------ |:--------- |:------------ |:---------------------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                  | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                  | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | forge     | 14.23.5.2847 | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | fire      | 0.1          | main                                           | None      |
+
+	Loaded coremods (and transformers): 
+MixinLoader (unknown)
+  
+	GL info: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 16x AMD Ryzen 7 2700X Eight-Core Processor 

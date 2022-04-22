@@ -72,13 +72,11 @@ public class Listener extends RegisteredClass {
     }
 
     @SubscribeEvent
-    public void onDensity(final EntityViewRenderEvent.FogDensity event){
+    public void onDensity(final EntityViewRenderEvent.FogDensity event) {
         final FogDensityEvent fogDensityEvent = new FogDensityEvent(event.getDensity());
         eventBus.post(fogDensityEvent);
+        event.setCanceled(true);
         event.setDensity(fogDensityEvent.getDensity());
-        if (event.isCanceled()){
-            event.setCanceled(true);
-        }
     }
 
     @SubscribeEvent

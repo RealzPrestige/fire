@@ -1,24 +1,20 @@
 package dev.zprestige.fire.module.client;
 
-import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
 import dev.zprestige.fire.events.impl.PacketEvent;
-import dev.zprestige.fire.events.impl.TickEvent;
-import dev.zprestige.fire.manager.PlayerManager;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
-import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.network.play.server.SPacketPlayerPosLook;
 
-import java.util.Arrays;
 import java.util.Set;
 
 @Descriptor(description = "Controls the max amount of rotations the client can send per tick")
 public class RotationManager extends Module {
     public final Slider maxRotations = Menu.Slider("Max Rotations", 2.0f, 0.1f, 10.0f);
+    public final Switch yawStep = Menu.Switch("Yaw Step", false);
+    public final Slider maxYaw = Menu.Slider("Max Yaw", 90.0f, 0.1f, 180.0f).visibility(z -> yawStep.GetSwitch());
     public final Switch noForceRotations = Menu.Switch("No Force Rotations", false);
 
     public RotationManager() {

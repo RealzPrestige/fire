@@ -65,7 +65,7 @@ public class AutoMine extends Module {
                 if (timer.getTime(2000)) {
                     final AutoCrystal autoCrystal = (AutoCrystal) Main.moduleManager.getModuleByClass(AutoCrystal.class);
                     if (damage.GetSwitch() && BlockUtil.canPosBeCrystalled(interactedPos, onePointThirteen.GetSwitch()) && autoCrystal.isEnabled()){
-                        autoCrystal.placeCrystal(interactedPos);
+                        autoCrystal.placeCrystal(interactedPos, null);
                     }
                     Main.interactionManager.attemptBreak(interactedPos, interactedFace);
                     interactedFace = null;

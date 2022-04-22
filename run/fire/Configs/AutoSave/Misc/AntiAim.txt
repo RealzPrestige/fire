@@ -1,0 +1,7 @@
+"Keybind": "0:false"
+"Enabled": "true"
+"Drawn": "true"
+"Mode": "Spin"
+"Yaw": "-1.6"
+"Pitch": "-1.6"
+"SpinSpeed": "50.0"

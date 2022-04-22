@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 public class HoleManager  {
     protected final Minecraft mc = Main.mc;
     protected List<HolePos> holes = new ArrayList<>();
-
     protected final Vec3i[] Hole = {
             new Vec3i(1, 0, 0),
             new Vec3i(-1, 0, 0),
@@ -46,7 +45,9 @@ public class HoleManager  {
     };
 
     public void loadHoles(final float range){
-        Main.threadManager.run(() -> holes = getHoles(range));
+        if (mc.player != null && mc.world != null) {
+            Main.threadManager.run(() -> holes = getHoles(range));
+        }
     }
 
     protected ArrayList<HolePos> getHoles(final float range) {
