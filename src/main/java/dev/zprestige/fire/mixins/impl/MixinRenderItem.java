@@ -3,6 +3,7 @@ package dev.zprestige.fire.mixins.impl;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.events.impl.RenderItemEvent;
 import dev.zprestige.fire.module.visual.ViewModel;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -19,6 +20,8 @@ import java.awt.*;
 
 @Mixin(value = RenderItem.class)
 public class MixinRenderItem {
+    protected final Minecraft mc = Main.mc;
+
     @Shadow
     private void renderModel(final IBakedModel iBakedModel, final int color, final ItemStack stack) {
     }
@@ -38,6 +41,5 @@ public class MixinRenderItem {
     public void renderModelColor(final RenderItem renderItem, final IBakedModel iBakedModel, final ItemStack itemStack) {
         final ViewModel viewModel = (ViewModel) Main.moduleManager.getModuleByClass(ViewModel.class);
         renderModel(iBakedModel, viewModel.isEnabled() ? viewModel.color.GetColor().getRGB() : new Color(1.0f, 1.0f, 1.0f, 1.0f).getRGB(), itemStack);
-
     }
 }

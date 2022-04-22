@@ -107,6 +107,17 @@ public class Listener extends RegisteredClass {
     }
 
     @SubscribeEvent
+    public void onRenderGameOverlay(final RenderGameOverlayEvent event) {
+        if (checkNull()) {
+            final RenderOverlayEvent renderOverlayEvent = new RenderOverlayEvent(event.getType());
+            Main.eventBus.post(renderOverlayEvent);
+            if (renderOverlayEvent.isCancelled()) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
     public void onInputUpdate(InputUpdateEvent event) {
         final ItemInputUpdateEvent itemInputUpdateEvent = new ItemInputUpdateEvent(event.getMovementInput());
         eventBus.post(itemInputUpdateEvent);

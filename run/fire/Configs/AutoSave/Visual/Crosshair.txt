@@ -1,0 +1,7 @@
+"Keybind": "0:false"
+"Enabled": "true"
+"Drawn": "true"
+"Gap": "5.0"
+"Length": "5.0"
+"Thickness": "1.0"
+"Color": "-1857020955"
