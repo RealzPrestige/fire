@@ -52,6 +52,9 @@ public class HoleManager {
 
     protected ArrayList<HolePos> getHoles(final float range) {
         final ArrayList<HolePos> holes = new ArrayList<>();
+        if (mc.player == null || mc.world == null){
+            return holes;
+        }
         for (BlockPos pos : BlockUtil.getBlocksInRadius(range).stream().filter(blockPos -> mc.world.getBlockState(blockPos).getBlock().equals(Blocks.AIR)).collect(Collectors.toList())) {
             if (isEnterable(pos)) {
                 boolean isSafe = true;

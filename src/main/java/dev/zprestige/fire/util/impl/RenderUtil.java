@@ -279,8 +279,7 @@ public class RenderUtil implements Utils {
     }
 
     public static void drawBlockOutlineBBWithHeight(AxisAlignedBB bb, Color color, float lineWidth, float height) {
-        final Vec3d interpolateEntity = interpolateEntity(mc.player, mc.getRenderPartialTicks());
-        RenderUtil.drawBlockOutlineWithHeight(bb.grow(0.002f).offset(-interpolateEntity.x, -interpolateEntity.y, -interpolateEntity.z), color, lineWidth, height);
+        RenderUtil.drawBlockOutlineWithHeight(bb.grow(0.002f).offset(-mc.getRenderManager().viewerPosX, -mc.getRenderManager().viewerPosY, -mc.getRenderManager().viewerPosZ), color, lineWidth, height);
     }
 
     public static void drawBlockOutlineWithHeight(final AxisAlignedBB bb, final Color color, final float lineWidth, final float height) {

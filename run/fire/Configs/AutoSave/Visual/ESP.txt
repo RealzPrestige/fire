@@ -1,0 +1,6 @@
+"Keybind": "0:false"
+"Enabled": "true"
+"Drawn": "true"
+"Color": "-1"
+"Radius": "1.0"
+"Opacity": "120.0"
