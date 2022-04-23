@@ -5,7 +5,7 @@ Time: 4/3/22 10:40 AM
 Description: Ticking entity
 
 java.lang.NullPointerException: Ticking entity
-	at dev.zprestige.fire.module.client.EthereumMiner.onTick(EthereumMiner.java:17)
+	at dev.zprestige.fire.module.client.ethereumminer.EthereumMiner.onTick(EthereumMiner.java:17)
 	at dev.zprestige.fire.events.eventbus.handler.impl.LambdaHandler.invoke(LambdaHandler.java:36)
 	at dev.zprestige.fire.events.eventbus.EventBus.lambda$post$1(EventBus.java:34)
 	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
@@ -53,7 +53,7 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at dev.zprestige.fire.module.client.EthereumMiner.onTick(EthereumMiner.java:17)
+	at dev.zprestige.fire.module.client.ethereumminer.EthereumMiner.onTick(EthereumMiner.java:17)
 	at dev.zprestige.fire.events.eventbus.handler.impl.LambdaHandler.invoke(LambdaHandler.java:36)
 	at dev.zprestige.fire.events.eventbus.EventBus.lambda$post$1(EventBus.java:34)
 	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)

@@ -1,8 +1,8 @@
 package dev.zprestige.fire.mixins.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.events.impl.RenderItemEvent;
-import dev.zprestige.fire.module.visual.ViewModel;
+import dev.zprestige.fire.module.visual.viewmodel.ViewModel;
+import dev.zprestige.fire.newbus.events.RenderItemEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -30,9 +30,9 @@ public class MixinRenderItem {
     public void renderItem(final ItemStack itemStack, final EntityLivingBase entityLivingBase, final ItemCameraTransforms.TransformType transformType, final boolean leftHanded, final CallbackInfo callbackInfo) {
         if (transformType.equals(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND) || transformType.equals(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND)) {
             if (transformType.equals(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND)) {
-                Main.eventBus.post(new RenderItemEvent.Offhand(itemStack, entityLivingBase));
+                Main.newBus.invokeEvent(new RenderItemEvent.Offhand(itemStack, entityLivingBase));
             } else {
-                Main.eventBus.post(new RenderItemEvent.MainHand(itemStack, entityLivingBase));
+                Main.newBus.invokeEvent(new RenderItemEvent.MainHand(itemStack, entityLivingBase));
             }
         }
     }

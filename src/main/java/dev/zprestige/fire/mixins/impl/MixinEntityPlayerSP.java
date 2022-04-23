@@ -2,8 +2,9 @@ package dev.zprestige.fire.mixins.impl;
 
 import com.mojang.authlib.GameProfile;
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.events.impl.MotionUpdateEvent;
-import dev.zprestige.fire.events.impl.MoveEvent;
+import dev.zprestige.fire.newbus.Stage;
+import dev.zprestige.fire.newbus.events.MotionUpdateEvent;
+import dev.zprestige.fire.newbus.events.MoveEvent;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.MoverType;
@@ -29,14 +30,14 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
     @SuppressWarnings("NullableProblems")
     public void move(final MoverType type, final double x, final double y, final double z) {
         final MoveEvent event = new MoveEvent(type, x, y, z);
-        Main.eventBus.post(event);
+        Main.newBus.invokeEvent(event);
         super.move(type, event.getMotionX(), event.getMotionY(), event.getMotionZ());
     }
 
     @Inject(method = "move", at = @At("HEAD"), cancellable = true)
     public void move(final MoverType type, final double x, final double y, final double z, final CallbackInfo callbackInfo) {
         final MoveEvent event = new MoveEvent(type, x, y, z);
-        Main.eventBus.post(event);
+        Main.newBus.invokeEvent(event);
         if (event.getMotionX() != x || event.getMotionY() != y || event.getMotionZ() != z) {
             super.move(type, event.getMotionX(), event.getMotionY(), event.getMotionZ());
             callbackInfo.cancel();
@@ -45,8 +46,8 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
 
     @Inject(method = "onUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;onUpdateWalkingPlayer()V", shift = At.Shift.BEFORE))
     public void onUpdate(final CallbackInfo callbackInfo) {
-        motionUpdateEvent = new MotionUpdateEvent(MotionUpdateEvent.Stage.Pre, this.posX, this.getEntityBoundingBox().minY, this.posZ, this.rotationYaw, this.rotationPitch, this.onGround);
-        Main.eventBus.post(motionUpdateEvent);
+        motionUpdateEvent = new MotionUpdateEvent(Stage.Pre, this.posX, this.getEntityBoundingBox().minY, this.posZ, this.rotationYaw, this.rotationPitch, this.onGround);
+        Main.newBus.invokeEvent(motionUpdateEvent);
         posX = motionUpdateEvent.getX();
         posY = motionUpdateEvent.getY();
         posZ = motionUpdateEvent.getZ();
@@ -110,9 +111,9 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
 
     @Inject(method = "onUpdateWalkingPlayer", at = @At(value = "RETURN"))
     public void onUpdateWalkingPlayerReturn(final CallbackInfo callbackInfo) {
-        MotionUpdateEvent event = new MotionUpdateEvent(MotionUpdateEvent.Stage.Post, motionUpdateEvent);
-        event.setCancelled(motionUpdateEvent.isCancelled());
-        Main.eventBus.post(event);
+        final MotionUpdateEvent event = new MotionUpdateEvent(Stage.Post, motionUpdateEvent);
+        event.setCancelled();
+        Main.newBus.invokeEvent(event);
     }
 
 

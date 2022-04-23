@@ -28,7 +28,7 @@ public class ClassFinder implements Utils {
                 for (Class<?> clazz : classes) {
                     if (!Modifier.isAbstract(clazz.getModifiers()) && Module.class.isAssignableFrom(clazz)) {
                         for (Constructor<?> constructor : clazz.getConstructors()) {
-                            final String moduleName = clazz.getName().split("\\.")[5];
+                            final String moduleName = clazz.getName().split("\\.")[6];
                             final Module instance = ((Module) constructor.newInstance()).withSuper(moduleName, getCategoryByString(category.toString()));
                             Arrays.stream(instance.getClass().getDeclaredFields()).filter(field -> !field.isAccessible()).forEach(field -> field.setAccessible(true));
                             modules.add(instance);

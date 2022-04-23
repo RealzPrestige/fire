@@ -2,7 +2,7 @@ package dev.zprestige.fire.ui.menu.dropdown.category;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.module.Category;
-import dev.zprestige.fire.module.client.ClickGui;
+import dev.zprestige.fire.module.client.clickgui.ClickGui;
 import dev.zprestige.fire.ui.menu.dropdown.MenuScreen;
 import dev.zprestige.fire.ui.menu.dropdown.category.modules.AbstractModule;
 import dev.zprestige.fire.ui.menu.dropdown.category.modules.MenuModule;

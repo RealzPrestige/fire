@@ -5,9 +5,9 @@ Time: 4/22/22 8:56 AM
 Description: Ticking entity
 
 java.lang.NullPointerException: Ticking entity
-	at dev.zprestige.fire.module.combat.AutoCrystal.calculateCrystal(AutoCrystal.java:558)
-	at dev.zprestige.fire.module.combat.AutoCrystal.performAutoCrystal(AutoCrystal.java:358)
-	at dev.zprestige.fire.module.combat.AutoCrystal.onMotionUpdate(AutoCrystal.java:273)
+	at dev.zprestige.fire.module.combat.autocrystal.AutoCrystal.calculateCrystal(AutoCrystal.java:558)
+	at dev.zprestige.fire.module.combat.autocrystal.AutoCrystal.performAutoCrystal(AutoCrystal.java:358)
+	at dev.zprestige.fire.module.combat.autocrystal.AutoCrystal.onMotionUpdate(AutoCrystal.java:273)
 	at dev.zprestige.fire.events.eventbus.handler.impl.LambdaHandler.invoke(LambdaHandler.java:36)
 	at dev.zprestige.fire.events.eventbus.EventBus.lambda$post$1(EventBus.java:35)
 	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
@@ -50,9 +50,9 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at dev.zprestige.fire.module.combat.AutoCrystal.calculateCrystal(AutoCrystal.java:558)
-	at dev.zprestige.fire.module.combat.AutoCrystal.performAutoCrystal(AutoCrystal.java:358)
-	at dev.zprestige.fire.module.combat.AutoCrystal.onMotionUpdate(AutoCrystal.java:273)
+	at dev.zprestige.fire.module.combat.autocrystal.AutoCrystal.calculateCrystal(AutoCrystal.java:558)
+	at dev.zprestige.fire.module.combat.autocrystal.AutoCrystal.performAutoCrystal(AutoCrystal.java:358)
+	at dev.zprestige.fire.module.combat.autocrystal.AutoCrystal.onMotionUpdate(AutoCrystal.java:273)
 	at dev.zprestige.fire.events.eventbus.handler.impl.LambdaHandler.invoke(LambdaHandler.java:36)
 	at dev.zprestige.fire.events.eventbus.EventBus.lambda$post$1(EventBus.java:35)
 	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)

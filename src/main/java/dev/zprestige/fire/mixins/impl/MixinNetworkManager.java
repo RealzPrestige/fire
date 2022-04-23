@@ -1,8 +1,8 @@
 package dev.zprestige.fire.mixins.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.events.impl.PacketEvent;
-import dev.zprestige.fire.module.visual.RotationRender;
+import dev.zprestige.fire.module.visual.rotationrender.RotationRender;
+import dev.zprestige.fire.newbus.events.PacketEvent;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinNetworkManager {
     @Inject(method = "sendPacket(Lnet/minecraft/network/Packet;)V", at = @At("HEAD"), cancellable = true)
     public void onSendPacket(final Packet<?> packet, final CallbackInfo callbackInfo) {
-        PacketEvent.PacketSendEvent event = new PacketEvent.PacketSendEvent(packet);
-        Main.eventBus.post(event);
+        final PacketEvent.PacketSendEvent event = new PacketEvent.PacketSendEvent(packet);
+        Main.newBus.invokeEvent(event);
         if (event.isCancelled()) {
             callbackInfo.cancel();
         } else if (event.getPacket() instanceof CPacketPlayer.Rotation || event.getPacket() instanceof CPacketPlayer.PositionRotation) {
@@ -29,8 +29,8 @@ public class MixinNetworkManager {
 
     @Inject(method = "channelRead0*", at = @At("HEAD"), cancellable = true)
     public void onPacketReceive(final ChannelHandlerContext channelHandlerContext, final Packet<?> packet, final CallbackInfo callbackInfo) {
-        PacketEvent.PacketReceiveEvent event = new PacketEvent.PacketReceiveEvent(packet);
-        Main.eventBus.post(event);
+        final PacketEvent.PacketReceiveEvent event = new PacketEvent.PacketReceiveEvent(packet);
+        Main.newBus.invokeEvent(event);
         if (event.isCancelled()) {
             callbackInfo.cancel();
         }

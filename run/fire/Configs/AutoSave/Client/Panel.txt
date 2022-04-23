@@ -1,5 +1,5 @@
-"Keybind": "54:false"
-"Enabled": "true"
+"Keybind": "0:false"
+"Enabled": "false"
 "Drawn": "true"
 "Color": "-11527195"
 "Particles": "false"
@@ -7,4 +7,3 @@
 "Particle Speed": "0.5"
 "Particle Size": "1.0"
 "Particle Amount": "200.0"
-"Blur": "true"

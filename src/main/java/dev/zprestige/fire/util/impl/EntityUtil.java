@@ -1,7 +1,7 @@
 package dev.zprestige.fire.util.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.manager.PlayerManager;
+import dev.zprestige.fire.manager.playermanager.PlayerManager;
 import dev.zprestige.fire.util.Utils;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;

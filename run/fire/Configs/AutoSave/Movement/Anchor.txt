@@ -1,7 +1,7 @@
 "Keybind": "0:false"
 "Enabled": "false"
 "Drawn": "true"
-"Mode": "StopMotion"
+"Mode": "Stop Motion"
 "Snap Fall": "1.0"
 "Pull Speed": "1.0"
 "Height": "1.0"

@@ -5,7 +5,7 @@ Time: 3/19/22 9:07 PM
 Description: Updating screen events
 
 java.lang.ClassCastException: net.minecraft.client.Minecraft cannot be cast to java.lang.Integer
-	at dev.zprestige.fire.module.client.RPC.onEnable(RPC.java:11)
+	at dev.zprestige.fire.module.client.rpc.RPC.onEnable(RPC.java:11)
 	at dev.zprestige.fire.module.Module.enableModule(Module.java:34)
 	at dev.zprestige.fire.module.Module.toggleModule(Module.java:48)
 	at dev.zprestige.fire.ui.menu.dropdown.category.modules.MenuModule.click(MenuModule.java:73)
@@ -41,7 +41,7 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at dev.zprestige.fire.module.client.RPC.onEnable(RPC.java:11)
+	at dev.zprestige.fire.module.client.rpc.RPC.onEnable(RPC.java:11)
 	at dev.zprestige.fire.module.Module.enableModule(Module.java:34)
 	at dev.zprestige.fire.module.Module.toggleModule(Module.java:48)
 	at dev.zprestige.fire.ui.menu.dropdown.category.modules.MenuModule.click(MenuModule.java:73)

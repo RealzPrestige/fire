@@ -2,7 +2,7 @@ package dev.zprestige.fire.ui.menu.dropdown;
 
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.module.client.ClickGui;
+import dev.zprestige.fire.module.client.clickgui.ClickGui;
 import dev.zprestige.fire.ui.menu.dropdown.category.AbstractCategory;
 import dev.zprestige.fire.ui.menu.dropdown.category.ConfigScreen;
 import dev.zprestige.fire.ui.menu.dropdown.category.MenuCategory;
@@ -20,7 +20,6 @@ import org.lwjgl.opengl.GL11;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
-import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;

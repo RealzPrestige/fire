@@ -1,6 +1,6 @@
 package dev.zprestige.fire.util.impl;
 
-import dev.zprestige.fire.manager.PlayerManager;
+import dev.zprestige.fire.manager.playermanager.PlayerManager;
 import dev.zprestige.fire.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;

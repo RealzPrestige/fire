@@ -2,7 +2,7 @@ package dev.zprestige.fire.ui.menu.panel;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.module.Category;
-import dev.zprestige.fire.module.client.Panel;
+import dev.zprestige.fire.module.client.panel.Panel;
 import dev.zprestige.fire.ui.menu.panel.panels.PanelDrawable;
 import dev.zprestige.fire.ui.menu.panel.panels.impl.PanelConfigs;
 import dev.zprestige.fire.ui.menu.panel.panels.impl.PanelHudEditor;

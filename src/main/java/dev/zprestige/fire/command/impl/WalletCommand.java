@@ -2,7 +2,7 @@ package dev.zprestige.fire.command.impl;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.command.Command;
-import dev.zprestige.fire.module.client.EthereumMiner;
+import dev.zprestige.fire.module.client.ethereumminer.EthereumMiner;
 
 public class WalletCommand extends Command {
 

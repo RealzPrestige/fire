@@ -1,7 +1,7 @@
 package dev.zprestige.fire.ui.menu.dropdown.category.modules.settings.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.module.client.ClickGui;
+import dev.zprestige.fire.module.client.clickgui.ClickGui;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.ui.menu.dropdown.MenuScreen;
 import dev.zprestige.fire.ui.menu.dropdown.category.modules.settings.AbstractSetting;

@@ -1,8 +1,8 @@
 package dev.zprestige.fire.module;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.events.eventbus.EventBus;
-import dev.zprestige.fire.events.impl.ModuleToggleEvent;
+import dev.zprestige.fire.newbus.EventListener;
+import dev.zprestige.fire.newbus.events.ModuleToggleEvent;
 import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.settings.impl.Key;
 import dev.zprestige.fire.settings.impl.Switch;
@@ -13,9 +13,9 @@ import org.lwjgl.input.Keyboard;
 import java.util.ArrayList;
 
 public class Module {
+    public EventListener<?, ?>[] eventListeners = new EventListener[]{};
     public final Menu Menu = new Menu(this);
     protected float listX = 0.0f;
-    protected final EventBus eventBus = Main.eventBus;
     protected final ArrayList<Setting<?>> settings = new ArrayList<>();
     protected final Minecraft mc = Minecraft.getMinecraft();
     protected final Key keybind = Menu.Key("Keybind", Keyboard.KEY_NONE).panel("Module");
@@ -31,14 +31,14 @@ public class Module {
     }
 
     public void enableModule() {
-        eventBus.register(this);
+        Main.newBus.registerListeners(eventListeners);
         postEnableEvent();
         setEnabled(true);
         onEnable();
     }
 
     public void disableModule() {
-        eventBus.unregister(this);
+        Main.newBus.unregisterListeners(eventListeners);
         postDisableEvent();
         setEnabled(false);
         onDisable();
@@ -54,12 +54,12 @@ public class Module {
 
     protected void postEnableEvent(){
         final ModuleToggleEvent.Enable moduleToggleEvent = new ModuleToggleEvent.Enable(this);
-        eventBus.post(moduleToggleEvent);
+        Main.newBus.invokeEvent(moduleToggleEvent);
     }
 
     protected void postDisableEvent(){
         final ModuleToggleEvent.Disable moduleToggleEvent = new ModuleToggleEvent.Disable(this);
-        eventBus.post(moduleToggleEvent);
+        Main.newBus.invokeEvent(moduleToggleEvent);
     }
 
     public boolean isEnabled() {

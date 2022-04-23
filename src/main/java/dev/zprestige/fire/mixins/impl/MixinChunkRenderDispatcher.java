@@ -1,7 +1,7 @@
 package dev.zprestige.fire.mixins.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.module.visual.ViewTweaks;
+import dev.zprestige.fire.module.visual.viewtweaks.ViewTweaks;
 import net.minecraft.client.renderer.chunk.ChunkCompileTaskGenerator;
 import net.minecraft.client.renderer.chunk.ChunkRenderDispatcher;
 import org.spongepowered.asm.mixin.Mixin;

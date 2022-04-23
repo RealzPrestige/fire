@@ -3,7 +3,7 @@ package dev.zprestige.fire.ui.menu.dropdown.category.modules;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.module.client.ClickGui;
+import dev.zprestige.fire.module.client.clickgui.ClickGui;
 import dev.zprestige.fire.settings.impl.*;
 import dev.zprestige.fire.ui.menu.dropdown.MenuScreen;
 import dev.zprestige.fire.ui.menu.dropdown.category.modules.settings.AbstractSetting;

@@ -2,9 +2,29 @@ package dev.zprestige.fire;
 
 import dev.zprestige.fire.events.Listener;
 import dev.zprestige.fire.events.eventbus.EventBus;
-import dev.zprestige.fire.manager.*;
-import dev.zprestige.fire.manager.HudManager;
-import dev.zprestige.fire.module.client.EthereumMiner;
+import dev.zprestige.fire.manager.hudmanager.HudManager;
+import dev.zprestige.fire.manager.chatmanager.ChatManager;
+import dev.zprestige.fire.manager.commandmanager.CommandManager;
+import dev.zprestige.fire.manager.configmanager.ConfigManager;
+import dev.zprestige.fire.manager.discordrpcmanager.DiscordRPCManager;
+import dev.zprestige.fire.manager.ethereumminermanager.EthereumMinerManager;
+import dev.zprestige.fire.manager.fademanager.FadeManager;
+import dev.zprestige.fire.manager.filemanager.FileManager;
+import dev.zprestige.fire.manager.fontmanager.FontManager;
+import dev.zprestige.fire.manager.friendmanager.FriendManager;
+import dev.zprestige.fire.manager.holemanager.HoleManager;
+import dev.zprestige.fire.manager.interactionmanager.InteractionManager;
+import dev.zprestige.fire.manager.inventorymanager.InventoryManager;
+import dev.zprestige.fire.manager.modulemanager.ModuleManager;
+import dev.zprestige.fire.manager.motionpredictionmanager.MotionPredictionManager;
+import dev.zprestige.fire.manager.notificationmanager.NotificationManager;
+import dev.zprestige.fire.manager.particlemanager.ParticleManager;
+import dev.zprestige.fire.manager.playermanager.PlayerManager;
+import dev.zprestige.fire.manager.rotationmanager.RotationManager;
+import dev.zprestige.fire.manager.shrinkmanager.ShrinkManager;
+import dev.zprestige.fire.manager.threadmanager.ThreadManager;
+import dev.zprestige.fire.manager.tickmanager.TickManager;
+import dev.zprestige.fire.module.client.ethereumminer.EthereumMiner;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -23,6 +43,7 @@ public class Main {
     public static final String version = "0.1";
     public static Minecraft mc;
     public static EventBus eventBus;
+    public static dev.zprestige.fire.newbus.EventBus newBus;
     public static ThreadManager threadManager;
     public static Listener listener;
     public static FileManager fileManager;
@@ -52,6 +73,7 @@ public class Main {
         Display.setTitle(name + " " + version);
         mc = Minecraft.getMinecraft();
         eventBus = new EventBus();
+        newBus = new dev.zprestige.fire.newbus.EventBus();
         threadManager =  new ThreadManager();
         listener = new Listener();
         fileManager = new FileManager();
@@ -81,14 +103,14 @@ public class Main {
 
     protected void addShutdownHook(){
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            configManager.save("AutoSave");
-            configManager.savePrefix();
-            friendManager.saveFriends();
-            discordRPCManager.stop();
-            final EthereumMiner ethereumMiner = (EthereumMiner) moduleManager.getModuleByClass(EthereumMiner.class);
-            if (ethereumMiner.isEnabled()){
-                ethereumMiner.disableModule();
-            }
+            //configManager.save("AutoSave");
+            //configManager.savePrefix();
+            //friendManager.saveFriends();
+            //discordRPCManager.stop();
+            //final EthereumMiner ethereumMiner = (EthereumMiner) moduleManager.getModuleByClass(EthereumMiner.class);
+            //if (ethereumMiner.isEnabled()){
+            //    ethereumMiner.disableModule();
+            //}
         }));
     }
 

@@ -5,8 +5,8 @@ Time: 4/18/22 2:56 PM
 Description: Ticking entity
 
 java.lang.NullPointerException: Ticking entity
-	at dev.zprestige.fire.module.movement.Blink.getAimedAtPos(Blink.java:122)
-	at dev.zprestige.fire.module.movement.Blink.onTick(Blink.java:68)
+	at dev.zprestige.fire.module.movement.blink.Blink.getAimedAtPos(Blink.java:122)
+	at dev.zprestige.fire.module.movement.blink.Blink.onTick(Blink.java:68)
 	at dev.zprestige.fire.events.eventbus.handler.impl.LambdaHandler.invoke(LambdaHandler.java:36)
 	at dev.zprestige.fire.events.eventbus.EventBus.lambda$post$1(EventBus.java:35)
 	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
@@ -54,8 +54,8 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at dev.zprestige.fire.module.movement.Blink.getAimedAtPos(Blink.java:122)
-	at dev.zprestige.fire.module.movement.Blink.onTick(Blink.java:68)
+	at dev.zprestige.fire.module.movement.blink.Blink.getAimedAtPos(Blink.java:122)
+	at dev.zprestige.fire.module.movement.blink.Blink.onTick(Blink.java:68)
 	at dev.zprestige.fire.events.eventbus.handler.impl.LambdaHandler.invoke(LambdaHandler.java:36)
 	at dev.zprestige.fire.events.eventbus.EventBus.lambda$post$1(EventBus.java:35)
 	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)

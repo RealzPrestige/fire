@@ -1,6 +1,6 @@
 package dev.zprestige.fire.mixins.impl;
 
-import dev.zprestige.fire.events.impl.InteractEvent;
+import dev.zprestige.fire.newbus.events.InteractEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import org.spongepowered.asm.mixin.Mixin;

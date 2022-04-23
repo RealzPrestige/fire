@@ -1,7 +1,7 @@
 package dev.zprestige.fire.mixins.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.module.visual.RotationRender;
+import dev.zprestige.fire.module.visual.rotationrender.RotationRender;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import org.spongepowered.asm.mixin.Mixin;

@@ -6,7 +6,7 @@ Description: Updating screen events
 
 java.lang.IllegalArgumentException: Invalid UUID string: FakePlayer
 	at java.util.UUID.fromString(UUID.java:194)
-	at dev.zprestige.fire.module.misc.FakePlayer.onEnable(FakePlayer.java:20)
+	at dev.zprestige.fire.module.misc.fakeplayer.FakePlayer.onEnable(FakePlayer.java:20)
 	at dev.zprestige.fire.module.Module.enableModule(Module.java:37)
 	at dev.zprestige.fire.module.Module.toggleModule(Module.java:51)
 	at dev.zprestige.fire.ui.menu.dropdown.category.modules.MenuModule.click(MenuModule.java:76)
@@ -43,7 +43,7 @@ A detailed walkthrough of the error, its code path and all known details is as f
 Thread: Client thread
 Stacktrace:
 	at java.util.UUID.fromString(UUID.java:194)
-	at dev.zprestige.fire.module.misc.FakePlayer.onEnable(FakePlayer.java:20)
+	at dev.zprestige.fire.module.misc.fakeplayer.FakePlayer.onEnable(FakePlayer.java:20)
 	at dev.zprestige.fire.module.Module.enableModule(Module.java:37)
 	at dev.zprestige.fire.module.Module.toggleModule(Module.java:51)
 	at dev.zprestige.fire.ui.menu.dropdown.category.modules.MenuModule.click(MenuModule.java:76)

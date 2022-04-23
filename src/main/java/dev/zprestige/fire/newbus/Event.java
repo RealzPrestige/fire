@@ -1,5 +1,7 @@
 package dev.zprestige.fire.newbus;
 
+import dev.zprestige.fire.Main;
+
 public class Event {
     protected final Stage stage;
     protected final boolean cancellable;
@@ -8,6 +10,7 @@ public class Event {
     public Event(final Stage stage, final boolean cancellable) {
         this.stage = stage;
         this.cancellable = cancellable;
+        this.cancelled = false;
     }
 
     public Stage getStage() {

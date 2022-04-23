@@ -1,7 +1,7 @@
 package dev.zprestige.fire.mixins.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.events.impl.ParticleEvent;
+import dev.zprestige.fire.newbus.events.ParticleEvent;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleManager;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,7 +15,7 @@ public class MixinParticleManager {
     @Inject(method = "addEffect", at = @At("HEAD"), cancellable = true)
     public void addEffect(final Particle particle, final CallbackInfo callbackInfo) {
         final ParticleEvent event = new ParticleEvent();
-        Main.eventBus.post(event);
+        Main.newBus.invokeEvent(event);
         if (event.isCancelled()) {
             callbackInfo.cancel();
         }

@@ -6,7 +6,7 @@ Description: There was a severe problem during mod loading that has caused the g
 
 net.minecraftforge.fml.common.LoaderExceptionModCrash: Caught exception from Fire (fire)
 Caused by: java.lang.NullPointerException
-	at dev.zprestige.fire.manager.ConfigManager.loadPrefix(ConfigManager.java:32)
+	at dev.zprestige.fire.manager.configmanager.ConfigManager.loadPrefix(ConfigManager.java:32)
 	at dev.zprestige.fire.Main.init(Main.java:52)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)

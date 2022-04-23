@@ -36,7 +36,7 @@ Caused by: org.spongepowered.asm.mixin.transformer.throwables.MixinTransformerEr
 	at net.minecraft.launchwrapper.LaunchClassLoader.runTransformers(LaunchClassLoader.java:279)
 	at net.minecraft.launchwrapper.LaunchClassLoader.findClass(LaunchClassLoader.java:176)
 	... 22 more
-Caused by: java.lang.RuntimeException: java.lang.ClassNotFoundException: dev.zprestige.fire.module.visual.ViewModel
+Caused by: java.lang.RuntimeException: java.lang.ClassNotFoundException: dev.zprestige.fire.module.visual.viewmodel.ViewModel
 	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.transformMethod(MixinPreProcessorStandard.java:682)
 	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.transform(MixinPreProcessorStandard.java:670)
 	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.attach(MixinPreProcessorStandard.java:267)
@@ -48,7 +48,7 @@ Caused by: java.lang.RuntimeException: java.lang.ClassNotFoundException: dev.zpr
 	at org.spongepowered.asm.mixin.transformer.MixinTransformer.applyMixins(MixinTransformer.java:703)
 	at org.spongepowered.asm.mixin.transformer.MixinTransformer.transformClassBytes(MixinTransformer.java:509)
 	... 25 more
-Caused by: java.lang.ClassNotFoundException: dev.zprestige.fire.module.visual.ViewModel
+Caused by: java.lang.ClassNotFoundException: dev.zprestige.fire.module.visual.viewmodel.ViewModel
 	... 35 more
 
 

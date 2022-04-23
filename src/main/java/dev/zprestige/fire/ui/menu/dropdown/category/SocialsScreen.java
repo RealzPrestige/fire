@@ -1,7 +1,7 @@
 package dev.zprestige.fire.ui.menu.dropdown.category;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.module.client.ClickGui;
+import dev.zprestige.fire.module.client.clickgui.ClickGui;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import dev.zprestige.fire.util.impl.Timer;
 import dev.zprestige.fire.util.impl.Vector2D;
