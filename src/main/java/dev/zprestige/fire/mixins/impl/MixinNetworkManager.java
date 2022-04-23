@@ -1,8 +1,8 @@
 package dev.zprestige.fire.mixins.impl;
 
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.event.impl.PacketEvent;
 import dev.zprestige.fire.module.visual.rotationrender.RotationRender;
-import dev.zprestige.fire.newbus.events.PacketEvent;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;

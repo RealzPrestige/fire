@@ -3,6 +3,7 @@ package dev.zprestige.fire.manager.modulemanager;
 import dev.zprestige.fire.module.Category;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.util.impl.ClassFinder;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,10 +13,11 @@ public class ModuleManager {
     protected ArrayList<Module> modules;
     protected final Category[] categories = Category.values();
 
-    public ModuleManager(){
+    public ModuleManager() {
         modules = ClassFinder.getModules();
     }
-    public ArrayList<Module> getModulesInCategory(Category category){
+
+    public ArrayList<Module> getModulesInCategory(Category category) {
         return modules.stream().filter(module -> module.getCategory().equals(category)).collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -27,7 +29,7 @@ public class ModuleManager {
         return modules;
     }
 
-    public Module getModuleByClass(final Class<?> c){
+    public Module getModuleByClass(final Class<?> c) {
         return modules.stream().filter(module -> module.getName().equalsIgnoreCase(c.getName().split("\\.")[6])).findFirst().orElse(null);
     }
 }

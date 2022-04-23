@@ -1,9 +1,9 @@
 package dev.zprestige.fire.module.client.panel;
 
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
+
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
@@ -20,7 +20,7 @@ public class Panel extends Module {
     public final Slider particleSize = Menu.Slider("Particle Size", 1.0f, 0.5f, 10.0f).visibility(z -> particles.GetSwitch());
     public final Slider particleAmount = Menu.Slider("Particle Amount", 200.0f, 1.0f, 1000.0f).visibility(z -> particles.GetSwitch());
 
-    public Panel(){
+    public Panel() {
         eventListeners = new EventListener[]{
                 new TickListener(this)
         };

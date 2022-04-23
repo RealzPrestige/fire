@@ -1,17 +1,17 @@
 package dev.zprestige.fire.ui.hudeditor.components.impl.fps;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.TickEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.TickEvent;
 import net.minecraft.client.Minecraft;
 
 public class TickListener extends EventListener<TickEvent, Fps> {
 
-    public TickListener(final Fps fps){
+    public TickListener(final Fps fps) {
         super(TickEvent.class, fps);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         if (module.timer.getTime(1000)) {
             module.timer.syncTime();
             if (module.avarageFrames.length - 1 >= 0)

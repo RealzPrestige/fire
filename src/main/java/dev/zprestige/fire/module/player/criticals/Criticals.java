@@ -1,15 +1,12 @@
 package dev.zprestige.fire.module.player.criticals;
 
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
+
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
-import dev.zprestige.fire.util.impl.EntityUtil;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.network.play.client.CPacketUseEntity;
 
 @Descriptor(description = "Turns hits into critical hits")
 public class Criticals extends Module {

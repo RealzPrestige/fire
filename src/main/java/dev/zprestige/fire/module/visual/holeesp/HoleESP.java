@@ -1,10 +1,10 @@
 package dev.zprestige.fire.module.visual.holeesp;
 
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.manager.holemanager.HoleManager;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Slider;

@@ -151,6 +151,7 @@ public class PanelScreen extends GuiScreen {
     }
 
     protected final Timer timer1 = new Timer();
+
     protected String getDots() {
         if (timer1.getTime(1500)) {
             timer1.syncTime();

@@ -1,7 +1,7 @@
 package dev.zprestige.fire.module.combat.autocrystal;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.PacketEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.PacketEvent;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.network.play.server.SPacketSoundEffect;
@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class PacketReceiveListener extends EventListener<PacketEvent.PacketReceiveEvent, AutoCrystal> {
 
-    public PacketReceiveListener(final AutoCrystal autoCrystal){
+    public PacketReceiveListener(final AutoCrystal autoCrystal) {
         super(PacketEvent.PacketReceiveEvent.class, autoCrystal);
     }
 

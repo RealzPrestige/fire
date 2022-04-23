@@ -38,7 +38,7 @@ public class MenuScreen extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         final ScaledResolution scaledResolution = new ScaledResolution(mc);
-         scroll();
+        scroll();
         if (offset < targetOffset) {
             offset = AnimationUtil.increaseNumber(offset, targetOffset, 10);
         } else if (offset > targetOffset) {
@@ -71,15 +71,15 @@ public class MenuScreen extends GuiScreen {
         drawArrows();
     }
 
-    protected void scroll(){
+    protected void scroll() {
         int wheel = Mouse.getDWheel();
-        if (wheel < 0){
-            for (AbstractCategory abstractCategory : guiCategories){
+        if (wheel < 0) {
+            for (AbstractCategory abstractCategory : guiCategories) {
                 abstractCategory.setPosition(new Vector2D(abstractCategory.getPosition().getX(), abstractCategory.getPosition().getY() - 16));
             }
         }
-        if (wheel > 0){
-            for (AbstractCategory abstractCategory : guiCategories){
+        if (wheel > 0) {
+            for (AbstractCategory abstractCategory : guiCategories) {
                 abstractCategory.setPosition(new Vector2D(abstractCategory.getPosition().getX(), abstractCategory.getPosition().getY() + 16));
             }
         }
@@ -124,7 +124,7 @@ public class MenuScreen extends GuiScreen {
         if (activateConfigListeners()) {
             configScreen.click(mouseX, mouseY, mouseButton);
         }
-        if (activateSocialsListeners()){
+        if (activateSocialsListeners()) {
             socialsScreen.click(mouseX, mouseY, mouseButton);
         }
     }
@@ -145,7 +145,7 @@ public class MenuScreen extends GuiScreen {
         if (activateConfigListeners()) {
             configScreen.type(typedChar, keyCode);
         }
-        if (activateSocialsListeners()){
+        if (activateSocialsListeners()) {
             socialsScreen.type(typedChar, keyCode);
         }
     }

@@ -1,8 +1,8 @@
 package dev.zprestige.fire.module.player.packetmine;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.FrameEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.FrameEvent;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import net.minecraft.client.Minecraft;
@@ -12,12 +12,12 @@ import java.awt.*;
 
 public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, PacketMine> {
 
-    public Frame3DListener(final PacketMine packetMine){
+    public Frame3DListener(final PacketMine packetMine) {
         super(FrameEvent.FrameEvent3D.class, packetMine);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         if (mc.player != null && mc.world != null && module.render.GetSwitch() && module.activePos != null) {
             final float factor = (Minecraft.getDebugFPS() / 20.0f);
             final float updateValue = module.updateValue(module.activePos);

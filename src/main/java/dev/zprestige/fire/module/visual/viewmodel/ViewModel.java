@@ -1,14 +1,12 @@
 package dev.zprestige.fire.module.visual.viewmodel;
 
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
+
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
-import net.minecraft.client.renderer.GlStateManager;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 

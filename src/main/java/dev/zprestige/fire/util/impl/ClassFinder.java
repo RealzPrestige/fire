@@ -42,7 +42,7 @@ public class ClassFinder implements Utils {
         return modules;
     }
 
-    public static Category getCategoryByString(String category){
+    public static Category getCategoryByString(String category) {
         return Arrays.stream(categories).filter(category1 -> category1.toString().equalsIgnoreCase(category)).findFirst().orElse(null);
     }
 

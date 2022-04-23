@@ -28,19 +28,19 @@ public class SocialsScreen extends AbstractCategory {
     @Override
     public void render(int mouseX, int mouseY) {
         int wheel = Mouse.getDWheel();
-        if (wheel < 0){
-            if (insideAllBox(mouseX, mouseY)&& minAllY + 37.5 < position.getY() + size.getY() - 4) {
+        if (wheel < 0) {
+            if (insideAllBox(mouseX, mouseY) && minAllY + 37.5 < position.getY() + size.getY() - 4) {
                 allScrolling += 12.5;
             }
-            if (insideFriendsBox(mouseX, mouseY) && minFriendY + 37.5 < position.getY() + size.getY() - 4){
+            if (insideFriendsBox(mouseX, mouseY) && minFriendY + 37.5 < position.getY() + size.getY() - 4) {
                 friendScrolling += 12.5f;
             }
         }
-        if (wheel > 0){
+        if (wheel > 0) {
             if (insideAllBox(mouseX, mouseY) && maxAllY - 25 > position.getY() + 23) {
                 allScrolling -= 12.5;
             }
-            if (insideFriendsBox(mouseX, mouseY) && maxFriendY - 25 > position.getY() + 23){
+            if (insideFriendsBox(mouseX, mouseY) && maxFriendY - 25 > position.getY() + 23) {
                 friendScrolling -= 12.5f;
             }
         }
@@ -67,7 +67,7 @@ public class SocialsScreen extends AbstractCategory {
         }
         final ArrayList<GuiPlayerComponent> allPlayers = new ArrayList<>();
         final ArrayList<GuiPlayerComponent> friendPlayers = new ArrayList<>();
-        float allY = position.getY() + 23 + (allString.equals("") ? allScrolling : 0 );
+        float allY = position.getY() + 23 + (allString.equals("") ? allScrolling : 0);
         float friendY = position.getY() + 23 + (friendsString.equals("") ? friendScrolling : 0);
         minAllY = allY;
         minFriendY = friendY;
@@ -88,7 +88,7 @@ public class SocialsScreen extends AbstractCategory {
         RenderUtil.prepareScissor((int) (position.getX() + 4), (int) (position.getY() + 23), (int) (size.getX() - 8), (int) (size.getY() - 25));
         allPlayers.stream().filter(guiPlayerComponent -> guiPlayerComponent.size.getY() > position.getY() && guiPlayerComponent.position.getY() < position.getY() + size.getY()).forEach(guiPlayerComponent -> guiPlayerComponent.render(mouseX, mouseY));
         friendPlayers.stream().filter(guiPlayerComponent -> guiPlayerComponent.size.getY() > position.getY() && guiPlayerComponent.position.getY() < position.getY() + size.getY()).forEach(guiPlayerComponent -> guiPlayerComponent.render(mouseX, mouseY));
-       RenderUtil.releaseScissor();
+        RenderUtil.releaseScissor();
         if (clickingTick) {
             allPlayers.stream().filter(guiPlayerComponent -> guiPlayerComponent.size.getY() > position.getY() + 23 && guiPlayerComponent.position.getY() < position.getY() + size.getY()).forEach(guiPlayerComponent -> guiPlayerComponent.click(mouseX, mouseY));
             friendPlayers.stream().filter(guiPlayerComponent -> guiPlayerComponent.size.getY() > position.getY() + 23 && guiPlayerComponent.position.getY() < position.getY() + size.getY()).forEach(guiPlayerComponent -> guiPlayerComponent.click(mouseX, mouseY));
@@ -111,6 +111,7 @@ public class SocialsScreen extends AbstractCategory {
     protected boolean insideFriendsBox(int mouseX, int mouseY) {
         return mouseX > position.getX() + size.getX() / 2 + 2 && mouseX < position.getX() + size.getX() - 2 && mouseY > position.getY() + 21 && mouseY < position.getY() + size.getY() - 4;
     }
+
     @Override
     public void click(int mouseX, int mouseY, int state) {
         if (state == 0) {

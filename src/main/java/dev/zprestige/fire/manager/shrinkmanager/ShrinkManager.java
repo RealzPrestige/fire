@@ -1,9 +1,7 @@
 package dev.zprestige.fire.manager.shrinkmanager;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.RegisteredClass;
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
-import dev.zprestige.fire.newbus.EventListener;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -12,19 +10,20 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShrinkManager  {
+public class ShrinkManager {
     protected final HashMap<ShrinkPosition, Float> shrinkPositions = new HashMap<>();
 
-    public ShrinkManager(){
+    public ShrinkManager() {
         Main.newBus.registerListeners(new EventListener[]{
                 new Frame3DListener()
         });
     }
+
     protected boolean isOccupied(final BlockPos pos) {
         return shrinkPositions.entrySet().stream().anyMatch(entry -> entry.getKey().getPos().equals(pos));
     }
 
-    public void removePosition(final BlockPos pos){
+    public void removePosition(final BlockPos pos) {
         new HashMap<>(shrinkPositions).keySet().stream().filter(aFloat -> aFloat.getPos().equals(pos)).forEach(shrinkPositions::remove);
     }
 

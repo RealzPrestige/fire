@@ -14,7 +14,7 @@ public class Ping extends HudComponent {
     }
 
     @Override
-    public void render(){
+    public void render() {
         try {
             final String ping = "Ping ";
             final String ms = Objects.requireNonNull(mc.getConnection()).getPlayerInfo(mc.getConnection().getGameProfile().getId()).getResponseTime() + "ms";
@@ -23,7 +23,7 @@ public class Ping extends HudComponent {
             Main.fontManager.drawStringWithShadow(ping, position, ClickGui.Instance.color.GetColor().getRGB());
             Main.fontManager.drawStringWithShadow(ms, new Vector2D(position.getX() + pingWidth, position.getY()), -1);
             setWidth(totalWidth);
-        } catch (Exception ignored){
+        } catch (Exception ignored) {
         }
     }
 }

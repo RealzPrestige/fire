@@ -69,7 +69,7 @@ public class PanelColor extends PanelSetting {
     @Override
     public void render(int mouseX, int mouseY) {
         super.render(mouseX, mouseY);
-        if (!setting.isVisible()){
+        if (!setting.isVisible()) {
             isExtended = false;
         }
         final float y = this.y - secondY;

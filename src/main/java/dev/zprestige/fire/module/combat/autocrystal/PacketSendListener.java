@@ -1,7 +1,7 @@
 package dev.zprestige.fire.module.combat.autocrystal;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.PacketEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.PacketEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
@@ -11,7 +11,7 @@ import java.util.ConcurrentModificationException;
 
 public class PacketSendListener extends EventListener<PacketEvent.PacketSendEvent, AutoCrystal> {
 
-    public PacketSendListener(final AutoCrystal autoCrystal){
+    public PacketSendListener(final AutoCrystal autoCrystal) {
         super(PacketEvent.PacketSendEvent.class, autoCrystal);
     }
 

@@ -2,11 +2,11 @@ package dev.zprestige.fire.module.misc.automine;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.manager.playermanager.PlayerManager;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.module.player.packetmine.PacketMine;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;

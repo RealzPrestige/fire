@@ -20,16 +20,16 @@ public class HudComponentScreen {
     }
 
     public void release(int button) {
-        if (check()){
+        if (check()) {
             hudComponent.release(button);
         }
     }
 
     public void click(int mouseX, int mouseY, int button) {
-        if (check()){
+        if (check()) {
             hudComponent.click(mouseX, mouseY, button);
         }
-        if (inside(mouseX, mouseY) && button == 0){
+        if (inside(mouseX, mouseY) && button == 0) {
             hudComponent.setEnabled(!hudComponent.isEnabled());
         }
     }
@@ -39,10 +39,10 @@ public class HudComponentScreen {
             hudComponent.update(mouseX, mouseY);
         }
         if (hudComponent.isEnabled()) {
-            RenderUtil.drawRect(position, new Vector2D(position.getX() + size.getX(), position.getY() + size.getY()), ClickGui.Instance.color.GetColor().getRGB() );
+            RenderUtil.drawRect(position, new Vector2D(position.getX() + size.getX(), position.getY() + size.getY()), ClickGui.Instance.color.GetColor().getRGB());
         }
         RenderUtil.drawOutline(position.getX(), position.getY(), position.getX() + size.getX(), position.getY() + size.getY(), new Color(0, 0, 0, 30), 1f);
-        if (inside(mouseX, mouseY)){
+        if (inside(mouseX, mouseY)) {
             RenderUtil.drawRect(position, new Vector2D(position.getX() + size.getX(), position.getY() + size.getY()), new Color(0, 0, 0, 30).getRGB());
         }
         Main.fontManager.drawStringWithShadow(hudComponent.getName(), new Vector2D(position.getX() + 2, position.getY() + size.getY() / 2f - Main.fontManager.getFontHeight() / 2f), -1);

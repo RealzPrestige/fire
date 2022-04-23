@@ -1,17 +1,17 @@
 package dev.zprestige.fire.module.movement.longjump;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.PacketEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.PacketEvent;
 import net.minecraft.network.play.server.SPacketPlayerPosLook;
 
 public class PacketReceiveListener extends EventListener<PacketEvent.PacketReceiveEvent, LongJump> {
 
-    public PacketReceiveListener(final LongJump longJump){
+    public PacketReceiveListener(final LongJump longJump) {
         super(PacketEvent.PacketReceiveEvent.class, longJump);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         final PacketEvent.PacketReceiveEvent event = (PacketEvent.PacketReceiveEvent) object;
         if (event.getPacket() instanceof SPacketPlayerPosLook) {
             final SPacketPlayerPosLook packet = (SPacketPlayerPosLook) event.getPacket();

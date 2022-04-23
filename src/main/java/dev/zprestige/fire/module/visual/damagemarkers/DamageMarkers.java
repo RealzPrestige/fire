@@ -1,8 +1,8 @@
 package dev.zprestige.fire.module.visual.damagemarkers;
 
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.util.impl.RenderUtil;
@@ -11,7 +11,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 @Descriptor(description = "Renders when enemies take damage")
 public class DamageMarkers extends Module {
@@ -21,7 +23,8 @@ public class DamageMarkers extends Module {
     protected final ArrayList<DamageMarker> damageMarkers = new ArrayList<>();
     protected HashMap<String, Float> playerMap = new HashMap<>();
     protected final Random random = new Random();
-    public DamageMarkers(){
+
+    public DamageMarkers() {
         eventListeners = new EventListener[]{
                 new Frame3DListener(this),
                 new TickListener(this)
@@ -47,7 +50,7 @@ public class DamageMarkers extends Module {
             this.randZ = randZ;
             this.alpha = alpha;
             this.scale = scale;
-            this.color  = color;
+            this.color = color;
         }
 
         public void render() {

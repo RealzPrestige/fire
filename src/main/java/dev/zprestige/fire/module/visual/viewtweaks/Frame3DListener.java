@@ -1,17 +1,17 @@
 package dev.zprestige.fire.module.visual.viewtweaks;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.FrameEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.FrameEvent;
 import net.minecraft.client.settings.GameSettings;
 
 public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, ViewTweaks> {
 
-    public Frame3DListener(final ViewTweaks viewTweaks){
+    public Frame3DListener(final ViewTweaks viewTweaks) {
         super(FrameEvent.FrameEvent3D.class, viewTweaks);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         mc.world.setTotalWorldTime((long) module.time.GetSlider());
         switch (module.weather.GetCombo()) {
             case "Clear":

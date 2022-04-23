@@ -59,8 +59,8 @@ public class PanelSwitch extends PanelSetting {
     @Override
     public void click(int mouseX, int mouseY, int state) {
         if (insideSwitch(mouseX, mouseY) && state == 0) {
-            if (setting.getName().equals("Enabled")){
-                if (!setting.GetSwitch()){
+            if (setting.getName().equals("Enabled")) {
+                if (!setting.GetSwitch()) {
                     setting.getModule().enableModule();
                 } else {
                     setting.getModule().disableModule();

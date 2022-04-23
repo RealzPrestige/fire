@@ -1,18 +1,18 @@
 package dev.zprestige.fire.module.movement.blink;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.PacketEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.PacketEvent;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
 
 public class PacketSendListener extends EventListener<PacketEvent.PacketSendEvent, Blink> {
 
-    public PacketSendListener(final Blink blink){
+    public PacketSendListener(final Blink blink) {
         super(PacketEvent.PacketSendEvent.class, blink);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         final PacketEvent.PacketSendEvent event = (PacketEvent.PacketSendEvent) object;
         if (module.nullCheck() && !mc.isSingleplayer()) {
             final Packet<?> packet = event.getPacket();

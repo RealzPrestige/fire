@@ -137,7 +137,7 @@ public class BlockUtil implements Utils {
 
     public static List<BlockPos> getBlocksInRadius(final double range) {
         final List<BlockPos> posses = new ArrayList<>();
-        if (mc.player == null){
+        if (mc.player == null) {
             return posses;
         }
         final float xRange = Math.round(range);
@@ -161,6 +161,7 @@ public class BlockUtil implements Utils {
         }
         return posses;
     }
+
     public static boolean canPosBeCrystalled(final BlockPos pos, final boolean onePointThirteen) {
         return (getState(pos).equals(Blocks.OBSIDIAN) || getState(pos).equals(Blocks.BEDROCK)) && getState(pos.up()).equals(Blocks.AIR) && (getState(pos.up().up()).equals(Blocks.AIR) || onePointThirteen);
     }

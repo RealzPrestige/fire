@@ -13,7 +13,7 @@ public abstract class AbstractCategory {
     protected boolean dragging, open;
     protected float scissorHeight, otherX;
 
-    public AbstractCategory(Category category, Vector2D position, Vector2D size){
+    public AbstractCategory(Category category, Vector2D position, Vector2D size) {
         this.category = category;
         this.position = position;
         this.size = size;
@@ -30,11 +30,11 @@ public abstract class AbstractCategory {
 
     public abstract void type(char typedChar, int keyCode);
 
-    protected boolean inside(int mouseX, int mouseY){
+    protected boolean inside(int mouseX, int mouseY) {
         return mouseX > position.getX() && mouseX < position.getX() + size.getX() && mouseY > position.getY() && mouseY < position.getY() + size.getY();
     }
 
-    public void setPosition(Vector2D position){
+    public void setPosition(Vector2D position) {
         this.position = position;
     }
 

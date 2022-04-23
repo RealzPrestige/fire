@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HoleManager  {
+public class HoleManager {
     protected final Minecraft mc = Main.mc;
     protected List<HolePos> holes = new ArrayList<>();
     protected final Vec3i[] Hole = {
@@ -44,7 +44,7 @@ public class HoleManager  {
             new Vec3i(1, 0, 0)
     };
 
-    public void loadHoles(final float range){
+    public void loadHoles(final float range) {
         if (mc.player != null && mc.world != null) {
             Main.threadManager.run(() -> holes = getHoles(range));
         }
@@ -130,7 +130,7 @@ public class HoleManager  {
         return !mc.world.getBlockState(pos).getBlock().equals(Blocks.BEDROCK);
     }
 
-    public boolean contains(final BlockPos pos){
+    public boolean contains(final BlockPos pos) {
         return Main.holeManager.getHoles().stream().anyMatch(holePos -> holePos.getPos().equals(pos));
     }
 
@@ -142,7 +142,7 @@ public class HoleManager  {
         protected final BlockPos pos;
         protected final Type holeType;
 
-        public HolePos(BlockPos pos, Type holeType ) {
+        public HolePos(BlockPos pos, Type holeType) {
             this.pos = pos;
             this.holeType = holeType;
         }
@@ -155,14 +155,15 @@ public class HoleManager  {
             return holeType;
         }
 
-        public boolean isBedrock(){
+        public boolean isBedrock() {
             return holeType.equals(Type.Bedrock) || holeType.equals(Type.DoubleBedrockWest) || holeType.equals(Type.DoubleBedrockNorth);
         }
 
-        public boolean isWestDouble(){
+        public boolean isWestDouble() {
             return holeType.equals(Type.DoubleBedrockWest) || holeType.equals(Type.DoubleObsidianWest);
         }
-        public boolean isDouble(){
+
+        public boolean isDouble() {
             return holeType.equals(HoleManager.Type.DoubleBedrockNorth) || holeType.equals(Type.DoubleBedrockWest) || holeType.equals(Type.DoubleObsidianNorth) || holeType.equals(Type.DoubleObsidianWest);
         }
     }

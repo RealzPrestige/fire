@@ -1,7 +1,7 @@
 package dev.zprestige.fire.mixins.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.newbus.events.RenderCrystalEvent;
+import dev.zprestige.fire.event.impl.RenderCrystalEvent;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelEnderCrystal;
 import net.minecraft.client.renderer.entity.RenderEnderCrystal;
@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(value = RenderEnderCrystal.class, priority = 1001)
 public class MixinRenderEnderCrystal {
 
-    @Final
     @Shadow
+    @Final
     private final ModelBase modelEnderCrystalNoBase = new ModelEnderCrystal(0.0F, false);
 
     @Redirect(method = "doRender(Lnet/minecraft/entity/item/EntityEnderCrystal;DDDFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelBase;render(Lnet/minecraft/entity/Entity;FFFFFF)V"))

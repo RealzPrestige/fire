@@ -1,14 +1,14 @@
 package dev.zprestige.fire.module.client.rotationmanager;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.PacketEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.PacketEvent;
 import net.minecraft.network.play.server.SPacketPlayerPosLook;
 
 import java.util.Set;
 
 public class PacketReceiveListener extends EventListener<PacketEvent.PacketReceiveEvent, RotationManager> {
 
-    public PacketReceiveListener(final RotationManager rotationManager){
+    public PacketReceiveListener(final RotationManager rotationManager) {
         super(PacketEvent.PacketReceiveEvent.class, rotationManager);
     }
 

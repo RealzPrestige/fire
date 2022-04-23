@@ -9,7 +9,10 @@ import dev.zprestige.fire.ui.hudeditor.components.HudComponent;
 import dev.zprestige.fire.util.impl.Vector2D;
 
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ConfigManager {

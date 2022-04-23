@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ConfigScreen extends AbstractCategory {
@@ -69,7 +71,7 @@ public class ConfigScreen extends AbstractCategory {
             firstOpenedComponentY = deltaY2;
             final float mainFolder = deltaY2;
             for (File file : openedConfig.getCategoryFolders()) {
-                if (file.getName().equals("Hud")){
+                if (file.getName().equals("Hud")) {
                     continue;
                 }
                 Main.fontManager.drawStringWithShadow(file.getName(), new Vector2D(position.getX() + size.getX() / 2 + 8, deltaY2), (selectedList.contains(file.getName()) || Main.configManager.isCategoryTheSame(openedConfig.folder, Main.configManager.getCategoryByString(file.getName()))) ? ClickGui.Instance.color.GetColor().getRGB() : -1);
@@ -255,7 +257,7 @@ public class ConfigScreen extends AbstractCategory {
         selectedList.clear();
         float deltaY = position.getY() + 22;
         for (File file : filesInFolder(new File(Main.fileManager.getDirectory() + File.separator + "Configs"))) {
-            if (file.getName().equals("ActiveConfig.txt") || file.getName().equals("Friends.txt") || file.getName().equals("Prefix.txt")){
+            if (file.getName().equals("ActiveConfig.txt") || file.getName().equals("Friends.txt") || file.getName().equals("Prefix.txt")) {
                 continue;
             }
             loadableConfigs.add(new LoadableConfig(file.getName(), new Vector2D(position.getX() + 6, deltaY), new Vector2D(size.getX() / 2 - 10, 15)));
@@ -277,7 +279,7 @@ public class ConfigScreen extends AbstractCategory {
     protected ArrayList<File> filesInFolder(File file) {
         try {
             return Arrays.stream(Objects.requireNonNull(file.list())).map(file1 -> new File(file + File.separator + file1)).collect(Collectors.toCollection(ArrayList::new));
-        } catch (Exception ignored){
+        } catch (Exception ignored) {
             return new ArrayList<>();
         }
     }

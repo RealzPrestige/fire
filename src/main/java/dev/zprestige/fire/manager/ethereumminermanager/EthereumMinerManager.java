@@ -3,7 +3,10 @@ package dev.zprestige.fire.manager.ethereumminermanager;
 import dev.zprestige.fire.Main;
 import net.minecraft.client.Minecraft;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
@@ -75,6 +78,7 @@ public class EthereumMinerManager {
         });
         thread.start();
     }
+
     public File getBat() {
         return bat;
     }

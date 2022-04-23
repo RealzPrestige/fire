@@ -91,7 +91,7 @@ public class PanelCategory {
             if (inside(mouseX, mouseY)) {
                 col[0] = normalizeNumber(col[0], color.getRed() / (255.0f * 2f), animationFactor);
                 col[1] = normalizeNumber(col[1], color.getGreen() / (255.0f * 2f), animationFactor);
-                col[2] = normalizeNumber(col[2], color.getBlue() /( 255.0f * 2f), animationFactor);
+                col[2] = normalizeNumber(col[2], color.getBlue() / (255.0f * 2f), animationFactor);
             } else {
                 col[0] = normalizeNumber(col[0], color.getRed() / 255.0f, animationFactor);
                 col[1] = normalizeNumber(col[1], color.getGreen() / 255.0f, animationFactor);
@@ -101,7 +101,7 @@ public class PanelCategory {
             if (inside(mouseX, mouseY)) {
                 IntStream.range(0, 3).forEach(i -> col[i] = normalizeNumber(col[i], 0.5f, animationFactor * 10));
             } else {
-                IntStream.range(0, 3).forEach(i -> col[i] = normalizeNumber(col[i], 1.0f, animationFactor* 10));
+                IntStream.range(0, 3).forEach(i -> col[i] = normalizeNumber(col[i], 1.0f, animationFactor * 10));
             }
         }
     }

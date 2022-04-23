@@ -1,7 +1,7 @@
 package dev.zprestige.fire.module.visual.viewtweaks;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.PacketEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.PacketEvent;
 import net.minecraft.network.play.server.SPacketEffect;
 
 public class PacketReceiveListener extends EventListener<PacketEvent.PacketReceiveEvent, ViewTweaks> {

@@ -64,10 +64,11 @@ public class InteractionManager {
     public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict) {
         placeBlock(pos, rotate, packet, strict, false, false);
     }
+
     public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final boolean excludeBottomEnumFacing, final boolean ignoreEntities) {
         for (EnumFacing enumFacing : EnumFacing.values()) {
             final BlockPos directionOffset = pos.offset(enumFacing);
-            if (excludeBottomEnumFacing && directionOffset.equals(pos.down())){
+            if (excludeBottomEnumFacing && directionOffset.equals(pos.down())) {
                 continue;
             }
             if (!ignoreEntities) {
@@ -87,7 +88,7 @@ public class InteractionManager {
             }
             final Block block = mc.world.getBlockState(directionOffset).getBlock();
             boolean sneak = sneakBlocks.contains(block) || shulkers.contains(block) && !mc.player.isSneaking();
-            if (excludeBottomEnumFacing){
+            if (excludeBottomEnumFacing) {
                 sneak = false;
             }
             if (sneak) {

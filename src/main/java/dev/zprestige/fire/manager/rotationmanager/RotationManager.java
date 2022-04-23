@@ -1,9 +1,8 @@
 package dev.zprestige.fire.manager.rotationmanager;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.RegisteredClass;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.MotionUpdateEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.MotionUpdateEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
@@ -13,12 +12,12 @@ import net.minecraft.util.math.Vec3d;
 import java.util.ArrayList;
 
 
-public class RotationManager  {
+public class RotationManager {
     protected final Minecraft mc = Main.mc;
     protected final ArrayList<Long> rotationsPerTick = new ArrayList<>();
     protected int max;
 
-    public RotationManager(){
+    public RotationManager() {
         Main.newBus.registerListeners(new EventListener[]{
                 new Frame3DListener(),
                 new PacketSendListener()
@@ -31,13 +30,13 @@ public class RotationManager  {
         mc.player.rotationPitch = pitch;
     }
 
-    public void facePos(final BlockPos pos, final MotionUpdateEvent event){
+    public void facePos(final BlockPos pos, final MotionUpdateEvent event) {
         final float[] angle = calculateAngle(new Vec3d(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f));
         event.setYaw(angle[0]);
         event.setPitch(angle[1]);
     }
 
-    public void faceEntity(final Entity entity, final MotionUpdateEvent event){
+    public void faceEntity(final Entity entity, final MotionUpdateEvent event) {
         final float partialTicks = mc.getRenderPartialTicks();
         final float[] angle = calculateAngle(entity.getPositionEyes(partialTicks));
         event.setYaw(angle[0]);

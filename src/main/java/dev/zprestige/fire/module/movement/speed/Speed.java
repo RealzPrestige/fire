@@ -2,22 +2,16 @@ package dev.zprestige.fire.module.movement.speed;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Key;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
-import dev.zprestige.fire.util.impl.EntityUtil;
-import net.minecraft.init.MobEffects;
-import net.minecraft.util.MovementInput;
 import org.lwjgl.input.Keyboard;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 @Descriptor(description = "Speeds up and controls moving")
 public class Speed extends Module {
@@ -36,13 +30,14 @@ public class Speed extends Module {
     protected int currentState = 1;
     protected HashMap<Long, Float> damageMap = new HashMap<>();
 
-    public Speed(){
+    public Speed() {
         eventListeners = new EventListener[]{
-          new KeyListener(this),
-          new MoveListener(this),
-          new TickListener(this)
+                new KeyListener(this),
+                new MoveListener(this),
+                new TickListener(this)
         };
     }
+
     @Override
     public void onDisable() {
         Main.tickManager.syncTimer();

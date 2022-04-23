@@ -25,13 +25,13 @@ public class ModuleList extends HudComponent {
         float listY = position.getY();
         Main.moduleManager.getModules().forEach(Module::updateListPosition);
         for (Module module : modules) {
-            if (!module.getDrawn()){
+            if (!module.getDrawn()) {
                 continue;
             }
             final String data = module.getData();
             final boolean hadData = !data.equals("");
             final float nameWidth = Main.fontManager.getStringWidth(module.getName() + (hadData ? " [" : ""));
-            final float moduleX = position.getX()+ size.getX() - module.stringWidth() + module.getListX();
+            final float moduleX = position.getX() + size.getX() - module.stringWidth() + module.getListX();
             Main.fontManager.drawStringWithShadow(module.getName() + (hadData ? " [" : ""), new Vector2D(moduleX, listY), ClickGui.Instance.color.GetColor().getRGB());
             if (hadData) {
                 final float dataWidth = Main.fontManager.getStringWidth(module.getData());

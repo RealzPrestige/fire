@@ -12,7 +12,6 @@ import dev.zprestige.fire.util.impl.AnimationUtil;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import dev.zprestige.fire.util.impl.Vector2D;
 
-
 import java.awt.*;
 
 public class MenuModule extends AbstractModule {
@@ -23,18 +22,18 @@ public class MenuModule extends AbstractModule {
         final Vector2D settingSize = new Vector2D(size.getX() - 2, size.getY());
         module.getSettings().stream().filter(setting -> !setting.getName().equals("Enabled") && !setting.getName().equals("Drawn")).forEach(setting -> {
             if (setting instanceof Switch) {
-                 abstractSettings.add(new SwitchButton((Switch) setting, settingSize));
+                abstractSettings.add(new SwitchButton((Switch) setting, settingSize));
             }
-            if (setting instanceof Slider){
+            if (setting instanceof Slider) {
                 abstractSettings.add(new SliderButton((Slider) setting, settingSize));
             }
-            if (setting instanceof Key){
+            if (setting instanceof Key) {
                 abstractSettings.add(new KeyButton((Key) setting, settingSize));
             }
-            if (setting instanceof ComboBox){
+            if (setting instanceof ComboBox) {
                 abstractSettings.add(new ComboBoxButton((ComboBox) setting, settingSize));
             }
-            if (setting instanceof ColorBox){
+            if (setting instanceof ColorBox) {
                 abstractSettings.add(new ColorBoxButton((ColorBox) setting, settingSize));
             }
         });
@@ -59,7 +58,7 @@ public class MenuModule extends AbstractModule {
             }
         }
         RenderUtil.prepareScissor((int) position.getX(), (int) position.getY(), (int) size.getX(), (int) scissorHeight);
-            abstractSettings.stream().filter(setting -> setting.getSetting().isVisible()).filter(abstractSetting -> abstractSetting.getPosition().getY() < position.getY() + scissorHeight).forEach(abstractSetting -> abstractSetting.render(mouseX, mouseY));
+        abstractSettings.stream().filter(setting -> setting.getSetting().isVisible()).filter(abstractSetting -> abstractSetting.getPosition().getY() < position.getY() + scissorHeight).forEach(abstractSetting -> abstractSetting.render(mouseX, mouseY));
         RenderUtil.releaseScissor();
         if (open) {
             scissorHeight = AnimationUtil.decreaseNumber(scissorHeight, totalHeight, MenuScreen.getAnimationSpeedAccordingly(scissorHeight, totalHeight));
@@ -84,21 +83,21 @@ public class MenuModule extends AbstractModule {
                     break;
             }
         }
-        if (open){
+        if (open) {
             abstractSettings.stream().filter(setting -> setting.getSetting().isVisible()).forEach(abstractSetting -> abstractSetting.click(mouseX, mouseY, state));
         }
     }
 
     @Override
     public void release(int mouseX, int mouseY, int state) {
-        if (open){
+        if (open) {
             abstractSettings.stream().filter(setting -> setting.getSetting().isVisible()).forEach(abstractSetting -> abstractSetting.release(mouseX, mouseY, state));
         }
     }
 
     @Override
     public void type(char typedChar, int keyCode) {
-        if (open){
+        if (open) {
             abstractSettings.stream().filter(setting -> setting.getSetting().isVisible()).forEach(abstractSetting -> abstractSetting.type(typedChar, keyCode));
         }
     }

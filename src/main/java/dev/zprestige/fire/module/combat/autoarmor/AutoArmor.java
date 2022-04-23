@@ -1,10 +1,9 @@
 package dev.zprestige.fire.module.combat.autoarmor;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.Key;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
@@ -36,10 +35,10 @@ public class AutoArmor extends Module {
     protected final Timer timer = new Timer();
     protected boolean takingOff = false, announced = false, elytra = false;
 
-    public AutoArmor(){
+    public AutoArmor() {
         eventListeners = new EventListener[]{
-          new KeyListener(this),
-          new TickListener(this)
+                new KeyListener(this),
+                new TickListener(this)
         };
     }
 
@@ -157,6 +156,7 @@ public class AutoArmor extends Module {
     protected boolean chestplate() {
         return mc.player.inventory.getStackInSlot(38).getItem().equals(Items.DIAMOND_CHESTPLATE);
     }
+
     protected void clickSlot(final int slot) {
         mc.playerController.windowClick(mc.player.inventoryContainer.windowId, slot, 0, ClickType.QUICK_MOVE, mc.player);
         timer.syncTime();

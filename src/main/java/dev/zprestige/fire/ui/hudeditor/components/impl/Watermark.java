@@ -13,7 +13,7 @@ public class Watermark extends HudComponent {
 
     @Override
     public void render() {
-        final String name = Main.name+ " ";
+        final String name = Main.name + " ";
         final String version = Main.version;
         Main.fontManager.drawStringWithShadow(name, position, ClickGui.Instance.color.GetColor().getRGB());
         Main.fontManager.drawStringWithShadow(version, new Vector2D(position.getX() + Main.fontManager.getStringWidth(name), position.getY()), -1);

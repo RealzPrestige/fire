@@ -8,12 +8,13 @@ public class ComboBox extends Setting<String> {
     protected String value;
     protected String[] values;
 
-    public ComboBox(final String name,final String value,final String[] values) {
+    public ComboBox(final String name, final String value, final String[] values) {
         super(name, value);
         this.name = name;
         this.value = value;
         this.values = values;
     }
+
     public void setValue(String value) {
         this.value = value;
     }
@@ -26,17 +27,18 @@ public class ComboBox extends Setting<String> {
         return values;
     }
 
-    public ComboBox visibility(final Predicate<String> visibility){
+    public ComboBox visibility(final Predicate<String> visibility) {
         shown = visibility;
         return this;
     }
 
-    public ComboBox panel(final String panel){
+    public ComboBox panel(final String panel) {
         this.panel = panel;
         return this;
     }
+
     @Override
-    public String getValue(){
+    public String getValue() {
         return GetCombo();
     }
 }

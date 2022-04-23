@@ -1,7 +1,7 @@
 package dev.zprestige.fire.module.movement.speed;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.MoveEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.MoveEvent;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.init.MobEffects;
 import net.minecraft.util.MovementInput;
@@ -10,12 +10,12 @@ import java.util.Objects;
 
 public class MoveListener extends EventListener<MoveEvent, Speed> {
 
-    public MoveListener(final Speed speed){
+    public MoveListener(final Speed speed) {
         super(MoveEvent.class, speed);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         final MoveEvent event = (MoveEvent) object;
         if (!module.nullCheck() || (!module.liquids.GetSwitch() && (mc.player.isInWater() || mc.player.isInLava() || mc.player.isSpectator())) || mc.player.isElytraFlying()) {
             return;

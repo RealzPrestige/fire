@@ -23,26 +23,28 @@ public class EntityUtil implements Utils {
         float rotationYaw = mc.player.prevRotationYaw + (mc.player.rotationYaw - mc.player.prevRotationYaw) * mc.getRenderPartialTicks();
         if (moveForward != 0.0f) {
             if (moveStrafe > 0.0f)
-                rotationYaw +=  (moveForward > 0.0f ? -45 : 45);
+                rotationYaw += (moveForward > 0.0f ? -45 : 45);
             else if (moveStrafe < 0.0f)
-                rotationYaw +=  (moveForward > 0.0f ? 45 : -45);
+                rotationYaw += (moveForward > 0.0f ? 45 : -45);
             moveStrafe = 0.0f;
             if (moveForward > 0.0f)
                 moveForward = 1.0f;
             else if (moveForward < 0.0f)
                 moveForward = -1.0f;
         }
-        final float posX = (float) (moveForward * speed * -Math.sin(Math.toRadians(rotationYaw)) +  moveStrafe * speed * Math.cos(Math.toRadians(rotationYaw)));
-        final float posZ = (float) (moveForward * speed * Math.cos(Math.toRadians(rotationYaw)) -  moveStrafe * speed * -Math.sin(Math.toRadians(rotationYaw)));
+        final float posX = (float) (moveForward * speed * -Math.sin(Math.toRadians(rotationYaw)) + moveStrafe * speed * Math.cos(Math.toRadians(rotationYaw)));
+        final float posZ = (float) (moveForward * speed * Math.cos(Math.toRadians(rotationYaw)) - moveStrafe * speed * -Math.sin(Math.toRadians(rotationYaw)));
         return new float[]{posX, posZ};
     }
 
     public static BlockPos getPlayerPos(EntityPlayer player) {
         return new BlockPos(Math.floor(player.posX), Math.floor(player.posY), Math.floor(player.posZ));
     }
+
     public static boolean isMoving() {
         return mc.player.moveForward != 0.0 || mc.player.moveStrafing != 0.0 || mc.gameSettings.keyBindForward.isKeyDown() || mc.gameSettings.keyBindBack.isKeyDown() || mc.gameSettings.keyBindLeft.isKeyDown() || mc.gameSettings.keyBindRight.isKeyDown();
     }
+
     public static double getBaseMotionSpeed() {
         double event = 0.272;
         if (mc.player.isPotionActive(MobEffects.SPEED)) {
@@ -59,6 +61,7 @@ public class EntityUtil implements Utils {
         }
         return maxModifier;
     }
+
     public static PlayerManager.Player getClosestTarget(TargetPriority targetPriority, float range) {
         final TreeMap<Double, PlayerManager.Player> entityPlayerFloatTreeMap = new TreeMap<>();
         final TreeMap<Double, PlayerManager.Player> entityPlayerFloatTreeMap2 = new TreeMap<>();

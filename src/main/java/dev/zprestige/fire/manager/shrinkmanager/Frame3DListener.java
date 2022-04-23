@@ -1,20 +1,20 @@
 package dev.zprestige.fire.manager.shrinkmanager;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.FrameEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.FrameEvent;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, Object> {
 
-    public Frame3DListener(){
+    public Frame3DListener() {
         super(FrameEvent.FrameEvent3D.class);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         final HashMap<ShrinkManager.ShrinkPosition, Float> shrinkPositions1 = new HashMap<>(Main.shrinkManager.shrinkPositions);
         for (Map.Entry<ShrinkManager.ShrinkPosition, Float> entry : shrinkPositions1.entrySet()) {
             final ShrinkManager.ShrinkPosition shrinkPosition = entry.getKey();

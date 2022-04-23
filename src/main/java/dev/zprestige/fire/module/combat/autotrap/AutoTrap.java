@@ -1,9 +1,9 @@
 package dev.zprestige.fire.module.combat.autotrap;
 
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Slider;
@@ -40,7 +40,7 @@ public class AutoTrap extends Module {
     public final Switch liquids = Menu.Switch("Liquids", false);
     public final Switch packet = Menu.Switch("Packet", true);
     public final Switch rotate = Menu.Switch("Rotate", false);
-    public final Switch preventRotationRubberband = Menu.Switch("Prevent Rotation Rubberband", false).visibility(z-> rotate.GetSwitch());
+    public final Switch preventRotationRubberband = Menu.Switch("Prevent Rotation Rubberband", false).visibility(z -> rotate.GetSwitch());
     public final Switch strict = Menu.Switch("Strict", false);
     public final Switch render = Menu.Switch("Render", false);
     public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch());
@@ -72,19 +72,19 @@ public class AutoTrap extends Module {
     };
     protected final Vec3i top = new Vec3i(0, 2, 0);
 
-    public AutoTrap(){
+    public AutoTrap() {
         eventListeners = new EventListener[]{
                 new TickListener(this)
         };
     }
 
     @Override
-    public void onEnable(){
+    public void onEnable() {
         pos = BlockUtil.getPosition();
     }
 
 
-    protected boolean multiTaskValid(){
+    protected boolean multiTaskValid() {
         return !multiTask.GetSwitch() && mc.player.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE) && mc.gameSettings.keyBindUseItem.isKeyDown();
     }
 

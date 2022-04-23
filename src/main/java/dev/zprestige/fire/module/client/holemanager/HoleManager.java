@@ -1,8 +1,8 @@
 package dev.zprestige.fire.module.client.holemanager;
 
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.Slider;
 
 @Descriptor(description = "Controls how far the client should load holes")
@@ -16,6 +16,7 @@ public class HoleManager extends Module {
         };
         enableModule();
     }
+
     @Override
     public String getData() {
         return String.valueOf(range.GetSlider());

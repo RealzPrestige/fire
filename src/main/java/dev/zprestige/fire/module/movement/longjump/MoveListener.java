@@ -1,7 +1,7 @@
 package dev.zprestige.fire.module.movement.longjump;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.MoveEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.MoveEvent;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.init.MobEffects;
 
@@ -9,12 +9,12 @@ import java.util.Objects;
 
 public class MoveListener extends EventListener<MoveEvent, LongJump> {
 
-    public MoveListener(final LongJump longJump){
+    public MoveListener(final LongJump longJump) {
         super(MoveEvent.class, longJump);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         final MoveEvent event = (MoveEvent) object;
         if (module.liquids.GetSwitch() || !(mc.player.isInLava() || mc.player.isInWater())) {
             switch (module.currentState) {
@@ -30,7 +30,7 @@ public class MoveListener extends EventListener<MoveEvent, LongJump> {
                     module.motionSpeed = module.previousDistance - module.previousDistance / 159.0;
                     break;
                 case 2:
-                    double height = module.verticalFactor.GetSlider() / 10.0f ;
+                    double height = module.verticalFactor.GetSlider() / 10.0f;
                     if ((mc.player.moveForward != 0.0f || mc.player.moveStrafing != 0.0f) && mc.player.onGround) {
                         if (mc.player.isPotionActive(MobEffects.JUMP_BOOST)) {
                             height += (float) (Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.JUMP_BOOST)).getAmplifier() + 1) * 0.1f;

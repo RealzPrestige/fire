@@ -1,8 +1,8 @@
 package dev.zprestige.fire.module.combat.surround;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.TickEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.TickEvent;
 import dev.zprestige.fire.util.impl.BlockUtil;
 import net.minecraft.init.Items;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 
 public class TickListener extends EventListener<TickEvent, Surround> {
 
-    public TickListener(final Surround surround){
+    public TickListener(final Surround surround) {
         super(TickEvent.class, surround);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         final BlockPos pos = BlockUtil.getPosition();
         if (!mc.player.onGround || mc.player.stepHeight > 0.6f || (module.lastPos != null && pos.getY() > module.lastPos.getY())) {
             module.disableModule();
@@ -33,7 +33,7 @@ public class TickListener extends EventListener<TickEvent, Surround> {
         switch (module.mode.GetCombo()) {
             case "Instant":
                 ArrayList<Surround.Position> offs = module.getOffsets(pos);
-                if (module.smartPriority.GetSwitch()){
+                if (module.smartPriority.GetSwitch()) {
                     offs = offs.stream().sorted(Comparator.comparing(Surround.Position::getPriority).reversed()).collect(Collectors.toCollection(ArrayList::new));
                 }
                 for (final Surround.Position position : offs) {
@@ -54,7 +54,7 @@ public class TickListener extends EventListener<TickEvent, Surround> {
                 }
                 if (module.extend.GetSwitch()) {
                     ArrayList<Surround.Position> positions = module.extendedPosses();
-                    if (module.smartPriority.GetSwitch()){
+                    if (module.smartPriority.GetSwitch()) {
                         positions = positions.stream().sorted(Comparator.comparing(Surround.Position::getPriority).reversed()).collect(Collectors.toCollection(ArrayList::new));
                     }
                     for (final Surround.Position position : positions) {
@@ -69,7 +69,7 @@ public class TickListener extends EventListener<TickEvent, Surround> {
                                     return;
                                 }
                                 Main.interactionManager.placeBlockWithSwitch(pos1, module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), slot);
-                                module. addFade(pos1);
+                                module.addFade(pos1);
                                 blocks++;
                             } else {
                                 module.disableModule();
@@ -81,7 +81,7 @@ public class TickListener extends EventListener<TickEvent, Surround> {
                 break;
             case "Tick":
                 ArrayList<Surround.Position> offs1 = module.getOffsets(pos);
-                if (module.smartPriority.GetSwitch()){
+                if (module.smartPriority.GetSwitch()) {
                     offs1 = offs1.stream().sorted(Comparator.comparing(Surround.Position::getPriority).reversed()).collect(Collectors.toCollection(ArrayList::new));
                 }
                 for (final Surround.Position position : offs1) {
@@ -102,7 +102,7 @@ public class TickListener extends EventListener<TickEvent, Surround> {
                 }
                 if (module.extend.GetSwitch()) {
                     ArrayList<Surround.Position> positions = module.extendedPosses();
-                    if (module.smartPriority.GetSwitch()){
+                    if (module.smartPriority.GetSwitch()) {
                         positions = positions.stream().sorted(Comparator.comparing(Surround.Position::getPriority).reversed()).collect(Collectors.toCollection(ArrayList::new));
                     }
                     for (final Surround.Position position : positions) {

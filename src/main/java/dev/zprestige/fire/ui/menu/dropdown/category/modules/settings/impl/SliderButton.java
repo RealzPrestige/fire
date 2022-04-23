@@ -32,7 +32,7 @@ public class SliderButton extends AbstractSetting {
         Main.fontManager.drawStringWithShadow(setting.getName(), new Vector2D(position.getX() + 2, y), -1);
         final String val = setting.GetSlider() + "";
         Main.fontManager.drawStringWithShadow(val, new Vector2D(position.getX() + size.getX() - Main.fontManager.getStringWidth(val) - 2, y), Color.GRAY.getRGB());
-        if (inside(mouseX, mouseY)){
+        if (inside(mouseX, mouseY)) {
             RenderUtil.drawRect(position, new Vector2D(position.getX() + size.getX(), position.getY() + size.getY()), new Color(0, 0, 0, 50).getRGB());
         }
     }

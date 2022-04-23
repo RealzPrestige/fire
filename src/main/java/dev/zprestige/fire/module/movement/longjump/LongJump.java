@@ -1,18 +1,11 @@
 package dev.zprestige.fire.module.movement.longjump;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.PacketEvent;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
-import dev.zprestige.fire.util.impl.EntityUtil;
-import net.minecraft.init.MobEffects;
-import net.minecraft.network.play.server.SPacketPlayerPosLook;
-
-import java.util.Objects;
 
 @Descriptor(description = "Allows you to jump further than usual")
 public class LongJump extends Module {
@@ -26,7 +19,7 @@ public class LongJump extends Module {
     protected double previousDistance, motionSpeed;
     protected int currentState = 1;
 
-    public LongJump(){
+    public LongJump() {
         eventListeners = new EventListener[]{
                 new MoveListener(this),
                 new PacketReceiveListener(this),

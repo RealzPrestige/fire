@@ -1,11 +1,11 @@
 package dev.zprestige.fire.module.combat.autocrystal;
 
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.MotionUpdateEvent;
 import dev.zprestige.fire.manager.playermanager.PlayerManager;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.MotionUpdateEvent;
 import dev.zprestige.fire.settings.impl.*;
 import dev.zprestige.fire.util.impl.BlockUtil;
 import dev.zprestige.fire.util.impl.EntityUtil;
@@ -20,7 +20,9 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -92,7 +94,7 @@ public class AutoCrystal extends Module {
             "Ignore Rotations",
             "Ignore Full",
     }).visibility(z -> placeRotate.GetSwitch() || explodeRotate.GetSwitch()).panel("Rotations");
-   public final Switch raytraceFix = Menu.Switch("Raytrace Fix", false).panel("Rotations");
+    public final Switch raytraceFix = Menu.Switch("Raytrace Fix", false).panel("Rotations");
     public final Slider raytraceTicks = Menu.Slider("Raytrace Ticks ", 10.0f, 0.1f, 40.0f).visibility(z -> raytraceFix.GetSwitch()).panel("Rotations");
     public final Slider raytraceTimeoutTicks = Menu.Slider("Raytrace Timeout Ticks ", 2.0f, 0.1f, 40.0f).visibility(z -> raytraceFix.GetSwitch()).panel("Rotations");
 
@@ -156,7 +158,7 @@ public class AutoCrystal extends Module {
     protected EntityOtherPlayerMP entityOtherPlayerMP;
     protected final Random random = new Random();
 
-    public AutoCrystal(){
+    public AutoCrystal() {
         eventListeners = new EventListener[]{
                 new Frame3DListener(this),
                 new MotionUpdateListener(this),
@@ -164,6 +166,7 @@ public class AutoCrystal extends Module {
                 new PacketSendListener(this)
         };
     }
+
     @Override
     public void onDisable() {
         new ArrayList<>(pyroCrystals).forEach(entityEnderCrystal1 -> {
@@ -206,6 +209,7 @@ public class AutoCrystal extends Module {
             }
         }
     }
+
     protected float rand() {
         return MathHelper.clamp(-20 + random.nextFloat() * 20, -20, 20);
     }
@@ -309,7 +313,7 @@ public class AutoCrystal extends Module {
             playPyroSound(entityEnderCrystal1.getPosition());
         });
         attackedCrystals.add(entityEnderCrystal);
-        if (pos == null){
+        if (pos == null) {
             this.pos = entityEnderCrystal.getPosition().down();
         }
     }
@@ -449,7 +453,7 @@ public class AutoCrystal extends Module {
         final HashMap<BlockPos, CalculationComponent> posses = new HashMap<>();
         for (BlockPos pos : BlockUtil.getCrystallableBlocks(placeRange.GetSlider(), onePointThirteen.GetSwitch())) {
             final ArrayList<Entity> intersecting = mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up())).stream().filter(entity -> !(entity instanceof EntityEnderCrystal)).collect(Collectors.toCollection(ArrayList::new));
-            if (!intersecting.isEmpty() || mc.player.getDistanceSq(pos) / 2 > (BlockUtil.isNotVisible(pos, raytrace(placeRaytrace.GetCombo()).getOffset()) ? placeWallRange.GetSlider(): placeRange.GetSlider())) {
+            if (!intersecting.isEmpty() || mc.player.getDistanceSq(pos) / 2 > (BlockUtil.isNotVisible(pos, raytrace(placeRaytrace.GetCombo()).getOffset()) ? placeWallRange.GetSlider() : placeRange.GetSlider())) {
                 continue;
             }
             final double damage = BlockUtil.calculatePosDamage(pos, player);

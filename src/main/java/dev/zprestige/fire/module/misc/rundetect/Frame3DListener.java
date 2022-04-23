@@ -1,9 +1,9 @@
 package dev.zprestige.fire.module.misc.rundetect;
 
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.FrameEvent;
 import dev.zprestige.fire.manager.playermanager.PlayerManager;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.FrameEvent;
 import dev.zprestige.fire.util.impl.BlockUtil;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import dev.zprestige.fire.util.impl.RenderUtil;
@@ -16,12 +16,12 @@ import java.util.ArrayList;
 
 public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, RunDetect> {
 
-    public Frame3DListener(final RunDetect runDetect){
+    public Frame3DListener(final RunDetect runDetect) {
         super(FrameEvent.FrameEvent3D.class, runDetect);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         final String string = "Potentially running.";
         final float width = Main.fontManager.getStringWidth(string);
         for (final EntityPlayer entityPlayer : new ArrayList<>(module.finalRunningPlayers)) {

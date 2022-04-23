@@ -1,18 +1,18 @@
 package dev.zprestige.fire.module.player.packetmine;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.PacketEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.PacketEvent;
 import net.minecraft.init.Items;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
 
 public class PacketSendListener extends EventListener<PacketEvent.PacketSendEvent, PacketMine> {
 
-    public PacketSendListener(final PacketMine packetMine){
+    public PacketSendListener(final PacketMine packetMine) {
         super(PacketEvent.PacketSendEvent.class, packetMine);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         final PacketEvent.PacketSendEvent event = (PacketEvent.PacketSendEvent) object;
         if (module.abortOnSwitch.GetSwitch() && module.activePos != null && module.facing != null && event.getPacket() instanceof CPacketHeldItemChange) {
             final CPacketHeldItemChange packet = (CPacketHeldItemChange) event.getPacket();

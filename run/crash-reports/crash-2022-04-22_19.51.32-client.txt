@@ -9,7 +9,7 @@ Caused by: java.lang.NullPointerException
 	at java.util.Objects.requireNonNull(Objects.java:203)
 	at java.util.Arrays$ArrayList.<init>(Arrays.java:3813)
 	at java.util.Arrays.asList(Arrays.java:3800)
-	at dev.zprestige.fire.newbus.EventBus.registerListeners(EventBus.java:14)
+	at dev.zprestige.fire.event.bus.EventBus.registerListeners(EventBus.java:14)
 	at dev.zprestige.fire.module.Module.enableModule(Module.java:36)
 	at dev.zprestige.fire.manager.configmanager.ConfigManager.setValueFromSetting(ConfigManager.java:280)
 	at dev.zprestige.fire.manager.configmanager.ConfigManager.loadModule(ConfigManager.java:272)

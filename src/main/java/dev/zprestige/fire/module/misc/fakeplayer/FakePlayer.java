@@ -2,10 +2,9 @@ package dev.zprestige.fire.module.misc.fakeplayer;
 
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 
 import java.io.InputStream;
@@ -19,7 +18,7 @@ public class FakePlayer extends Module {
     protected final int id = 438297483;
     protected EntityOtherPlayerMP fakePlayer;
 
-    public FakePlayer(){
+    public FakePlayer() {
         eventListeners = new EventListener[]{
                 new TickListener(this)
         };

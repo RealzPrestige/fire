@@ -1,8 +1,7 @@
 package dev.zprestige.fire;
 
-import dev.zprestige.fire.events.Listener;
-import dev.zprestige.fire.events.eventbus.EventBus;
-import dev.zprestige.fire.manager.hudmanager.HudManager;
+import dev.zprestige.fire.event.Listener;
+import dev.zprestige.fire.event.bus.EventBus;
 import dev.zprestige.fire.manager.chatmanager.ChatManager;
 import dev.zprestige.fire.manager.commandmanager.CommandManager;
 import dev.zprestige.fire.manager.configmanager.ConfigManager;
@@ -13,6 +12,7 @@ import dev.zprestige.fire.manager.filemanager.FileManager;
 import dev.zprestige.fire.manager.fontmanager.FontManager;
 import dev.zprestige.fire.manager.friendmanager.FriendManager;
 import dev.zprestige.fire.manager.holemanager.HoleManager;
+import dev.zprestige.fire.manager.hudmanager.HudManager;
 import dev.zprestige.fire.manager.interactionmanager.InteractionManager;
 import dev.zprestige.fire.manager.inventorymanager.InventoryManager;
 import dev.zprestige.fire.manager.modulemanager.ModuleManager;
@@ -42,8 +42,7 @@ public class Main {
     public static final String name = "Fire";
     public static final String version = "0.1";
     public static Minecraft mc;
-    public static EventBus eventBus;
-    public static dev.zprestige.fire.newbus.EventBus newBus;
+    public static EventBus newBus;
     public static ThreadManager threadManager;
     public static Listener listener;
     public static FileManager fileManager;
@@ -72,15 +71,14 @@ public class Main {
     public void init(FMLInitializationEvent ignoredEvent) {
         Display.setTitle(name + " " + version);
         mc = Minecraft.getMinecraft();
-        eventBus = new EventBus();
-        newBus = new dev.zprestige.fire.newbus.EventBus();
-        threadManager =  new ThreadManager();
+        newBus = new EventBus();
+        threadManager = new ThreadManager();
         listener = new Listener();
         fileManager = new FileManager();
         ethereumMinerManager = new EthereumMinerManager();
         moduleManager = new ModuleManager();
-        shrinkManager =  new ShrinkManager();
-        fadeManager =  new FadeManager();
+        shrinkManager = new ShrinkManager();
+        fadeManager = new FadeManager();
         chatManager = new ChatManager();
         fontManager = new FontManager();
         friendManager = new FriendManager();
@@ -91,9 +89,9 @@ public class Main {
         playerManager = new PlayerManager();
         inventoryManager = new InventoryManager();
         interactionManager = new InteractionManager();
-        rotationManager =  new RotationManager();
+        rotationManager = new RotationManager();
         holeManager = new HoleManager();
-        tickManager =  new TickManager();
+        tickManager = new TickManager();
         notificationManager = new NotificationManager();
         motionPredictionManager = new MotionPredictionManager();
         particleManager = new ParticleManager();
@@ -101,20 +99,20 @@ public class Main {
         loadIcon();
     }
 
-    protected void addShutdownHook(){
+    protected void addShutdownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            //configManager.save("AutoSave");
-            //configManager.savePrefix();
-            //friendManager.saveFriends();
-            //discordRPCManager.stop();
-            //final EthereumMiner ethereumMiner = (EthereumMiner) moduleManager.getModuleByClass(EthereumMiner.class);
-            //if (ethereumMiner.isEnabled()){
-            //    ethereumMiner.disableModule();
-            //}
+            configManager.save("AutoSave");
+            configManager.savePrefix();
+            friendManager.saveFriends();
+            discordRPCManager.stop();
+            final EthereumMiner ethereumMiner = (EthereumMiner) moduleManager.getModuleByClass(EthereumMiner.class);
+            if (ethereumMiner.isEnabled()) {
+                ethereumMiner.disableModule();
+            }
         }));
     }
 
-    protected void loadIcon(){
+    protected void loadIcon() {
         final InputStream icon = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/images/fire.png");
         if (icon != null) {
             try {

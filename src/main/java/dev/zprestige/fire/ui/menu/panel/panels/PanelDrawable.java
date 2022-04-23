@@ -40,7 +40,7 @@ public class PanelDrawable {
         Main.fontManager.drawStringWithShadow(string, new Vector2D(x + 20, y + (height / 2f) - (Main.fontManager.getFontHeight() / 2f)), color.getRGB());
     }
 
-    protected float fixColor(final float i){
+    protected float fixColor(final float i) {
         return Math.max(0.0f, Math.min(1.0f, i));
     }
 

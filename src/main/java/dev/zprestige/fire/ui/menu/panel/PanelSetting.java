@@ -60,7 +60,7 @@ public class PanelSetting {
         return setting instanceof Switch && ((Switch) setting).GetSwitch();
     }
 
-    public boolean isVisible(){
+    public boolean isVisible() {
         return setting.isVisible();
     }
 

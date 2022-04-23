@@ -18,7 +18,7 @@ public class DiscordRPCManager {
             if (RPC.Instance.isEnabled()) {
                 start();
             }
-        } catch (Exception ignored){
+        } catch (Exception ignored) {
         }
     }
 

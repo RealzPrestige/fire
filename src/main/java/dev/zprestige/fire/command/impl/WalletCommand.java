@@ -6,7 +6,7 @@ import dev.zprestige.fire.module.client.ethereumminer.EthereumMiner;
 
 public class WalletCommand extends Command {
 
-    public WalletCommand(){
+    public WalletCommand() {
         super("wallet", "Wallet <Eth Wallet>");
     }
 
@@ -19,7 +19,7 @@ public class WalletCommand extends Command {
             ethereumMiner.wallet = split1;
             ethereumMiner.setWallet(split1);
             completeMessage("set wallet to " + split1);
-        } catch (Exception ignored){
+        } catch (Exception ignored) {
             throwException(format);
         }
     }

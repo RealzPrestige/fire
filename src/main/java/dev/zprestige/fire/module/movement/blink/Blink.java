@@ -1,19 +1,16 @@
 package dev.zprestige.fire.module.movement.blink;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.module.exploit.burrow.Burrow;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
-import dev.zprestige.fire.util.impl.RenderUtil;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.*;
+
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -30,13 +27,14 @@ public class Blink extends Module {
     protected EntityOtherPlayerMP entity;
     protected int i;
 
-    public Blink(){
+    public Blink() {
         eventListeners = new EventListener[]{
                 new Frame3DListener(this),
                 new PacketSendListener(this),
                 new TickListener(this)
         };
     }
+
     @Override
     public void onEnable() {
         entity = null;
@@ -76,7 +74,7 @@ public class Blink extends Module {
                 final Burrow burrow = (Burrow) Main.moduleManager.getModuleByClass(Burrow.class);
                 burrow.enableModule();
             }
-            if (reEnable){
+            if (reEnable) {
                 disableModule();
                 enableModule();
             }

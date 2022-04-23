@@ -16,6 +16,7 @@ import java.awt.*;
 
 public class MenuCategory extends AbstractCategory {
     protected float deltaY = position.getY() + 1;
+
     public MenuCategory(Category category, Vector2D position, Vector2D size) {
         super(category, position, size);
         final Vector2D moduleSize = new Vector2D(size.getX() - 2, size.getY());
@@ -50,6 +51,7 @@ public class MenuCategory extends AbstractCategory {
         Main.fontManager.drawStringWithShadow(text, new Vector2D(position.getX() + size.getX() / 2 - Main.fontManager.getStringWidth(text) / 2, position.getY() + size.getY() / 2 - Main.fontManager.getFontHeight() / 2), -1);
 
     }
+
     @Override
     public void click(int mouseX, int mouseY, int state) {
         if (inside(mouseX, mouseY)) {

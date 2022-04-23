@@ -1,8 +1,8 @@
 package dev.zprestige.fire.module.player.refill;
 
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
 import dev.zprestige.fire.util.impl.Timer;
@@ -17,7 +17,7 @@ public class Refill extends Module {
     public final Slider fillAt = Menu.Slider("Fill At", 60, 1, 64);
     protected final Timer timer = new Timer();
 
-    public Refill(){
+    public Refill() {
         eventListeners = new EventListener[]{
                 new TickListener(this)
         };

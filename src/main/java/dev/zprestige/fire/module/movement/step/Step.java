@@ -1,14 +1,12 @@
 package dev.zprestige.fire.module.movement.step;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
-import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.network.play.client.CPacketPlayer;
 
 @Descriptor(description = "Allows you to teleport up to 2 blocks high")
@@ -21,11 +19,12 @@ public class Step extends Module {
     public final Switch entities = Menu.Switch("Entities", false);
     protected final float[] singleOffsets = {0.42f, 0.753f}, doubleOffsets = {0.42f, 0.78f, 0.63f, 0.51f, 0.9f, 1.21f, 1.45f, 1.43f};
 
-    public Step(){
+    public Step() {
         eventListeners = new EventListener[]{
                 new MoveListener(this)
         };
     }
+
     @Override
     public void onDisable() {
         Main.tickManager.syncTimer();

@@ -9,7 +9,7 @@ public class Key extends Setting<Integer> {
     protected int key;
     protected boolean hold;
 
-    public Key(final String name,final int key) {
+    public Key(final String name, final int key) {
         super(name, key);
         this.name = name;
         this.key = key;
@@ -32,18 +32,18 @@ public class Key extends Setting<Integer> {
         return hold;
     }
 
-    public Key visibility(final Predicate<Integer> visibility){
+    public Key visibility(final Predicate<Integer> visibility) {
         shown = visibility;
         return this;
     }
 
-    public Key panel(final String panel){
+    public Key panel(final String panel) {
         this.panel = panel;
         return this;
     }
 
     @Override
-    public Integer getValue(){
+    public Integer getValue() {
         return GetKey();
     }
 }

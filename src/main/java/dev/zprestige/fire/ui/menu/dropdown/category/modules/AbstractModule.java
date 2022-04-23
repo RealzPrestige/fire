@@ -28,11 +28,11 @@ public abstract class AbstractModule {
 
     public abstract void type(char typedChar, int keyCode);
 
-    protected boolean inside(int mouseX, int mouseY){
+    protected boolean inside(int mouseX, int mouseY) {
         return mouseX > position.getX() && mouseX < position.getX() + size.getX() && mouseY > position.getY() && mouseY < position.getY() + size.getY();
     }
 
-    public void setPosition(Vector2D position){
+    public void setPosition(Vector2D position) {
         this.position = position;
     }
 

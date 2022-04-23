@@ -1,13 +1,14 @@
 package dev.zprestige.fire.module.movement.anchor;
 
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.TickEvent;
 import dev.zprestige.fire.manager.holemanager.HoleManager;
 import dev.zprestige.fire.manager.playermanager.PlayerManager;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.TickEvent;
 import dev.zprestige.fire.util.impl.BlockUtil;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+
 import java.util.TreeMap;
 
 public class TickListener extends EventListener<TickEvent, Anchor> {

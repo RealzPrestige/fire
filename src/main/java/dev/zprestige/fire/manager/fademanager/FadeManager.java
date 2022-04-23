@@ -1,9 +1,7 @@
 package dev.zprestige.fire.manager.fademanager;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.RegisteredClass;
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
-import dev.zprestige.fire.newbus.EventListener;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import net.minecraft.util.math.BlockPos;
 
@@ -14,7 +12,7 @@ import java.util.Map;
 public class FadeManager {
     protected final HashMap<FadePosition, Float> fadePositions = new HashMap<>();
 
-    public FadeManager(){
+    public FadeManager() {
         Main.newBus.registerListeners(new EventListener[]{
                 new Frame3DListener()
         });
@@ -24,9 +22,10 @@ public class FadeManager {
         return fadePositions.entrySet().stream().anyMatch(entry -> entry.getKey().getPos().equals(pos));
     }
 
-    public void removePosition(final BlockPos pos){
+    public void removePosition(final BlockPos pos) {
         new HashMap<>(fadePositions).keySet().stream().filter(aFloat -> aFloat.getPos().equals(pos)).forEach(fadePositions::remove);
     }
+
     public void createFadePosition(final BlockPos pos, final Color boxColor, final Color outlineColor, final boolean box, final boolean outline, final float lineWidth, final float speed, float startAlpha) {
         final FadePosition fadePosition = new FadePosition(pos, boxColor, outlineColor, box, outline, lineWidth, speed);
         if (!isOccupied(pos)) {

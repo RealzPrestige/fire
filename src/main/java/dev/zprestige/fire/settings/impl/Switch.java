@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 public class Switch extends Setting<Boolean> {
     protected boolean value;
 
-    public Switch(final String name,final boolean value) {
+    public Switch(final String name, final boolean value) {
         super(name, value);
         this.name = name;
         this.value = value;
@@ -21,18 +21,18 @@ public class Switch extends Setting<Boolean> {
         return value;
     }
 
-    public Switch visibility(final Predicate<Boolean> visibility){
+    public Switch visibility(final Predicate<Boolean> visibility) {
         shown = visibility;
         return this;
     }
 
-    public Switch panel(final String panel){
+    public Switch panel(final String panel) {
         this.panel = panel;
         return this;
     }
 
     @Override
-    public Boolean getValue(){
+    public Boolean getValue() {
         return GetSwitch();
     }
 

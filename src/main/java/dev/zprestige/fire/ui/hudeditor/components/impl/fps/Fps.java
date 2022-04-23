@@ -1,9 +1,8 @@
 package dev.zprestige.fire.ui.hudeditor.components.impl.fps;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.client.clickgui.ClickGui;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.ui.hudeditor.components.HudComponent;
 import dev.zprestige.fire.util.impl.Timer;
 import dev.zprestige.fire.util.impl.Vector2D;

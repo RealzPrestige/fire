@@ -1,18 +1,18 @@
 package dev.zprestige.fire.module.visual.viewmodel;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.RenderItemEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.RenderItemEvent;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
 
 public class RenderItemMainhandListener extends EventListener<RenderItemEvent.MainHand, ViewModel> {
 
-    public RenderItemMainhandListener(final ViewModel viewModel){
+    public RenderItemMainhandListener(final ViewModel viewModel) {
         super(RenderItemEvent.MainHand.class, viewModel);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         final RenderItemEvent.MainHand event = (RenderItemEvent.MainHand) object;
         if (module.mainhand.GetSwitch() && event.getEntityLivingBase().equals(mc.player) && mc.player.getHeldItemMainhand().equals(event.getStack())) {
             if (module.mainhandTranslation.GetSwitch()) {

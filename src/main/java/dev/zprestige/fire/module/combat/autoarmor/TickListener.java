@@ -1,15 +1,15 @@
 package dev.zprestige.fire.module.combat.autoarmor;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.TickEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.TickEvent;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.init.Items;
 import org.lwjgl.input.Keyboard;
 
 public class TickListener extends EventListener<TickEvent, AutoArmor> {
 
-    public TickListener(final AutoArmor autoArmor){
+    public TickListener(final AutoArmor autoArmor) {
         super(TickEvent.class, autoArmor);
     }
 
@@ -46,7 +46,7 @@ public class TickListener extends EventListener<TickEvent, AutoArmor> {
                 if (e != -1) {
                     if (module.air(38)) {
                         module.clickSlot(e);
-                    } else if (!module.elytra()){
+                    } else if (!module.elytra()) {
                         module.clickSlot(6);
                     }
                     return;
@@ -57,7 +57,7 @@ public class TickListener extends EventListener<TickEvent, AutoArmor> {
                 if (chest != -1) {
                     if (module.air(38)) {
                         module.clickSlot(chest);
-                    } else if (!module.chestplate()){
+                    } else if (!module.chestplate()) {
                         module.clickSlot(6);
                     }
                     return;

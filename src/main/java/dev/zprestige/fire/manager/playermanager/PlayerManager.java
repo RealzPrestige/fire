@@ -1,9 +1,7 @@
 package dev.zprestige.fire.manager.playermanager;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.RegisteredClass;
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
-import dev.zprestige.fire.newbus.EventListener;
+import dev.zprestige.fire.event.bus.EventListener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -11,13 +9,12 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class PlayerManager  {
+public class PlayerManager {
     protected static final Minecraft mc = Main.mc;
     protected List<Player> players = new ArrayList<>();
 
-    public PlayerManager(){
+    public PlayerManager() {
         Main.newBus.registerListeners(new EventListener[]{
                 new TickListener()
         });

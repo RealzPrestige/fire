@@ -1,12 +1,13 @@
 package dev.zprestige.fire.module.visual.viewtweaks;
 
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
+
 import java.awt.*;
 
 @Descriptor(description = "Tweaks your vision and how the world looks")
@@ -28,7 +29,7 @@ public class ViewTweaks extends Module {
     public final Switch removeSwing = Menu.Switch("Remove Swing", false);
     public final Switch removeSwitchAnimation = Menu.Switch("Remove Switch Animation", false);
 
-    public ViewTweaks(){
+    public ViewTweaks() {
         eventListeners = new EventListener[]{
                 new FogDensityListener(this),
                 new FogListener(this),

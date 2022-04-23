@@ -7,7 +7,7 @@ import dev.zprestige.fire.module.Module;
 public class CustomFont extends Module {
     public static CustomFont Instance;
 
-    public CustomFont(){
+    public CustomFont() {
         Instance = this;
         setEnabled(true);
     }

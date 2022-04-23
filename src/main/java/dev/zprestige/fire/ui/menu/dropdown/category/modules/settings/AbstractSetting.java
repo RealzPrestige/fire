@@ -7,7 +7,7 @@ public abstract class AbstractSetting {
     protected Setting<?> setting;
     protected Vector2D position, size;
 
-    public AbstractSetting(Setting<?> setting, Vector2D size){
+    public AbstractSetting(Setting<?> setting, Vector2D size) {
         this.setting = setting;
         this.size = size;
     }
@@ -20,11 +20,11 @@ public abstract class AbstractSetting {
 
     public abstract void type(char typedChar, int keyCode);
 
-    protected boolean inside(int mouseX, int mouseY){
+    protected boolean inside(int mouseX, int mouseY) {
         return mouseX > position.getX() && mouseX < position.getX() + size.getX() && mouseY > position.getY() && mouseY < position.getY() + size.getY();
     }
 
-    public void setPosition(Vector2D position){
+    public void setPosition(Vector2D position) {
         this.position = position;
     }
 

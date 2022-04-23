@@ -40,14 +40,14 @@ public class PanelModule {
 
     public void render(final int mouseX, final int mouseY) {
         if (PanelScreen.activeCategory != null && PanelScreen.activeCategory.equals(panelCategory)) {
-            if (panelCategory.alpha < 0.0f || panelCategory.alpha > 1.0f){
+            if (panelCategory.alpha < 0.0f || panelCategory.alpha > 1.0f) {
                 return;
             }
             thirdBackgroundColor = new Color(PanelScreen.thirdBackgroundColor.getRed() / 255.0f, PanelScreen.thirdBackgroundColor.getGreen() / 255.0f, PanelScreen.thirdBackgroundColor.getBlue() / 255.0f, panelCategory.alpha);
             secondBackgroundColor = new Color(PanelScreen.secondBackgroundColor.getRed() / 255.0f, PanelScreen.secondBackgroundColor.getGreen() / 255.0f, PanelScreen.secondBackgroundColor.getBlue() / 255.0f, panelCategory.alpha);
 
             float y = this.y + 10 - panelCategory.alpha * 10;
-              for (int i = 20; i <= 28; i = i + 2) {
+            for (int i = 20; i <= 28; i = i + 2) {
                 final float val = ((28 - i) / 2f);
                 RenderUtil.drawRoundedRect(x, y, x + width + val, y + height + val, 10, new Color(0, 0, 0, i));
             }
@@ -55,7 +55,7 @@ public class PanelModule {
             RenderUtil.drawRoundedRect(x + 1, y + 1, x + width - 1, y + height - 1, 10, secondBackgroundColor);
             try {
                 Main.fontManager.drawStringWithShadow(module.getName(), new Vector2D(x + 4, y + 2 + Main.fontManager.getFontHeight() / 2.0f), new Color(col[0], col[1], col[2], 1.0f).getRGB());
-            } catch (Exception ignored){
+            } catch (Exception ignored) {
             }
 
             RenderUtil.prepareScale(0.75f);
@@ -83,7 +83,7 @@ public class PanelModule {
             float[] xs = new float[]{PanelScreen.x + PanelScreen.secondStart + 5, PanelScreen.x + PanelScreen.secondStart + 5 + offset + 5, PanelScreen.x + PanelScreen.secondStart + 5 + (offset + 5) * 2};
             float totalHeight = 0.0f;
             for (final PanelInner panelInner : panelInners) {
-                if (!PanelScreen.searchingString.equals("") && !doesPanelInnerContain(panelInner, PanelScreen.searchingString)){
+                if (!PanelScreen.searchingString.equals("") && !doesPanelInnerContain(panelInner, PanelScreen.searchingString)) {
                     continue;
                 }
                 final TreeMap<Float, Float> floatFloatTreeMap = new TreeMap<>();
@@ -96,7 +96,7 @@ public class PanelModule {
                 panelInner.scroll = scroll;
                 floats[j] += panelInner.height + 5;
                 panelInner.render(mouseX, mouseY);
-                if (panelInner.y + panelInner.height > totalHeight){
+                if (panelInner.y + panelInner.height > totalHeight) {
                     totalHeight = panelInner.y + panelInner.height;
                 }
             }
@@ -110,7 +110,7 @@ public class PanelModule {
         }
     }
 
-    protected boolean doesPanelInnerContain(final PanelInner panelInner, final String string){
+    protected boolean doesPanelInnerContain(final PanelInner panelInner, final String string) {
         return panelInner.panelSettings.stream().anyMatch(panelSetting -> panelSetting.getSetting().getName().toLowerCase().contains(string.toLowerCase()));
     }
 
@@ -164,7 +164,7 @@ public class PanelModule {
             if (inside(mouseX, mouseY)) {
                 col[0] = normalizeNumber(col[0], color.getRed() / (255.0f * 1.25f), animationFactor);
                 col[1] = normalizeNumber(col[1], color.getGreen() / (255.0f * 1.25f), animationFactor);
-                col[2] = normalizeNumber(col[2], color.getBlue() /( 255.0f * 1.25f), animationFactor);
+                col[2] = normalizeNumber(col[2], color.getBlue() / (255.0f * 1.25f), animationFactor);
 
             } else {
                 col[0] = normalizeNumber(col[0], color.getRed() / 255.0f, animationFactor);

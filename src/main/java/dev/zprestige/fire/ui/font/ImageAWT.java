@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 @SuppressWarnings("unused")
 @SideOnly(value = Side.CLIENT)
-public class ImageAWT  {
+public class ImageAWT {
     private final Minecraft mc = Main.mc;
     private static final ArrayList<ImageAWT> activeFontRenderers = new ArrayList<>();
     private static int gcTicks = 0;
@@ -112,10 +112,10 @@ public class ImageAWT  {
         float height = ch.height;
         float srcX = ch.x;
         float srcY = ch.y;
-        float renderX = srcX / (float)textureWidth;
-        float renderY = srcY / (float)textureHeight;
-        float renderWidth = width / (float)textureWidth;
-        float renderHeight = height / (float)textureHeight;
+        float renderX = srcX / (float) textureWidth;
+        float renderY = srcY / (float) textureHeight;
+        float renderWidth = width / (float) textureWidth;
+        float renderHeight = height / (float) textureHeight;
         GL11.glTexCoord2f(renderX, renderY);
         GL11.glVertex2f(x, (float) 0.0);
         GL11.glTexCoord2f(renderX, renderY + renderHeight);
@@ -161,7 +161,7 @@ public class ImageAWT  {
 
         textureHeight = charY + rowHeight;
         BufferedImage bufferedImage = new BufferedImage(textureWidth, textureHeight, 2);
-        Graphics2D graphics2D = (Graphics2D)bufferedImage.getGraphics();
+        Graphics2D graphics2D = (Graphics2D) bufferedImage.getGraphics();
         graphics2D.setFont(font);
         graphics2D.setColor(new Color(255, 255, 255, 0));
         graphics2D.fillRect(0, 0, textureWidth, textureHeight);
@@ -192,7 +192,7 @@ public class ImageAWT  {
             charHeight = font.getSize();
 
         BufferedImage fontImage = new BufferedImage(charWidth, charHeight, 2);
-        Graphics2D graphics = (Graphics2D)fontImage.getGraphics();
+        Graphics2D graphics = (Graphics2D) fontImage.getGraphics();
         graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         graphics.setFont(font);
         graphics.setColor(Color.WHITE);

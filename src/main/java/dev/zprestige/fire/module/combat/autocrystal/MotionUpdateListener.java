@@ -1,22 +1,23 @@
 package dev.zprestige.fire.module.combat.autocrystal;
 
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.bus.Stage;
+import dev.zprestige.fire.event.impl.MotionUpdateEvent;
 import dev.zprestige.fire.manager.playermanager.PlayerManager;
 import dev.zprestige.fire.module.misc.automine.AutoMine;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.Stage;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.init.Items;
 
-public class MotionUpdateListener extends EventListener<dev.zprestige.fire.newbus.events.MotionUpdateEvent, AutoCrystal> {
+public class MotionUpdateListener extends EventListener<MotionUpdateEvent, AutoCrystal> {
 
-    public MotionUpdateListener(final AutoCrystal autoCrystal){
-        super(dev.zprestige.fire.newbus.events.MotionUpdateEvent.class, autoCrystal);
+    public MotionUpdateListener(final AutoCrystal autoCrystal) {
+        super(MotionUpdateEvent.class, autoCrystal);
     }
 
     @Override
     public void invoke(final Object object) {
-        final dev.zprestige.fire.newbus.events.MotionUpdateEvent event = (dev.zprestige.fire.newbus.events.MotionUpdateEvent) object;
+        final MotionUpdateEvent event = (MotionUpdateEvent) object;
         if (event.getStage().equals(Stage.Pre)) {
             if (!module.multiTask.GetSwitch() && mc.player.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE) && mc.gameSettings.keyBindUseItem.isKeyDown()) {
                 return;

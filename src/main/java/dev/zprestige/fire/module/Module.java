@@ -1,8 +1,8 @@
 package dev.zprestige.fire.module;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.ModuleToggleEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.ModuleToggleEvent;
 import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.settings.impl.Key;
 import dev.zprestige.fire.settings.impl.Switch;
@@ -45,19 +45,19 @@ public class Module {
     }
 
     public void toggleModule() {
-        if (isEnabled()){
+        if (isEnabled()) {
             disableModule();
         } else {
             enableModule();
         }
     }
 
-    protected void postEnableEvent(){
+    protected void postEnableEvent() {
         final ModuleToggleEvent.Enable moduleToggleEvent = new ModuleToggleEvent.Enable(this);
         Main.newBus.invokeEvent(moduleToggleEvent);
     }
 
-    protected void postDisableEvent(){
+    protected void postDisableEvent() {
         final ModuleToggleEvent.Disable moduleToggleEvent = new ModuleToggleEvent.Disable(this);
         Main.newBus.invokeEvent(moduleToggleEvent);
     }
@@ -86,7 +86,7 @@ public class Module {
         this.keybind.setValue(keybind);
     }
 
-    public Key getKeySetting(){
+    public Key getKeySetting() {
         return keybind;
     }
 
@@ -94,14 +94,14 @@ public class Module {
         return description;
     }
 
-    public Module withSuper(String name, Category category){
+    public Module withSuper(String name, Category category) {
         this.name = name;
         this.category = category;
         return this;
     }
 
-    public void updateListPosition(){
-        if (isEnabled()){
+    public void updateListPosition() {
+        if (isEnabled()) {
             listX = AnimationUtil.decreaseNumber(listX, 0, listX / 10);
         } else {
             listX = AnimationUtil.increaseNumber(listX, stringWidth(), (stringWidth() - listX) / 10);
@@ -120,24 +120,24 @@ public class Module {
         return settings;
     }
 
-    public String getData(){
+    public String getData() {
         return "";
     }
 
-    public float stringWidth(){
+    public float stringWidth() {
         final String name = getName();
-        if (getData().equals("")){
+        if (getData().equals("")) {
             return Main.fontManager.getStringWidth(name);
         } else {
-            return Main.fontManager.getStringWidth(name + "[" + getData() +"]");
+            return Main.fontManager.getStringWidth(name + "[" + getData() + "]");
         }
     }
 
-    public boolean getDrawn(){
+    public boolean getDrawn() {
         return drawn.GetSwitch();
     }
 
-    public void toggleDrawn(){
+    public void toggleDrawn() {
         drawn.setValue(!drawn.GetSwitch());
     }
 }

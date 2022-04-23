@@ -2,9 +2,9 @@ package dev.zprestige.fire.mixins.impl;
 
 import com.mojang.authlib.GameProfile;
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.newbus.Stage;
-import dev.zprestige.fire.newbus.events.MotionUpdateEvent;
-import dev.zprestige.fire.newbus.events.MoveEvent;
+import dev.zprestige.fire.event.bus.Stage;
+import dev.zprestige.fire.event.impl.MotionUpdateEvent;
+import dev.zprestige.fire.event.impl.MoveEvent;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.MoverType;

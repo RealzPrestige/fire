@@ -1,6 +1,6 @@
 package dev.zprestige.fire.module.visual.crosshair;
 
-import dev.zprestige.fire.newbus.EventListener;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.client.gui.ScaledResolution;
@@ -12,7 +12,7 @@ public class Frame2DListener extends EventListener<Frame2DListener, Crosshair> {
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         final ScaledResolution scaledResolution = new ScaledResolution(mc);
         final float centerX = scaledResolution.getScaledWidth() / 2.0f, centerY = scaledResolution.getScaledHeight() / 2.0f;
         final float l = module.length.GetSlider();

@@ -26,7 +26,7 @@ public class Notifications extends HudComponent {
         setPosition(new Vector2D(scaledResolution.getScaledWidth() - 120, position.getY()));
         float deltaY = position.getY();
         for (final Notification notification : new ArrayList<>(notifications)) {
-            if (notification.finished || notification.pos.getX() < 600){
+            if (notification.finished || notification.pos.getX() < 600) {
                 notifications.remove(notification);
                 continue;
             }
@@ -123,7 +123,7 @@ public class Notifications extends HudComponent {
                     }
                     if (!updating) {
                         height = AnimationUtil.decreaseNumber(height, 0.0f, height / division);
-                        if (height < 1.0f){
+                        if (height < 1.0f) {
                             finished = true;
                         }
                     }

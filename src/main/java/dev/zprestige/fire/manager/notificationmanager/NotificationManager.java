@@ -1,18 +1,16 @@
 package dev.zprestige.fire.manager.notificationmanager;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.RegisteredClass;
-import dev.zprestige.fire.events.eventbus.annotation.RegisterListener;
-import dev.zprestige.fire.newbus.EventListener;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.ui.hudeditor.components.impl.Notifications;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 
-public class NotificationManager  {
+public class NotificationManager {
     protected final Minecraft mc = Main.mc;
     protected final Notifications notifications = getNotificationsComponent();
 
-    public NotificationManager(){
+    public NotificationManager() {
         Main.newBus.registerListeners(new EventListener[]{
                 new ModuleDisableListener(),
                 new ModuleEnableListener()

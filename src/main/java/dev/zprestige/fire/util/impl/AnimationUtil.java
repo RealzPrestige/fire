@@ -21,6 +21,7 @@ public class AnimationUtil implements Utils {
             return input + delta;
         return target;
     }
+
     public static Float decreaseNumber(float input, float target, float delta) {
         if (input > target)
             return input - delta;

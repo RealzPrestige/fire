@@ -26,13 +26,13 @@ public class KeyButton extends AbstractSetting {
         final float y = position.getY() + size.getY() / 2 - Main.fontManager.getFontHeight() / 2;
         final String text = typing ? " " + getTypingIcon() : setting.GetKey() == -1 ? "None" : Keyboard.getKeyName(setting.GetKey());
         Main.fontManager.drawStringWithShadow(setting.getName(), new Vector2D(position.getX() + 2, y), -1);
-        if (setting.isHold()){
+        if (setting.isHold()) {
             RenderUtil.prepareScale(0.6);
             Main.fontManager.drawStringWithShadow("(hold)", new Vector2D((position.getX() + Main.fontManager.getStringWidth(setting.getName()) + 4) / 0.6f, (position.getY() + size.getY() / 2) / 0.6f), Color.GRAY.getRGB());
             RenderUtil.releaseScale();
         }
         Main.fontManager.drawStringWithShadow(text, new Vector2D(position.getX() + size.getX() - Main.fontManager.getStringWidth(text) - 2, y), Color.GRAY.getRGB());
-        if (inside(mouseX, mouseY)){
+        if (inside(mouseX, mouseY)) {
             RenderUtil.drawRect(position, new Vector2D(position.getX() + size.getX(), position.getY() + size.getY()), new Color(0, 0, 0, 50).getRGB());
         }
     }
@@ -42,7 +42,7 @@ public class KeyButton extends AbstractSetting {
         if (inside(mouseX, mouseY) && state == 0) {
             typing = !typing;
         }
-        if (inside(mouseX, mouseY) && state == 1){
+        if (inside(mouseX, mouseY) && state == 1) {
             setting.setHold(!setting.isHold());
         }
     }
@@ -64,6 +64,7 @@ public class KeyButton extends AbstractSetting {
     public float getHeight() {
         return size.getY();
     }
+
     public String getTypingIcon() {
         if (timer.getTime(1000)) {
             timer.syncTime();

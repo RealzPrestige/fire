@@ -1,10 +1,10 @@
 package dev.zprestige.fire.module.combat.holefiller;
 
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.TickEvent;
 import dev.zprestige.fire.manager.holemanager.HoleManager;
 import dev.zprestige.fire.manager.playermanager.PlayerManager;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.TickEvent;
 import dev.zprestige.fire.util.impl.BlockUtil;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.init.Items;
@@ -14,12 +14,12 @@ import java.util.ArrayList;
 
 public class TickListener extends EventListener<TickEvent, HoleFiller> {
 
-    public TickListener(final HoleFiller holeFiller){
+    public TickListener(final HoleFiller holeFiller) {
         super(TickEvent.class, holeFiller);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         final int slot = module.slot();
         if (slot == -1 || (!module.whileMoving.GetSwitch() && EntityUtil.isMoving()) || (module.selfSafe.GetSwitch() && !BlockUtil.isPlayerSafe(new PlayerManager.Player(mc.player))) || (!module.multiTask.GetSwitch() && mc.player.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE) && mc.gameSettings.keyBindUseItem.isKeyDown())) {
             return;
@@ -28,11 +28,11 @@ public class TickListener extends EventListener<TickEvent, HoleFiller> {
             case "Normal":
                 int bpt = 0;
                 for (final HoleManager.HolePos pos : Main.holeManager.getHoles()) {
-                    if (pos.isDouble() && !module.doubles.GetSwitch()){
+                    if (pos.isDouble() && !module.doubles.GetSwitch()) {
                         continue;
                     }
                     final BlockPos pos1 = pos.getPos();
-                    if (bpt <= module.blocksPerTick.GetSlider() && module.inRange(pos1) &&module. checkRotations()) {
+                    if (bpt <= module.blocksPerTick.GetSlider() && module.inRange(pos1) && module.checkRotations()) {
                         module.placeBlock(pos1, slot);
                         if (module.timing.GetCombo().equals("Normal")) {
                             return;

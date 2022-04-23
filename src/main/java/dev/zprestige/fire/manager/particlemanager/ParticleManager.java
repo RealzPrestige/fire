@@ -1,9 +1,8 @@
 package dev.zprestige.fire.manager.particlemanager;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.RegisteredClass;
+import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.client.panel.Panel;
-import dev.zprestige.fire.newbus.EventListener;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -12,7 +11,7 @@ import net.minecraft.util.math.MathHelper;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ParticleManager  {
+public class ParticleManager {
     protected final Panel PANEL = (Panel) Main.moduleManager.getModuleByClass(Panel.class);
     protected final Minecraft mc = Main.mc;
     protected final ArrayList<Particle> particles = new ArrayList<>();

@@ -1,8 +1,8 @@
 package dev.zprestige.fire.module.client.holemanager;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.FrameEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.FrameEvent;
 
 public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, HoleManager> {
 

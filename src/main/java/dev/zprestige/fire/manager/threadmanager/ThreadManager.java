@@ -1,7 +1,6 @@
 package dev.zprestige.fire.manager.threadmanager;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.RegisteredClass;
 import net.minecraft.client.Minecraft;
 
 import java.util.concurrent.ExecutorService;

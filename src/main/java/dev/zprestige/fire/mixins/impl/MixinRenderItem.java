@@ -1,8 +1,8 @@
 package dev.zprestige.fire.mixins.impl;
 
 import dev.zprestige.fire.Main;
+import dev.zprestige.fire.event.impl.RenderItemEvent;
 import dev.zprestige.fire.module.visual.viewmodel.ViewModel;
-import dev.zprestige.fire.newbus.events.RenderItemEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.IBakedModel;

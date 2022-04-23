@@ -1,20 +1,20 @@
 package dev.zprestige.fire.module.movement.speed;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.TickEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.TickEvent;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TickListener extends EventListener<TickEvent, Speed> {
 
-    public TickListener(final Speed speed){
+    public TickListener(final Speed speed) {
         super(TickEvent.class, speed);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         module.previousDistance = Math.sqrt((mc.player.posX - mc.player.prevPosX) * (mc.player.posX - mc.player.prevPosX) + (mc.player.posZ - mc.player.prevPosZ) * (mc.player.posZ - mc.player.prevPosZ));
         if (module.useTimer.GetSwitch()) {
             Main.tickManager.setTimer(module.timerAmount.GetSlider());

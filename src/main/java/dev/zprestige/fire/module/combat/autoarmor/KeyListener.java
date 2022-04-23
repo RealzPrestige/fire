@@ -1,11 +1,11 @@
 package dev.zprestige.fire.module.combat.autoarmor;
 
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.KeyEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.KeyEvent;
 
 public class KeyListener extends EventListener<KeyEvent, AutoArmor> {
 
-    public KeyListener(final AutoArmor autoArmor){
+    public KeyListener(final AutoArmor autoArmor) {
         super(KeyEvent.class, autoArmor);
     }
 
@@ -16,7 +16,7 @@ public class KeyListener extends EventListener<KeyEvent, AutoArmor> {
             module.takingOff = !module.takingOff;
         }
         if (event.getKey() == module.elytraSwap.GetKey()) {
-            module.elytra = !module.elytra ;
+            module.elytra = !module.elytra;
         }
     }
 }

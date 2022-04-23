@@ -1,7 +1,6 @@
 package dev.zprestige.fire.ui.menu.panel.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.settings.impl.ComboBox;
 import dev.zprestige.fire.ui.menu.panel.PanelSetting;
 import dev.zprestige.fire.util.impl.RenderUtil;

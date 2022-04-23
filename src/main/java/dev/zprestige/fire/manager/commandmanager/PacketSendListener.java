@@ -3,8 +3,8 @@ package dev.zprestige.fire.manager.commandmanager;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.command.Command;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.PacketEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.PacketEvent;
 import net.minecraft.network.play.client.CPacketChatMessage;
 
 import java.util.ArrayList;
@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 public class PacketSendListener extends EventListener<PacketEvent.PacketSendEvent, Object> {
 
-    public PacketSendListener(){
+    public PacketSendListener() {
         super(PacketEvent.PacketSendEvent.class);
     }
 
     @Override
-    public void invoke(final Object object){
+    public void invoke(final Object object) {
         final PacketEvent.PacketSendEvent event = (PacketEvent.PacketSendEvent) object;
         if (mc.world != null && mc.player != null && event.getPacket() instanceof CPacketChatMessage) {
             final CPacketChatMessage packet = (CPacketChatMessage) event.getPacket();

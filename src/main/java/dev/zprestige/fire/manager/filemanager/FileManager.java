@@ -23,22 +23,22 @@ public class FileManager {
         }
     }
 
-    public void closeBufferedReader(final BufferedReader bufferedReader){
+    public void closeBufferedReader(final BufferedReader bufferedReader) {
         try {
             bufferedReader.close();
         } catch (IOException ignored) {
         }
     }
 
-    public BufferedWriter createBufferedWriter(File file){
+    public BufferedWriter createBufferedWriter(File file) {
         try {
-            return  new BufferedWriter(new FileWriter(file));
+            return new BufferedWriter(new FileWriter(file));
         } catch (IOException e) {
             return null;
         }
     }
 
-    public void closeBufferedWriter(final BufferedWriter bufferedWriter){
+    public void closeBufferedWriter(final BufferedWriter bufferedWriter) {
         try {
             bufferedWriter.close();
         } catch (IOException ignored) {

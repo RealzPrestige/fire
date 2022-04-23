@@ -2,12 +2,12 @@ package dev.zprestige.fire.module.client.notifications;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.newbus.EventListener;
-import dev.zprestige.fire.newbus.events.ModuleToggleEvent;
+import dev.zprestige.fire.event.bus.EventListener;
+import dev.zprestige.fire.event.impl.ModuleToggleEvent;
 
 public class ModuleDisableListener extends EventListener<ModuleToggleEvent.Disable, Notifications> {
 
-    public ModuleDisableListener(final Notifications notifications){
+    public ModuleDisableListener(final Notifications notifications) {
         super(ModuleToggleEvent.Disable.class, notifications);
     }
 
