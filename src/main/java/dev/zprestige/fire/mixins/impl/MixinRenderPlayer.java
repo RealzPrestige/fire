@@ -16,13 +16,11 @@ public abstract class MixinRenderPlayer {
     @Inject(method = "doRender*", at = @At("HEAD"))
     public void rotateBegin(final AbstractClientPlayer entity, final double x, final double y, final double z, final float entityYaw, final float partialTicks, final CallbackInfo callbackInfo) {
         if (Main.moduleManager.getModuleByClass(RotationRender.class).isEnabled() && entity.equals(Main.mc.player)) {
-
             prevRenderHeadYaw = entity.prevRotationYawHead;
             prevRenderPitch = entity.prevRotationPitch;
             renderPitch = entity.rotationPitch;
             renderYaw = entity.rotationYaw;
             renderHeadYaw = entity.rotationYawHead;
-
             entity.rotationPitch = RotationRender.pitch;
             entity.prevRotationPitch = lastRenderPitch;
             entity.rotationYaw = RotationRender.yaw;
