@@ -5,6 +5,6 @@ import dev.zprestige.fire.event.bus.Stage;
 
 public class ParticleEvent extends Event {
     public ParticleEvent() {
-        super(Stage.None, false);
+        super(Stage.None, true);
     }
 }
