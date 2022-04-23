@@ -16,7 +16,7 @@ public class Fps extends HudComponent {
 
     public Fps() {
         super("Fps", new Vector2D(0, 20), new Vector2D(Main.fontManager.getStringWidth("Fps 100"), Main.fontManager.getFontHeight()));
-        Main.newBus.registerListeners(new EventListener[]{
+        Main.eventBus.registerListeners(new EventListener[]{
                 new TickListener(this)
         });
     }

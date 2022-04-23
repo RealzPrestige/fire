@@ -17,7 +17,7 @@ public class MixinNetworkManager {
     @Inject(method = "sendPacket(Lnet/minecraft/network/Packet;)V", at = @At("HEAD"), cancellable = true)
     public void onSendPacket(final Packet<?> packet, final CallbackInfo callbackInfo) {
         final PacketEvent.PacketSendEvent event = new PacketEvent.PacketSendEvent(packet);
-        Main.newBus.invokeEvent(event);
+        Main.eventBus.invokeEvent(event);
         if (event.isCancelled()) {
             callbackInfo.cancel();
         } else if (event.getPacket() instanceof CPacketPlayer.Rotation || event.getPacket() instanceof CPacketPlayer.PositionRotation) {
@@ -30,7 +30,7 @@ public class MixinNetworkManager {
     @Inject(method = "channelRead0*", at = @At("HEAD"), cancellable = true)
     public void onPacketReceive(final ChannelHandlerContext channelHandlerContext, final Packet<?> packet, final CallbackInfo callbackInfo) {
         final PacketEvent.PacketReceiveEvent event = new PacketEvent.PacketReceiveEvent(packet);
-        Main.newBus.invokeEvent(event);
+        Main.eventBus.invokeEvent(event);
         if (event.isCancelled()) {
             callbackInfo.cancel();
         }

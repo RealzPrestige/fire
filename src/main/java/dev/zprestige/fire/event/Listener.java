@@ -24,7 +24,7 @@ public class Listener {
 
     public Listener() {
         MinecraftForge.EVENT_BUS.register(this);
-        Main.newBus.registerListeners(new EventListener[]{
+        Main.eventBus.registerListeners(new EventListener[]{
                 new PacketReceiveListener()
         });
     }
@@ -33,7 +33,7 @@ public class Listener {
     public void onLivingUpdateEvent(LivingEvent.LivingUpdateEvent event) {
         if (checkNull() && event.getEntity().getEntityWorld().isRemote && event.getEntityLiving().equals(mc.player)) {
             final TickEvent tickEvent = new TickEvent();
-            Main.newBus.invokeEvent(tickEvent);
+            Main.eventBus.invokeEvent(tickEvent);
             if (mc.currentScreen == null) {
                 Main.moduleManager.getModules().stream().filter(module -> module.getKeySetting().isHold()).forEach(module -> {
                     final boolean down = Keyboard.isKeyDown(module.getKeybind());
@@ -51,7 +51,7 @@ public class Listener {
         profiler.startSection("fire");
         if (checkNull()) {
             final FrameEvent.FrameEvent3D frameEvent3D = new FrameEvent.FrameEvent3D(event.getPartialTicks());
-            Main.newBus.invokeEvent(frameEvent3D);
+            Main.eventBus.invokeEvent(frameEvent3D);
         }
         profiler.endSection();
     }
@@ -60,14 +60,14 @@ public class Listener {
     public void onRenderGameOverlayTextEvent(RenderGameOverlayEvent.Text event) {
         if (checkNull()) {
             final FrameEvent.FrameEvent2D frameEvent2D = new FrameEvent.FrameEvent2D(event.getPartialTicks());
-            Main.newBus.invokeEvent(frameEvent2D);
+            Main.eventBus.invokeEvent(frameEvent2D);
         }
     }
 
     @SubscribeEvent
     public void onFogColor(final EntityViewRenderEvent.FogColors event) {
         final FogEvent fogEvent = new FogEvent(event);
-        Main.newBus.invokeEvent(fogEvent);
+        Main.eventBus.invokeEvent(fogEvent);
         event.setRed(fogEvent.getFogColors().getRed());
         event.setGreen(fogEvent.getFogColors().getGreen());
         event.setBlue(fogEvent.getFogColors().getBlue());
@@ -76,7 +76,7 @@ public class Listener {
     @SubscribeEvent
     public void onDensity(final EntityViewRenderEvent.FogDensity event) {
         final FogDensityEvent fogDensityEvent = new FogDensityEvent(event.getDensity());
-        Main.newBus.invokeEvent(fogDensityEvent);
+        Main.eventBus.invokeEvent(fogDensityEvent);
         event.setCanceled(true);
         event.setDensity(fogDensityEvent.getDensity());
     }
@@ -84,26 +84,26 @@ public class Listener {
     @SubscribeEvent
     public void onClientConnect(FMLNetworkEvent.ClientConnectedToServerEvent ignoredEvent) {
         final ConnectionEvent.Join connectionEventJoin = new ConnectionEvent.Join();
-        Main.newBus.invokeEvent(connectionEventJoin);
+        Main.eventBus.invokeEvent(connectionEventJoin);
     }
 
     @SubscribeEvent
     public void onDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent ignoredEvent) {
         final ConnectionEvent.Disconnect connectionEventDisconnect = new ConnectionEvent.Disconnect();
-        Main.newBus.invokeEvent(connectionEventDisconnect);
+        Main.eventBus.invokeEvent(connectionEventDisconnect);
     }
 
     @SubscribeEvent
     public void onDeath(LivingDeathEvent event) {
         final DeathEvent deathEvent = new DeathEvent(event.getEntity());
-        Main.newBus.invokeEvent(deathEvent);
+        Main.eventBus.invokeEvent(deathEvent);
     }
 
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (checkNull() && Keyboard.getEventKeyState()) {
             final KeyEvent keyEvent = new KeyEvent(Keyboard.getEventKey());
-            Main.newBus.invokeEvent(keyEvent);
+            Main.eventBus.invokeEvent(keyEvent);
             Main.moduleManager.getModules().stream().filter(module -> module.getKeybind() == Keyboard.getEventKey()).forEach(Module::toggleModule);
         }
     }
@@ -112,7 +112,7 @@ public class Listener {
     public void onRenderGameOverlay(final RenderGameOverlayEvent event) {
         if (checkNull()) {
             final RenderOverlayEvent renderOverlayEvent = new RenderOverlayEvent(event.getType());
-            Main.newBus.invokeEvent(renderOverlayEvent);
+            Main.eventBus.invokeEvent(renderOverlayEvent);
             if (renderOverlayEvent.isCancelled()) {
                 event.setCanceled(true);
             }
@@ -122,13 +122,13 @@ public class Listener {
     @SubscribeEvent
     public void onInputUpdate(InputUpdateEvent event) {
         final ItemInputUpdateEvent itemInputUpdateEvent = new ItemInputUpdateEvent(event.getMovementInput());
-        Main.newBus.invokeEvent(itemInputUpdateEvent);
+        Main.eventBus.invokeEvent(itemInputUpdateEvent);
     }
 
     @SubscribeEvent
     public void onLivingEntityUseItem(final LivingEntityUseItemEvent event) {
         final EntityUseItemEvent entityUseItemEvent = new EntityUseItemEvent();
-        Main.newBus.invokeEvent(entityUseItemEvent);
+        Main.eventBus.invokeEvent(entityUseItemEvent);
     }
 
     public boolean checkNull() {

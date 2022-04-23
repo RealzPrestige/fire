@@ -11,7 +11,7 @@ public class NotificationManager {
     protected final Notifications notifications = getNotificationsComponent();
 
     public NotificationManager() {
-        Main.newBus.registerListeners(new EventListener[]{
+        Main.eventBus.registerListeners(new EventListener[]{
                 new ModuleDisableListener(),
                 new ModuleEnableListener()
         });

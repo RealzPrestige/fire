@@ -42,7 +42,7 @@ public class Main {
     public static final String name = "Fire";
     public static final String version = "0.1";
     public static Minecraft mc;
-    public static EventBus newBus;
+    public static EventBus eventBus;
     public static ThreadManager threadManager;
     public static Listener listener;
     public static FileManager fileManager;
@@ -71,7 +71,7 @@ public class Main {
     public void init(FMLInitializationEvent ignoredEvent) {
         Display.setTitle(name + " " + version);
         mc = Minecraft.getMinecraft();
-        newBus = new EventBus();
+        eventBus = new EventBus();
         threadManager = new ThreadManager();
         listener = new Listener();
         fileManager = new FileManager();

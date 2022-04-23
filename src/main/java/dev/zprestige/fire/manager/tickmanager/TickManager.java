@@ -9,7 +9,7 @@ public class TickManager {
     protected float timer = 1.0f;
 
     public TickManager() {
-        Main.newBus.registerListeners(new EventListener[]{
+        Main.eventBus.registerListeners(new EventListener[]{
                 new TickListener()
         });
     }

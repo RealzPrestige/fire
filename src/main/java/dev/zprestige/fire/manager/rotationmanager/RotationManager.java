@@ -18,7 +18,7 @@ public class RotationManager {
     protected int max;
 
     public RotationManager() {
-        Main.newBus.registerListeners(new EventListener[]{
+        Main.eventBus.registerListeners(new EventListener[]{
                 new Frame3DListener(),
                 new PacketSendListener()
         });

@@ -14,7 +14,7 @@ public class HudManager {
 
     public HudManager() {
         hudComponents = ClassFinder.hudComponentArrayList();
-        Main.newBus.registerListeners(new EventListener[]{
+        Main.eventBus.registerListeners(new EventListener[]{
                 new Frame2DListener()
         });
     }

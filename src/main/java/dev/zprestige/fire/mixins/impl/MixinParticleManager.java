@@ -15,7 +15,7 @@ public class MixinParticleManager {
     @Inject(method = "addEffect", at = @At("HEAD"), cancellable = true)
     public void addEffect(final Particle particle, final CallbackInfo callbackInfo) {
         final ParticleEvent event = new ParticleEvent();
-        Main.newBus.invokeEvent(event);
+        Main.eventBus.invokeEvent(event);
         if (event.isCancelled()) {
             callbackInfo.cancel();
         }

@@ -18,7 +18,7 @@ public class MotionPredictionManager {
     protected ArrayList<Player> players = new ArrayList<>();
 
     public MotionPredictionManager() {
-        Main.newBus.registerListeners(new EventListener[]{
+        Main.eventBus.registerListeners(new EventListener[]{
                 new TickListener()
         });
     }

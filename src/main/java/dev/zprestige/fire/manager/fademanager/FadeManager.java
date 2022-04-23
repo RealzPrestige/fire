@@ -13,7 +13,7 @@ public class FadeManager {
     protected final HashMap<FadePosition, Float> fadePositions = new HashMap<>();
 
     public FadeManager() {
-        Main.newBus.registerListeners(new EventListener[]{
+        Main.eventBus.registerListeners(new EventListener[]{
                 new Frame3DListener()
         });
     }

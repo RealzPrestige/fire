@@ -15,7 +15,7 @@ public class PlayerManager {
     protected List<Player> players = new ArrayList<>();
 
     public PlayerManager() {
-        Main.newBus.registerListeners(new EventListener[]{
+        Main.eventBus.registerListeners(new EventListener[]{
                 new TickListener()
         });
     }

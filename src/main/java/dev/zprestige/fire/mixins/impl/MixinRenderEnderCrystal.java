@@ -22,7 +22,7 @@ public class MixinRenderEnderCrystal {
     @Redirect(method = "doRender(Lnet/minecraft/entity/item/EntityEnderCrystal;DDDFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelBase;render(Lnet/minecraft/entity/Entity;FFFFFF)V"))
     public void doRender(final ModelBase modelBase, Entity entity, final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float netHeadYaw, final float headPitch, final float scale) {
         final RenderCrystalEvent renderCrystalEvent = new RenderCrystalEvent(modelBase, entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        Main.newBus.invokeEvent(renderCrystalEvent);
+        Main.eventBus.invokeEvent(renderCrystalEvent);
         if (!renderCrystalEvent.isCancelled()) {
             modelEnderCrystalNoBase.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         }

@@ -30,9 +30,9 @@ public class MixinRenderItem {
     public void renderItem(final ItemStack itemStack, final EntityLivingBase entityLivingBase, final ItemCameraTransforms.TransformType transformType, final boolean leftHanded, final CallbackInfo callbackInfo) {
         if (transformType.equals(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND) || transformType.equals(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND)) {
             if (transformType.equals(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND)) {
-                Main.newBus.invokeEvent(new RenderItemEvent.Offhand(itemStack, entityLivingBase));
+                Main.eventBus.invokeEvent(new RenderItemEvent.Offhand(itemStack, entityLivingBase));
             } else {
-                Main.newBus.invokeEvent(new RenderItemEvent.MainHand(itemStack, entityLivingBase));
+                Main.eventBus.invokeEvent(new RenderItemEvent.MainHand(itemStack, entityLivingBase));
             }
         }
     }

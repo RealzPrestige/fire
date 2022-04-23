@@ -31,14 +31,14 @@ public class Module {
     }
 
     public void enableModule() {
-        Main.newBus.registerListeners(eventListeners);
+        Main.eventBus.registerListeners(eventListeners);
         postEnableEvent();
         setEnabled(true);
         onEnable();
     }
 
     public void disableModule() {
-        Main.newBus.unregisterListeners(eventListeners);
+        Main.eventBus.unregisterListeners(eventListeners);
         postDisableEvent();
         setEnabled(false);
         onDisable();
@@ -54,12 +54,12 @@ public class Module {
 
     protected void postEnableEvent() {
         final ModuleToggleEvent.Enable moduleToggleEvent = new ModuleToggleEvent.Enable(this);
-        Main.newBus.invokeEvent(moduleToggleEvent);
+        Main.eventBus.invokeEvent(moduleToggleEvent);
     }
 
     protected void postDisableEvent() {
         final ModuleToggleEvent.Disable moduleToggleEvent = new ModuleToggleEvent.Disable(this);
-        Main.newBus.invokeEvent(moduleToggleEvent);
+        Main.eventBus.invokeEvent(moduleToggleEvent);
     }
 
     public boolean isEnabled() {

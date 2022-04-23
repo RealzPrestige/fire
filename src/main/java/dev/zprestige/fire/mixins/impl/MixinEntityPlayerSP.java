@@ -30,14 +30,14 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
     @SuppressWarnings("NullableProblems")
     public void move(final MoverType type, final double x, final double y, final double z) {
         final MoveEvent event = new MoveEvent(type, x, y, z);
-        Main.newBus.invokeEvent(event);
+        Main.eventBus.invokeEvent(event);
         super.move(type, event.getMotionX(), event.getMotionY(), event.getMotionZ());
     }
 
     @Inject(method = "move", at = @At("HEAD"), cancellable = true)
     public void move(final MoverType type, final double x, final double y, final double z, final CallbackInfo callbackInfo) {
         final MoveEvent event = new MoveEvent(type, x, y, z);
-        Main.newBus.invokeEvent(event);
+        Main.eventBus.invokeEvent(event);
         if (event.getMotionX() != x || event.getMotionY() != y || event.getMotionZ() != z) {
             super.move(type, event.getMotionX(), event.getMotionY(), event.getMotionZ());
             callbackInfo.cancel();
@@ -47,7 +47,7 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
     @Inject(method = "onUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;onUpdateWalkingPlayer()V", shift = At.Shift.BEFORE))
     public void onUpdate(final CallbackInfo callbackInfo) {
         motionUpdateEvent = new MotionUpdateEvent(Stage.Pre, this.posX, this.getEntityBoundingBox().minY, this.posZ, this.rotationYaw, this.rotationPitch, this.onGround);
-        Main.newBus.invokeEvent(motionUpdateEvent);
+        Main.eventBus.invokeEvent(motionUpdateEvent);
         posX = motionUpdateEvent.getX();
         posY = motionUpdateEvent.getY();
         posZ = motionUpdateEvent.getZ();
@@ -113,7 +113,7 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
     public void onUpdateWalkingPlayerReturn(final CallbackInfo callbackInfo) {
         final MotionUpdateEvent event = new MotionUpdateEvent(Stage.Post, motionUpdateEvent);
         event.setCancelled();
-        Main.newBus.invokeEvent(event);
+        Main.eventBus.invokeEvent(event);
     }
 
 

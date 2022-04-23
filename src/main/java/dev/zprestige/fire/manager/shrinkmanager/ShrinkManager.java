@@ -14,7 +14,7 @@ public class ShrinkManager {
     protected final HashMap<ShrinkPosition, Float> shrinkPositions = new HashMap<>();
 
     public ShrinkManager() {
-        Main.newBus.registerListeners(new EventListener[]{
+        Main.eventBus.registerListeners(new EventListener[]{
                 new Frame3DListener()
         });
     }

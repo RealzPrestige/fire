@@ -22,7 +22,7 @@ public class PacketReceiveListener extends EventListener<PacketEvent, Object> {
             final Entity entity = packet.getEntity(mc.world);
             if (entity instanceof EntityPlayer && packet.getOpCode() == 35) {
                 final TotemPopEvent totemPopEvent = new TotemPopEvent((EntityPlayer) entity);
-                Main.newBus.invokeEvent(totemPopEvent);
+                Main.eventBus.invokeEvent(totemPopEvent);
             }
         }
     }

@@ -15,7 +15,7 @@ public class CommandManager {
 
     public CommandManager() {
         commands = ClassFinder.commandArrayList();
-        Main.newBus.registerListeners(new EventListener[]{
+        Main.eventBus.registerListeners(new EventListener[]{
                 new PacketSendListener()
         });
     }
