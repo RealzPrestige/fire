@@ -13,6 +13,6 @@ public class ModuleDisableListener extends EventListener<ModuleToggleEvent.Disab
     @Override
     public void invoke(final Object object) {
         final ModuleToggleEvent.Disable event = (ModuleToggleEvent.Disable) object;
-        Main.notificationManager.addNotifications(event.getModule().getName() + " has been toggled On.");
+        Main.notificationManager.addNotifications(event.getModule().getName() + " has been toggled Off.");
     }
 }
