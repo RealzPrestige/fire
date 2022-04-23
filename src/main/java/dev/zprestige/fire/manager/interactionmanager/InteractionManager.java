@@ -245,21 +245,27 @@ public class InteractionManager {
         if (slot != -1) {
             final int currentItem = mc.player.inventory.currentItem;
             Main.inventoryManager.switchToSlot(slot);
-            Objects.requireNonNull(mc.getConnection()).sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, enumFacing));
+            if (mc.player.connection != null) {
+                mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, enumFacing));
+            }
             Main.inventoryManager.switchBack(currentItem);
         }
     }
 
     public void initiateBreaking(final BlockPos pos, final EnumFacing enumFacing, final boolean swing) {
-        mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, pos, enumFacing));
-        mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, enumFacing));
+        if (mc.player.connection != null) {
+            mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, pos, enumFacing));
+            mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, enumFacing));
+        }
         if (swing) {
             mc.player.swingArm(EnumHand.MAIN_HAND);
         }
     }
 
     public void abort(final BlockPos pos, final EnumFacing enumFacing) {
-        mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, pos, enumFacing));
+        if (mc.player.connection != null) {
+            mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, pos, enumFacing));
+        }
         mc.playerController.isHittingBlock = false;
         mc.playerController.curBlockDamageMP = 0.0f;
         mc.world.sendBlockBreakProgress(mc.player.getEntityId(), pos, -1);

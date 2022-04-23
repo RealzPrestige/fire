@@ -18,7 +18,6 @@ public class Crosshair extends Module {
 
     public Crosshair() {
         eventListeners = new EventListener[]{
-                new Frame2DListener(this),
                 new RenderOverlayListener(this)
         };
     }

@@ -29,9 +29,6 @@ public class MotionUpdateListener extends EventListener<MotionUpdateEvent, AutoC
                 if (module.predictMotion.GetSwitch()) {
                     player.getEntityPlayer().setPosition(next[0], next[1], next[2]);
                 }
-                if (!module.destroyLoot.GetSwitch()) {
-                    return;
-                }
                 if (module.autoMineTargetPrefer.GetSwitch()) {
                     final PlayerManager.Player autoMineTarget = ((AutoMine) Main.moduleManager.getModuleByClass(AutoMine.class)).getTarget();
                     if (autoMineTarget != null) {

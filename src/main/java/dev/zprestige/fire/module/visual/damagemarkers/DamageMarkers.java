@@ -55,7 +55,7 @@ public class DamageMarkers extends Module {
 
         public void render() {
             final Vec3d i = RenderUtil.interpolateEntity(entity);
-            RenderUtil.draw3DText(damage + "", i.x + randX, i.y + y + randY, i.z + randZ, scale, color.getRed(), color.getGreen(), color.getBlue(), (float) alpha);
+            RenderUtil.draw3DText(damage + "", i.x + randX, i.y + y + randY, i.z + randZ, scale / 1000, color.getRed(), color.getGreen(), color.getBlue(), (float) alpha);
         }
 
         public void setAlpha(double alpha) {
