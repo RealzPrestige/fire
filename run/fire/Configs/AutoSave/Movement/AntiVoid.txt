@@ -1,0 +1,7 @@
+"Keybind": "0:false"
+"Enabled": "true"
+"Drawn": "true"
+"Place Block": "false"
+"Packet": "true"
+"Rotate": "true"
+"Strict": "true"

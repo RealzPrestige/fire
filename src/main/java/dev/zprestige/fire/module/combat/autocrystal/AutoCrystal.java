@@ -110,7 +110,6 @@ public class AutoCrystal extends Module {
     public final Switch onePointThirteen = Menu.Switch("One Point Thirteen", false).panel("Other");
     public final Switch explodeAntiWeakness = Menu.Switch("Explode Anti Weakness", false).panel("Other");
     public final Switch autoMineTargetPrefer = Menu.Switch("Auto Mine Target Prefer", false).panel("Other");
-    public final Switch destroyLoot = Menu.Switch("Destroy Loot", false).panel("Other");
     public final Switch multiTask = Menu.Switch("MultiTask", true).panel("Other");
     public final Switch autoSwitch = Menu.Switch("Auto Switch", true).panel("Other");
 
@@ -510,7 +509,7 @@ public class AutoCrystal extends Module {
     }
 
     protected boolean facePlace(final PlayerManager.Player player) {
-        return player.getHealth() < facePlaceHealth.GetSlider() || Keyboard.isKeyDown(facePlaceForceKey.GetKey());
+        return player.getHealth() < facePlaceHealth.GetSlider() || (facePlaceForceKey.GetKey() != -1 && Keyboard.isKeyDown(facePlaceForceKey.GetKey()));
     }
 
     protected EntityUtil.TargetPriority targetPriority(final String string) {
