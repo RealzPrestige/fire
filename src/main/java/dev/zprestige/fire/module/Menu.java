@@ -13,11 +13,11 @@ public class Menu {
         this.module = module;
     }
 
-    protected void addSetting(Setting setting) {
+    protected void addSetting(Setting<?> setting) {
         module.settings.add(setting);
     }
 
-    protected void setModule(Setting setting) {
+    protected void setModule(Setting<?> setting) {
         setting.setModule(module);
     }
 

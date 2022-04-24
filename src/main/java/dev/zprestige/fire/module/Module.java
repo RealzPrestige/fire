@@ -137,7 +137,4 @@ public class Module {
         return drawn.GetSwitch();
     }
 
-    public void toggleDrawn() {
-        drawn.setValue(!drawn.GetSwitch());
-    }
 }
