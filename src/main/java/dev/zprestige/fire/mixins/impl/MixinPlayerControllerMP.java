@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = PlayerControllerMP.class)
+@Mixin(PlayerControllerMP.class)
 public class MixinPlayerControllerMP {
     @Inject(method = "clickBlock", at = @At("HEAD"), cancellable = true)
     public void onClickBlock(final BlockPos pos, final EnumFacing facing, final CallbackInfoReturnable<Boolean> callbackInfoReturnable) {

@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
 
-@Mixin(value = RenderItem.class)
+@Mixin(RenderItem.class)
 public class MixinRenderItem {
     protected final Minecraft mc = Main.mc;
 

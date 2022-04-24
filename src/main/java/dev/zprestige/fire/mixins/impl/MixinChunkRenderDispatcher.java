@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = ChunkRenderDispatcher.class)
+@Mixin(ChunkRenderDispatcher.class)
 public class MixinChunkRenderDispatcher {
     @Inject(method = "getNextChunkUpdate", at = @At("HEAD"))
     protected void limitChunkUpdates(final CallbackInfoReturnable<ChunkCompileTaskGenerator> cir) throws InterruptedException {

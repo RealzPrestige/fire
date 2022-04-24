@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = ParticleManager.class)
+@Mixin(ParticleManager.class)
 public class MixinParticleManager {
 
     @Inject(method = "addEffect", at = @At("HEAD"), cancellable = true)
