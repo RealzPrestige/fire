@@ -8,6 +8,7 @@ import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
 import dev.zprestige.fire.ui.panel.PanelScreen;
+import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 
@@ -24,6 +25,7 @@ public class ClickGui extends Module {
         eventListeners = new EventListener[]{
                 new TickListener(this)
         };
+        setKeybind(Keyboard.KEY_RSHIFT);
     }
 
     @Override
