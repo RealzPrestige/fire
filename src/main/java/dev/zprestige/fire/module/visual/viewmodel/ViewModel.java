@@ -39,10 +39,10 @@ public class ViewModel extends Module {
     public final Slider offhandScaleY = Menu.Slider("Offhand Scale Y", 0.0f, -10.0f, 10.0f).visibility(z -> offhand.GetSwitch() && offhandScaling.GetSwitch()).panel("Offhand");
     public final Slider offhandScaleZ = Menu.Slider("Offhand Scale Z", 0.0f, -10.0f, 10.0f).visibility(z -> offhand.GetSwitch() && offhandScaling.GetSwitch()).panel("Offhand");
     public final Switch offhandRotation = Menu.Switch("Offhand Rotation", false).panel("Offhand").visibility(z -> offhand.GetSwitch());
+    public final Switch animateYRotation = Menu.Switch("Animate Y Rotation", false).visibility(z -> offhand.GetSwitch() && offhandRotation.GetSwitch()).panel("Offhand");
     public final Slider offhandRotationX = Menu.Slider("Offhand Rotation X", 0.0f, 0.0f, 10.0f).visibility(z -> offhand.GetSwitch() && offhandRotation.GetSwitch()).panel("Offhand");
     public final Slider offhandRotationY = Menu.Slider("Offhand Rotation Y", 0.0f, 0.0f, 10.0f).visibility(z -> offhand.GetSwitch() && offhandRotation.GetSwitch()).panel("Offhand");
     public final Slider offhandRotationZ = Menu.Slider("Offhand Rotation Z", 0.0f, 0.0f, 10.0f).visibility(z -> offhand.GetSwitch() && offhandRotation.GetSwitch()).panel("Offhand");
-
     public ViewModel() {
         eventListeners = new EventListener[]{
                 new Frame3DListener(this),

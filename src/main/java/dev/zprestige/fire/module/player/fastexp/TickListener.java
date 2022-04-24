@@ -23,7 +23,7 @@ public class TickListener extends EventListener<TickEvent, FastExp> {
         if (mc.currentScreen == null) {
             switch (module.mode.GetCombo()) {
                 case "Vanilla":
-                    if (module.handOnly.GetSwitch() && !mc.player.getHeldItemMainhand().getItem().equals(Items.EXPERIENCE_BOTTLE)) {
+                    if (!mc.player.getHeldItemMainhand().getItem().equals(Items.EXPERIENCE_BOTTLE)) {
                         return;
                     }
                     mc.rightClickDelayTimer = 0;

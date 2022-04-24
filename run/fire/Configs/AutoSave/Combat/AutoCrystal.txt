@@ -37,7 +37,6 @@
 "One Point Thirteen": "false"
 "Explode Anti Weakness": "false"
 "Auto Mine Target Prefer": "false"
-"Destroy Loot": "false"
 "MultiTask": "true"
 "Auto Switch": "true"
 "Pyro Mode": "true"

@@ -71,7 +71,10 @@ public class PanelInner {
                     RenderUtil.prepareScissor((int) panelSetting.x - 1, (int) deltaY, (int) panelSetting.width + 1, (int) (deltaY + panelSetting.getHeight()));
                     scissored = true;
                 }
-                panelSetting.render(mouseX, mouseY);
+                try {
+                    panelSetting.render(mouseX, mouseY);
+                } catch (Exception ignored){
+                }
                 if (scissored) {
                     RenderUtil.releaseScissor();
                 }

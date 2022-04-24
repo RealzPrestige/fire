@@ -1,0 +1,6 @@
+"Keybind": "34:false"
+"Enabled": "true"
+"Drawn": "true"
+"Timer": "10.0"
+"Force": "13.5"
+"Attempts": "1.0"

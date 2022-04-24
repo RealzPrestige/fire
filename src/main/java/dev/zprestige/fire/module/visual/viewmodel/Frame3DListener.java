@@ -15,5 +15,11 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, View
             mc.player.renderArmYaw -= (mc.player.rotationYaw - mc.player.renderArmYaw) * 0.5f;
             mc.player.renderArmPitch -= (mc.player.rotationPitch - mc.player.renderArmPitch) * 0.5f;
         }
+        if (module.animateYRotation.GetSwitch()){
+            module.offhandRotationY.setValue(module.offhandRotationY.GetSlider() + 0.01f);
+            if (module.offhandRotationY.GetSlider() >= module.offhandRotationY.getMax()){
+                module.offhandRotationY.setValue(0.0f);
+            }
+        }
     }
 }

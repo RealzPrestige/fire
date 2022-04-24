@@ -42,7 +42,7 @@ public class FontRenderer {
             return 0;
         }
         if (dropShadow)
-            drawText(text, x + 0.4f, currY + 0.3f, new Color(0, 0, 0, 150).getRGB(), true);
+            drawText(text, x + 1.0f, currY + 1.0f, new Color(0, 0, 0, 255).getRGB(), true);
         return drawText(text, x, currY, color, false);
     }
 
@@ -75,9 +75,5 @@ public class FontRenderer {
 
     public int getStringWidth(String text) {
         return defaultFont.getStringWidth(text) / 2;
-    }
-
-    public ImageAWT getDefaultFont() {
-        return defaultFont;
     }
 }
