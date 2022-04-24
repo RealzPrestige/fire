@@ -1,14 +1,12 @@
 package dev.zprestige.fire.module.visual.chams;
 
 import dev.zprestige.fire.event.bus.EventListener;
-import dev.zprestige.fire.event.impl.RenderLivingBaseEvent;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.ColorBox;
 import dev.zprestige.fire.settings.impl.Slider;
 import dev.zprestige.fire.settings.impl.Switch;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderLiving;
 
 import java.awt.*;
 

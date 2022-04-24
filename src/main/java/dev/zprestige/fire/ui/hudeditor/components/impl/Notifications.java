@@ -75,7 +75,7 @@ public class Notifications extends HudComponent {
         }
 
         public void render() {
-            RenderUtil.drawRect(x, y, x + 120, y + 30, new Color(((ClickGui) Main.moduleManager.getModuleByClass(ClickGui.class)).color.GetColor().getRed(), ((ClickGui) Main.moduleManager.getModuleByClass(ClickGui.class)).color.GetColor().getGreen(), ((ClickGui) Main.moduleManager.getModuleByClass(ClickGui.class)).color.GetColor().getBlue(), (int) Math.max(Math.min(255, alpha), 0)).getRGB());
+            RenderUtil.drawRect(x, y, x + 120, y + 30, new Color(0, 0, 0, (int) Math.max(Math.min(255, alpha), 0)).getRGB());
             final String[] words = text.split(" ");
             float deltaX = 2.0f;
             float deltaY = 2.0f;
@@ -89,17 +89,16 @@ public class Notifications extends HudComponent {
 
             }
             RenderUtil.drawOutline(x, y, x + 120, y + 30, new Color(0, 0, 0, (int) Math.max(Math.min(255, alpha), 0) / 10), 1.0f);
-            RenderUtil.drawRect(x + 1, y + 28, x + lineWidth, y + 29, ((ClickGui) Main.moduleManager.getModuleByClass(ClickGui.class)).color.GetColor().getRGB());
         }
 
         public void update(final int division) {
             if (!end) {
                 boolean updating = false;
-                if (alpha < ((ClickGui) Main.moduleManager.getModuleByClass(ClickGui.class)).color.GetColor().getAlpha() - 2) {
-                    alpha = AnimationUtil.increaseNumber(alpha, ((ClickGui) Main.moduleManager.getModuleByClass(ClickGui.class)).color.GetColor().getAlpha(), (((ClickGui) Main.moduleManager.getModuleByClass(ClickGui.class)).color.GetColor().getAlpha() - alpha) / division);
+                if (alpha < 48) {
+                    alpha = AnimationUtil.increaseNumber(alpha, 50, (50 - alpha) / division);
                     updating = true;
                 } else {
-                    alpha = ((ClickGui) Main.moduleManager.getModuleByClass(ClickGui.class)).color.GetColor().getAlpha();
+                    alpha = 50;
                 }
                 if (x > scaledResolution.getScaledWidth() - 121) {
                     x = x - (x - (scaledResolution.getScaledWidth() - 123)) / division;

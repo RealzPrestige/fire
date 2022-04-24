@@ -245,7 +245,7 @@ public class InteractionManager {
         if (slot != -1) {
             final int currentItem = mc.player.inventory.currentItem;
             Main.inventoryManager.switchToSlot(slot);
-            if (mc.player.connection != null) {
+            if (mc.player != null && mc.player.connection != null) {
                 mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, enumFacing));
             }
             Main.inventoryManager.switchBack(currentItem);
