@@ -7,10 +7,10 @@ Description: Rendering screen
 java.util.ConcurrentModificationException
 	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:911)
 	at java.util.ArrayList$Itr.next(ArrayList.java:861)
-	at dev.zprestige.fire.ui.menu.panel.panels.impl.PanelConfigs.render(PanelConfigs.java:42)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$4(PanelScreen.java:124)
+	at PanelConfigs.render(PanelConfigs.java:42)
+	at PanelScreen.lambda$drawScreen$4(PanelScreen.java:124)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:124)
+	at PanelScreen.drawScreen(PanelScreen.java:124)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
@@ -38,15 +38,15 @@ Thread: Client thread
 Stacktrace:
 	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:911)
 	at java.util.ArrayList$Itr.next(ArrayList.java:861)
-	at dev.zprestige.fire.ui.menu.panel.panels.impl.PanelConfigs.render(PanelConfigs.java:42)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$4(PanelScreen.java:124)
+	at PanelConfigs.render(PanelConfigs.java:42)
+	at PanelScreen.lambda$drawScreen$4(PanelScreen.java:124)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:124)
+	at PanelScreen.drawScreen(PanelScreen.java:124)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 
 -- Screen render details --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 	Mouse location: Scaled: (497, 174). Absolute: (995, 731)
 	Screen size: Scaled: (960, 540). Absolute: (1920, 1080). Scale factor of 2
 

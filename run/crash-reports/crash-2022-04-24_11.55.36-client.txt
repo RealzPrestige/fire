@@ -2048,7 +2048,7 @@ Stacktrace:
 
 -- Screen render details --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 	Mouse location: Scaled: (337, 201). Absolute: (675, 677)
 	Screen size: Scaled: (960, 540). Absolute: (1920, 1080). Scale factor of 2
 Stacktrace:

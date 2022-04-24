@@ -4,17 +4,17 @@
 Time: 4/8/22 1:30 PM
 Description: Updating screen events
 
-java.lang.BootstrapMethodError: java.lang.NoSuchMethodError: dev.zprestige.fire.ui.menu.panel.PanelSetting.isVisible()Z
-	at dev.zprestige.fire.ui.menu.panel.PanelInner.click(PanelInner.java:68)
-	at dev.zprestige.fire.ui.menu.panel.PanelModule.lambda$click$2(PanelModule.java:88)
+java.lang.BootstrapMethodError: java.lang.NoSuchMethodError: PanelSetting.isVisible()Z
+	at PanelInner.click(PanelInner.java:68)
+	at PanelModule.lambda$click$2(PanelModule.java:88)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelModule.click(PanelModule.java:88)
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.lambda$click$0(PanelCategory.java:60)
+	at PanelModule.click(PanelModule.java:88)
+	at PanelCategory.lambda$click$0(PanelCategory.java:60)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.click(PanelCategory.java:60)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$mouseClicked$4(PanelScreen.java:113)
+	at PanelCategory.click(PanelCategory.java:60)
+	at PanelScreen.lambda$mouseClicked$4(PanelScreen.java:113)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.mouseClicked(PanelScreen.java:113)
+	at PanelScreen.mouseClicked(PanelScreen.java:113)
 	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:611)
 	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:576)
 	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1886)
@@ -33,7 +33,7 @@ java.lang.BootstrapMethodError: java.lang.NoSuchMethodError: dev.zprestige.fire.
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
 	at GradleStart.main(GradleStart.java:25)
-Caused by: java.lang.NoSuchMethodError: dev.zprestige.fire.ui.menu.panel.PanelSetting.isVisible()Z
+Caused by: java.lang.NoSuchMethodError: PanelSetting.isVisible()Z
 	at java.lang.invoke.MethodHandleNatives.resolve(Native Method)
 	at java.lang.invoke.MemberName$Factory.resolve(MemberName.java:975)
 	at java.lang.invoke.MemberName$Factory.resolveOrFail(MemberName.java:1000)
@@ -49,22 +49,22 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at dev.zprestige.fire.ui.menu.panel.PanelInner.click(PanelInner.java:68)
-	at dev.zprestige.fire.ui.menu.panel.PanelModule.lambda$click$2(PanelModule.java:88)
+	at PanelInner.click(PanelInner.java:68)
+	at PanelModule.lambda$click$2(PanelModule.java:88)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelModule.click(PanelModule.java:88)
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.lambda$click$0(PanelCategory.java:60)
+	at PanelModule.click(PanelModule.java:88)
+	at PanelCategory.lambda$click$0(PanelCategory.java:60)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.click(PanelCategory.java:60)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$mouseClicked$4(PanelScreen.java:113)
+	at PanelCategory.click(PanelCategory.java:60)
+	at PanelScreen.lambda$mouseClicked$4(PanelScreen.java:113)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.mouseClicked(PanelScreen.java:113)
+	at PanelScreen.mouseClicked(PanelScreen.java:113)
 	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:611)
 	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:576)
 
 -- Affected screen --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 
 -- Affected level --
 Details:

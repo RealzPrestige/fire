@@ -1,12 +1,11 @@
-package dev.zprestige.fire.ui.menu.panel.impl;
+package dev.zprestige.fire.ui.panel.impl;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.settings.impl.Key;
-import dev.zprestige.fire.ui.menu.panel.PanelScreen;
-import dev.zprestige.fire.ui.menu.panel.PanelSetting;
+import dev.zprestige.fire.ui.panel.PanelScreen;
+import dev.zprestige.fire.ui.panel.PanelSetting;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import dev.zprestige.fire.util.impl.Timer;
-import dev.zprestige.fire.util.impl.Vector2D;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
@@ -31,12 +30,12 @@ public class PanelKey extends PanelSetting {
         RenderUtil.drawRoundedRect(x + width - 38, y + 2, x + width - 4, y + height - 2, 7, PanelScreen.thirdBackgroundColor);
         RenderUtil.drawRoundedRect(x + width - 37, y + 3, x + width - 5, y + height - 3, 6, PanelScreen.secondBackgroundColor);
         RenderUtil.prepareScale(0.73f);
-        Main.fontManager.drawStringWithShadow(setting.getName(), new Vector2D(x / 0.73f, (y + (height / 2f) - Main.fontManager.getFontHeight() / 2.0f) / 0.73f), new Color(col[0], col[1], col[2], 1.0f).getRGB());
+        Main.fontManager.drawStringWithShadow(setting.getName(),x / 0.73f, (y + (height / 2f) - Main.fontManager.getFontHeight() / 2.0f) / 0.73f, new Color(col[0], col[1], col[2], 1.0f).getRGB());
         if (setting.isHold()) {
-            Main.fontManager.drawStringWithShadow("(hold)", new Vector2D((x + Main.fontManager.getStringWidth(setting.getName()) * 0.73f) / 0.73f, (y + (height / 2f) - Main.fontManager.getFontHeight() / 2.0f) / 0.73f), new Color(col[0], col[1], col[2], 0.3f).getRGB());
+            Main.fontManager.drawStringWithShadow("(hold)", (x + Main.fontManager.getStringWidth(setting.getName()) * 0.73f) / 0.73f, (y + (height / 2f) - Main.fontManager.getFontHeight() / 2.0f) / 0.73f, new Color(col[0], col[1], col[2], 0.3f).getRGB());
         }
         final String string = typing ? getDots() : setting.getValue() == -1 ? "NONE" : Keyboard.getKeyName(setting.getValue());
-        Main.fontManager.drawStringWithShadow(string, new Vector2D((x + width - 21 - (typing ? Main.fontManager.getStringWidth("...") * 0.73f : Main.fontManager.getStringWidth(string) * 0.73f) / 2.0f) / 0.73f, (y + (height / 2f) - Main.fontManager.getFontHeight() / 2.0f) / 0.73f), new Color(col[0], col[1], col[2], 1.0f).getRGB());
+        Main.fontManager.drawStringWithShadow(string, (x + width - 21 - (typing ? Main.fontManager.getStringWidth("...") * 0.73f : Main.fontManager.getStringWidth(string) * 0.73f) / 2.0f) / 0.73f, (y + (height / 2f) - Main.fontManager.getFontHeight() / 2.0f) / 0.73f, new Color(col[0], col[1], col[2], 1.0f).getRGB());
         RenderUtil.releaseScale();
     }
 

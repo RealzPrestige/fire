@@ -5,10 +5,10 @@ Time: 4/7/22 7:34 PM
 Description: Updating screen events
 
 java.lang.NullPointerException: Updating screen events
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.click(PanelCategory.java:62)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$mouseClicked$4(PanelScreen.java:111)
+	at PanelCategory.click(PanelCategory.java:62)
+	at PanelScreen.lambda$mouseClicked$4(PanelScreen.java:111)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.mouseClicked(PanelScreen.java:111)
+	at PanelScreen.mouseClicked(PanelScreen.java:111)
 	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:611)
 	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:576)
 	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1886)
@@ -35,16 +35,16 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.click(PanelCategory.java:62)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$mouseClicked$4(PanelScreen.java:111)
+	at PanelCategory.click(PanelCategory.java:62)
+	at PanelScreen.lambda$mouseClicked$4(PanelScreen.java:111)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.mouseClicked(PanelScreen.java:111)
+	at PanelScreen.mouseClicked(PanelScreen.java:111)
 	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:611)
 	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:576)
 
 -- Affected screen --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 
 -- Affected level --
 Details:

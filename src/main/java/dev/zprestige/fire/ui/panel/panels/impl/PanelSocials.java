@@ -1,10 +1,9 @@
-package dev.zprestige.fire.ui.menu.panel.panels.impl;
+package dev.zprestige.fire.ui.panel.panels.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.ui.menu.panel.PanelScreen;
-import dev.zprestige.fire.ui.menu.panel.panels.PanelDrawable;
+import dev.zprestige.fire.ui.panel.PanelScreen;
+import dev.zprestige.fire.ui.panel.panels.PanelDrawable;
 import dev.zprestige.fire.util.impl.RenderUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.GlStateManager;
@@ -36,22 +35,22 @@ public class PanelSocials extends PanelDrawable {
                 final String name = networkPlayerInfo.getGameProfile().getName();
                 if (PanelScreen.searchingString.equals("") || name.toLowerCase().contains(PanelScreen.searchingString.toLowerCase())) {
                     if (Main.friendManager.isFriend(name)) {
-                        friendPlayers.add(new GuiPlayerComponent(networkPlayerInfo, new Vector2D(center + 5, friendY), new Vector2D(center - 5 + (PanelScreen.secondWidth - PanelScreen.secondEndY) / 2.0f, friendY + 25), true));
+                        friendPlayers.add(new GuiPlayerComponent(networkPlayerInfo, center + 5, friendY, center - 5 + (PanelScreen.secondWidth - PanelScreen.secondEndY) / 2.0f, friendY + 25, true));
                         friendY += 30;
                     } else {
-                        allPlayers.add(new GuiPlayerComponent(networkPlayerInfo, new Vector2D(PanelScreen.x + PanelScreen.secondStart + 5, allY), new Vector2D(center - 5, allY + 25), false));
+                        allPlayers.add(new GuiPlayerComponent(networkPlayerInfo, PanelScreen.x + PanelScreen.secondStart + 5, allY, center - 5, allY + 25, false));
                         allY += 30;
                     }
                 }
             }
             RenderUtil.prepareScissor((int) PanelScreen.x, (int) (PanelScreen.y + PanelScreen.secondStartY), (int) PanelScreen.width, (int) (PanelScreen.height - PanelScreen.secondEndY));
             if (clickingFrame) {
-                allPlayers.stream().filter(player -> player.size.getY() < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(player -> player.click(mouseX, mouseY));
-                friendPlayers.stream().filter(friendPlayer -> friendPlayer.size.getY() < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(friendPlayer -> friendPlayer.click(mouseX, mouseY));
+                allPlayers.stream().filter(player -> player.height < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(player -> player.click(mouseX, mouseY));
+                friendPlayers.stream().filter(friendPlayer -> friendPlayer.height < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(friendPlayer -> friendPlayer.click(mouseX, mouseY));
                 clickingFrame = false;
             }
-            allPlayers.stream().filter(player -> player.size.getY() < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(player -> player.render(mouseX, mouseY));
-            friendPlayers.stream().filter(friend -> friend.size.getY() < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(friendPlayer -> friendPlayer.render(mouseX, mouseY));
+            allPlayers.stream().filter(player -> player.height < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(player -> player.render(mouseX, mouseY));
+            friendPlayers.stream().filter(friend -> friend.height < PanelScreen.y + PanelScreen.height - PanelScreen.secondEndY).forEach(friendPlayer -> friendPlayer.render(mouseX, mouseY));
             RenderUtil.releaseScissor();
         }
     }
@@ -79,30 +78,32 @@ public class PanelSocials extends PanelDrawable {
 
     protected class GuiPlayerComponent {
         protected final NetworkPlayerInfo networkPlayerInfo;
-        protected Vector2D position, size;
+        protected float x, y, width, height;
         protected boolean friend;
 
-        public GuiPlayerComponent(NetworkPlayerInfo networkPlayerInfo, Vector2D position, Vector2D size, boolean friend) {
+        public GuiPlayerComponent(NetworkPlayerInfo networkPlayerInfo, float x, float y, float width, float height, boolean friend) {
             this.networkPlayerInfo = networkPlayerInfo;
-            this.position = position;
-            this.size = size;
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
             this.friend = friend;
         }
 
         public void render(int mouseX, int mouseY) {
             for (int i = 20; i <= 28; i = i + 2) {
                 final float val = ((28 - i) / 2f);
-                RenderUtil.drawRoundedRect(position.getX(), position.getY(), size.getX() + val, size.getY() + val, 10, new Color(0, 0, 0, i));
+                RenderUtil.drawRoundedRect(x, y, width + val, height + val, 10, new Color(0, 0, 0, i));
             }
-            RenderUtil.drawRoundedRect(position.getX(), position.getY(), size.getX(), size.getY(), 10, PanelScreen.thirdBackgroundColor);
-            RenderUtil.drawRoundedRect(position.getX() + 1, position.getY() + 1, size.getX() - 1, size.getY() - 1, 10, PanelScreen.secondBackgroundColor);
-            renderPlayerHead(networkPlayerInfo, (int) (position.getX() + 5.0f), (int) (position.getY() + 2.0f));
+            RenderUtil.drawRoundedRect(x, y, width, height, 10, PanelScreen.thirdBackgroundColor);
+            RenderUtil.drawRoundedRect(x + 1, y + 1, width - 1, height - 1, 10, PanelScreen.secondBackgroundColor);
+            renderPlayerHead(networkPlayerInfo, (int) (x + 5.0f), (int) (y + 2.0f));
             if (inside(mouseX, mouseY)) {
-                RenderUtil.drawRoundedRect(position.getX() + 1, position.getY() + 1, size.getX() - 1, size.getY() - 1, 10, new Color(0, 0, 0, 30));
+                RenderUtil.drawRoundedRect(x + 1, y + 1, width - 1, height - 1, 10, new Color(0, 0, 0, 30));
             }
-            Main.fontManager.drawStringWithShadow(networkPlayerInfo.getGameProfile().getName(), new Vector2D(position.getX() + 30.0f, position.getY() + 4.0f), friend ? Color.CYAN.getRGB() : -1);
+            Main.fontManager.drawStringWithShadow(networkPlayerInfo.getGameProfile().getName(), x + 30.0f, y + 4.0f, friend ? Color.CYAN.getRGB() : -1);
             RenderUtil.prepareScale(0.8);
-            Main.fontManager.drawStringWithShadow(networkPlayerInfo.getResponseTime() + "ms", new Vector2D((position.getX() + 30.0f) / 0.8f, (position.getY() + 6.0f + Main.fontManager.getFontHeight()) / 0.8f), Color.GRAY.getRGB());
+            Main.fontManager.drawStringWithShadow(networkPlayerInfo.getResponseTime() + "ms", (x + 30.0f) / 0.8f, (y + 6.0f + Main.fontManager.getFontHeight()) / 0.8f, Color.GRAY.getRGB());
             RenderUtil.releaseScale();
         }
 
@@ -119,7 +120,7 @@ public class PanelSocials extends PanelDrawable {
         }
 
         protected boolean inside(int mouseX, int mouseY) {
-            return mouseX > position.getX() && mouseX < size.getX() && mouseY > position.getY() && mouseY < size.getY();
+            return mouseX > x && mouseX < width && mouseY > y && mouseY < height;
         }
     }
 }

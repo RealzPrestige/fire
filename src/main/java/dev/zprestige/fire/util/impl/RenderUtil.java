@@ -43,34 +43,6 @@ public class RenderUtil implements Utils {
         }
     }
 
-    public static void drawLine(final float x, final float y, final float x2, final float y2, final float lineWidth, final int color) {
-        float red = (color >> 16 & 0xFF) / 255.0f;
-        float green = (color >> 8 & 0xFF) / 255.0f;
-        float blue = (color & 0xFF) / 255.0f;
-        float alpha = (color >> 24 & 0xFF) / 255.0f;
-        GlStateManager.pushMatrix();
-        GlStateManager.disableTexture2D();
-        GlStateManager.enableBlend();
-        GlStateManager.disableAlpha();
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-        GlStateManager.shadeModel(7425);
-        GL11.glLineWidth(lineWidth);
-        GL11.glEnable(2848);
-        GL11.glHint(3154, 4354);
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferbuilder = tessellator.getBuffer();
-        bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos(x, y, 0.0).color(red, green, blue, alpha).endVertex();
-        bufferbuilder.pos(x2, y2, 0.0).color(red, green, blue, alpha).endVertex();
-        tessellator.draw();
-        GlStateManager.shadeModel(7424);
-        GL11.glDisable(2848);
-        GlStateManager.disableBlend();
-        GlStateManager.enableAlpha();
-        GlStateManager.enableTexture2D();
-        GlStateManager.popMatrix();
-    }
-
     public static void drawPickerBase(int pickerX, int pickerY, int pickerWidth, int pickerHeight, float red, float green, float blue, float alpha) {
         GL11.glPushMatrix();
         glEnable(GL_BLEND);
@@ -255,7 +227,7 @@ public class RenderUtil implements Utils {
     public static void drawNametag(final String text, final double x, final double y, final double z, final double scale, final int color) {
         int textWidth = (int) (Main.fontManager.getStringWidth(text) / 2);
         prepare3D(x, y, z, scale);
-        Main.fontManager.drawStringWithShadow(text, new Vector2D(-textWidth, -(mc.fontRenderer.FONT_HEIGHT - 1)), color);
+        Main.fontManager.drawStringWithShadow(text, -textWidth, -(mc.fontRenderer.FONT_HEIGHT - 1), color);
         release3D();
     }
 
@@ -444,7 +416,7 @@ public class RenderUtil implements Utils {
         GL11.glScissor(x * scaledResolution.getScaleFactor(), (scaledResolution.getScaledHeight() - y2) * scaledResolution.getScaleFactor(), (x2 - x) * scaledResolution.getScaleFactor(), (y2 - y) * scaledResolution.getScaleFactor());
     }
 
-    public static void drawRect(Vector2D position, Vector2D size, int color) {
+    public static void drawRect(float x, float y, float width, float height, int color) {
         float alpha = (float) (color >> 24 & 0xFF) / 255.0f;
         float red = (float) (color >> 16 & 0xFF) / 255.0f;
         float green = (float) (color >> 8 & 0xFF) / 255.0f;
@@ -455,10 +427,10 @@ public class RenderUtil implements Utils {
         GlStateManager.disableTexture2D();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos(position.getX(), size.getY(), 0.0).color(red, green, blue, alpha).endVertex();
-        bufferbuilder.pos(size.getX(), size.getY(), 0.0).color(red, green, blue, alpha).endVertex();
-        bufferbuilder.pos(size.getX(), position.getY(), 0.0).color(red, green, blue, alpha).endVertex();
-        bufferbuilder.pos(position.getX(), position.getY(), 0.0).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(x, height, 0.0).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(width, height, 0.0).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(width, y, 0.0).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(x, y, 0.0).color(red, green, blue, alpha).endVertex();
         tessellator.draw();
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();

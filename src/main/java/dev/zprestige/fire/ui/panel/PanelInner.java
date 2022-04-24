@@ -1,11 +1,10 @@
-package dev.zprestige.fire.ui.menu.panel;
+package dev.zprestige.fire.ui.panel;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.settings.impl.*;
-import dev.zprestige.fire.ui.menu.panel.impl.*;
+import dev.zprestige.fire.ui.panel.impl.*;
 import dev.zprestige.fire.util.impl.RenderUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -54,7 +53,7 @@ public class PanelInner {
         }
         RenderUtil.drawRoundedRect(x, y, x + width, y + height, 10, PanelScreen.thirdBackgroundColor);
         RenderUtil.drawRoundedRect(x + 1, y + 1, x + width - 1, y + height - 1, 10, PanelScreen.secondBackgroundColor);
-        Main.fontManager.drawStringWithShadow(name, new Vector2D(x + (width / 2f) - (Main.fontManager.getStringWidth(name) / 2.0f), y + 9.0f - (Main.fontManager.getFontHeight() / 2.0f)), -1);
+        Main.fontManager.drawStringWithShadow(name,x + (width / 2f) - (Main.fontManager.getStringWidth(name) / 2.0f), y + 9.0f - (Main.fontManager.getFontHeight() / 2.0f), -1);
         RenderUtil.drawRoundedRect(x + 3, y + 16, x + width - 3, y + 17, 2, PanelScreen.thirdBackgroundColor);
         final float minY = PanelScreen.y + PanelScreen.secondStartY;
         final float maxY = PanelScreen.y + PanelScreen.secondStartY + PanelScreen.height - PanelScreen.secondStartY - PanelScreen.secondEndY - 2.0f;

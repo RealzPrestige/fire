@@ -5,7 +5,7 @@ Time: 4/7/22 7:36 PM
 Description: Rendering screen
 
 java.lang.NullPointerException: Rendering screen
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:71)
+	at PanelScreen.drawScreen(PanelScreen.java:71)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
@@ -31,12 +31,12 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:71)
+	at PanelScreen.drawScreen(PanelScreen.java:71)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 
 -- Screen render details --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 	Mouse location: Scaled: (353, 162). Absolute: (707, 755)
 	Screen size: Scaled: (960, 540). Absolute: (1920, 1080). Scale factor of 2
 

@@ -1,11 +1,10 @@
-package dev.zprestige.fire.ui.menu.panel.impl;
+package dev.zprestige.fire.ui.panel.impl;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.settings.impl.Switch;
-import dev.zprestige.fire.ui.menu.panel.PanelScreen;
-import dev.zprestige.fire.ui.menu.panel.PanelSetting;
+import dev.zprestige.fire.ui.panel.PanelScreen;
+import dev.zprestige.fire.ui.panel.PanelSetting;
 import dev.zprestige.fire.util.impl.RenderUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 
 import java.awt.*;
 
@@ -31,7 +30,7 @@ public class PanelSwitch extends PanelSetting {
         setBackgroundColor(mouseX, mouseY, PanelScreen.animationFactor() * 10);
         setEcColor(PanelScreen.animationFactor() * 10);
         RenderUtil.prepareScale(0.73f);
-        Main.fontManager.drawStringWithShadow(setting.getName(), new Vector2D(x / 0.73f, (y + (height / 2f) - Main.fontManager.getFontHeight() / 2.0f) / 0.73f), new Color(col[0], col[1], col[2], 1.0f).getRGB());
+        Main.fontManager.drawStringWithShadow(setting.getName(), x / 0.73f, (y + (height / 2f) - Main.fontManager.getFontHeight() / 2.0f) / 0.73f, new Color(col[0], col[1], col[2], 1.0f).getRGB());
         RenderUtil.releaseScale();
         for (int i = 20; i <= 27; i = i + 2) {
             final float val = ((27 - i) / 2f);

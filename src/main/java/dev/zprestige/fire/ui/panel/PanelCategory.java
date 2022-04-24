@@ -1,10 +1,9 @@
-package dev.zprestige.fire.ui.menu.panel;
+package dev.zprestige.fire.ui.panel;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.module.Category;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.util.impl.RenderUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
@@ -33,7 +32,7 @@ public class PanelCategory {
         hoverColor(mouseX, mouseY, animationFactor);
         final Color color = new Color(Math.max(0.0f, Math.min(1.0f, col[0])), Math.max(0.0f, Math.min(1.0f, col[1])), Math.max(0.0f, Math.min(1.0f, col[2])), 1.0f);
         RenderUtil.image(new ResourceLocation("textures/images/" + category.toString() + ".png"), (int) (x + 5.0f), (int) y + 3, 9, 9, color);
-        Main.fontManager.drawStringWithShadow(category.toString(), new Vector2D(x + 20, y + (height / 2f) - (Main.fontManager.getFontHeight() / 2f)), color.getRGB());
+        Main.fontManager.drawStringWithShadow(category.toString(), x + 20, y + (height / 2f) - (Main.fontManager.getFontHeight() / 2f), color.getRGB());
         alpha = normalizeNumber(alpha, PanelScreen.activeCategory != null && PanelScreen.activeCategory.equals(this) ? 1.0f : 0.0f, animationFactor * 10);
         final float startX = PanelScreen.x + PanelScreen.secondStart + 5;
         float deltaX = startX;

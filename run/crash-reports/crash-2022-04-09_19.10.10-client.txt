@@ -6,10 +6,10 @@ Description: Rendering screen
 
 java.util.ConcurrentModificationException
 	at java.util.ArrayList.forEach(ArrayList.java:1262)
-	at dev.zprestige.fire.ui.menu.panel.panels.impl.PanelHudEditor.render(PanelHudEditor.java:31)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$4(PanelScreen.java:124)
+	at PanelHudEditor.render(PanelHudEditor.java:31)
+	at PanelScreen.lambda$drawScreen$4(PanelScreen.java:124)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:124)
+	at PanelScreen.drawScreen(PanelScreen.java:124)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
@@ -36,15 +36,15 @@ A detailed walkthrough of the error, its code path and all known details is as f
 Thread: Client thread
 Stacktrace:
 	at java.util.ArrayList.forEach(ArrayList.java:1262)
-	at dev.zprestige.fire.ui.menu.panel.panels.impl.PanelHudEditor.render(PanelHudEditor.java:31)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$4(PanelScreen.java:124)
+	at PanelHudEditor.render(PanelHudEditor.java:31)
+	at PanelScreen.lambda$drawScreen$4(PanelScreen.java:124)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:124)
+	at PanelScreen.drawScreen(PanelScreen.java:124)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 
 -- Screen render details --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 	Mouse location: Scaled: (275, 348). Absolute: (550, 382)
 	Screen size: Scaled: (960, 540). Absolute: (1920, 1080). Scale factor of 2
 

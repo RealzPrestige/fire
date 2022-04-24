@@ -1,4 +1,4 @@
-package dev.zprestige.fire.ui.menu.panel;
+package dev.zprestige.fire.ui.panel;
 
 import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.settings.impl.Switch;

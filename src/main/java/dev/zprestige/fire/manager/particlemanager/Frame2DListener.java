@@ -3,7 +3,7 @@ package dev.zprestige.fire.manager.particlemanager;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.event.impl.FrameEvent;
-import dev.zprestige.fire.ui.menu.panel.PanelScreen;
+import dev.zprestige.fire.ui.panel.PanelScreen;
 import net.minecraft.client.gui.ScaledResolution;
 
 import java.util.ArrayList;

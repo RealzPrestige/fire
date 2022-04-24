@@ -1,10 +1,9 @@
-package dev.zprestige.fire.ui.menu.panel.panels.impl;
+package dev.zprestige.fire.ui.panel.panels.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.ui.menu.panel.PanelScreen;
-import dev.zprestige.fire.ui.menu.panel.panels.PanelDrawable;
+import dev.zprestige.fire.ui.panel.PanelScreen;
+import dev.zprestige.fire.ui.panel.panels.PanelDrawable;
 import dev.zprestige.fire.util.impl.RenderUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -97,7 +96,7 @@ public class PanelHudEditor extends PanelDrawable {
             }
             RenderUtil.drawRoundedRect(x, y, x + offset, y + componentHeight, 10, PanelScreen.thirdBackgroundColor);
             RenderUtil.drawRoundedRect(x + 1, y + 1, x + offset - 1, y + componentHeight - 1, 10, PanelScreen.secondBackgroundColor);
-            Main.fontManager.drawStringWithShadow(hudComponent.getName(), new Vector2D(x + 4, y + 2 + Main.fontManager.getFontHeight() / 2.0f), new Color(col[0], col[1], col[2], 1.0f).getRGB());
+            Main.fontManager.drawStringWithShadow(hudComponent.getName(), x + 4, y + 2 + Main.fontManager.getFontHeight() / 2.0f, new Color(col[0], col[1], col[2], 1.0f).getRGB());
             RenderUtil.prepareScale(0.75f);
             final String description = "Draws the " + hudComponent.getName() + " component on the screen";
             float delta = 0.0f;
@@ -108,7 +107,7 @@ public class PanelHudEditor extends PanelDrawable {
                     delta = 0.0f;
                     deltaY1 += Main.fontManager.getFontHeight() + 0.75f;
                 }
-                Main.fontManager.drawStringWithShadow(string, new Vector2D((x + 4 + delta) / 0.75f, (y + 5 + Main.fontManager.getFontHeight() * 1.5f + deltaY1) / 0.75f), new Color(1.0f, 1.0f, 1.0f, inside(mouseX, mouseY) ? 0.4f : 0.5f).getRGB());
+                Main.fontManager.drawStringWithShadow(string, (x + 4 + delta) / 0.75f, (y + 5 + Main.fontManager.getFontHeight() * 1.5f + deltaY1) / 0.75f, new Color(1.0f, 1.0f, 1.0f, inside(mouseX, mouseY) ? 0.4f : 0.5f).getRGB());
                 delta += width * 0.75f;
             }
             RenderUtil.releaseScale();

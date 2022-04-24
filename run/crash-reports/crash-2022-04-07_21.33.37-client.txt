@@ -5,14 +5,14 @@ Time: 4/7/22 9:33 PM
 Description: Rendering screen
 
 java.lang.ArrayIndexOutOfBoundsException: 3
-	at dev.zprestige.fire.ui.menu.panel.impl.PanelSwitch.setBackgroundColor(PanelSwitch.java:51)
-	at dev.zprestige.fire.ui.menu.panel.impl.PanelSwitch.render(PanelSwitch.java:30)
-	at dev.zprestige.fire.ui.menu.panel.PanelInner.render(PanelInner.java:44)
-	at dev.zprestige.fire.ui.menu.panel.PanelModule.render(PanelModule.java:72)
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.render(PanelCategory.java:51)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$3(PanelScreen.java:103)
+	at PanelSwitch.setBackgroundColor(PanelSwitch.java:51)
+	at PanelSwitch.render(PanelSwitch.java:30)
+	at PanelInner.render(PanelInner.java:44)
+	at PanelModule.render(PanelModule.java:72)
+	at PanelCategory.render(PanelCategory.java:51)
+	at PanelScreen.lambda$drawScreen$3(PanelScreen.java:103)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:103)
+	at PanelScreen.drawScreen(PanelScreen.java:103)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
@@ -38,19 +38,19 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at dev.zprestige.fire.ui.menu.panel.impl.PanelSwitch.setBackgroundColor(PanelSwitch.java:51)
-	at dev.zprestige.fire.ui.menu.panel.impl.PanelSwitch.render(PanelSwitch.java:30)
-	at dev.zprestige.fire.ui.menu.panel.PanelInner.render(PanelInner.java:44)
-	at dev.zprestige.fire.ui.menu.panel.PanelModule.render(PanelModule.java:72)
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.render(PanelCategory.java:51)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$3(PanelScreen.java:103)
+	at PanelSwitch.setBackgroundColor(PanelSwitch.java:51)
+	at PanelSwitch.render(PanelSwitch.java:30)
+	at PanelInner.render(PanelInner.java:44)
+	at PanelModule.render(PanelModule.java:72)
+	at PanelCategory.render(PanelCategory.java:51)
+	at PanelScreen.lambda$drawScreen$3(PanelScreen.java:103)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:103)
+	at PanelScreen.drawScreen(PanelScreen.java:103)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 
 -- Screen render details --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 	Mouse location: Scaled: (429, 162). Absolute: (858, 754)
 	Screen size: Scaled: (960, 540). Absolute: (1920, 1080). Scale factor of 2
 

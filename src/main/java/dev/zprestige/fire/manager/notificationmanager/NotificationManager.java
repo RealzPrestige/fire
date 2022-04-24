@@ -22,7 +22,7 @@ public class NotificationManager {
             return;
         }
         final ScaledResolution scaledResolution = new ScaledResolution(mc);
-        notifications.notifications.add(new Notifications.Notification(text, scaledResolution, notifications.getPosition().getY()));
+        notifications.notifications.add(new Notifications.Notification(text, scaledResolution, notifications.getY()));
     }
 
     protected Notifications getNotificationsComponent() {

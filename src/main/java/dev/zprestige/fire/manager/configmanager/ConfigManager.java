@@ -6,7 +6,6 @@ import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.settings.impl.*;
 import dev.zprestige.fire.ui.hudeditor.components.HudComponent;
-import dev.zprestige.fire.util.impl.Vector2D;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -179,7 +178,7 @@ public class ConfigManager {
                             }
                             if (type.equals("Position")) {
                                 final String[] pos = split[1].replace("\"", "").replace(" ", "").split(",");
-                                hudComponent.setPosition(new Vector2D(Float.parseFloat(pos[0]), Float.parseFloat(pos[1])));
+                                hudComponent.setPosition(Float.parseFloat(pos[0]), Float.parseFloat(pos[1]));
                             }
                         });
                         Main.fileManager.closeBufferedReader(bufferedReader);
@@ -227,7 +226,7 @@ public class ConfigManager {
             final File hudComponentFile = Main.fileManager.registerFileAndCreate(hudFolder + separator + hudComponent.getName() + ".txt");
             final BufferedWriter bufferedWriter = Main.fileManager.createBufferedWriter(hudComponentFile);
             Main.fileManager.writeLine(bufferedWriter, "\"Enabled\": \"" + hudComponent.isEnabled() + "\"");
-            Main.fileManager.writeLine(bufferedWriter, "\"Position\": \"" + hudComponent.getPosition().getX() + "\", \"" + hudComponent.getPosition().getY() + "\"");
+            Main.fileManager.writeLine(bufferedWriter, "\"Position\": \"" + hudComponent.getX() + "\", \"" + hudComponent.getY() + "\"");
             Main.fileManager.closeBufferedWriter(bufferedWriter);
         }
         if (!folder.equals("AutoSave")) {

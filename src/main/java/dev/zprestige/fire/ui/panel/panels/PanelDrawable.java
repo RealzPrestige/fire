@@ -1,9 +1,8 @@
-package dev.zprestige.fire.ui.menu.panel.panels;
+package dev.zprestige.fire.ui.panel.panels;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.ui.menu.panel.PanelScreen;
+import dev.zprestige.fire.ui.panel.PanelScreen;
 import dev.zprestige.fire.util.impl.RenderUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
@@ -37,7 +36,7 @@ public class PanelDrawable {
         hoverColor(mouseX, mouseY, PanelScreen.animationFactor());
         color = new Color(fixColor(col[0]), fixColor(col[1]), fixColor(col[2]), 1.0f);
         RenderUtil.image(new ResourceLocation("textures/images/" + string.toLowerCase() + ".png"), (int) (x + 5.0f), (int) y + 3, 9, 9, color);
-        Main.fontManager.drawStringWithShadow(string, new Vector2D(x + 20, y + (height / 2f) - (Main.fontManager.getFontHeight() / 2f)), color.getRGB());
+        Main.fontManager.drawStringWithShadow(string, x + 20, y + (height / 2f) - (Main.fontManager.getFontHeight() / 2f), color.getRGB());
     }
 
     protected float fixColor(final float i) {

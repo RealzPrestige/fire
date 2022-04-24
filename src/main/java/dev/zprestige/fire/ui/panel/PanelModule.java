@@ -1,10 +1,9 @@
-package dev.zprestige.fire.ui.menu.panel;
+package dev.zprestige.fire.ui.panel;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.util.impl.RenderUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
@@ -54,7 +53,7 @@ public class PanelModule {
             RenderUtil.drawRoundedRect(x, y, x + width, y + height, 10, thirdBackgroundColor);
             RenderUtil.drawRoundedRect(x + 1, y + 1, x + width - 1, y + height - 1, 10, secondBackgroundColor);
             try {
-                Main.fontManager.drawStringWithShadow(module.getName(), new Vector2D(x + 4, y + 2 + Main.fontManager.getFontHeight() / 2.0f), new Color(col[0], col[1], col[2], 1.0f).getRGB());
+                Main.fontManager.drawStringWithShadow(module.getName(), x + 4, y + 2 + Main.fontManager.getFontHeight() / 2.0f, new Color(col[0], col[1], col[2], 1.0f).getRGB());
             } catch (Exception ignored) {
             }
 
@@ -68,7 +67,7 @@ public class PanelModule {
                     delta = 0.0f;
                     deltaY1 += Main.fontManager.getFontHeight() + 0.75f;
                 }
-                Main.fontManager.drawStringWithShadow(string, new Vector2D((x + 4 + delta) / 0.75f, (y + 5 + Main.fontManager.getFontHeight() * 1.5f + deltaY1) / 0.75f), new Color(1.0f, 1.0f, 1.0f, inside(mouseX, mouseY) ? 0.4f : 0.5f).getRGB());
+                Main.fontManager.drawStringWithShadow(string, (x + 4 + delta) / 0.75f, (y + 5 + Main.fontManager.getFontHeight() * 1.5f + deltaY1) / 0.75f, new Color(1.0f, 1.0f, 1.0f, inside(mouseX, mouseY) ? 0.4f : 0.5f).getRGB());
                 delta += width * 0.75f;
             }
             RenderUtil.releaseScale();

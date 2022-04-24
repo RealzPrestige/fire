@@ -3,7 +3,6 @@ package dev.zprestige.fire.ui.hudeditor.components.impl;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.ui.hudeditor.components.HudComponent;
 import dev.zprestige.fire.util.impl.RenderUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.init.Items;
@@ -14,7 +13,7 @@ import java.awt.*;
 public class Totems extends HudComponent {
 
     public Totems() {
-        super("Totems", new Vector2D(0, 50), new Vector2D(16, 16));
+        super("Totems", 0, 50, 16, 16);
     }
 
     @Override
@@ -23,12 +22,12 @@ public class Totems extends HudComponent {
         if (totems > 0) {
             RenderUtil.prepareScale(0.8f);
             final String totemString = totems + "";
-            Main.fontManager.drawStringWithShadow(totemString, new Vector2D(((position.getX()) + (9 - (Main.fontManager.getStringWidth(totemString) / 2f))) / 0.8f, (position.getY() - 2) / 0.8f), new Color(red(totems) / 255.0f, green(totems) / 255.0f, 0.0f).getRGB());
+            Main.fontManager.drawStringWithShadow(totemString,(x + (9 - (Main.fontManager.getStringWidth(totemString) / 2f))) / 0.8f, (y - 2) / 0.8f, new Color(red(totems) / 255.0f, green(totems) / 255.0f, 0.0f).getRGB());
             RenderUtil.releaseScale();
             GlStateManager.pushMatrix();
             RenderHelper.enableGUIStandardItemLighting();
             mc.getRenderItem().zLevel = 200;
-            mc.getRenderItem().renderItemAndEffectIntoGUI(new ItemStack(Items.TOTEM_OF_UNDYING), (int) position.getX(), (int) (position.getY() + Main.fontManager.getFontHeight()));
+            mc.getRenderItem().renderItemAndEffectIntoGUI(new ItemStack(Items.TOTEM_OF_UNDYING), (int) x, (int) (y + Main.fontManager.getFontHeight()));
             mc.getRenderItem().zLevel = 0;
             RenderHelper.disableStandardItemLighting();
             GlStateManager.popMatrix();

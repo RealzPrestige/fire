@@ -6,7 +6,7 @@ Description: Updating screen events
 
 java.util.ConcurrentModificationException
 	at java.util.ArrayList.forEach(ArrayList.java:1262)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.mouseClicked(PanelScreen.java:113)
+	at PanelScreen.mouseClicked(PanelScreen.java:113)
 	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:611)
 	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:576)
 	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1886)
@@ -34,13 +34,13 @@ A detailed walkthrough of the error, its code path and all known details is as f
 Thread: Client thread
 Stacktrace:
 	at java.util.ArrayList.forEach(ArrayList.java:1262)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.mouseClicked(PanelScreen.java:113)
+	at PanelScreen.mouseClicked(PanelScreen.java:113)
 	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:611)
 	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:576)
 
 -- Affected screen --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 
 -- Affected level --
 Details:

@@ -1,12 +1,11 @@
-package dev.zprestige.fire.ui.menu.panel.panels.impl;
+package dev.zprestige.fire.ui.panel.panels.impl;
 
 import dev.zprestige.fire.Main;
-import dev.zprestige.fire.module.client.panel.Panel;
-import dev.zprestige.fire.ui.menu.panel.PanelScreen;
-import dev.zprestige.fire.ui.menu.panel.panels.PanelDrawable;
+import dev.zprestige.fire.module.client.clickgui.ClickGui;
+import dev.zprestige.fire.ui.panel.PanelScreen;
+import dev.zprestige.fire.ui.panel.panels.PanelDrawable;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import dev.zprestige.fire.util.impl.Timer;
-import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.util.ChatAllowedCharacters;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -106,9 +105,9 @@ public class PanelConfigs extends PanelDrawable {
             RenderUtil.prepareScale(0.65f);
             RenderUtil.prepareScissor((int) (PanelScreen.x + PanelScreen.secondStart + 30), (int) (PanelScreen.y + PanelScreen.secondStartY + 5), 99, 15);
             if (!searchString.equals("")) {
-                Main.fontManager.drawStringWithShadow(searchString + (searching ? getTypingIcon() : ""), new Vector2D((PanelScreen.x + PanelScreen.secondStart + 33) / 0.65f, (PanelScreen.y + PanelScreen.secondStartY + 11.5f - (Main.fontManager.getFontHeight() * 0.65f) / 2.0f) / 0.65f), new Color(1.0f, 1.0f, 1.0f, 1.0f).getRGB());
+                Main.fontManager.drawStringWithShadow(searchString + (searching ? getTypingIcon() : ""),(PanelScreen.x + PanelScreen.secondStart + 33) / 0.65f, (PanelScreen.y + PanelScreen.secondStartY + 11.5f - (Main.fontManager.getFontHeight() * 0.65f) / 2.0f) / 0.65f, new Color(1.0f, 1.0f, 1.0f, 1.0f).getRGB());
             } else {
-                Main.fontManager.drawStringWithShadow("Config" + (searching ? getTypingIcon() : getDots()), new Vector2D((PanelScreen.x + PanelScreen.secondStart + 33) / 0.65f, (PanelScreen.y + PanelScreen.secondStartY + 11.5f - (Main.fontManager.getFontHeight() * 0.65f) / 2.0f) / 0.65f), new Color(1.0f, 1.0f, 1.0f, 0.6f).getRGB());
+                Main.fontManager.drawStringWithShadow("Config" + (searching ? getTypingIcon() : getDots()), (PanelScreen.x + PanelScreen.secondStart + 33) / 0.65f, (PanelScreen.y + PanelScreen.secondStartY + 11.5f - (Main.fontManager.getFontHeight() * 0.65f) / 2.0f) / 0.65f, new Color(1.0f, 1.0f, 1.0f, 0.6f).getRGB());
             }
             RenderUtil.releaseScissor();
             RenderUtil.releaseScale();
@@ -122,8 +121,8 @@ public class PanelConfigs extends PanelDrawable {
                 RenderUtil.drawCheckMark(PanelScreen.x + PanelScreen.secondStart + PanelScreen.secondWidth - PanelScreen.secondEndY - 17, PanelScreen.y + PanelScreen.secondStartY + 6, 15, Color.WHITE.getRGB());
             }
             RenderUtil.prepareScale(0.63f);
-            Main.fontManager.drawStringWithShadow("Preserve", new Vector2D((PanelScreen.x + PanelScreen.secondStart + PanelScreen.secondWidth - PanelScreen.secondEndY - 20 - Main.fontManager.getStringWidth("Preserve") * 0.63f) / 0.63f, (PanelScreen.y + PanelScreen.secondStartY + 9) / 0.63f), -1);
-            Main.fontManager.drawStringWithShadow("Keybinds", new Vector2D((PanelScreen.x + PanelScreen.secondStart + PanelScreen.secondWidth - PanelScreen.secondEndY - 20 - Main.fontManager.getStringWidth("Keybinds") * 0.63f) / 0.63f, (PanelScreen.y + PanelScreen.secondStartY + 11 + (Main.fontManager.getFontHeight() * 0.63f)) / 0.63f), -1);
+            Main.fontManager.drawStringWithShadow("Preserve", (PanelScreen.x + PanelScreen.secondStart + PanelScreen.secondWidth - PanelScreen.secondEndY - 20 - Main.fontManager.getStringWidth("Preserve") * 0.63f) / 0.63f, (PanelScreen.y + PanelScreen.secondStartY + 9) / 0.63f, -1);
+            Main.fontManager.drawStringWithShadow("Keybinds", (PanelScreen.x + PanelScreen.secondStart + PanelScreen.secondWidth - PanelScreen.secondEndY - 20 - Main.fontManager.getStringWidth("Keybinds") * 0.63f) / 0.63f, (PanelScreen.y + PanelScreen.secondStartY + 11 + (Main.fontManager.getFontHeight() * 0.63f)) / 0.63f, -1);
             RenderUtil.releaseScale();
             create.setX(PanelScreen.x + PanelScreen.secondStart + 4);
             create.setY(PanelScreen.y + PanelScreen.secondStartY + 4);
@@ -138,7 +137,7 @@ public class PanelConfigs extends PanelDrawable {
                     @Override
                     protected void action() {
                         Main.configManager.load(activeConfig.folder, preserveKeybinds);
-                        final Panel panel = (Panel) Main.moduleManager.getModuleByClass(Panel.class);
+                        final ClickGui panel = (ClickGui) Main.moduleManager.getModuleByClass(ClickGui.class);
                         if (!panel.isEnabled()) {
                             panel.enableModule();
                         }
@@ -154,7 +153,7 @@ public class PanelConfigs extends PanelDrawable {
                         @Override
                         protected void action() {
                             Main.configManager.loadSingleCategory(file, preserveKeybinds);
-                            final Panel panel = (Panel) Main.moduleManager.getModuleByClass(Panel.class);
+                            final ClickGui panel = (ClickGui) Main.moduleManager.getModuleByClass(ClickGui.class);
                             if (!panel.isEnabled()) {
                                 panel.enableModule();
                             }
@@ -172,7 +171,7 @@ public class PanelConfigs extends PanelDrawable {
                             @Override
                             protected void action() {
                                 Main.configManager.loadSingleModule(file1, preserveKeybinds);
-                                final Panel panel = (Panel) Main.moduleManager.getModuleByClass(Panel.class);
+                                final ClickGui panel = (ClickGui) Main.moduleManager.getModuleByClass(ClickGui.class);
                                 if (!panel.isEnabled()) {
                                     panel.enableModule();
                                 }
@@ -316,7 +315,7 @@ public class PanelConfigs extends PanelDrawable {
         }
 
         public void render(int mouseX, int mouseY, float scale) {
-            Main.fontManager.drawStringWithShadow(string, new Vector2D(x, y), inside(mouseX, mouseY, scale) ? new Color(1.0f, 1.0f, 1.0f, 0.6f).getRGB() : Color.WHITE.getRGB());
+            Main.fontManager.drawStringWithShadow(string,x, y, inside(mouseX, mouseY, scale) ? new Color(1.0f, 1.0f, 1.0f, 0.6f).getRGB() : Color.WHITE.getRGB());
         }
 
         protected void action() {
@@ -392,11 +391,11 @@ public class PanelConfigs extends PanelDrawable {
             if (inside(mouseX, mouseY)) {
                 RenderUtil.drawRoundedRect(x + 1, y + 1, x + width - 1, y + height - 1, 10, new Color(0, 0, 0, 30));
             }
-            Main.fontManager.drawStringWithShadow(folder, new Vector2D(x + 2, y + 3), Main.configManager.getActiveConfig().replace("\"", "").equals(folder) ? PanelScreen.PANEL.color.GetColor().getRGB() : -1);
+            Main.fontManager.drawStringWithShadow(folder, x + 2, y + 3, Main.configManager.getActiveConfig().replace("\"", "").equals(folder) ? PanelScreen.PANEL.color.GetColor().getRGB() : -1);
             RenderUtil.prepareScale(0.63f);
             try {
                 final String string = new SimpleDateFormat("dd/MM/yyyy - hh:mm:ss").format(Files.getLastModifiedTime(Paths.get(file.toURI())).toMillis());
-                Main.fontManager.drawStringWithShadow(string, new Vector2D((x + 2) / 0.63f, (y + 3 + Main.fontManager.getFontHeight() / 0.63f) / 0.63f), new Color(1.0f, 1.0f, 1.0f, 0.6f).getRGB());
+                Main.fontManager.drawStringWithShadow(string, (x + 2) / 0.63f, (y + 3 + Main.fontManager.getFontHeight() / 0.63f) / 0.63f, new Color(1.0f, 1.0f, 1.0f, 0.6f).getRGB());
             } catch (IOException ignored) {
             }
             RenderUtil.releaseScale();
@@ -454,7 +453,7 @@ public class PanelConfigs extends PanelDrawable {
             RenderUtil.drawRoundedRect(x, y, x + width, y + height, 8, PanelScreen.thirdBackgroundColor);
             RenderUtil.drawRoundedRect(x + 1, y + 1, x + width - 1, y + height - 1, 8, PanelScreen.secondBackgroundColor);
             RenderUtil.prepareScale(0.65f);
-            Main.fontManager.drawStringWithShadow(displayString, new Vector2D((x + (width / 2f) - (Main.fontManager.getStringWidth(displayString) * 0.65f) / 2.0f) / 0.65f, (y + 7.5f - Main.fontManager.getFontHeight() / 2.0f) / 0.65f), new Color(col[0], col[1], col[2], 1.0f).getRGB());
+            Main.fontManager.drawStringWithShadow(displayString, (x + (width / 2f) - (Main.fontManager.getStringWidth(displayString) * 0.65f) / 2.0f) / 0.65f, (y + 7.5f - Main.fontManager.getFontHeight() / 2.0f) / 0.65f, new Color(col[0], col[1], col[2], 1.0f).getRGB());
             RenderUtil.releaseScale();
         }
 

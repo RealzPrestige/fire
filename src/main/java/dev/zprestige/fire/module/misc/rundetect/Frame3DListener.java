@@ -7,7 +7,6 @@ import dev.zprestige.fire.manager.playermanager.PlayerManager;
 import dev.zprestige.fire.util.impl.BlockUtil;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import dev.zprestige.fire.util.impl.RenderUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.util.math.Vec3d;
@@ -27,7 +26,7 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, RunD
         for (final EntityPlayer entityPlayer : new ArrayList<>(module.finalRunningPlayers)) {
             final Vec3d interpolatedPos = RenderUtil.interpolateEntity(entityPlayer);
             RenderUtil.prepare3D(interpolatedPos.x, interpolatedPos.y + 0.75, interpolatedPos.z, 5);
-            Main.fontManager.drawStringWithShadow(string, new Vector2D(-(width / 2f), 0), -1);
+            Main.fontManager.drawStringWithShadow(string, -(width / 2f), 0, -1);
             RenderUtil.release3D();
             if (!BlockUtil.isPlayerSafe(new PlayerManager.Player(entityPlayer)) || !entityPlayer.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE) || mc.player.getDistanceSq(EntityUtil.getPlayerPos(entityPlayer)) > module.radius.GetSlider() * module.radius.GetSlider()) {
                 module.remove(entityPlayer);

@@ -1,15 +1,14 @@
-package dev.zprestige.fire.ui.menu.panel;
+package dev.zprestige.fire.ui.panel;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.module.Category;
-import dev.zprestige.fire.module.client.panel.Panel;
-import dev.zprestige.fire.ui.menu.panel.panels.PanelDrawable;
-import dev.zprestige.fire.ui.menu.panel.panels.impl.PanelConfigs;
-import dev.zprestige.fire.ui.menu.panel.panels.impl.PanelHudEditor;
-import dev.zprestige.fire.ui.menu.panel.panels.impl.PanelSocials;
+import dev.zprestige.fire.module.client.clickgui.ClickGui;
+import dev.zprestige.fire.ui.panel.panels.PanelDrawable;
+import dev.zprestige.fire.ui.panel.panels.impl.PanelConfigs;
+import dev.zprestige.fire.ui.panel.panels.impl.PanelHudEditor;
+import dev.zprestige.fire.ui.panel.panels.impl.PanelSocials;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import dev.zprestige.fire.util.impl.Timer;
-import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -24,7 +23,7 @@ import java.util.Objects;
 
 
 public class PanelScreen extends GuiScreen {
-    public static final Panel PANEL = (Panel) Main.moduleManager.getModuleByClass(Panel.class);
+    public static final ClickGui PANEL = (ClickGui) Main.moduleManager.getModuleByClass(ClickGui.class);
     protected final ArrayList<PanelDrawable> panelDrawables = new ArrayList<>();
     public static PanelDrawable panelDrawable;
     public static PanelCategory activeCategory;
@@ -73,8 +72,8 @@ public class PanelScreen extends GuiScreen {
         RenderUtil.prepareScale(scaleFactor);
         final float x1 = (x + 37.5f - (watermarkWidth / 2.0f)) / scaleFactor;
         final float y1 = (y + 10 - (Main.fontManager.getFontHeight() / 2.0f)) / scaleFactor;
-        Main.fontManager.drawStringWithShadow(watermark, new Vector2D(x1, y1), PANEL.color.GetColor().getRGB());
-        Main.fontManager.drawStringWithShadow(version, new Vector2D(x1 + watermarkWidth1, y1), -1);
+        Main.fontManager.drawStringWithShadow(watermark, x1, y1, PANEL.color.GetColor().getRGB());
+        Main.fontManager.drawStringWithShadow(version, x1 + watermarkWidth1, y1, -1);
         RenderUtil.releaseScale();
         RenderUtil.drawRoundedRect(x + 5, y + 20, x + secondStart - 5, y + 21, 1, secondBackgroundColor);
         float target = 0;
@@ -103,9 +102,9 @@ public class PanelScreen extends GuiScreen {
         RenderUtil.prepareScale(0.91f);
         RenderUtil.prepareScissor((int) x, (int) y, (int) (secondStart + (secondWidth - secondEndY) / 2.0f + 49.0f), (int) (y + height));
         if (searchingString.equals("")) {
-            Main.fontManager.drawStringWithShadow("Search" + getDots() + (searching ? getTypingIcon() : ""), new Vector2D((x + secondStart + (secondWidth - secondEndY) / 2.0f - 47.0f) / 0.91f, ((y + 3) + (secondStartY - 3) / 2.0f - Main.fontManager.getFontHeight() / 2.0f) / 0.91f), new Color(1.0f, 1.0f, 1.0f, 0.50f).getRGB());
+            Main.fontManager.drawStringWithShadow("Search" + getDots() + (searching ? getTypingIcon() : ""), (x + secondStart + (secondWidth - secondEndY) / 2.0f - 47.0f) / 0.91f, ((y + 3) + (secondStartY - 3) / 2.0f - Main.fontManager.getFontHeight() / 2.0f) / 0.91f, new Color(1.0f, 1.0f, 1.0f, 0.50f).getRGB());
         } else {
-            Main.fontManager.drawStringWithShadow(searchingString + (searching ? getTypingIcon() : ""), new Vector2D((x + secondStart + (secondWidth - secondEndY) / 2.0f - 47.0f) / 0.91f, ((y + 3) + (secondStartY - 3) / 2.0f - Main.fontManager.getFontHeight() / 2.0f) / 0.91f), -1);
+            Main.fontManager.drawStringWithShadow(searchingString + (searching ? getTypingIcon() : ""), (x + secondStart + (secondWidth - secondEndY) / 2.0f - 47.0f) / 0.91f, ((y + 3) + (secondStartY - 3) / 2.0f - Main.fontManager.getFontHeight() / 2.0f) / 0.91f, -1);
         }
         RenderUtil.releaseScissor();
         RenderUtil.releaseScale();
@@ -179,8 +178,8 @@ public class PanelScreen extends GuiScreen {
         RenderUtil.drawRoundedRect(x + 3, y + height - secondStartY - secondEndY + 1, x + secondStart - 3, y + height - secondEndY - 1, 10, backgroundColor);
         final String name = mc.player.getName();
         RenderUtil.prepareScale(0.8);
-        Main.fontManager.drawStringWithShadow(name, new Vector2D((x + 16) / 0.8f, (y + height - secondStartY - secondEndY + 5.5f) / 0.8f), -1);
-        Main.fontManager.drawStringWithShadow(Objects.requireNonNull(mc.getConnection()).getPlayerInfo(mc.getConnection().getGameProfile().getId()).getResponseTime() + "ms", new Vector2D((x + 16) / 0.8f, (y + height - secondStartY - secondEndY + 7.5f + Main.fontManager.getFontHeight()) / 0.8f), Color.GRAY.getRGB());
+        Main.fontManager.drawStringWithShadow(name, (x + 16) / 0.8f, (y + height - secondStartY - secondEndY + 5.5f) / 0.8f, -1);
+        Main.fontManager.drawStringWithShadow(Objects.requireNonNull(mc.getConnection()).getPlayerInfo(mc.getConnection().getGameProfile().getId()).getResponseTime() + "ms",(x + 16) / 0.8f, (y + height - secondStartY - secondEndY + 7.5f + Main.fontManager.getFontHeight()) / 0.8f, Color.GRAY.getRGB());
         RenderUtil.releaseScale();
         RenderUtil.image(resourceLocation, (int) (x + 5), (int) (y + height - secondStartY - secondEndY + 7.5), 9, 9);
     }

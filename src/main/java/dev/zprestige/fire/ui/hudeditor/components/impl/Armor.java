@@ -3,7 +3,6 @@ package dev.zprestige.fire.ui.hudeditor.components.impl;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.ui.hudeditor.components.HudComponent;
 import dev.zprestige.fire.util.impl.RenderUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
@@ -13,7 +12,7 @@ import java.awt.*;
 public class Armor extends HudComponent {
 
     public Armor() {
-        super("Armor", new Vector2D(0, 40), new Vector2D(0, 0));
+        super("Armor", 0, 40, 0, 0);
     }
 
     @Override
@@ -23,12 +22,12 @@ public class Armor extends HudComponent {
             RenderUtil.prepareScale(0.7f);
             final double percent = Math.floor(getPercentage(itemStack));
             final String string = (percent + "%").replace(".0", "");
-            Main.fontManager.drawStringWithShadow(string, new Vector2D(((position.getX() + armorOffset[0]) + (12 - (Main.fontManager.getStringWidth(string) / 2f))) / 0.7f, (position.getY() - 2) / 0.7f), new Color(redByPercentage(percent) / 255.0f, greenByPercentage(percent) / 255.0f, 0.0f).getRGB());
+            Main.fontManager.drawStringWithShadow(string, ((x + armorOffset[0]) + (12 - (Main.fontManager.getStringWidth(string) / 2f))) / 0.7f, (y - 2) / 0.7f, new Color(redByPercentage(percent) / 255.0f, greenByPercentage(percent) / 255.0f, 0.0f).getRGB());
             RenderUtil.releaseScale();
             GlStateManager.pushMatrix();
             RenderHelper.enableGUIStandardItemLighting();
             mc.getRenderItem().zLevel = 200;
-            mc.getRenderItem().renderItemAndEffectIntoGUI(itemStack, (int) (position.getX() + armorOffset[0]), (int) (position.getY() + Main.fontManager.getFontHeight()));
+            mc.getRenderItem().renderItemAndEffectIntoGUI(itemStack, (int) (x + armorOffset[0]), (int) (y + Main.fontManager.getFontHeight()));
             mc.getRenderItem().zLevel = 0;
             RenderHelper.disableStandardItemLighting();
             GlStateManager.popMatrix();

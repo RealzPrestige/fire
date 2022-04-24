@@ -5,11 +5,11 @@ Time: 4/10/22 11:24 AM
 Description: Rendering screen
 
 java.lang.NullPointerException: Rendering screen
-	at dev.zprestige.fire.ui.menu.panel.panels.impl.PanelConfigs$Config.render(PanelConfigs.java:339)
-	at dev.zprestige.fire.ui.menu.panel.panels.impl.PanelConfigs.render(PanelConfigs.java:68)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$4(PanelScreen.java:123)
+	at PanelConfigs$Config.render(PanelConfigs.java:339)
+	at PanelConfigs.render(PanelConfigs.java:68)
+	at PanelScreen.lambda$drawScreen$4(PanelScreen.java:123)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:123)
+	at PanelScreen.drawScreen(PanelScreen.java:123)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
@@ -35,16 +35,16 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at dev.zprestige.fire.ui.menu.panel.panels.impl.PanelConfigs$Config.render(PanelConfigs.java:339)
-	at dev.zprestige.fire.ui.menu.panel.panels.impl.PanelConfigs.render(PanelConfigs.java:68)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$4(PanelScreen.java:123)
+	at PanelConfigs$Config.render(PanelConfigs.java:339)
+	at PanelConfigs.render(PanelConfigs.java:68)
+	at PanelScreen.lambda$drawScreen$4(PanelScreen.java:123)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:123)
+	at PanelScreen.drawScreen(PanelScreen.java:123)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 
 -- Screen render details --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 	Mouse location: Scaled: (262, 378). Absolute: (525, 322)
 	Screen size: Scaled: (960, 540). Absolute: (1920, 1080). Scale factor of 2
 

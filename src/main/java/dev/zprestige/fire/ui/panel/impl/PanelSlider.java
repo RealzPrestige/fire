@@ -1,11 +1,10 @@
-package dev.zprestige.fire.ui.menu.panel.impl;
+package dev.zprestige.fire.ui.panel.impl;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.settings.impl.Slider;
-import dev.zprestige.fire.ui.menu.panel.PanelScreen;
-import dev.zprestige.fire.ui.menu.panel.PanelSetting;
+import dev.zprestige.fire.ui.panel.PanelScreen;
+import dev.zprestige.fire.ui.panel.PanelSetting;
 import dev.zprestige.fire.util.impl.RenderUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
@@ -39,9 +38,9 @@ public class PanelSlider extends PanelSetting {
         RenderUtil.drawRoundedRect(circleX - 3.5f, y + (height) / 2f - 3.5f, circleX + 3.5f, y + (height / 2f) + 3.5f, 6, PanelScreen.thirdBackgroundColor);
         RenderUtil.drawRoundedRect(circleX - 3, y + (height) / 2f - 3, circleX + 3, y + (height) / 2f + 3, 6, new Color(PanelScreen.PANEL.color.GetColor().getRed() / 255.0f, PanelScreen.PANEL.color.GetColor().getGreen() / 255.0f, PanelScreen.PANEL.color.GetColor().getBlue() / 255.0f, 0.5f));
         RenderUtil.prepareScale(0.73f);
-        Main.fontManager.drawStringWithShadow(setting.GetSlider() + "", new Vector2D((circleX - (Main.fontManager.getStringWidth(setting.GetSlider() + "") / 2.0f) * 0.73f) / 0.73f, (y + (height / 2.0f) - (Main.fontManager.getFontHeight() / 0.73f)) / 0.73f), new Color(col[0], col[1], col[2], 1.0f).getRGB());
-        Main.fontManager.drawStringWithShadow(setting.getName() + "   " + setting.getMin(), new Vector2D(x / 0.73f, (y + (height / 2f) - Main.fontManager.getFontHeight() / 2.0f) / 0.73f), new Color(col[0], col[1], col[2], 1.0f).getRGB());
-        Main.fontManager.drawStringWithShadow(setting.getMax() + "", new Vector2D((x + this.width - (Main.fontManager.getStringWidth(setting.getMax() + "") * 0.73f)) / 0.73f, (y + (height / 2f) - Main.fontManager.getFontHeight() / 2.0f) / 0.73f), new Color(col[0], col[1], col[2], 1.0f).getRGB());
+        Main.fontManager.drawStringWithShadow(setting.GetSlider() + "", (circleX - (Main.fontManager.getStringWidth(setting.GetSlider() + "") / 2.0f) * 0.73f) / 0.73f, (y + (height / 2.0f) - (Main.fontManager.getFontHeight() / 0.73f)) / 0.73f, new Color(col[0], col[1], col[2], 1.0f).getRGB());
+        Main.fontManager.drawStringWithShadow(setting.getName() + "   " + setting.getMin(), x / 0.73f, (y + (height / 2f) - Main.fontManager.getFontHeight() / 2.0f) / 0.73f, new Color(col[0], col[1], col[2], 1.0f).getRGB());
+        Main.fontManager.drawStringWithShadow(setting.getMax() + "", (x + this.width - (Main.fontManager.getStringWidth(setting.getMax() + "") * 0.73f)) / 0.73f, (y + (height / 2f) - Main.fontManager.getFontHeight() / 2.0f) / 0.73f, new Color(col[0], col[1], col[2], 1.0f).getRGB());
         RenderUtil.releaseScale();
         lastFrameX = x;
     }

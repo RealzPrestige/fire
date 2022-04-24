@@ -6,13 +6,13 @@ Description: Rendering screen
 
 java.lang.ArrayIndexOutOfBoundsException: -1
 	at org.lwjgl.input.Keyboard.getKeyName(Keyboard.java:429)
-	at dev.zprestige.fire.ui.menu.panel.impl.PanelKey.render(PanelKey.java:36)
-	at dev.zprestige.fire.ui.menu.panel.PanelInner.render(PanelInner.java:68)
-	at dev.zprestige.fire.ui.menu.panel.PanelModule.render(PanelModule.java:89)
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.render(PanelCategory.java:51)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$3(PanelScreen.java:103)
+	at PanelKey.render(PanelKey.java:36)
+	at PanelInner.render(PanelInner.java:68)
+	at PanelModule.render(PanelModule.java:89)
+	at PanelCategory.render(PanelCategory.java:51)
+	at PanelScreen.lambda$drawScreen$3(PanelScreen.java:103)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:103)
+	at PanelScreen.drawScreen(PanelScreen.java:103)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
@@ -39,18 +39,18 @@ A detailed walkthrough of the error, its code path and all known details is as f
 Thread: Client thread
 Stacktrace:
 	at org.lwjgl.input.Keyboard.getKeyName(Keyboard.java:429)
-	at dev.zprestige.fire.ui.menu.panel.impl.PanelKey.render(PanelKey.java:36)
-	at dev.zprestige.fire.ui.menu.panel.PanelInner.render(PanelInner.java:68)
-	at dev.zprestige.fire.ui.menu.panel.PanelModule.render(PanelModule.java:89)
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.render(PanelCategory.java:51)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$3(PanelScreen.java:103)
+	at PanelKey.render(PanelKey.java:36)
+	at PanelInner.render(PanelInner.java:68)
+	at PanelModule.render(PanelModule.java:89)
+	at PanelCategory.render(PanelCategory.java:51)
+	at PanelScreen.lambda$drawScreen$3(PanelScreen.java:103)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:103)
+	at PanelScreen.drawScreen(PanelScreen.java:103)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 
 -- Screen render details --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 	Mouse location: Scaled: (481, 159). Absolute: (963, 761)
 	Screen size: Scaled: (960, 540). Absolute: (1920, 1080). Scale factor of 2
 

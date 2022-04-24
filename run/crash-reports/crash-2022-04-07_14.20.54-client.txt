@@ -5,8 +5,8 @@ Time: 4/7/22 2:20 PM
 Description: Updating screen events
 
 java.lang.NullPointerException: Updating screen events
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.getTypingText(PanelScreen.java:136)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.keyTyped(PanelScreen.java:90)
+	at PanelScreen.getTypingText(PanelScreen.java:136)
+	at PanelScreen.keyTyped(PanelScreen.java:90)
 	at net.minecraft.client.gui.GuiScreen.handleKeyboardInput(GuiScreen.java:639)
 	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:587)
 	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1886)
@@ -33,14 +33,14 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.getTypingText(PanelScreen.java:136)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.keyTyped(PanelScreen.java:90)
+	at PanelScreen.getTypingText(PanelScreen.java:136)
+	at PanelScreen.keyTyped(PanelScreen.java:90)
 	at net.minecraft.client.gui.GuiScreen.handleKeyboardInput(GuiScreen.java:639)
 	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:587)
 
 -- Affected screen --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 
 -- Affected level --
 Details:

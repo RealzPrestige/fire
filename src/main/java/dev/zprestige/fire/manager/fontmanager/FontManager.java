@@ -2,7 +2,6 @@ package dev.zprestige.fire.manager.fontmanager;
 
 import dev.zprestige.fire.module.client.customfont.CustomFont;
 import dev.zprestige.fire.ui.font.FontRenderer;
-import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.client.Minecraft;
 
 import java.awt.*;
@@ -32,18 +31,18 @@ public class FontManager {
         return mc.fontRenderer.getStringWidth(text);
     }
 
-    public void drawStringWithShadow(String text, Vector2D position, int color) {
+    public void drawStringWithShadow(String text, float x, float y, int color) {
         if (CustomFont.Instance.isEnabled()) {
-            customFont.drawStringWithShadow(text, position.getX(), position.getY(), color);
+            customFont.drawStringWithShadow(text, x, y, color);
         } else {
-            mc.fontRenderer.drawStringWithShadow(text, position.getX(), position.getY(), color);
+            mc.fontRenderer.drawStringWithShadow(text, x, y, color);
         }
     }
-    public void drawString(String text, Vector2D position, int color, boolean shadow) {
+    public void drawString(String text, float x, float y, int color, boolean shadow) {
         if (CustomFont.Instance.isEnabled()) {
-            customFont.drawString(text, position.getX(), position.getY(), color, shadow);
+            customFont.drawString(text, x, y, color, shadow);
         } else {
-            mc.fontRenderer.drawString(text, position.getX(), position.getY(), color, shadow);
+            mc.fontRenderer.drawString(text, x, y, color, shadow);
         }
     }
 

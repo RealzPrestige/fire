@@ -8,10 +8,10 @@ java.lang.IllegalArgumentException: Color parameter outside of expected range: R
 	at java.awt.Color.testColorValueRange(Color.java:310)
 	at java.awt.Color.<init>(Color.java:395)
 	at java.awt.Color.<init>(Color.java:490)
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.render(PanelCategory.java:29)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$1(PanelScreen.java:51)
+	at PanelCategory.render(PanelCategory.java:29)
+	at PanelScreen.lambda$drawScreen$1(PanelScreen.java:51)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:51)
+	at PanelScreen.drawScreen(PanelScreen.java:51)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
@@ -40,15 +40,15 @@ Stacktrace:
 	at java.awt.Color.testColorValueRange(Color.java:310)
 	at java.awt.Color.<init>(Color.java:395)
 	at java.awt.Color.<init>(Color.java:490)
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.render(PanelCategory.java:29)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$1(PanelScreen.java:51)
+	at PanelCategory.render(PanelCategory.java:29)
+	at PanelScreen.lambda$drawScreen$1(PanelScreen.java:51)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:51)
+	at PanelScreen.drawScreen(PanelScreen.java:51)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 
 -- Screen render details --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 	Mouse location: Scaled: (302, 161). Absolute: (605, 757)
 	Screen size: Scaled: (960, 540). Absolute: (1920, 1080). Scale factor of 2
 

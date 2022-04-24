@@ -4,8 +4,8 @@
 Time: 4/9/22 5:36 PM
 Description: Rendering screen
 
-java.lang.NoSuchMethodError: dev.zprestige.fire.ui.menu.panel.panels.PanelDrawable.getY()F
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:86)
+java.lang.NoSuchMethodError: PanelDrawable.getY()F
+	at PanelScreen.drawScreen(PanelScreen.java:86)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
@@ -31,12 +31,12 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Client thread
 Stacktrace:
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:86)
+	at PanelScreen.drawScreen(PanelScreen.java:86)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 
 -- Screen render details --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 	Mouse location: Scaled: (573, 504). Absolute: (1147, 71)
 	Screen size: Scaled: (960, 540). Absolute: (1920, 1080). Scale factor of 2
 

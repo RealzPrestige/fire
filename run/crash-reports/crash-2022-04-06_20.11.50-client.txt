@@ -7,7 +7,7 @@ Description: Rendering screen
 java.lang.IllegalArgumentException: Color parameter outside of expected range: Alpha
 	at java.awt.Color.testColorValueRange(Color.java:310)
 	at java.awt.Color.<init>(Color.java:395)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(Panel.java:22)
+	at PanelScreen.drawScreen(Panel.java:22)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
@@ -35,12 +35,12 @@ Thread: Client thread
 Stacktrace:
 	at java.awt.Color.testColorValueRange(Color.java:310)
 	at java.awt.Color.<init>(Color.java:395)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(Panel.java:22)
+	at PanelScreen.drawScreen(Panel.java:22)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 
 -- Screen render details --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 	Mouse location: Scaled: (651, 399). Absolute: (1303, 281)
 	Screen size: Scaled: (960, 540). Absolute: (1920, 1080). Scale factor of 2
 

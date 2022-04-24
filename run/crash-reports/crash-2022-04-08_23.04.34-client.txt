@@ -8,13 +8,13 @@ java.lang.IllegalArgumentException: Color parameter outside of expected range: B
 	at java.awt.Color.testColorValueRange(Color.java:310)
 	at java.awt.Color.<init>(Color.java:395)
 	at java.awt.Color.<init>(Color.java:490)
-	at dev.zprestige.fire.ui.menu.panel.impl.PanelSwitch.render(PanelSwitch.java:41)
-	at dev.zprestige.fire.ui.menu.panel.PanelInner.render(PanelInner.java:70)
-	at dev.zprestige.fire.ui.menu.panel.PanelModule.render(PanelModule.java:90)
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.render(PanelCategory.java:51)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$3(PanelScreen.java:102)
+	at PanelSwitch.render(PanelSwitch.java:41)
+	at PanelInner.render(PanelInner.java:70)
+	at PanelModule.render(PanelModule.java:90)
+	at PanelCategory.render(PanelCategory.java:51)
+	at PanelScreen.lambda$drawScreen$3(PanelScreen.java:102)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:102)
+	at PanelScreen.drawScreen(PanelScreen.java:102)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1177)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1209)
@@ -43,18 +43,18 @@ Stacktrace:
 	at java.awt.Color.testColorValueRange(Color.java:310)
 	at java.awt.Color.<init>(Color.java:395)
 	at java.awt.Color.<init>(Color.java:490)
-	at dev.zprestige.fire.ui.menu.panel.impl.PanelSwitch.render(PanelSwitch.java:41)
-	at dev.zprestige.fire.ui.menu.panel.PanelInner.render(PanelInner.java:70)
-	at dev.zprestige.fire.ui.menu.panel.PanelModule.render(PanelModule.java:90)
-	at dev.zprestige.fire.ui.menu.panel.PanelCategory.render(PanelCategory.java:51)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.lambda$drawScreen$3(PanelScreen.java:102)
+	at PanelSwitch.render(PanelSwitch.java:41)
+	at PanelInner.render(PanelInner.java:70)
+	at PanelModule.render(PanelModule.java:90)
+	at PanelCategory.render(PanelCategory.java:51)
+	at PanelScreen.lambda$drawScreen$3(PanelScreen.java:102)
 	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at dev.zprestige.fire.ui.menu.panel.PanelScreen.drawScreen(PanelScreen.java:102)
+	at PanelScreen.drawScreen(PanelScreen.java:102)
 	at net.minecraftforge.client.ForgeHooksClient.drawScreen(ForgeHooksClient.java:396)
 
 -- Screen render details --
 Details:
-	Screen name: dev.zprestige.fire.ui.menu.panel.PanelScreen
+	Screen name: PanelScreen
 	Mouse location: Scaled: (505, 183). Absolute: (1010, 713)
 	Screen size: Scaled: (960, 540). Absolute: (1920, 1080). Scale factor of 2
 

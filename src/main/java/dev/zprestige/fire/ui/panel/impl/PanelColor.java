@@ -1,11 +1,10 @@
-package dev.zprestige.fire.ui.menu.panel.impl;
+package dev.zprestige.fire.ui.panel.impl;
 
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.settings.impl.ColorBox;
-import dev.zprestige.fire.ui.menu.panel.PanelScreen;
-import dev.zprestige.fire.ui.menu.panel.PanelSetting;
+import dev.zprestige.fire.ui.panel.PanelScreen;
+import dev.zprestige.fire.ui.panel.PanelSetting;
 import dev.zprestige.fire.util.impl.RenderUtil;
-import dev.zprestige.fire.util.impl.Vector2D;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.input.Mouse;
 
@@ -74,7 +73,7 @@ public class PanelColor extends PanelSetting {
         }
         final float y = this.y - secondY;
         RenderUtil.prepareScale(0.73f);
-        Main.fontManager.drawStringWithShadow(setting.getName(), new Vector2D(x / 0.73f, (y + 7.5f - Main.fontManager.getFontHeight() / 2.0f) / 0.73f), new Color(col[0], col[1], col[2], 1.0f).getRGB());
+        Main.fontManager.drawStringWithShadow(setting.getName(), x / 0.73f, (y + 7.5f - Main.fontManager.getFontHeight() / 2.0f) / 0.73f, new Color(col[0], col[1], col[2], 1.0f).getRGB());
         RenderUtil.releaseScale();
         RenderUtil.drawRoundedRect(x + width - 12, y + 3, x + width - 3, y + 12, 6, PanelScreen.thirdBackgroundColor);
         RenderUtil.drawRoundedRect(x + width - 11, y + 4, x + width - 4, y + 11, 6, PanelScreen.secondBackgroundColor);
@@ -200,7 +199,7 @@ public class PanelColor extends PanelSetting {
             RenderUtil.drawRoundedRect(x, y, x + width, y + height, 8, PanelScreen.thirdBackgroundColor);
             RenderUtil.drawRoundedRect(x + 1, y + 1, x + width - 1, y + height - 1, 8, PanelScreen.secondBackgroundColor);
             RenderUtil.prepareScale(0.65f);
-            Main.fontManager.drawStringWithShadow(displayString, new Vector2D((x + (width / 2f) - (Main.fontManager.getStringWidth(displayString) * 0.65f) / 2.0f) / 0.65f, (y + 7.5f - Main.fontManager.getFontHeight() / 2.0f) / 0.65f), new Color(col[0], col[1], col[2], 1.0f).getRGB());
+            Main.fontManager.drawStringWithShadow(displayString, (x + (width / 2f) - (Main.fontManager.getStringWidth(displayString) * 0.65f) / 2.0f) / 0.65f, (y + 7.5f - Main.fontManager.getFontHeight() / 2.0f) / 0.65f, new Color(col[0], col[1], col[2], 1.0f).getRGB());
             RenderUtil.releaseScale();
         }
 
@@ -312,10 +311,10 @@ public class PanelColor extends PanelSetting {
                     scissored = true;
                 }
                 if (left) {
-                    RenderUtil.drawRect(new Vector2D(x, y + i * 4.6f), new Vector2D(x + checkerBoardSquareSize, y + (i * 4.6f) * 2), col ? new Color(0x2A2A2A).getRGB() : new Color(0x595959).getRGB());
+                    RenderUtil.drawRect(x, y + i * 4.6f, x + checkerBoardSquareSize, y + (i * 4.6f) * 2, col ? new Color(0x2A2A2A).getRGB() : new Color(0x595959).getRGB());
                     col = !col;
                 } else {
-                    RenderUtil.drawRect(new Vector2D(x + checkerBoardSquareSize, y + i * 4.6f), new Vector2D(x + checkerBoardSquareSize * 2, y + (i * 4.6f) * 2), col ? new Color(0x2A2A2A).getRGB() : new Color(0x595959).getRGB());
+                    RenderUtil.drawRect(x + checkerBoardSquareSize, y + i * 4.6f, x + checkerBoardSquareSize * 2, y + (i * 4.6f) * 2, col ? new Color(0x2A2A2A).getRGB() : new Color(0x595959).getRGB());
                     i++;
                 }
                 if (scissored) {
@@ -330,7 +329,7 @@ public class PanelColor extends PanelSetting {
             } else {
                 currentSlider = normalizeNumber(currentSlider, sliderMinY, PanelScreen.animationFactor() * 10);
             }
-            RenderUtil.drawRect(new Vector2D(x, currentSlider), new Vector2D(x + width, currentSlider + 1), -1);
+            RenderUtil.drawRect(x, currentSlider, x + width, currentSlider + 1, -1);
         }
     }
 
@@ -362,7 +361,7 @@ public class PanelColor extends PanelSetting {
                 final float val = ((28 - i) / 2f);
                 RenderUtil.drawRoundedRect(x, y, x + width + val, y + height + val, 7, new Color(0, 0, 0, i));
             }
-            RenderUtil.drawRect(new Vector2D(x, y), new Vector2D(x + width, y + 4), new Color(0xFFFF0000).getRGB());
+            RenderUtil.drawRect(x, y, x + width, y + 4, new Color(0xFFFF0000).getRGB());
             y += 4;
             for (int colorIndex = 0; colorIndex < 6; colorIndex++) {
                 int previousStep = Color.HSBtoRGB((float) step / 6, 1.0f, 1.0f);
@@ -372,7 +371,7 @@ public class PanelColor extends PanelSetting {
             }
             y -= 4;
             currentSlider = normalizeNumber(currentSlider, sliderOffset, PanelScreen.animationFactor() * 10);
-            RenderUtil.drawRect(new Vector2D(x, y + currentSlider), new Vector2D(x + width, y + currentSlider + 1), -1);
+            RenderUtil.drawRect(x, y + currentSlider,x + width, y + currentSlider + 1, -1);
         }
     }
 
