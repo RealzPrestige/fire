@@ -1,5 +1,6 @@
 package dev.zprestige.fire.ui.hudeditor.components.impl.fps;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.client.clickgui.ClickGui;
@@ -33,8 +34,7 @@ public class Fps extends HudComponent {
             final String fps = Minecraft.getDebugFPS() + " (Average " + average() + ")";
             final float textWidth = Main.fontManager.getStringWidth(text);
             final float totalWidth = Main.fontManager.getStringWidth(text + fps);
-            Main.fontManager.drawStringWithShadow(text, position, ClickGui.Instance.color.GetColor().getRGB());
-            Main.fontManager.drawStringWithShadow(fps, new Vector2D(position.getX() + textWidth, position.getY()), -1);
+            Main.fontManager.drawStringWithShadow(text + ChatFormatting.WHITE + fps, position, ClickGui.Instance.color.GetColor().getRGB());
             setWidth(totalWidth);
         } catch (Exception ignored) {
         }

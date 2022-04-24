@@ -39,7 +39,6 @@ public class FontManager {
             mc.fontRenderer.drawStringWithShadow(text, position.getX(), position.getY(), color);
         }
     }
-
     public void drawString(String text, Vector2D position, int color, boolean shadow) {
         if (CustomFont.Instance.isEnabled()) {
             customFont.drawString(text, position.getX(), position.getY(), color, shadow);

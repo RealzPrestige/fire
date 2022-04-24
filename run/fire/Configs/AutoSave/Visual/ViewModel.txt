@@ -26,6 +26,7 @@
 "Offhand Scale Y": "0.0"
 "Offhand Scale Z": "0.0"
 "Offhand Rotation": "false"
+"Animate Y Rotation": "false"
 "Offhand Rotation X": "0.0"
 "Offhand Rotation Y": "0.0"
 "Offhand Rotation Z": "0.0"

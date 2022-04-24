@@ -1,10 +1,13 @@
 package dev.zprestige.fire.ui.font;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
+import dev.zprestige.fire.Main;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
+import java.util.stream.IntStream;
 
 public class FontRenderer {
     protected final ImageAWT defaultFont;
@@ -27,23 +30,38 @@ public class FontRenderer {
     public int drawStringWithShadow(String text, float x, float y, int color) {
         return drawString(text, x, y, color, true);
     }
-
     public int drawString(String text, float x, float y, int color, boolean dropShadow) {
-        float currY = y - 3.0f;
-        if (text.contains("\n")) {
-            String[] parts = text.split("\n");
-            float newY = 0.0f;
-
-            for (String s : parts) {
-                drawText(s, x, currY + newY, color, dropShadow);
-                newY += getHeight();
+        y -= 3.0f;
+        final String symbol = String.valueOf(ChatFormatting.PREFIX_CODE);
+        if (text.contains(symbol)){
+            final String[] split = text.split(symbol);
+            float deltaX = x;
+            for (int i = 0; i < split.length; i++) {
+                final String string = split[i];
+                int color1 = color;
+                if (i != 0) {
+                    color1 = getColorByMinecraftColor(String.valueOf(string.charAt(0))).getRGB();
+                }
+                StringBuilder newString = new StringBuilder();
+                char[] charArray = string.toCharArray();
+                for (int j = 0; j < charArray.length; j++) {
+                    final Character character = charArray[j];
+                    if (i == 0 || j != 0) {
+                        newString.append(character);
+                    }
+                }
+                final String builtString = String.valueOf(newString);
+                drawText(builtString, deltaX, y, color1, false);
+                if (dropShadow)
+                    drawText(builtString, deltaX + 1.0f, y + 1.0f, new Color(0, 0, 0, 50).getRGB(), true);
+                deltaX += getStringWidth(builtString);
             }
-
-            return 0;
+            return 1;
+        } else {
+            if (dropShadow)
+                drawText(text, x + 1.0f, y + 1.0f, new Color(0, 0, 0, 50).getRGB(), true);
+            return drawText(text, x, y, color, false);
         }
-        if (dropShadow)
-            drawText(text, x + 1.0f, currY + 1.0f, new Color(0, 0, 0, 255).getRGB(), true);
-        return drawText(text, x, currY, color, false);
     }
 
     private int drawText(String text, float x, float y, int color, boolean ignoreColor) {
@@ -75,5 +93,43 @@ public class FontRenderer {
 
     public int getStringWidth(String text) {
         return defaultFont.getStringWidth(text) / 2;
+    }
+
+    public Color getColorByMinecraftColor(final String string) {
+        switch (string) {
+            case "0":
+                return new Color(0);
+            case "1":
+                return new Color(0x0000AA);
+            case "2":
+                return new Color(0x00AA00);
+            case "3":
+                return new Color(0x00AAAA);
+            case "4":
+                return new Color(0xAA0000);
+            case "5":
+                return new Color(0xAA00AA);
+            case "6":
+                return new Color(0xFFAA00);
+            case "7":
+                return new Color(0xAAAAAA);
+            case "8":
+                return new Color(0x555555);
+            case"9":
+                return new Color(0x5555FF);
+            case "a":
+                return new Color(0x55FF55);
+            case "b":
+                return new Color(0x55FFFF);
+            case "c":
+                return new Color(0xFF5555);
+            case "d":
+                return new Color(0xFF55FF);
+            case "e":
+                return new Color(0xFFFF55);
+            case "f":
+                return new Color(0xFFFFFF);
+        }
+        return Color.WHITE;
     }
 }
