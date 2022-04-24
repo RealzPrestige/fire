@@ -40,7 +40,7 @@ public class FontRenderer {
                 final String string = split[i];
                 int color1 = color;
                 if (i != 0) {
-                    color1 = getColorByMinecraftColor(String.valueOf(string.charAt(0))).getRGB();
+                    color1 = getColorByMinecraftColor(String.valueOf(string.charAt(0)), color);
                 }
                 StringBuilder newString = new StringBuilder();
                 char[] charArray = string.toCharArray();
@@ -95,41 +95,43 @@ public class FontRenderer {
         return defaultFont.getStringWidth(text) / 2;
     }
 
-    public Color getColorByMinecraftColor(final String string) {
+    public int getColorByMinecraftColor(final String string, final int color) {
         switch (string) {
             case "0":
-                return new Color(0);
+                return new Color(0).getRGB();
             case "1":
-                return new Color(0x0000AA);
+                return new Color(0x0000AA).getRGB();
             case "2":
-                return new Color(0x00AA00);
+                return new Color(0x00AA00).getRGB();
             case "3":
-                return new Color(0x00AAAA);
+                return new Color(0x00AAAA).getRGB();
             case "4":
-                return new Color(0xAA0000);
+                return new Color(0xAA0000).getRGB();
             case "5":
-                return new Color(0xAA00AA);
+                return new Color(0xAA00AA).getRGB();
             case "6":
-                return new Color(0xFFAA00);
+                return new Color(0xFFAA00).getRGB();
             case "7":
-                return new Color(0xAAAAAA);
+                return new Color(0xAAAAAA).getRGB();
             case "8":
-                return new Color(0x555555);
+                return new Color(0x555555).getRGB();
             case"9":
-                return new Color(0x5555FF);
+                return new Color(0x5555FF).getRGB();
             case "a":
-                return new Color(0x55FF55);
+                return new Color(0x55FF55).getRGB();
             case "b":
-                return new Color(0x55FFFF);
+                return new Color(0x55FFFF).getRGB();
             case "c":
-                return new Color(0xFF5555);
+                return new Color(0xFF5555).getRGB();
             case "d":
-                return new Color(0xFF55FF);
+                return new Color(0xFF55FF).getRGB();
             case "e":
-                return new Color(0xFFFF55);
+                return new Color(0xFFFF55).getRGB();
             case "f":
-                return new Color(0xFFFFFF);
+                return new Color(0xFFFFFF).getRGB();
+            case "r":
+                return color;
         }
-        return Color.WHITE;
+        return Color.WHITE.getRGB();
     }
 }

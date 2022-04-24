@@ -1,5 +1,6 @@
 package dev.zprestige.fire.ui.hudeditor.components.impl;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.module.client.clickgui.ClickGui;
@@ -30,13 +31,11 @@ public class ModuleList extends HudComponent {
             }
             final String data = module.getData();
             final boolean hadData = !data.equals("");
-            final float nameWidth = Main.fontManager.getStringWidth(module.getName() + (hadData ? " [" : ""));
             final float moduleX = position.getX() + size.getX() - module.stringWidth() + module.getListX();
-            Main.fontManager.drawStringWithShadow(module.getName() + (hadData ? " [" : ""), new Vector2D(moduleX, listY), ClickGui.Instance.color.GetColor().getRGB());
             if (hadData) {
-                final float dataWidth = Main.fontManager.getStringWidth(module.getData());
-                Main.fontManager.drawStringWithShadow(data, new Vector2D(moduleX + nameWidth, listY), -1);
-                Main.fontManager.drawStringWithShadow("]", new Vector2D(moduleX + nameWidth + dataWidth, listY), ClickGui.Instance.color.GetColor().getRGB());
+                Main.fontManager.drawStringWithShadow(module.getName() + "[" + ChatFormatting.WHITE + data + ChatFormatting.RESET + "]", new Vector2D(moduleX, listY), ClickGui.Instance.color.GetColor().getRGB());
+            } else {
+                Main.fontManager.drawStringWithShadow(module.getName(), new Vector2D(moduleX, listY), ClickGui.Instance.color.GetColor().getRGB());
             }
             listY += delta - (module.getListX() / delta);
         }

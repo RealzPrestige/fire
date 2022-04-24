@@ -32,7 +32,6 @@ public class Fps extends HudComponent {
         try {
             final String text = "Fps ";
             final String fps = Minecraft.getDebugFPS() + " (Average " + average() + ")";
-            final float textWidth = Main.fontManager.getStringWidth(text);
             final float totalWidth = Main.fontManager.getStringWidth(text + fps);
             Main.fontManager.drawStringWithShadow(text + ChatFormatting.WHITE + fps, position, ClickGui.Instance.color.GetColor().getRGB());
             setWidth(totalWidth);
