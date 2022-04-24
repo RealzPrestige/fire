@@ -13,6 +13,7 @@
     "MixinPlayerControllerMP",
     "MixinRenderEnderCrystal",
     "MixinRenderItem",
+    "MixinRenderLivingBase",
     "MixinRenderPlayer"
   ]
 }

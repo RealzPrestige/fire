@@ -2,7 +2,7 @@
 "Enabled": "false"
 "Drawn": "true"
 "Mode": "Instant"
-"Blocks Per Tick": "10.0"
+"Blocks Per Tick": "16.2"
 "Item": "Fallback"
 "Smart Priority": "true"
 "One Point Thirteen": "true"

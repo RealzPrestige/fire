@@ -16,7 +16,7 @@ public class Frame2DListener extends EventListener<FrameEvent.FrameEvent2D, Obje
 
     @Override
     public void invoke(final Object object) {
-        if (Main.particleManager.PANEL.particles.GetSwitch() && mc.currentScreen instanceof PanelScreen) {
+        if (Main.particleManager.PANEL != null && Main.particleManager.PANEL.particles.GetSwitch() && mc.currentScreen instanceof PanelScreen) {
             final ScaledResolution scaledResolution = new ScaledResolution(mc);
             final float size = Main.particleManager.PANEL.particleSize.GetSlider();
             if (Main.particleManager.particles.size() < Main.particleManager.PANEL.particleAmount.GetSlider()) {

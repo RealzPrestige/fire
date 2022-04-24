@@ -31,6 +31,10 @@ public class RenderCrystalEvent extends Event {
         return this.modelBase;
     }
 
+    public void render(){
+        getModelBase().render(getEntity(), getLimbSwing(), getLimbSwingAmount(), getAgeInTicks(), getNetHeadYaw(), getHeadPitch(), getScaleFactor());
+    }
+
     public Entity getEntity() {
         return this.entity;
     }
