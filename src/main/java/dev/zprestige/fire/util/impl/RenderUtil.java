@@ -200,7 +200,7 @@ public class RenderUtil implements Utils {
 
     public static void prepare3D(final double x, final double y, final double z, final double scale) {
         double dist = ((mc.getRenderViewEntity() == null) ? mc.player : mc.getRenderViewEntity()).getDistance(x + mc.getRenderManager().viewerPosX, y + mc.getRenderManager().viewerPosY, z + mc.getRenderManager().viewerPosZ);
-        double scaling = dist <= 8.0 ? 0.0245 : 0.0018 + scale * dist;
+        double scaling = 0.0018 + scale * dist;
         GlStateManager.pushMatrix();
         RenderHelper.enableStandardItemLighting();
         GlStateManager.enablePolygonOffset();

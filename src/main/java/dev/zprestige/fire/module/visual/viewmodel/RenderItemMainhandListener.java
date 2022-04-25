@@ -14,6 +14,7 @@ public class RenderItemMainhandListener extends EventListener<RenderItemEvent.Ma
     @Override
     public void invoke(final Object object) {
         final RenderItemEvent.MainHand event = (RenderItemEvent.MainHand) object;
+        if (module.nullCheck()){
         if (module.mainhand.GetSwitch() && event.getEntityLivingBase().equals(mc.player) && mc.player.getHeldItemMainhand().equals(event.getStack())) {
             if (module.mainhandTranslation.GetSwitch()) {
                 GL11.glTranslated(module.mainhandX.GetSlider() / 40.0f, module.mainhandY.GetSlider() / 40.0f, module.mainhandZ.GetSlider() / 40.0f);
@@ -26,6 +27,7 @@ public class RenderItemMainhandListener extends EventListener<RenderItemEvent.Ma
                 GlStateManager.rotate(module.mainhandRotationY.GetSlider() * 36.0f, 0.0f, 1.0f, 0.0f);
                 GlStateManager.rotate(module.mainhandRotationZ.GetSlider() * 36.0f, 0.0f, 0.0f, 1.0f);
             }
+        }
         }
     }
 }

@@ -1,6 +1,5 @@
 package dev.zprestige.fire.module.misc.fakeplayer;
 
-import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
@@ -8,10 +7,6 @@ import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.impl.Switch;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -30,23 +25,10 @@ public class FakePlayer extends Module {
                 new TickListener(this)
         };
     }
-
-    protected UUID findUUIDByName() {
-        try {
-            final URLConnection request = new URL("https://api.mojang.com/users/profiles/minecraft/" + "FakePlayer").openConnection();
-            request.connect();
-            // what in the stegosauruses
-            final String id = java.util.UUID.fromString(new JsonParser().parse(new InputStreamReader((InputStream) request.getContent())).getAsJsonObject().get("id").getAsString().replaceFirst("(\\p{XDigit}{8})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}+)", "$1-$2-$3-$4-$5")).toString();
-            return UUID.fromString(id);
-        } catch (Exception ignored) {
-        }
-        return null;
-    }
-
     @Override
     public void onEnable() {
         if (mc.world != null) {
-            fakePlayer = new EntityOtherPlayerMP(mc.world, new GameProfile(findUUIDByName(), "FakePlayer"));
+            fakePlayer = new EntityOtherPlayerMP(mc.world, new GameProfile(UUID.fromString("12cbdfad-33b7-4c07-aeac-01766e609482"), "zPrestige_"));
             fakePlayer.copyLocationAndAnglesFrom(mc.player);
             fakePlayer.inventory.copyInventory(mc.player.inventory);
             fakePlayer.setHealth(36);
@@ -105,10 +87,6 @@ public class FakePlayer extends Module {
 
         public float getRotationPitch() {
             return rotationPitch;
-        }
-
-        public int getIndex() {
-            return index;
         }
     }
 }
