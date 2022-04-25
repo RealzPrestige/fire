@@ -5,6 +5,7 @@ import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.event.impl.MotionUpdateEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -34,6 +35,11 @@ public class RotationManager {
         final float[] angle = calculateAngle(new Vec3d(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f));
         event.setYaw(angle[0]);
         event.setPitch(angle[1]);
+    }
+
+    public void facePos(final BlockPos pos){
+        final float[] angle = Main.rotationManager.calculateAngle(new Vec3d(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f));
+        mc.player.connection.sendPacket(new CPacketPlayer.Rotation(angle[0], angle[1], mc.player.onGround));
     }
 
     public void faceEntity(final Entity entity, final MotionUpdateEvent event) {

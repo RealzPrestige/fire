@@ -12,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ConfigManager {
     protected final File configFolder = new File(Main.fileManager.getDirectory() + File.separator + "Configs");
@@ -83,73 +82,6 @@ public class ConfigManager {
         final BufferedWriter bufferedWriter = Main.fileManager.createBufferedWriter(file);
         Main.fileManager.writeLine(bufferedWriter, "\"" + folder + "\"");
         Main.fileManager.closeBufferedWriter(bufferedWriter);
-    }
-
-    public boolean isConfigTheSame(final String folder, final Module module) {
-        if (module == null) {
-            return false;
-        }
-        final File file = new File(configFolder + separator + folder + separator + module.getCategory() + separator + module.getName() + ".txt");
-        if (file.exists()) {
-            final BufferedReader bufferedReader = Main.fileManager.createBufferedReader(file);
-            AtomicBoolean same = new AtomicBoolean(true);
-            bufferedReader.lines().forEach(line -> {
-                final String[] finalLine = line.replace("\"", "").replace(" ", "").split(":");
-                final String settingName = finalLine[0];
-                final String value = finalLine[1];
-                final Setting<?> setting = isStringSetting(settingName, module);
-                if (setting instanceof ColorBox) {
-                    if (!String.valueOf(((ColorBox) setting).GetColor().getRGB()).equals(value)) {
-                        same.set(false);
-                    }
-                }
-                if (setting instanceof ComboBox) {
-                    if (!String.valueOf(((ComboBox) setting).GetCombo()).equals(value)) {
-                        same.set(false);
-                    }
-                }
-                if (setting instanceof Key) {
-                    if (!String.valueOf(((Key) setting).GetKey()).equals(value)) {
-                        same.set(false);
-                    }
-                    if (!String.valueOf(((Key) setting).isHold()).equals(finalLine[2])) {
-                        same.set(false);
-                    }
-                }
-                if (setting instanceof Slider) {
-                    if (!String.valueOf(((Slider) setting).GetSlider()).equals(value)) {
-                        same.set(false);
-                    }
-                }
-                if (setting instanceof Switch) {
-                    if (!String.valueOf(((Switch) setting).GetSwitch()).equals(value)) {
-                        same.set(false);
-                    }
-                }
-            });
-            return same.get();
-        }
-        return false;
-    }
-
-    public boolean isConfigTheSame(final String folder) {
-        return Main.moduleManager.getCategories().stream().allMatch(category -> isCategoryTheSame(folder, category));
-    }
-
-    public boolean isCategoryTheSame(final String folder, final Category category) {
-        return Main.moduleManager.getModulesInCategory(category).stream().allMatch(module -> isConfigTheSame(folder, module));
-    }
-
-    public Category getCategoryByString(final String category) {
-        return Main.moduleManager.getCategories().stream().filter(category1 -> category1.toString().equals(category)).findFirst().orElse(null);
-    }
-
-    public Module getModuleByString(final String module) {
-        return Main.moduleManager.getModules().stream().filter(module1 -> module1.getName().equals(module.replace(".txt", ""))).findFirst().orElse(null);
-    }
-
-    protected Setting<?> isStringSetting(final String name, final Module module) {
-        return module.getSettings().stream().filter(setting -> name.equals(setting.getName())).findFirst().orElse(null);
     }
 
     public void load(final String folder, boolean preserveKeybinds) {

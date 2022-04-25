@@ -22,7 +22,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class InteractionManager {
@@ -243,12 +246,15 @@ public class InteractionManager {
     public void attemptBreak(final BlockPos pos, final EnumFacing enumFacing) {
         final int slot = Main.inventoryManager.getItemFromHotbar(Items.DIAMOND_PICKAXE);
         if (slot != -1) {
-            final int currentItem = mc.player.inventory.currentItem;
-            Main.inventoryManager.switchToSlot(slot);
             if (mc.player != null && mc.player.connection != null) {
-                mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, enumFacing));
+                final int currentItem = mc.player.inventory.currentItem;
+                Main.inventoryManager.switchToSlot(slot);
+                try {
+                    mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, enumFacing));
+                } catch (Exception ignored){
+                }
+                Main.inventoryManager.switchBack(currentItem);
             }
-            Main.inventoryManager.switchBack(currentItem);
         }
     }
 

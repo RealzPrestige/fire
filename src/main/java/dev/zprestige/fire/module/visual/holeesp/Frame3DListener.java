@@ -15,17 +15,19 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, Hole
 
     @Override
     public void invoke(final Object object) {
-        module.camera.setPosition(Objects.requireNonNull(mc.getRenderViewEntity()).posX, mc.getRenderViewEntity().posY, mc.getRenderViewEntity().posZ);
-        Main.holeManager.getHoles().stream().filter(holePos -> !module.contains(holePos.getPos())).forEach(holePos -> module.animatingHoles.add(new HoleESP.AnimatingHole(holePos, module)));
-        new ArrayList<>(module.animatingHoles).forEach(animatingHole -> {
-            if (!module.holeManagerContains(animatingHole.pos.getPos())) {
-                animatingHole.remove = true;
-            }
-            if (animatingHole.canRemove()) {
-                module.animatingHoles.remove(animatingHole);
-            } else {
-                animatingHole.update();
-            }
-        });
+        if (mc.getRenderViewEntity() != null) {
+            module.camera.setPosition(Objects.requireNonNull(mc.getRenderViewEntity()).posX, mc.getRenderViewEntity().posY, mc.getRenderViewEntity().posZ);
+            Main.holeManager.getHoles().stream().filter(holePos -> !module.contains(holePos.getPos())).forEach(holePos -> module.animatingHoles.add(new HoleESP.AnimatingHole(holePos, module)));
+            new ArrayList<>(module.animatingHoles).forEach(animatingHole -> {
+                if (!module.holeManagerContains(animatingHole.pos.getPos())) {
+                    animatingHole.remove = true;
+                }
+                if (animatingHole.canRemove()) {
+                    module.animatingHoles.remove(animatingHole);
+                } else {
+                    animatingHole.update();
+                }
+            });
+        }
     }
 }

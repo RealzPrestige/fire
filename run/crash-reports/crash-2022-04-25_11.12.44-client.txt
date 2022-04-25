@@ -1,0 +1,166 @@
+---- Minecraft Crash Report ----
+// Who set us up the TNT?
+
+Time: 4/25/22 11:12 AM
+Description: Updating screen events
+
+java.lang.NullPointerException: Updating screen events
+	at dev.zprestige.fire.manager.filemanager.FileManager.writeLine(FileManager.java:50)
+	at dev.zprestige.fire.module.player.autosort.AutoSort.saveKit(AutoSort.java:25)
+	at dev.zprestige.fire.module.player.autosort.AutoSort.onEnable(AutoSort.java:16)
+	at dev.zprestige.fire.module.Module.enableModule(Module.java:37)
+	at dev.zprestige.fire.ui.panel.impl.PanelSwitch.click(PanelSwitch.java:63)
+	at dev.zprestige.fire.ui.panel.PanelInner.lambda$click$0(PanelInner.java:87)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1384)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.ui.panel.PanelInner.click(PanelInner.java:87)
+	at dev.zprestige.fire.ui.panel.PanelModule.lambda$click$1(PanelModule.java:125)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.panel.PanelModule.click(PanelModule.java:125)
+	at dev.zprestige.fire.ui.panel.PanelCategory.lambda$click$0(PanelCategory.java:61)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.panel.PanelCategory.click(PanelCategory.java:61)
+	at dev.zprestige.fire.ui.panel.PanelScreen.lambda$mouseClicked$5(PanelScreen.java:132)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.panel.PanelScreen.mouseClicked(PanelScreen.java:132)
+	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:611)
+	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:576)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1886)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1188)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:442)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at dev.zprestige.fire.manager.filemanager.FileManager.writeLine(FileManager.java:50)
+	at dev.zprestige.fire.module.player.autosort.AutoSort.saveKit(AutoSort.java:25)
+	at dev.zprestige.fire.module.player.autosort.AutoSort.onEnable(AutoSort.java:16)
+	at dev.zprestige.fire.module.Module.enableModule(Module.java:37)
+	at dev.zprestige.fire.ui.panel.impl.PanelSwitch.click(PanelSwitch.java:63)
+	at dev.zprestige.fire.ui.panel.PanelInner.lambda$click$0(PanelInner.java:87)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1384)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.ui.panel.PanelInner.click(PanelInner.java:87)
+	at dev.zprestige.fire.ui.panel.PanelModule.lambda$click$1(PanelModule.java:125)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.panel.PanelModule.click(PanelModule.java:125)
+	at dev.zprestige.fire.ui.panel.PanelCategory.lambda$click$0(PanelCategory.java:61)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.panel.PanelCategory.click(PanelCategory.java:61)
+	at dev.zprestige.fire.ui.panel.PanelScreen.lambda$mouseClicked$5(PanelScreen.java:132)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at dev.zprestige.fire.ui.panel.PanelScreen.mouseClicked(PanelScreen.java:132)
+	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:611)
+	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:576)
+
+-- Affected screen --
+Details:
+	Screen name: dev.zprestige.fire.ui.panel.PanelScreen
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['zPrestige_'/89, l='MpServer', x=242.30, y=4.00, z=-255.70]]
+	Chunk stats: MultiplayerChunkCache: 441, 441
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (252,64,-242), Chunk: (at 12,4,14 in 15,-16; contains blocks 240,0,-256 to 255,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 6238358 game time, 1030 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Forced entities: 9 total; [EntitySheep['Sheep'/16, l='MpServer', x=197.42, y=72.00, z=-256.20], EntitySheep['Sheep'/37, l='MpServer', x=270.55, y=64.00, z=-327.29], EntitySheep['Sheep'/38, l='MpServer', x=260.46, y=64.00, z=-264.74], EntityPlayerSP['zPrestige_'/89, l='MpServer', x=242.30, y=4.00, z=-255.70], EntitySheep['Sheep'/26, l='MpServer', x=255.45, y=64.00, z=-257.24], EntityItem['item.tile.obsidian'/27, l='MpServer', x=247.88, y=3.00, z=-255.71], EntitySheep['Sheep'/43, l='MpServer', x=272.29, y=66.00, z=-328.53], EntitySheep['Sheep'/44, l='MpServer', x=287.16, y=70.00, z=-323.78], EntitySheep['Sheep'/45, l='MpServer', x=290.96, y=70.00, z=-328.71]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:461)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2889)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:463)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_272, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Amazon.com Inc.
+	Memory: 285681704 bytes (272 MB) / 1215823872 bytes (1159 MB) up to 3801088000 bytes (3625 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2847 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                         | Signature |
+	|:------ |:--------- |:------------ |:---------------------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                  | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                  | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | forge     | 14.23.5.2847 | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | fire      | 0.1          | main                                           | None      |
+
+	Loaded coremods (and transformers): 
+MixinLoader (unknown)
+  
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 472.12' Renderer: 'NVIDIA GeForce RTX 3060/PCIe/SSE2'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: NVIDIA GeForce RTX 3060/PCIe/SSE2 GL version 4.6.0 NVIDIA 472.12, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 16x AMD Ryzen 7 2700X Eight-Core Processor 

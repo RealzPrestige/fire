@@ -25,7 +25,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.input.Keyboard;
 
@@ -104,6 +103,8 @@ public class AutoCrystal extends Module {
 
     public final Switch placePacket = Menu.Switch("Place Packet", false).panel("Other");
     public final Switch explodePacket = Menu.Switch("Explode Packet", false).panel("Other");
+    public final Switch explodeInhibit = Menu.Switch("Explode Inhibit", false).panel("Other");
+    public final Slider inhibitTimeout = Menu.Slider("Inhibit Timeout", 100.0f, 0.1f, 3000.0f).visibility(z -> explodeInhibit.GetSwitch());
     public final Switch placeSilentSwitch = Menu.Switch("Place Silent Switch", false).panel("Other");
     public final Switch explodeSilentSwitch = Menu.Switch("Explode Silent Switch", false).panel("Other");
     public final Switch placeInhibit = Menu.Switch("Place Inhibit", false).panel("Other");
@@ -149,13 +150,13 @@ public class AutoCrystal extends Module {
 
     protected final Timer[] timers = new Timer[]{new Timer(), new Timer()};
     protected final ArrayList<EntityEnderCrystal> pyroCrystals = new ArrayList<>(), attackedCrystals = new ArrayList<>();
+    protected final HashMap<EntityEnderCrystal, Long> inhibitedCrystals = new HashMap<>();
     protected final ArrayList<Long> crystalsPerSecond = new ArrayList<>();
     protected int ticks = 0, timeoutTicks = 0;
     protected BlockPos pos;
     protected AxisAlignedBB bb;
     protected int pyroId = -1;
     protected EntityOtherPlayerMP entityOtherPlayerMP;
-    protected final Random random = new Random();
 
     public AutoCrystal() {
         eventListeners = new EventListener[]{
@@ -209,10 +210,6 @@ public class AutoCrystal extends Module {
         }
     }
 
-    protected float rand() {
-        return MathHelper.clamp(-20 + random.nextFloat() * 20, -20, 20);
-    }
-
     protected void performAutoCrystal(final PlayerManager.Player player, final MotionUpdateEvent event) {
         if (raytraceFix.GetSwitch()) {
             if (ticks >= raytraceTicks.GetSlider()) {
@@ -221,8 +218,8 @@ public class AutoCrystal extends Module {
                     timeoutTicks = 0;
                     return;
                 }
-                event.setYaw(-mc.player.rotationYaw);
-                event.setPitch(rand());
+                event.setYaw(mc.player.rotationYaw);
+                event.setPitch(-90);
                 timeoutTicks++;
                 return;
             }
@@ -254,6 +251,16 @@ public class AutoCrystal extends Module {
     }
 
     public void explodeCrystal(final EntityEnderCrystal entityEnderCrystal, final MotionUpdateEvent event) {
+        if (explodeInhibit.GetSwitch()) {
+            if (!inhibitedCrystals.containsKey(entityEnderCrystal)) {
+                inhibitedCrystals.put(entityEnderCrystal, System.currentTimeMillis());
+            } else if (getInhibitTimeByCrystal(entityEnderCrystal) > inhibitTimeout.GetSlider()) {
+                inhibitedCrystals.remove(entityEnderCrystal);
+            }
+            if (inhibitedCrystals.containsKey(entityEnderCrystal) && getInhibitTimeByCrystal(entityEnderCrystal) < inhibitTimeout.GetSlider()) {
+                return;
+            }
+        }
         boolean switched = false;
         int currentItem = -1;
         final PotionEffect weakness = mc.player.getActivePotionEffect(MobEffects.WEAKNESS);
@@ -315,6 +322,10 @@ public class AutoCrystal extends Module {
         if (pos == null) {
             this.pos = entityEnderCrystal.getPosition().down();
         }
+    }
+
+    protected long getInhibitTimeByCrystal(final EntityEnderCrystal entityEnderCrystal) {
+        return inhibitedCrystals.entrySet().stream().filter(entry -> entry.getKey().equals(entityEnderCrystal)).findFirst().map(Map.Entry::getValue).orElse(0L);
     }
 
     protected void playPyroSound(final BlockPos pos) {

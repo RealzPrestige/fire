@@ -73,7 +73,10 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, Pack
                     break;
             }
             if (module.silentSwitch.GetCombo().equals("Auto") && module.size >= 1.0f) {
-                module.attemptBreak(module.activePos, module.facing);
+                try {
+                    module.attemptBreak(module.activePos, module.facing);
+                } catch (Exception ignored){
+                }
             }
         }
     }
