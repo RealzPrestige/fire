@@ -13,14 +13,16 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, Dama
 
     @Override
     public void invoke(final Object object) {
-        for (final DamageMarkers.DamageMarker marker : new ArrayList<>(module.damageMarkers)) {
-            if (marker.getAlpha() < 30.0) {
-                module.damageMarkers.remove(marker);
-                continue;
+        if (module.nullCheck()) {
+            for (final DamageMarkers.DamageMarker marker : new ArrayList<>(module.damageMarkers)) {
+                if (marker.getAlpha() < 30.0) {
+                    module.damageMarkers.remove(marker);
+                    continue;
+                }
+                marker.setAlpha(marker.getAlpha() - (marker.getAlpha() / (101.0f - module.fadeSpeed.GetSlider())));
+                marker.setY(marker.getY() + 0.005);
+                marker.render();
             }
-            marker.setAlpha(marker.getAlpha() - (marker.getAlpha() / (101.0f - module.fadeSpeed.GetSlider())));
-            marker.setY(marker.getY() + 0.005);
-            marker.render();
         }
     }
 }
