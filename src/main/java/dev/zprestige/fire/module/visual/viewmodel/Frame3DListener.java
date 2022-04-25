@@ -11,14 +11,16 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, View
 
     @Override
     public void invoke(final Object object) {
-        if (mc.player.ticksExisted >= 20 && module.removeSway.GetSwitch()) {
-            mc.player.renderArmYaw -= (mc.player.rotationYaw - mc.player.renderArmYaw) * 0.5f;
-            mc.player.renderArmPitch -= (mc.player.rotationPitch - mc.player.renderArmPitch) * 0.5f;
-        }
-        if (module.animateYRotation.GetSwitch()){
-            module.offhandRotationY.setValue(module.offhandRotationY.GetSlider() + 0.01f);
-            if (module.offhandRotationY.GetSlider() >= module.offhandRotationY.getMax()){
-                module.offhandRotationY.setValue(0.0f);
+        if (module.nullCheck()) {
+            if (mc.player.ticksExisted >= 20 && module.removeSway.GetSwitch()) {
+                mc.player.renderArmYaw -= (mc.player.rotationYaw - mc.player.renderArmYaw) * 0.5f;
+                mc.player.renderArmPitch -= (mc.player.rotationPitch - mc.player.renderArmPitch) * 0.5f;
+            }
+            if (module.animateYRotation.GetSwitch()) {
+                module.offhandRotationY.setValue(module.offhandRotationY.GetSlider() + 0.01f);
+                if (module.offhandRotationY.GetSlider() >= module.offhandRotationY.getMax()) {
+                    module.offhandRotationY.setValue(0.0f);
+                }
             }
         }
     }
