@@ -12,6 +12,8 @@ public class RenderEntityNameListener extends EventListener<RenderEntityNameEven
     @Override
     public void invoke(final Object object){
         final RenderEntityNameEvent event = (RenderEntityNameEvent) object;
-        event.setCancelled();
+        if (module.nullCheck()) {
+            event.setCancelled();
+        }
     }
 }

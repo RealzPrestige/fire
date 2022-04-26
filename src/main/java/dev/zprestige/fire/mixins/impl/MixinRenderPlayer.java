@@ -24,7 +24,7 @@ public abstract class MixinRenderPlayer {
     }
     @Inject(method = "doRender*", at = @At("HEAD"))
     public void rotateBegin(final AbstractClientPlayer entity, final double x, final double y, final double z, final float entityYaw, final float partialTicks, final CallbackInfo callbackInfo) {
-        if (Main.moduleManager.getModuleByClass(RotationRender.class).isEnabled() && entity.equals(Main.mc.player)) {
+        if (Main.listener.checkNull() && Main.moduleManager.getModuleByClass(RotationRender.class).isEnabled() && entity.equals(Main.mc.player)) {
             prevRenderHeadYaw = entity.prevRotationYawHead;
             prevRenderPitch = entity.prevRotationPitch;
             renderPitch = entity.rotationPitch;
@@ -40,7 +40,7 @@ public abstract class MixinRenderPlayer {
 
     @Inject(method = "doRender*", at = @At("RETURN"))
     public void rotateEnd(final AbstractClientPlayer entity, final double x, final double y, final double z, final float entityYaw, final float partialTicks, final CallbackInfo callbackInfo) {
-        if (Main.moduleManager.getModuleByClass(RotationRender.class).isEnabled() && entity.equals(Main.mc.player)) {
+        if (Main.listener.checkNull() && Main.moduleManager.getModuleByClass(RotationRender.class).isEnabled() && entity.equals(Main.mc.player)) {
             lastRenderHeadYaw = entity.rotationYawHead;
             lastRenderPitch = entity.rotationPitch;
             entity.rotationPitch = renderPitch;

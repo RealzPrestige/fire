@@ -1,4 +1,4 @@
 "Keybind": "0:false"
 "Enabled": "true"
 "Drawn": "true"
-"Scale": "6.4"
+"Scale": "6.0"

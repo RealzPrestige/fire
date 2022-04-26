@@ -104,7 +104,7 @@ public class AutoCrystal extends Module {
     public final Switch placePacket = Menu.Switch("Place Packet", false).panel("Other");
     public final Switch explodePacket = Menu.Switch("Explode Packet", false).panel("Other");
     public final Switch explodeInhibit = Menu.Switch("Explode Inhibit", false).panel("Other");
-    public final Slider inhibitTimeout = Menu.Slider("Inhibit Timeout", 100.0f, 0.1f, 3000.0f).visibility(z -> explodeInhibit.GetSwitch());
+    public final Slider inhibitTimeout = Menu.Slider("Inhibit Timeout", 100.0f, 0.1f, 3000.0f).visibility(z -> explodeInhibit.GetSwitch()).panel("Other");
     public final Switch placeSilentSwitch = Menu.Switch("Place Silent Switch", false).panel("Other");
     public final Switch explodeSilentSwitch = Menu.Switch("Explode Silent Switch", false).panel("Other");
     public final Switch placeInhibit = Menu.Switch("Place Inhibit", false).panel("Other");
@@ -150,9 +150,10 @@ public class AutoCrystal extends Module {
 
     protected final Timer[] timers = new Timer[]{new Timer(), new Timer()};
     protected final ArrayList<EntityEnderCrystal> pyroCrystals = new ArrayList<>(), attackedCrystals = new ArrayList<>();
-    protected final HashMap<EntityEnderCrystal, Long> inhibitedCrystals = new HashMap<>();
+    protected final HashMap<Integer, Long> inhibitedCrystals = new HashMap<>();
     protected final ArrayList<Long> crystalsPerSecond = new ArrayList<>();
     protected int ticks = 0, timeoutTicks = 0;
+    protected boolean canRotate;
     protected BlockPos pos;
     protected AxisAlignedBB bb;
     protected int pyroId = -1;
@@ -216,13 +217,16 @@ public class AutoCrystal extends Module {
                 if (timeoutTicks >= raytraceTimeoutTicks.GetSlider()) {
                     ticks = 0;
                     timeoutTicks = 0;
-                    return;
                 }
                 event.setYaw(mc.player.rotationYaw);
                 event.setPitch(-90);
+                canRotate = false;
                 timeoutTicks++;
-                return;
+            } else {
+                canRotate = true;
             }
+        } else {
+            canRotate = true;
         }
         boolean rotated = false;
         if (timers[0].getTime((long) placeDelay.GetSlider())) {
@@ -252,12 +256,12 @@ public class AutoCrystal extends Module {
 
     public void explodeCrystal(final EntityEnderCrystal entityEnderCrystal, final MotionUpdateEvent event) {
         if (explodeInhibit.GetSwitch()) {
-            if (!inhibitedCrystals.containsKey(entityEnderCrystal)) {
-                inhibitedCrystals.put(entityEnderCrystal, System.currentTimeMillis());
+            if (!inhibitedCrystals.containsKey(entityEnderCrystal.entityId)) {
+                inhibitedCrystals.put(entityEnderCrystal.entityId, System.currentTimeMillis());
             } else if (getInhibitTimeByCrystal(entityEnderCrystal) > inhibitTimeout.GetSlider()) {
-                inhibitedCrystals.remove(entityEnderCrystal);
+                inhibitedCrystals.remove(entityEnderCrystal.entityId);
             }
-            if (inhibitedCrystals.containsKey(entityEnderCrystal) && getInhibitTimeByCrystal(entityEnderCrystal) < inhibitTimeout.GetSlider()) {
+            if (inhibitedCrystals.containsKey(entityEnderCrystal.entityId) && getInhibitTimeByCrystal(entityEnderCrystal) < inhibitTimeout.GetSlider()) {
                 return;
             }
         }
@@ -278,7 +282,7 @@ public class AutoCrystal extends Module {
             Main.inventoryManager.switchToSlot(slot);
             switched1 = true;
         }
-        if (explodeRotate.GetSwitch() && event != null) {
+        if (explodeRotate.GetSwitch() && event != null && canRotate) {
             switch (inAirRotations.GetCombo()) {
                 case "None":
                     Main.rotationManager.faceEntity(entityEnderCrystal, event);
@@ -325,7 +329,7 @@ public class AutoCrystal extends Module {
     }
 
     protected long getInhibitTimeByCrystal(final EntityEnderCrystal entityEnderCrystal) {
-        return inhibitedCrystals.entrySet().stream().filter(entry -> entry.getKey().equals(entityEnderCrystal)).findFirst().map(Map.Entry::getValue).orElse(0L);
+        return inhibitedCrystals.entrySet().stream().filter(entry -> entry.getKey().equals(entityEnderCrystal.entityId)).findFirst().map(Map.Entry::getValue).orElse(0L);
     }
 
     protected void playPyroSound(final BlockPos pos) {
@@ -355,7 +359,7 @@ public class AutoCrystal extends Module {
             Main.inventoryManager.switchToSlot(slot);
             switched = true;
         }
-        if (placeRotate.GetSwitch() && event != null) {
+        if (placeRotate.GetSwitch() && event != null && canRotate) {
             switch (inAirRotations.GetCombo()) {
                 case "None":
                     Main.rotationManager.facePos(pos.add(x, y, z), event);

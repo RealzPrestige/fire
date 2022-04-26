@@ -4,6 +4,8 @@ import dev.zprestige.fire.Main;
 import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.event.impl.TickEvent;
 import dev.zprestige.fire.module.movement.longjump.LongJump;
+import net.minecraft.network.play.client.CPacketEntityAction;
+
 public class TickListener extends EventListener<TickEvent, ConstElytraFly> {
 
     public TickListener(final ConstElytraFly constElytraFly){
@@ -19,7 +21,7 @@ public class TickListener extends EventListener<TickEvent, ConstElytraFly> {
                 Main.tickManager.setTimer(0.1f);
             } else {
                 if (module.offGroundTimer.getTime((long) module.offGroundTakeOff.GetSlider())) {
-                    mc.gameSettings.keyBindJump.pressed = true;
+                    mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
                 }
             }
         } else {

@@ -1,6 +1,5 @@
 package dev.zprestige.fire.module.visual.nametags;
 
-import dev.zprestige.fire.Main;
 import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.module.Descriptor;
 import dev.zprestige.fire.module.Module;
@@ -48,8 +47,8 @@ public class NameTags extends Module {
     }
 
     protected Color getLatencyColor(final float latency) {
-        final float g = safety((latency * secondMagicNumber) / 255.0f);
-        final float r = safety(((250 - latency) * secondMagicNumber) / 255.0f);
+        final float g = safety(((250 - latency) * secondMagicNumber) / 255.0f);
+        final float r = safety((latency * secondMagicNumber) / 255.0f);
         return new Color(r, g, 0, 1.0f);
     }
 

@@ -45,7 +45,7 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, Name
                 float m = -37.5f;
                 final ItemStack mainHandStack = entityPlayer.getHeldItemMainhand();
                 module.drawItem(mainHandStack, k / 0.75f, (negativeY - Main.fontManager.getFontHeight() - 10.0f) / 0.75f);
-                if (mainHandStack.getCount() != 1) {
+                if (mainHandStack.getCount() != 1 && !mainHandStack.isEmpty()) {
                     RenderUtil.prepareScale(0.65f);
                     Main.fontManager.drawStringWithShadow(String.valueOf(mainHandStack.getCount()),k / 0.65f, (negativeY - 5.5f) / 0.65f, -1);
                     RenderUtil.releaseScale();
@@ -66,7 +66,7 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, Name
                 }
                 final ItemStack offhandStack = entityPlayer.getHeldItemOffhand();
                 module.drawItem(offhandStack, (k + 12.5f) / 0.75f, (negativeY - Main.fontManager.getFontHeight() - 10.0f) / 0.75f);
-                if (offhandStack.getCount() != 1) {
+                if (offhandStack.getCount() != 1 && !offhandStack.isEmpty()) {
                     RenderUtil.prepareScale(0.65f);
                     Main.fontManager.drawStringWithShadow(String.valueOf(offhandStack.getCount()), (m + 25.0f) / 0.65f, (negativeY - 5.5f) / 0.65f, -1);
                     RenderUtil.releaseScale();
