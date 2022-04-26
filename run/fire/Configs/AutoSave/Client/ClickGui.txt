@@ -1,5 +1,5 @@
 "Keybind": "54:false"
-"Enabled": "false"
+"Enabled": "true"
 "Drawn": "true"
 "Color": "-11527195"
 "Particles": "false"

@@ -4,6 +4,7 @@ import dev.zprestige.fire.Main;
 import dev.zprestige.fire.module.Module;
 import dev.zprestige.fire.settings.Setting;
 import dev.zprestige.fire.util.impl.RenderUtil;
+import dev.zprestige.fire.util.impl.Timer;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
@@ -19,6 +20,7 @@ public class PanelModule {
     protected float[] col = new float[]{1.0f, 1.0f, 1.0f};
     protected float x, y, width, height, a = 0.0f, scroll;
     protected final float offset = 131.6666666666667f;
+    public final Timer timer = new Timer();
 
     public PanelModule(final PanelCategory panelCategory, final Module module, final float x, final float y, final float width, final float height) {
         this.panelCategory = panelCategory;
@@ -106,6 +108,8 @@ public class PanelModule {
             if (mouse > 0 && scroll < 0) {
                 scroll += 10;
             }
+        } else {
+            timer.syncTime();
         }
     }
 

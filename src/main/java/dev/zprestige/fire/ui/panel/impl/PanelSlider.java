@@ -46,7 +46,7 @@ public class PanelSlider extends PanelSetting {
     }
 
     public void dragSlider(int mouseX, int mouseY) {
-        if (isInsideExtended(mouseX, mouseY) && Mouse.isButtonDown(0)) {
+        if (isInsideExtended(mouseX, mouseY) && Mouse.isButtonDown(0) && (PanelScreen.activeModule == null || PanelScreen.activeModule.timer.getTime(500))) {
             setSliderValue(mouseX);
             extension = 10;
         } else {
