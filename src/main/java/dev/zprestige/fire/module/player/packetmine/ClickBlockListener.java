@@ -11,11 +11,13 @@ public class ClickBlockListener extends EventListener<BlockInteractEvent.ClickBl
 
     @Override
     public void invoke(final Object object) {
-        if (mc.playerController.curBlockDamageMP > 0.0f) {
-            mc.playerController.isHittingBlock = true;
-        }
-        if (module.activePos != null && module.silentSwitch.GetCombo().equals("Clicked")) {
-            module.attemptBreak(module.activePos, module.facing);
+        if (module.nullCheck()) {
+            if (mc.playerController.curBlockDamageMP > 0.0f) {
+                mc.playerController.isHittingBlock = true;
+            }
+            if (module.activePos != null && module.silentSwitch.GetCombo().equals("Clicked")) {
+                module.attemptBreak(module.activePos, module.facing);
+            }
         }
     }
 }

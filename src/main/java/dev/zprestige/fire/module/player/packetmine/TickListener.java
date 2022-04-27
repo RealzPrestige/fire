@@ -18,18 +18,24 @@ public class TickListener extends EventListener<TickEvent, PacketMine> {
 
     @Override
     public void invoke(final Object object) {
+        if (!module.nullCheck()) {
+            return;
+        }
         if (module.activePos != null) {
+            if (mc.player.getDistanceSq(module.activePos) > (module.range.GetSlider() * module.range.GetSlider())) {
+                module.end();
+                return;
+            }
             if (BlockUtil.getState(module.activePos).equals(Blocks.AIR)) {
                 module.end();
+                return;
             }
         }
         if (module.attemptingReBreak && !BlockUtil.getState(module.prevPos).equals(Blocks.AIR)) {
             module.initiateBreaking(module.prevPos, module.prevFace);
             module.attemptingReBreak = false;
             module.size = 0.0f;
-        }
-        if (module.instant.GetSwitch()) {
-            mc.playerController.blockHitDelay = 0;
+            return;
         }
         if (module.instant.GetSwitch() && module.minedPos != null && module.minedFace != null && module.timer.getTime((long) module.instantTiming.GetSlider()) && (mc.player.getHeldItemMainhand().getItem().equals(Items.DIAMOND_PICKAXE) || module.instantSilentSwitch.GetSwitch()) && (module.instantKey.GetKey() == -1 || Keyboard.isKeyDown(module.instantKey.GetKey()))) {
             if (module.rotate.GetSwitch()) {
@@ -37,7 +43,7 @@ public class TickListener extends EventListener<TickEvent, PacketMine> {
             }
             if (module.instantPlaceCrystal.GetSwitch()) {
                 final AutoCrystal autoCrystal = (AutoCrystal) Main.moduleManager.getModuleByClass(AutoCrystal.class);
-                if (autoCrystal.isEnabled()){
+                if (autoCrystal.isEnabled()) {
                     autoCrystal.placeCrystal(module.minedPos, null);
                 }
             }

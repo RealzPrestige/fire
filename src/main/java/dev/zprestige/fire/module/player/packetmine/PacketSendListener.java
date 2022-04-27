@@ -15,6 +15,9 @@ public class PacketSendListener extends EventListener<PacketEvent.PacketSendEven
     @Override
     public void invoke(final Object object) {
         final PacketEvent.PacketSendEvent event = (PacketEvent.PacketSendEvent) object;
+        if (!module.nullCheck()){
+            return;
+        }
         if (module.abortOnSwitch.GetSwitch() && module.activePos != null && module.facing != null && event.getPacket() instanceof CPacketHeldItemChange) {
             final CPacketHeldItemChange packet = (CPacketHeldItemChange) event.getPacket();
             if (!mc.player.inventory.getStackInSlot(packet.getSlotId()).getItem().equals(Items.DIAMOND_PICKAXE)) {

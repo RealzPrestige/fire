@@ -16,6 +16,7 @@ import java.awt.*;
 
 @Descriptor(description = "Assists and renders when you mine blocks")
 public class PacketMine extends Module {
+    public final Slider range = Menu.Slider("Range", 5.0f, 0.1f, 10.0f);
     public final ComboBox silentSwitch = Menu.ComboBox("Silent On Finish", "None", new String[]{
             "None",
             "Clicked",
@@ -49,6 +50,7 @@ public class PacketMine extends Module {
     protected final Timer timer = new Timer();
     protected float[] col = new float[]{};
     protected float size;
+
     public PacketMine() {
         eventListeners = new EventListener[]{
                 new ClickBlockListener(this),
@@ -57,6 +59,10 @@ public class PacketMine extends Module {
                 new PacketSendListener(this),
                 new TickListener(this)
         };
+    }
+
+    protected float safety(final float input) {
+        return Math.min(1.0f, Math.max(0.0f, input));
     }
 
     protected float updateValue(final BlockPos activePos) {
@@ -80,21 +86,19 @@ public class PacketMine extends Module {
     }
 
     public void attemptBreak(final BlockPos pos, final EnumFacing enumFacing) {
-        if (mc.player != null && mc.world != null) {
-            if (rotate.GetSwitch()){
-                Main.rotationManager.facePos(pos);
-            }
-            Main.interactionManager.attemptBreak(pos, enumFacing);
-            prevPos = pos;
-            prevFace = enumFacing;
-            if (reBreak.GetSwitch() && BlockUtil.getState(pos).equals(Blocks.AIR)) {
-                attemptingReBreak = true;
-            }
+        if (rotate.GetSwitch()) {
+            Main.rotationManager.facePos(pos);
+        }
+        Main.interactionManager.attemptBreak(pos, enumFacing);
+        prevPos = pos;
+        prevFace = enumFacing;
+        if (reBreak.GetSwitch() && BlockUtil.getState(pos).equals(Blocks.AIR)) {
+            attemptingReBreak = true;
         }
     }
 
     protected void initiateBreaking(final BlockPos pos, final EnumFacing enumFacing) {
-        if (rotate.GetSwitch()){
+        if (rotate.GetSwitch()) {
             Main.rotationManager.facePos(pos);
         }
         Main.interactionManager.initiateBreaking(pos, enumFacing, true);
@@ -104,7 +108,7 @@ public class PacketMine extends Module {
     }
 
     protected void abort(final BlockPos pos, final EnumFacing enumFacing) {
-        if (rotate.GetSwitch()){
+        if (rotate.GetSwitch()) {
             Main.rotationManager.facePos(pos);
         }
         Main.interactionManager.abort(pos, enumFacing);
@@ -112,7 +116,7 @@ public class PacketMine extends Module {
     }
 
     protected void abortWithoutEnding(final BlockPos pos, final EnumFacing enumFacing) {
-        if (rotate.GetSwitch()){
+        if (rotate.GetSwitch()) {
             Main.rotationManager.facePos(pos);
         }
         Main.interactionManager.abort(pos, enumFacing);

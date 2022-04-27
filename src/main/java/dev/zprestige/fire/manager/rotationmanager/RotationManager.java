@@ -38,8 +38,10 @@ public class RotationManager {
     }
 
     public void facePos(final BlockPos pos){
-        final float[] angle = Main.rotationManager.calculateAngle(new Vec3d(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f));
-        mc.player.connection.sendPacket(new CPacketPlayer.Rotation(angle[0], angle[1], mc.player.onGround));
+        if (Main.listener.checkNull()) {
+            final float[] angle = Main.rotationManager.calculateAngle(new Vec3d(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f));
+            mc.player.connection.sendPacket(new CPacketPlayer.Rotation(angle[0], angle[1], mc.player.onGround));
+        }
     }
 
     public void faceEntity(final Entity entity, final MotionUpdateEvent event) {

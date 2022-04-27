@@ -22,11 +22,13 @@ import net.minecraft.world.Explosion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class BlockUtil implements Utils {
 
     public static EnumOffset getVisibleEnumFacing(final BlockPos pos) {
+        final TreeMap<Double, EnumOffset> enumOffsets = new TreeMap<>();
         for (final EnumFacing enumFacing : EnumFacing.values()) {
             final BlockPos pos1 = pos.offset(enumFacing);
             for (int x = 0; x <= 10; x++) {
@@ -35,12 +37,16 @@ public class BlockUtil implements Utils {
                     final float yOffset = y / 10.0f;
                     for (int z = 0; z <= 10; z++) {
                         final float zOffset = z / 10.0f;
-                        if (mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(pos1.getX() + xOffset, pos1.getY() + yOffset, pos.getZ() + zOffset), false, true, false) != null) {
-                            return new EnumOffset(enumFacing, xOffset, yOffset, zOffset);
+                        final Vec3d vec3d = new Vec3d(pos1.getX() + xOffset, pos1.getY() + yOffset, pos.getZ() + zOffset);
+                        if (mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), vec3d, false, true, false) != null) {
+                            enumOffsets.put(mc.player.getDistanceSq(vec3d.x, vec3d.y, vec3d.z), new EnumOffset(enumFacing, xOffset, yOffset, zOffset));
                         }
                     }
                 }
             }
+        }
+        if (!enumOffsets.isEmpty()) {
+            return enumOffsets.firstEntry().getValue();
         }
         return null;
     }
@@ -54,6 +60,10 @@ public class BlockUtil implements Utils {
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+
+        public EnumFacing getEnumFacing() {
+            return enumFacing;
         }
 
         public float getX() {

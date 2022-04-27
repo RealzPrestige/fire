@@ -1,6 +1,7 @@
 "Keybind": "0:false"
 "Enabled": "false"
 "Drawn": "true"
+"Range": "5.0"
 "Silent On Finish": "None"
 "Instant": "false"
 "Instant Key": "0:false"

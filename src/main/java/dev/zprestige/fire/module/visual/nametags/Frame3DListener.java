@@ -32,7 +32,12 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, Name
                 final float health = (float) Math.ceil(entityPlayer.getHealth() + entityPlayer.getAbsorptionAmount());
                 final String healthString = String.valueOf(health);
                 final NetworkPlayerInfo latencyInfo = mc.player.connection.getPlayerInfo(entityPlayer.getGameProfile().getId());
-                final float latency = mc.player.connection == null ? 0 : latencyInfo.getResponseTime();
+                float latency;
+                try {
+                    latency = mc.player.connection == null ? 0 : latencyInfo.getResponseTime();
+                } catch (Exception ignored){
+                    latency = 0;
+                }
                 final String latencyString = String.valueOf(latency), latencySuffix = "ms";
                 final float nameWidth = Main.fontManager.getStringWidth(name), spaceWidth = Main.fontManager.getStringWidth(" "), healthWidth = Main.fontManager.getStringWidth(healthString), latencyWidth = Main.fontManager.getStringWidth(latencyString), latencySuffixWidth = Main.fontManager.getStringWidth(latencySuffix);
                 final float totalStringWidth = (nameWidth + spaceWidth + healthWidth + spaceWidth + latencyWidth + latencySuffixWidth) / 2.0f;
@@ -74,7 +79,7 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, Name
                 RenderUtil.releaseScale();
                 Main.fontManager.drawStringWithShadow(name, -(totalStringWidth), negativeY, Main.friendManager.isFriend(entityPlayer.getName()) ? Color.CYAN.getRGB() : -1);
                 Main.fontManager.drawStringWithShadow(healthString, (-totalStringWidth + nameWidth + spaceWidth), negativeY, module.getHealthColor(health).getRGB());
-                Main.fontManager.drawStringWithShadow(latencyString, (-totalStringWidth + nameWidth + spaceWidth + healthWidth + spaceWidth), negativeY, module.getLatencyColor(health).getRGB());
+                Main.fontManager.drawStringWithShadow(latencyString, (-totalStringWidth + nameWidth + spaceWidth + healthWidth + spaceWidth), negativeY, module.getLatencyColor(latency).getRGB());
                 Main.fontManager.drawStringWithShadow(latencySuffix, (-totalStringWidth + nameWidth + spaceWidth + healthWidth + spaceWidth + latencyWidth), negativeY, Main.friendManager.isFriend(entityPlayer.getName()) ? Color.CYAN.getRGB() : -1);
                 RenderUtil.release3D();
             }

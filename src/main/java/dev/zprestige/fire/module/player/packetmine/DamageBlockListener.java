@@ -14,12 +14,14 @@ public class DamageBlockListener extends EventListener<BlockInteractEvent.Damage
     @Override
     public void invoke(final Object object) {
         final BlockInteractEvent.DamageBlock event = (BlockInteractEvent.DamageBlock) object;
-        if (module.activePos != null) {
-            module.abort(module.activePos, module.facing);
-        }
-        if (!BlockUtil.getState(event.getPos()).equals(Blocks.BEDROCK)) {
-            module.initiateBreaking(event.getPos(), event.getFacing());
-            event.setCancelled();
+        if (module.nullCheck()) {
+            if (module.activePos != null) {
+                module.abort(module.activePos, module.facing);
+            }
+            if (!BlockUtil.getState(event.getPos()).equals(Blocks.BEDROCK)) {
+                module.initiateBreaking(event.getPos(), event.getFacing());
+                event.setCancelled();
+            }
         }
     }
 }

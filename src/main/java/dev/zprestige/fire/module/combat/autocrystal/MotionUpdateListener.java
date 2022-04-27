@@ -18,7 +18,7 @@ public class MotionUpdateListener extends EventListener<MotionUpdateEvent, AutoC
     @Override
     public void invoke(final Object object) {
         final MotionUpdateEvent event = (MotionUpdateEvent) object;
-        if (event.getStage().equals(Stage.Pre)) {
+        if (event.getStage().equals(Stage.Pre) && module.nullCheck()) {
             if (!module.multiTask.GetSwitch() && mc.player.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE) && mc.gameSettings.keyBindUseItem.isKeyDown()) {
                 return;
             }

@@ -26,6 +26,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
@@ -154,10 +155,20 @@ public class AutoCrystal extends Module {
     protected final ArrayList<Long> crystalsPerSecond = new ArrayList<>();
     protected int ticks = 0, timeoutTicks = 0;
     protected boolean canRotate;
-    protected BlockPos pos;
+    protected BlockPos pos, prevPos;
     protected AxisAlignedBB bb;
     protected int pyroId = -1;
     protected EntityOtherPlayerMP entityOtherPlayerMP;
+    protected final Vec3i[] invalidPosses = new Vec3i[]{
+            new Vec3i(-1, 0, 0),
+            new Vec3i(1, 0, 0),
+            new Vec3i(0, 0, -1),
+            new Vec3i(0, 0 ,-1),
+            new Vec3i(-1, 0 ,-1),
+            new Vec3i(-1, 0 ,1),
+            new Vec3i(1, 0 ,1),
+            new Vec3i(1, 0 ,-1)
+    };
 
     public AutoCrystal() {
         eventListeners = new EventListener[]{
@@ -176,6 +187,7 @@ public class AutoCrystal extends Module {
         });
         bb = null;
         pos = null;
+        prevPos = null;
     }
 
     @Override
@@ -256,12 +268,10 @@ public class AutoCrystal extends Module {
 
     public void explodeCrystal(final EntityEnderCrystal entityEnderCrystal, final MotionUpdateEvent event) {
         if (explodeInhibit.GetSwitch()) {
+            new HashMap<>(inhibitedCrystals).entrySet().stream().filter(entry -> System.currentTimeMillis() - entry.getValue() > inhibitTimeout.GetSlider()).map(Map.Entry::getKey).forEach(inhibitedCrystals::remove);
             if (!inhibitedCrystals.containsKey(entityEnderCrystal.entityId)) {
                 inhibitedCrystals.put(entityEnderCrystal.entityId, System.currentTimeMillis());
-            } else if (getInhibitTimeByCrystal(entityEnderCrystal) > inhibitTimeout.GetSlider()) {
-                inhibitedCrystals.remove(entityEnderCrystal.entityId);
-            }
-            if (inhibitedCrystals.containsKey(entityEnderCrystal.entityId) && getInhibitTimeByCrystal(entityEnderCrystal) < inhibitTimeout.GetSlider()) {
+            } else {
                 return;
             }
         }
@@ -328,10 +338,6 @@ public class AutoCrystal extends Module {
         }
     }
 
-    protected long getInhibitTimeByCrystal(final EntityEnderCrystal entityEnderCrystal) {
-        return inhibitedCrystals.entrySet().stream().filter(entry -> entry.getKey().equals(entityEnderCrystal.entityId)).findFirst().map(Map.Entry::getValue).orElse(0L);
-    }
-
     protected void playPyroSound(final BlockPos pos) {
         mc.world.playSound(mc.player, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 1, 0);
     }
@@ -343,10 +349,12 @@ public class AutoCrystal extends Module {
         }
         final BlockUtil.EnumOffset enumOffset = BlockUtil.getVisibleEnumFacing(pos);
         float x = 0.5f, y = 0.5f, z = 0.5f;
+        EnumFacing enumFacing = EnumFacing.UP;
         if (advancedRaytrace.GetSwitch()) {
             if (enumOffset == null) {
                 return;
             } else {
+                enumFacing = enumOffset.getEnumFacing();
                 x = enumOffset.getX();
                 y = enumOffset.getY();
                 z = enumOffset.getZ();
@@ -380,10 +388,10 @@ public class AutoCrystal extends Module {
         final EnumHand finalHand = crystalHand == null ? EnumHand.MAIN_HAND : crystalHand;
         if (placePacket.GetSwitch()) {
             if (mc.getConnection() != null) {
-                mc.getConnection().getNetworkManager().channel().writeAndFlush(new CPacketPlayerTryUseItemOnBlock(pos, EnumFacing.UP, finalHand, x, y, z));
+                mc.getConnection().getNetworkManager().channel().writeAndFlush(new CPacketPlayerTryUseItemOnBlock(pos, enumFacing, finalHand, x, y, z));
             }
         } else {
-            mc.playerController.processRightClickBlock(mc.player, mc.world, pos, EnumFacing.UP, new Vec3d(mc.player.posX, -mc.player.posY, -mc.player.posZ), finalHand);
+            mc.playerController.processRightClickBlock(mc.player, mc.world, pos, enumFacing, new Vec3d(mc.player.posX, -mc.player.posY, -mc.player.posZ), finalHand);
         }
         mc.player.swingArm(finalHand);
         if (switched) {
@@ -401,6 +409,7 @@ public class AutoCrystal extends Module {
             pyroCrystals.add(crystal);
         }
         this.pos = pos;
+        this.prevPos = pos;
         if (bb == null) {
             bb = new AxisAlignedBB(pos);
         }
@@ -470,6 +479,20 @@ public class AutoCrystal extends Module {
             if (!intersecting.isEmpty() || mc.player.getDistanceSq(pos) / 2 > (BlockUtil.isNotVisible(pos, raytrace(placeRaytrace.GetCombo()).getOffset()) ? placeWallRange.GetSlider() : placeRange.GetSlider())) {
                 continue;
             }
+            boolean shouldContinue = true;
+            if (prevPos != null && !pos.equals(prevPos) && !new ArrayList<>(mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up()))).isEmpty()) {
+                for (final Vec3i vec3i : invalidPosses) {
+                    final BlockPos pos1 = prevPos.add(vec3i);
+                    final BlockPos pos2 = prevPos.up().add(vec3i);
+                    final BlockPos pos3 = prevPos.down().add(vec3i);
+                    if (pos.equals(pos1) || pos.equals(pos2) || pos.equals(pos3)) {
+                        shouldContinue = false;
+                    }
+                }
+            }
+            if (!shouldContinue) {
+                continue;
+            }
             final double damage = BlockUtil.calculatePosDamage(pos, player);
             final double selfDamage = BlockUtil.calculatePosDamage(pos, mc.player);
             final double selfHealth = mc.player.getHealth() + mc.player.getAbsorptionAmount();
@@ -505,7 +528,6 @@ public class AutoCrystal extends Module {
         }
         return null;
     }
-
     protected void setupEntity(final PlayerManager.Player player, final double[] next) {
         final EntityOtherPlayerMP entityOtherPlayerMP1 = new EntityOtherPlayerMP(mc.world, player.getEntityPlayer().getGameProfile());
         final EntityPlayer entity = player.getEntityPlayer();
