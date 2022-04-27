@@ -1,4 +1,4 @@
 "Keybind": "0:false"
-"Enabled": "true"
+"Enabled": "false"
 "Drawn": "true"
 "NCP Strict": "false"

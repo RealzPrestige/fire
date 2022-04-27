@@ -1,0 +1,144 @@
+---- Minecraft Crash Report ----
+// You should try our sister game, Minceraft!
+
+Time: 4/27/22 6:53 PM
+Description: Unexpected error
+
+java.lang.NullPointerException: Unexpected error
+	at dev.zprestige.fire.module.player.freecam.Freecam.onEnable(Freecam.java:31)
+	at dev.zprestige.fire.module.Module.enableModule(Module.java:37)
+	at dev.zprestige.fire.module.Module.toggleModule(Module.java:51)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1384)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.event.Listener.onKeyInput(Listener.java:113)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_20_Listener_onKeyInput_KeyInputEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.fml.common.FMLCommonHandler.fireKeyInput(FMLCommonHandler.java:565)
+	at net.minecraft.client.Minecraft.runTickKeyboard(Minecraft.java:2144)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1935)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1188)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:442)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at dev.zprestige.fire.module.player.freecam.Freecam.onEnable(Freecam.java:31)
+	at dev.zprestige.fire.module.Module.enableModule(Module.java:37)
+	at dev.zprestige.fire.module.Module.toggleModule(Module.java:51)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:175)
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1384)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:485)
+	at dev.zprestige.fire.event.Listener.onKeyInput(Listener.java:113)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_20_Listener_onKeyInput_KeyInputEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.fml.common.FMLCommonHandler.fireKeyInput(FMLCommonHandler.java:565)
+	at net.minecraft.client.Minecraft.runTickKeyboard(Minecraft.java:2144)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['zPrestige_'/163, l='MpServer', x=226.08, y=3.00, z=-264.30]]
+	Chunk stats: MultiplayerChunkCache: 441, 441
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (252,64,-242), Chunk: (at 12,4,14 in 15,-16; contains blocks 240,0,-256 to 255,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 6433845 game time, 1011 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 91 total; [EntitySheep['Sheep'/7, l='MpServer', x=161.58, y=70.00, z=-331.28], EntitySheep['Sheep'/14, l='MpServer', x=197.23, y=73.00, z=-253.52], EntityXPOrb['Experience Orb'/16, l='MpServer', x=219.75, y=2.00, z=-257.25], EntityXPOrb['Experience Orb'/17, l='MpServer', x=219.72, y=2.00, z=-257.25], EntityXPOrb['Experience Orb'/18, l='MpServer', x=219.25, y=2.00, z=-257.78], EntityXPOrb['Experience Orb'/19, l='MpServer', x=218.66, y=2.00, z=-256.50], EntityXPOrb['Experience Orb'/20, l='MpServer', x=219.10, y=2.00, z=-257.25], EntityXPOrb['Experience Orb'/21, l='MpServer', x=222.88, y=2.37, z=-258.89], EntityXPOrb['Experience Orb'/22, l='MpServer', x=222.88, y=2.40, z=-258.89], EntityXPOrb['Experience Orb'/23, l='MpServer', x=220.59, y=3.00, z=-259.12], EntityXPOrb['Experience Orb'/24, l='MpServer', x=219.65, y=3.00, z=-258.19], EntityXPOrb['Experience Orb'/25, l='MpServer', x=220.77, y=3.00, z=-257.25], EntityXPOrb['Experience Orb'/26, l='MpServer', x=219.19, y=3.00, z=-258.50], EntityXPOrb['Experience Orb'/27, l='MpServer', x=219.60, y=2.00, z=-257.25], EntityXPOrb['Experience Orb'/28, l='MpServer', x=220.76, y=3.00, z=-258.67], EntityXPOrb['Experience Orb'/29, l='MpServer', x=222.88, y=2.30, z=-258.89], EntityXPOrb['Experience Orb'/30, l='MpServer', x=219.55, y=3.00, z=-258.64], EntityXPOrb['Experience Orb'/31, l='MpServer', x=220.13, y=3.00, z=-258.33], EntityXPOrb['Experience Orb'/32, l='MpServer', x=217.80, y=2.00, z=-257.25], EntityXPOrb['Experience Orb'/33, l='MpServer', x=219.36, y=3.00, z=-258.51], EntityXPOrb['Experience Orb'/34, l='MpServer', x=222.88, y=2.29, z=-258.89], EntityXPOrb['Experience Orb'/35, l='MpServer', x=219.65, y=4.00, z=-256.83], EntityPlayerSP['zPrestige_'/163, l='MpServer', x=226.08, y=3.00, z=-264.30], EntityXPOrb['Experience Orb'/36, l='MpServer', x=220.78, y=3.00, z=-258.68], EntityXPOrb['Experience Orb'/37, l='MpServer', x=219.64, y=3.00, z=-258.67], EntityXPOrb['Experience Orb'/38, l='MpServer', x=222.88, y=2.42, z=-258.89], EntityXPOrb['Experience Orb'/39, l='MpServer', x=220.30, y=3.00, z=-258.24], EntityXPOrb['Experience Orb'/40, l='MpServer', x=222.88, y=2.36, z=-258.89], EntityXPOrb['Experience Orb'/41, l='MpServer', x=220.36, y=2.00, z=-254.25], EntityXPOrb['Experience Orb'/42, l='MpServer', x=220.36, y=2.00, z=-254.33], EntityXPOrb['Experience Orb'/43, l='MpServer', x=220.37, y=2.00, z=-254.25], EntityXPOrb['Experience Orb'/44, l='MpServer', x=220.35, y=2.00, z=-254.52], EntityXPOrb['Experience Orb'/45, l='MpServer', x=220.44, y=2.00, z=-254.38], EntityXPOrb['Experience Orb'/46, l='MpServer', x=220.35, y=2.00, z=-254.48], EntityXPOrb['Experience Orb'/47, l='MpServer', x=220.41, y=2.00, z=-254.49], EntityXPOrb['Experience Orb'/48, l='MpServer', x=220.42, y=2.00, z=-254.59], EntityXPOrb['Experience Orb'/49, l='MpServer', x=220.45, y=2.00, z=-254.51], EntityXPOrb['Experience Orb'/50, l='MpServer', x=220.46, y=2.00, z=-254.61], EntityXPOrb['Experience Orb'/51, l='MpServer', x=220.29, y=2.00, z=-254.74], EntityXPOrb['Experience Orb'/52, l='MpServer', x=220.44, y=2.00, z=-254.82], EntityXPOrb['Experience Orb'/53, l='MpServer', x=220.66, y=2.00, z=-255.25], EntityXPOrb['Experience Orb'/54, l='MpServer', x=220.44, y=2.00, z=-255.25], EntityXPOrb['Experience Orb'/55, l='MpServer', x=220.51, y=2.00, z=-254.65], EntityXPOrb['Experience Orb'/61, l='MpServer', x=238.75, y=3.00, z=-275.25], EntityXPOrb['Experience Orb'/62, l='MpServer', x=238.75, y=1.00, z=-276.62], EntityXPOrb['Experience Orb'/63, l='MpServer', x=234.32, y=4.00, z=-276.45], EntityXPOrb['Experience Orb'/64, l='MpServer', x=235.75, y=2.00, z=-277.45], EntityXPOrb['Experience Orb'/65, l='MpServer', x=232.64, y=3.00, z=-282.54], EntityXPOrb['Experience Orb'/66, l='MpServer', x=234.08, y=4.00, z=-276.95], EntityXPOrb['Experience Orb'/67, l='MpServer', x=237.89, y=4.00, z=-280.18], EntityXPOrb['Experience Orb'/68, l='MpServer', x=236.96, y=4.00, z=-277.21], EntityXPOrb['Experience Orb'/69, l='MpServer', x=226.25, y=2.00, z=-275.25], EntityXPOrb['Experience Orb'/70, l='MpServer', x=229.25, y=4.00, z=-277.50], EntityXPOrb['Experience Orb'/71, l='MpServer', x=229.71, y=3.00, z=-275.94], EntityXPOrb['Experience Orb'/72, l='MpServer', x=235.99, y=2.00, z=-277.25], EntityXPOrb['Experience Orb'/73, l='MpServer', x=234.13, y=4.00, z=-282.40], EntityXPOrb['Experience Orb'/74, l='MpServer', x=235.81, y=3.00, z=-275.25], EntityXPOrb['Experience Orb'/75, l='MpServer', x=237.59, y=4.00, z=-279.62], EntityXPOrb['Experience Orb'/76, l='MpServer', x=237.32, y=4.00, z=-278.57], EntityXPOrb['Experience Orb'/77, l='MpServer', x=238.11, y=4.00, z=-278.47], EntityXPOrb['Experience Orb'/78, l='MpServer', x=237.17, y=4.00, z=-278.60], EntityXPOrb['Experience Orb'/79, l='MpServer', x=238.41, y=1.48, z=-277.85], EntityXPOrb['Experience Orb'/80, l='MpServer', x=237.02, y=4.00, z=-280.25], EntityXPOrb['Experience Orb'/81, l='MpServer', x=237.83, y=4.00, z=-276.63], EntityXPOrb['Experience Orb'/82, l='MpServer', x=238.89, y=4.00, z=-278.03], EntityXPOrb['Experience Orb'/83, l='MpServer', x=239.21, y=1.00, z=-276.25], EntityXPOrb['Experience Orb'/84, l='MpServer', x=237.66, y=4.00, z=-275.95], EntityXPOrb['Experience Orb'/85, l='MpServer', x=239.62, y=4.00, z=-278.43], EntityXPOrb['Experience Orb'/86, l='MpServer', x=235.07, y=4.00, z=-271.14], EntityXPOrb['Experience Orb'/87, l='MpServer', x=227.07, y=3.21, z=-267.22], EntityXPOrb['Experience Orb'/88, l='MpServer', x=225.96, y=3.57, z=-262.84], EntityXPOrb['Experience Orb'/89, l='MpServer', x=225.84, y=3.66, z=-263.05], EntityXPOrb['Experience Orb'/90, l='MpServer', x=225.83, y=3.61, z=-263.03], EntityXPOrb['Experience Orb'/91, l='MpServer', x=225.80, y=3.46, z=-262.97], EntityXPOrb['Experience Orb'/92, l='MpServer', x=225.96, y=3.50, z=-263.03], EntityXPOrb['Experience Orb'/93, l='MpServer', x=225.96, y=3.63, z=-263.05], EntitySheep['Sheep'/100, l='MpServer', x=254.34, y=78.00, z=-342.61], EntitySheep['Sheep'/101, l='MpServer', x=246.27, y=74.00, z=-328.49], EntityXPOrb['Experience Orb'/102, l='MpServer', x=241.15, y=3.00, z=-276.52], EntityXPOrb['Experience Orb'/103, l='MpServer', x=241.88, y=3.00, z=-279.46], EntityXPOrb['Experience Orb'/104, l='MpServer', x=240.98, y=3.00, z=-279.37], EntityXPOrb['Experience Orb'/105, l='MpServer', x=241.30, y=3.00, z=-277.58], EntityXPOrb['Experience Orb'/106, l='MpServer', x=242.43, y=3.00, z=-279.75], EntitySheep['Sheep'/107, l='MpServer', x=252.72, y=64.00, z=-240.49], EntitySheep['Sheep'/110, l='MpServer', x=261.61, y=77.00, z=-340.45], EntitySheep['Sheep'/111, l='MpServer', x=257.94, y=77.00, z=-341.50], EntitySheep['Sheep'/112, l='MpServer', x=251.78, y=78.00, z=-343.51], EntitySheep['Sheep'/113, l='MpServer', x=260.59, y=77.00, z=-340.64], EntitySheep['Sheep'/114, l='MpServer', x=260.51, y=66.00, z=-252.19], EntitySheep['Sheep'/120, l='MpServer', x=279.46, y=69.00, z=-337.19], EntitySheep['Sheep'/123, l='MpServer', x=290.74, y=70.00, z=-322.57]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:461)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2889)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:471)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_272, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Amazon.com Inc.
+	Memory: 425356768 bytes (405 MB) / 1127219200 bytes (1075 MB) up to 3801088000 bytes (3625 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2847 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                         | Signature |
+	|:------ |:--------- |:------------ |:---------------------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                  | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                  | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | forge     | 14.23.5.2847 | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | fire      | 0.1          | main                                           | None      |
+
+	Loaded coremods (and transformers): 
+MixinLoader (unknown)
+  
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 472.12' Renderer: 'NVIDIA GeForce RTX 3060/PCIe/SSE2'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: NVIDIA GeForce RTX 3060/PCIe/SSE2 GL version 4.6.0 NVIDIA 472.12, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 16x AMD Ryzen 7 2700X Eight-Core Processor 

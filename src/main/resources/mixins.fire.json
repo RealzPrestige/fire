@@ -6,6 +6,7 @@
   "minVersion": "",
   "mixins": [
     "MixinChunkRenderDispatcher",
+    "MixinEntity",
     "MixinEntityPlayerSP",
     "MixinMinecraft",
     "MixinNetworkManager",

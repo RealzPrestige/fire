@@ -137,6 +137,14 @@ public class Listener {
         Main.eventBus.invokeEvent(entityUseItemEvent);
     }
 
+    @SubscribeEvent
+    public void onCameraSetup(final EntityViewRenderEvent.CameraSetup event) {
+        final CameraSetupEvent cameraSetupEvent = new CameraSetupEvent(event.getYaw(), event.getPitch());
+        Main.eventBus.invokeEvent(cameraSetupEvent);
+        event.setYaw(cameraSetupEvent.getYaw());
+        event.setPitch(cameraSetupEvent.getPitch());
+    }
+
     public boolean checkNull() {
         return mc.player != null && mc.world != null;
     }
