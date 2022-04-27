@@ -38,7 +38,7 @@ public class ModuleList extends HudComponent {
             }
             listY += delta - (module.getListX() / delta);
         }
-        if (!aligned) {
+        if (!aligned && !loaded) {
             setPosition(new ScaledResolution(mc).getScaledWidth() - 100, 0);
             aligned = true;
         }

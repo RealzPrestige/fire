@@ -1,7 +1,9 @@
 package dev.zprestige.fire.module.movement.speed;
 
+import dev.zprestige.fire.Main;
 import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.event.impl.MoveEvent;
+import dev.zprestige.fire.module.movement.noslow.NoSlow;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.init.MobEffects;
 import net.minecraft.util.MovementInput;
@@ -23,6 +25,8 @@ public class MoveListener extends EventListener<MoveEvent, Speed> {
         if (!mc.player.isSprinting() && EntityUtil.isMoving()) {
             mc.player.setSprinting(true);
         }
+        final NoSlow noSlow = (NoSlow) Main.moduleManager.getModuleByClass(NoSlow.class);
+        final float factor = noSlow.isEnabled() && noSlow.slowed() ? 5.0f : 1.0f;
         switch (module.speedMode.GetCombo()) {
             case "Strafe":
                 switch (module.currentState) {
@@ -49,8 +53,8 @@ public class MoveListener extends EventListener<MoveEvent, Speed> {
                         module.motionSpeed = module.previousDistance - 0.76 * (module.previousDistance - EntityUtil.getBaseMotionSpeed() * module.strafeFactor.GetSlider());
                 }
                 module.motionSpeed = Math.max(module.motionSpeed, EntityUtil.getBaseMotionSpeed() * module.strafeFactor.GetSlider());
-                double var4 = mc.player.movementInput.moveForward;
-                double var6 = mc.player.movementInput.moveStrafe;
+                double var4 = mc.player.movementInput.moveForward  / factor;
+                double var6 = mc.player.movementInput.moveStrafe / factor;
                 double var8 = mc.player.rotationYaw;
                 if (var4 != 0.0 && var6 != 0.0) {
                     var4 *= Math.sin(0.7853981633974483);
@@ -63,8 +67,8 @@ public class MoveListener extends EventListener<MoveEvent, Speed> {
             case "OnGround":
                 if (!(mc.player.isSneaking() || mc.player.movementInput.moveForward == 0.0f && mc.player.movementInput.moveStrafe == 0.0f) || !mc.player.onGround) {
                     MovementInput movementInput = mc.player.movementInput;
-                    float moveForward = movementInput.moveForward;
-                    float moveStrafe = movementInput.moveStrafe;
+                    float moveForward = movementInput.moveForward / factor;
+                    float moveStrafe = movementInput.moveStrafe / factor;
                     float rotationYaw = mc.player.rotationYaw;
                     if ((double) moveForward == 0.0 && (double) moveStrafe == 0.0) {
                         event.setMotionX(0.0);

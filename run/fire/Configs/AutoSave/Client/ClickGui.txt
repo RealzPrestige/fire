@@ -1,7 +1,7 @@
 "Keybind": "54:false"
 "Enabled": "false"
 "Drawn": "true"
-"Color": "-1762533"
+"Color": "-11527195"
 "Particles": "false"
 "Particle Color": "-11527195"
 "Particle Speed": "0.5"

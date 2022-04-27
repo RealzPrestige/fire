@@ -12,6 +12,7 @@ public class HudComponent {
     protected final Minecraft mc = Main.mc;
     protected String name;
     protected boolean enabled, dragging;
+    public boolean loaded;
     protected float x, y, width, height;
     protected float dragX, dragY;
 

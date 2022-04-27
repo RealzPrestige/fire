@@ -19,7 +19,7 @@ public class Coords extends HudComponent {
 
     @Override
     public void render() {
-        if (!aligned) {
+        if (!aligned && !loaded) {
             final ScaledResolution scaledResolution = new ScaledResolution(mc);
             setPosition(0, scaledResolution.getScaledHeight() - Main.fontManager.getFontHeight() * 2);
             aligned = true;

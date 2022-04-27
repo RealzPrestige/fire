@@ -111,6 +111,7 @@ public class ConfigManager {
                             if (type.equals("Position")) {
                                 final String[] pos = split[1].replace("\"", "").replace(" ", "").split(",");
                                 hudComponent.setPosition(Float.parseFloat(pos[0]), Float.parseFloat(pos[1]));
+                                hudComponent.loaded = true;
                             }
                         });
                         Main.fileManager.closeBufferedReader(bufferedReader);

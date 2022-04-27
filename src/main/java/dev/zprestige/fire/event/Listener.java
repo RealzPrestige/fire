@@ -100,6 +100,12 @@ public class Listener {
     }
 
     @SubscribeEvent
+    public void onItemUpdateEvent(final InputUpdateEvent event){
+        final ItemInputUpdateEvent itemInputUpdateEvent = new ItemInputUpdateEvent(event.getMovementInput());
+        Main.eventBus.invokeEvent(itemInputUpdateEvent);
+    }
+
+    @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (checkNull() && Keyboard.getEventKeyState()) {
             final KeyEvent keyEvent = new KeyEvent(Keyboard.getEventKey());
@@ -127,7 +133,7 @@ public class Listener {
 
     @SubscribeEvent
     public void onLivingEntityUseItem(final LivingEntityUseItemEvent event) {
-        final EntityUseItemEvent entityUseItemEvent = new EntityUseItemEvent();
+        final EntityUseItemEvent entityUseItemEvent = new EntityUseItemEvent(event.getEntity());
         Main.eventBus.invokeEvent(entityUseItemEvent);
     }
 
