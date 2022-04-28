@@ -106,8 +106,10 @@ public class AutoCrystal extends Module {
     public final Switch explodePacket = Menu.Switch("Explode Packet", false).panel("Other");
     public final Switch explodeInhibit = Menu.Switch("Explode Inhibit", false).panel("Other");
     public final Slider inhibitTimeout = Menu.Slider("Inhibit Timeout", 100.0f, 0.1f, 3000.0f).visibility(z -> explodeInhibit.GetSwitch()).panel("Other");
-    public final Switch placeSilentSwitch = Menu.Switch("Place Silent Switch", false).panel("Other");
-    public final Switch explodeSilentSwitch = Menu.Switch("Explode Silent Switch", false).panel("Other");
+    public final ComboBox silentSwitch = Menu.ComboBox("Silent Switch", "None", new String[]{
+            "None",
+            "Default"
+    }).panel("Other");
     public final Switch placeInhibit = Menu.Switch("Place Inhibit", false).panel("Other");
     public final Switch onePointThirteen = Menu.Switch("One Point Thirteen", false).panel("Other");
     public final Switch explodeAntiWeakness = Menu.Switch("Explode Anti Weakness", false).panel("Other");
@@ -163,11 +165,11 @@ public class AutoCrystal extends Module {
             new Vec3i(-1, 0, 0),
             new Vec3i(1, 0, 0),
             new Vec3i(0, 0, -1),
-            new Vec3i(0, 0 ,-1),
-            new Vec3i(-1, 0 ,-1),
-            new Vec3i(-1, 0 ,1),
-            new Vec3i(1, 0 ,1),
-            new Vec3i(1, 0 ,-1)
+            new Vec3i(0, 0, -1),
+            new Vec3i(-1, 0, -1),
+            new Vec3i(-1, 0, 1),
+            new Vec3i(1, 0, 1),
+            new Vec3i(1, 0, -1)
     };
 
     public AutoCrystal() {
@@ -286,12 +288,6 @@ public class AutoCrystal extends Module {
                 switched = true;
             }
         }
-        final int slot = Main.inventoryManager.getItemFromHotbar(Items.END_CRYSTAL);
-        boolean switched1 = false;
-        if (explodeSilentSwitch.GetSwitch() && slot != -1 && getCrystalHand() == null) {
-            Main.inventoryManager.switchToSlot(slot);
-            switched1 = true;
-        }
         if (explodeRotate.GetSwitch() && event != null && canRotate) {
             switch (inAirRotations.GetCombo()) {
                 case "None":
@@ -321,9 +317,6 @@ public class AutoCrystal extends Module {
         if (setDead.GetCombo().equals("Unsafe")) {
             entityEnderCrystal.setDead();
         }
-        if (switched1) {
-            Main.inventoryManager.switchBack(currentItem);
-        }
         if (switched) {
             Main.inventoryManager.switchBack(currentItem);
         }
@@ -344,7 +337,7 @@ public class AutoCrystal extends Module {
 
     public void placeCrystal(final BlockPos pos, final MotionUpdateEvent event) {
         final EnumHand crystalHand = getCrystalHand();
-        if ((!placeSilentSwitch.GetSwitch() && crystalHand == null) || (placeInhibit.GetSwitch() && !mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.up())).isEmpty())) {
+        if ((!silentSwitch.GetCombo().equals("None") && crystalHand == null) || (placeInhibit.GetSwitch() && !mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.up())).isEmpty())) {
             return;
         }
         final BlockUtil.EnumOffset enumOffset = BlockUtil.getVisibleEnumFacing(pos);
@@ -363,7 +356,7 @@ public class AutoCrystal extends Module {
         final int slot = Main.inventoryManager.getItemFromHotbar(Items.END_CRYSTAL);
         final int currentItem = mc.player.inventory.currentItem;
         boolean switched = false;
-        if (placeSilentSwitch.GetSwitch() && slot != -1 && crystalHand == null) {
+        if (silentSwitch.GetCombo().equals("Default") && slot != -1 && crystalHand == null) {
             Main.inventoryManager.switchToSlot(slot);
             switched = true;
         }
@@ -528,6 +521,7 @@ public class AutoCrystal extends Module {
         }
         return null;
     }
+
     protected void setupEntity(final PlayerManager.Player player, final double[] next) {
         final EntityOtherPlayerMP entityOtherPlayerMP1 = new EntityOtherPlayerMP(mc.world, player.getEntityPlayer().getGameProfile());
         final EntityPlayer entity = player.getEntityPlayer();
