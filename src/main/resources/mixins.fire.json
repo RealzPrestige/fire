@@ -8,6 +8,7 @@
     "MixinChunkRenderDispatcher",
     "MixinEntity",
     "MixinEntityPlayerSP",
+    "MixinEntityRenderer",
     "MixinMinecraft",
     "MixinNetworkManager",
     "MixinParticleManager",

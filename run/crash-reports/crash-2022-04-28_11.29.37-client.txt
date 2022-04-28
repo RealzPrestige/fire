@@ -1,0 +1,97 @@
+---- Minecraft Crash Report ----
+// Uh... Did I do that?
+
+Time: 4/28/22 11:29 AM
+Description: Tesselating block in world
+
+java.lang.NullPointerException: Tesselating block in world
+	at net.minecraft.client.renderer.BlockModelRenderer.handler$renderModelHook$zza000(BlockModelRenderer.java:522)
+	at net.minecraft.client.renderer.BlockModelRenderer.renderModel(BlockModelRenderer.java)
+	at net.minecraft.client.renderer.BlockRendererDispatcher.renderBlock(BlockRendererDispatcher.java:80)
+	at net.minecraft.client.renderer.chunk.RenderChunk.rebuildChunk(RenderChunk.java:203)
+	at net.minecraft.client.renderer.chunk.ChunkRenderWorker.processTask(ChunkRenderWorker.java:122)
+	at net.minecraft.client.renderer.chunk.ChunkRenderWorker.run(ChunkRenderWorker.java:50)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at net.minecraft.client.renderer.BlockModelRenderer.handler$renderModelHook$zza000(BlockModelRenderer.java:522)
+	at net.minecraft.client.renderer.BlockModelRenderer.renderModel(BlockModelRenderer.java)
+
+-- Block being tesselated --
+Details:
+	Block type: ID #3 (tile.dirt // net.minecraft.block.BlockDirt // minecraft:dirt)
+	Block data value: 0 / 0x0 / 0b0000
+	Block location: World: (336,64,-336), Chunk: (at 0,4,0 in 21,-21; contains blocks 336,0,-336 to 351,255,-321), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+Stacktrace:
+	at net.minecraft.client.renderer.BlockRendererDispatcher.renderBlock(BlockRendererDispatcher.java:80)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['zPrestige_'/87, l='MpServer', x=248.82, y=64.00, z=-250.88]]
+	Chunk stats: MultiplayerChunkCache: 441, 441
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (252,64,-242), Chunk: (at 12,4,14 in 15,-16; contains blocks 240,0,-256 to 255,255,-241), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 6463548 game time, 1010 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 7 total; [EntitySheep['Sheep'/48, l='MpServer', x=307.99, y=69.00, z=-316.04], EntitySheep['Sheep'/35, l='MpServer', x=263.61, y=66.00, z=-263.70], EntitySheep['Sheep'/36, l='MpServer', x=260.67, y=67.00, z=-255.49], EntityPlayerSP['zPrestige_'/87, l='MpServer', x=248.82, y=64.00, z=-250.88], EntitySheep['Sheep'/43, l='MpServer', x=280.81, y=68.00, z=-319.48], EntitySheep['Sheep'/45, l='MpServer', x=288.77, y=70.00, z=-328.48], EntitySheep['Sheep'/15, l='MpServer', x=195.50, y=74.00, z=-252.73]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:461)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2889)
+	at net.minecraft.client.renderer.chunk.ChunkRenderWorker.run(ChunkRenderWorker.java:60)
+	at java.lang.Thread.run(Thread.java:748)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_272, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Amazon.com Inc.
+	Memory: 248105192 bytes (236 MB) / 709361664 bytes (676 MB) up to 3801088000 bytes (3625 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2847 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                         | Signature |
+	|:------ |:--------- |:------------ |:---------------------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                  | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                  | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | forge     | 14.23.5.2847 | forgeSrc-1.12.2-14.23.5.2847-PROJECT(fire).jar | None      |
+	| LCHIJA | fire      | 0.1          | main                                           | None      |
+
+	Loaded coremods (and transformers): 
+MixinLoader (unknown)
+  
+	GL info: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 16x AMD Ryzen 7 2700X Eight-Core Processor 
