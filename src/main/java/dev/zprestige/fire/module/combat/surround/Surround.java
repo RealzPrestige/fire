@@ -181,10 +181,6 @@ public class Surround extends Module {
         }
     }
 
-    public int getPriority(final Position position) {
-        return position.getPriority();
-    }
-
     protected enum Priority {
         HIGH(1000),
         NORMAL(0);
