@@ -1,6 +1,8 @@
 "Keybind": "0:false"
 "Enabled": "false"
 "Drawn": "true"
+"Players": "false"
+"Crystals": "false"
 "Fill": "false"
 "Fill Color": "-1"
 "Outline": "false"

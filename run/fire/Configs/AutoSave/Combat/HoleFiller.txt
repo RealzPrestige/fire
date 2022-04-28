@@ -20,6 +20,7 @@
 "Rotate": "false"
 "Prevent Rotation Rubberband": "false"
 "Strict": "false"
+"Raytrace": "false"
 "Doubles": "true"
 "While Moving": "false"
 "Enemy Unsafe": "true"

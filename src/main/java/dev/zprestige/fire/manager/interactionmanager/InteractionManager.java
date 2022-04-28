@@ -64,12 +64,15 @@ public class InteractionManager {
             Blocks.BLACK_SHULKER_BOX
     );
 
-    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict) {
-        placeBlock(pos, rotate, packet, strict, false, false);
+    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean raytrace, final boolean strict) {
+        placeBlock(pos, rotate, packet, strict, raytrace, false, false);
     }
 
-    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final boolean excludeBottomEnumFacing, final boolean ignoreEntities) {
+    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final boolean raytrace, final boolean excludeBottomEnumFacing, final boolean ignoreEntities) {
         for (EnumFacing enumFacing : EnumFacing.values()) {
+            if (raytrace && !canSeeFace(pos, enumFacing)) {
+                continue;
+            }
             final BlockPos directionOffset = pos.offset(enumFacing);
             if (excludeBottomEnumFacing && directionOffset.equals(pos.down())) {
                 continue;
@@ -183,29 +186,29 @@ public class InteractionManager {
         return !mc.world.getBlockState(pos).isFullBlock() || !mc.world.isAirBlock(pos);
     }
 
-    public void placeBlockWithSwitch(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final int slot) {
+    public void placeBlockWithSwitch(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final boolean raytrace, final int slot) {
         int currentItem = mc.player.inventory.currentItem;
         Main.inventoryManager.switchToSlot(slot);
-        placeBlock(pos, rotate, packet, strict);
+        placeBlock(pos, rotate, packet, strict, raytrace);
         mc.player.inventory.currentItem = currentItem;
         mc.playerController.updateController();
     }
 
-    public void placeBlockWithSwitchIgnoringEntities(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final int slot) {
+    public void placeBlockWithSwitchIgnoringEntities(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final boolean raytrace, final int slot) {
         int currentItem = mc.player.inventory.currentItem;
         Main.inventoryManager.switchToSlot(slot);
-        placeBlock(pos, rotate, packet, strict, false, true);
+        placeBlock(pos, rotate, packet, strict, raytrace, false, true);
         mc.player.inventory.currentItem = currentItem;
         mc.playerController.updateController();
     }
 
-    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final Timer timer) {
-        placeBlock(pos, rotate, packet, strict);
+    public void placeBlock(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final boolean raytrace, final Timer timer) {
+        placeBlock(pos, rotate, packet, strict, raytrace);
         timer.syncTime();
     }
 
-    public void placeBlockWithSwitch(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final int slot, final Timer timer) {
-        placeBlockWithSwitch(pos, rotate, packet, strict, slot);
+    public void placeBlockWithSwitch(final BlockPos pos, final boolean rotate, final boolean packet, final boolean strict, final boolean raytrace, final int slot, final Timer timer) {
+        placeBlockWithSwitch(pos, rotate, packet, strict, raytrace, slot);
         timer.syncTime();
     }
 
@@ -251,7 +254,7 @@ public class InteractionManager {
                 Main.inventoryManager.switchToSlot(slot);
                 try {
                     mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, enumFacing));
-                } catch (Exception ignored){
+                } catch (Exception ignored) {
                 }
                 Main.inventoryManager.switchBack(currentItem);
             }
@@ -276,6 +279,32 @@ public class InteractionManager {
         mc.playerController.curBlockDamageMP = 0.0f;
         mc.world.sendBlockBreakProgress(mc.player.getEntityId(), pos, -1);
         mc.player.resetCooldown();
+    }
+
+    protected boolean canSeeFace(final BlockPos pos, final EnumFacing enumFacing) {
+        float x = 0.5f, y = 0.5f, z = 0.5f;
+        switch (enumFacing) {
+            case DOWN:
+                y -= -0.5f;
+                break;
+            case UP:
+                y += 0.5f;
+            case NORTH:
+                z -= 0.5f;
+                break;
+            case EAST:
+                x += 0.5f;
+                break;
+            case SOUTH:
+                z += 0.5f;
+                break;
+            case WEST:
+                x -= 0.5f;
+                break;
+        }
+        final Vec3d vec3d = new Vec3d(pos.getX() + x, pos.getY() + y, pos.getZ() + z);
+        final Vec3d player = new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ);
+        return mc.world.rayTraceBlocks(player, vec3d) == null;
     }
 
 }

@@ -62,6 +62,7 @@ public class HoleFiller extends Module {
     public final Switch rotate = Menu.Switch("Rotate", false).panel("Placing");
     public final Switch preventRotationRubberband = Menu.Switch("Prevent Rotation Rubberband", false).visibility(z -> rotate.GetSwitch()).panel("Placing");
     public final Switch strict = Menu.Switch("Strict", false).panel("Placing");
+    public final Switch raytrace = Menu.Switch("Raytrace", false);
     public final Switch doubles = Menu.Switch("Doubles", true).panel("Placing");
     public final Switch whileMoving = Menu.Switch("While Moving", false).panel("Other");
     public final Switch enemyUnsafe = Menu.Switch("Enemy Unsafe", true).visibility(z -> mode.GetCombo().equals("Smart")).panel("Other");
@@ -90,7 +91,7 @@ public class HoleFiller extends Module {
 
     protected void placeBlock(final BlockPos pos, final int slot) {
         if (slot != -1) {
-            Main.interactionManager.placeBlockWithSwitch(pos, rotate.GetSwitch(), packet.GetSwitch(), strict.GetSwitch(), slot);
+            Main.interactionManager.placeBlockWithSwitch(pos, rotate.GetSwitch(), packet.GetSwitch(), strict.GetSwitch(), raytrace.GetSwitch(), slot);
             if (render.GetSwitch()) {
                 switch (animation.GetCombo()) {
                     case "None":

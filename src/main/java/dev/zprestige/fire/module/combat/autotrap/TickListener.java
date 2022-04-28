@@ -37,7 +37,7 @@ public class TickListener extends EventListener<TickEvent, AutoTrap> {
                     if (i > module.blocksPerTick.GetSlider() || Main.inventoryManager.getBlockFromHotbar(Blocks.OBSIDIAN) == -1 || (module.preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations())) {
                         return;
                     }
-                    Main.interactionManager.placeBlockWithSwitch(position.getPos(), module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), obsidian);
+                    Main.interactionManager.placeBlockWithSwitch(position.getPos(), module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), module.raytrace.GetSwitch(), obsidian);
                     module.addFade(position.getPos());
                     i++;
                 }
@@ -47,7 +47,7 @@ public class TickListener extends EventListener<TickEvent, AutoTrap> {
                     if (module.preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations()) {
                         return;
                     }
-                    Main.interactionManager.placeBlockWithSwitch(position.getPos(), module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), obsidian);
+                    Main.interactionManager.placeBlockWithSwitch(position.getPos(), module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), module.raytrace.GetSwitch(), obsidian);
                     module.addFade(position.getPos());
                     return;
                 }

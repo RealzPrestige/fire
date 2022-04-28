@@ -44,7 +44,7 @@ public class TickListener extends EventListener<TickEvent, Surround> {
                     if (mc.world.getBlockState(pos1).getMaterial().isReplaceable() && (!module.extend.GetSwitch() || !mc.player.getEntityBoundingBox().intersects(new AxisAlignedBB(pos1))) && module.isntIntersectingWithPlayer(pos1)) {
                         final int slot = module.getSlotByItem();
                         if (slot != -1) {
-                            Main.interactionManager.placeBlockWithSwitch(pos1, module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), slot);
+                            Main.interactionManager.placeBlockWithSwitch(pos1, module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), module.raytrace.GetSwitch() , slot);
                             module.addFade(pos1);
                             blocks++;
                         } else {
@@ -68,7 +68,7 @@ public class TickListener extends EventListener<TickEvent, Surround> {
                                 if ((module.preventRotationRubberband.GetSwitch() && Main.rotationManager.maxRotations())) {
                                     return;
                                 }
-                                Main.interactionManager.placeBlockWithSwitch(pos1, module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), slot);
+                                Main.interactionManager.placeBlockWithSwitch(pos1, module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), module.raytrace.GetSwitch(), slot);
                                 module.addFade(pos1);
                                 blocks++;
                             } else {
@@ -92,7 +92,7 @@ public class TickListener extends EventListener<TickEvent, Surround> {
                     if (mc.world.getBlockState(pos1).getMaterial().isReplaceable() && (!module.extend.GetSwitch() || !mc.player.getEntityBoundingBox().intersects(new AxisAlignedBB(pos1))) && module.isntIntersectingWithPlayer(pos1)) {
                         final int slot = module.getSlotByItem();
                         if (slot != -1) {
-                            Main.interactionManager.placeBlockWithSwitch(pos1, module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), slot);
+                            Main.interactionManager.placeBlockWithSwitch(pos1, module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), module.raytrace.GetSwitch(), slot);
                             module.addFade(pos1);
                             return;
                         } else {
@@ -113,7 +113,7 @@ public class TickListener extends EventListener<TickEvent, Surround> {
                         if (mc.world.getBlockState(pos1).getMaterial().isReplaceable() && !mc.player.getEntityBoundingBox().intersects(new AxisAlignedBB(pos1)) && module.isntIntersectingWithPlayer(pos1)) {
                             final int slot = module.getSlotByItem();
                             if (slot != -1) {
-                                Main.interactionManager.placeBlockWithSwitch(pos1, module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), slot);
+                                Main.interactionManager.placeBlockWithSwitch(pos1, module.rotate.GetSwitch(), module.packet.GetSwitch(), module.strict.GetSwitch(), module.raytrace.GetSwitch(), slot);
                                 module.addFade(pos1);
                                 return;
                             } else {
