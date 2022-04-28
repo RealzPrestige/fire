@@ -30,10 +30,10 @@ public class Chams extends Module {
     public final Slider animationSpeed = Menu.Slider("Animation Speed", 2.5f, 0.1f, 5.0f).panel("PopChams").visibility(z -> popChams.GetSwitch());
     public final Slider startAlpha = Menu.Slider("Start Alpha", 120.0f, 0.1f, 255.0f).panel("PopChams").visibility(z -> popChams.GetSwitch());
     public final Switch popFill = Menu.Switch("Fill", false).panel("PopChams").visibility(z -> popChams.GetSwitch());
-    public final ColorBox popFillColor = Menu.Color("Fill Color", Color.WHITE).panel("PopChams").visibility(z -> popChams.GetSwitch() && fill.GetSwitch());
+    public final ColorBox popFillColor = Menu.Color("Fill Color", Color.WHITE).panel("PopChams").visibility(z -> popChams.GetSwitch() && popFill.GetSwitch());
     public final Switch popOutline = Menu.Switch("Outline", false).panel("PopChams").visibility(z -> popChams.GetSwitch());
-    public final ColorBox popOutlineColor = Menu.Color("Outline Color", Color.WHITE).panel("PopChams").visibility(z -> popChams.GetSwitch() && outline.GetSwitch());
-    public final Slider popOutlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f).panel("PopChams").visibility(z -> popChams.GetSwitch() && outline.GetSwitch());
+    public final ColorBox popOutlineColor = Menu.Color("Outline Color", Color.WHITE).panel("PopChams").visibility(z -> popChams.GetSwitch() && popOutline.GetSwitch());
+    public final Slider popOutlineWidth = Menu.Slider("Outline Width", 1.0f, 0.1f, 5.0f).panel("PopChams").visibility(z -> popChams.GetSwitch() && popOutline.GetSwitch());
     protected final ArrayList<PopEntity> popEntities = new ArrayList<>();
     protected final int factor = 770, factorAlpha = 1;
 
