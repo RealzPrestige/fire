@@ -18,6 +18,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 @Descriptor(description = "Draws chams on entities")
 public class Chams extends Module {
+    public final Switch players = Menu.Switch("Players", false);
+    public final Switch crystals = Menu.Switch("Crystals", false);
     public final Switch fill = Menu.Switch("Fill", false);
     public final ColorBox fillColor = Menu.Color("Fill Color", Color.WHITE).visibility(z -> fill.GetSwitch());
     public final Switch outline = Menu.Switch("Outline", false);
