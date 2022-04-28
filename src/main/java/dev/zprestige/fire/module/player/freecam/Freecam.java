@@ -67,6 +67,7 @@ public class Freecam extends Module {
         entity.cameraYaw = mc.player.rotationYaw;
         entity.cameraPitch = mc.player.rotationPitch;
         entity.limbSwing = mc.player.limbSwing;
+        mc.world.addEntityToWorld(entity.entityId, entity);
         this.entity = entity;
     }
 
