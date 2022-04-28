@@ -25,7 +25,7 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, RunD
         final float width = Main.fontManager.getStringWidth(string);
         for (final EntityPlayer entityPlayer : new ArrayList<>(module.finalRunningPlayers)) {
             final Vec3d interpolatedPos = RenderUtil.interpolateEntity(entityPlayer);
-            RenderUtil.prepare3D(interpolatedPos.x, interpolatedPos.y + 0.75, interpolatedPos.z, 5);
+            RenderUtil.prepare3D(interpolatedPos.x, interpolatedPos.y + 0.75, interpolatedPos.z, 0.0005f);
             Main.fontManager.drawStringWithShadow(string, -(width / 2f), 0, -1);
             RenderUtil.release3D();
             if (!BlockUtil.isPlayerSafe(new PlayerManager.Player(entityPlayer)) || !entityPlayer.getHeldItemMainhand().getItem().equals(Items.GOLDEN_APPLE) || mc.player.getDistanceSq(EntityUtil.getPlayerPos(entityPlayer)) > module.radius.GetSlider() * module.radius.GetSlider()) {
