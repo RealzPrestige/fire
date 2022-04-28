@@ -74,9 +74,6 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, Pack
                         break;
                 }
             }
-            if (module.nullCheck() && module.silentSwitch.GetCombo().equals("Auto") && module.size >= 1.0f) {
-                module.attemptBreak(module.activePos, module.facing);
-            }
         }
     }
 }

@@ -1,4 +1,4 @@
-"Keybind": "0:false"
+"Keybind": "35:false"
 "Enabled": "false"
 "Drawn": "true"
-"Speed": "1.0"
+"Speed": "0.3"

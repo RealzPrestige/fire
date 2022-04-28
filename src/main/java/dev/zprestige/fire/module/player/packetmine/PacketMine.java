@@ -19,8 +19,7 @@ public class PacketMine extends Module {
     public final Slider range = Menu.Slider("Range", 5.0f, 0.1f, 10.0f);
     public final ComboBox silentSwitch = Menu.ComboBox("Silent On Finish", "None", new String[]{
             "None",
-            "Clicked",
-            "Auto"
+            "Clicked"
     });
     public final Switch instant = Menu.Switch("Instant", false);
     public final Key instantKey = Menu.Key("Instant Key", Keyboard.KEY_NONE).visibility(z -> instant.GetSwitch());
