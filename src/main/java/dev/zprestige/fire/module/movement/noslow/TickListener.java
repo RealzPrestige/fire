@@ -4,7 +4,6 @@ import dev.zprestige.fire.Main;
 import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.event.impl.TickEvent;
 import dev.zprestige.fire.util.impl.EntityUtil;
-import net.minecraft.network.play.client.CPacketEntityAction;
 
 public class TickListener extends EventListener<TickEvent, NoSlow> {
 
@@ -14,7 +13,7 @@ public class TickListener extends EventListener<TickEvent, NoSlow> {
 
     @Override
     public void invoke(final Object object) {
-        if (module.timered && !module.mode.GetCombo().equals("Timer")){
+        if (module.timered && !module.mode.GetCombo().equals("Timer")) {
             Main.tickManager.syncTimer();
         }
         if (module.webs.GetSwitch()) {
@@ -26,14 +25,14 @@ public class TickListener extends EventListener<TickEvent, NoSlow> {
                     break;
                 case "Ncp":
                     if (module.webbed()) {
-                        if (!module.sneaking) {
-                            mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
-                            module.sneaking = true;
+                        if (!module.sneaked) {
+                            mc.player.setSneaking(true);
+                            module.sneaked = true;
                         }
                         mc.player.isInWeb = false;
-                    } else if (module.sneaking) {
-                        mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
-                        module.sneaking = false;
+                    } else if (module.sneaked) {
+                        mc.player.setSneaking(false);
+                        module.sneaked = false;
                     }
                     break;
                 case "Fast":
@@ -59,7 +58,7 @@ public class TickListener extends EventListener<TickEvent, NoSlow> {
                         break;
                     }
                     if (module.timered) {
-                        if (!EntityUtil.isMoving() || !module.webbed()  ) {
+                        if (!EntityUtil.isMoving() || !module.webbed()) {
                             Main.tickManager.syncTimer();
                             module.timered = false;
                         }

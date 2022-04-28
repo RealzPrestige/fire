@@ -23,7 +23,7 @@ public class NoSlow extends Module {
     public final Slider factor = Menu.Slider("Factor", 1.0f, 0.1f, 5.0f).visibility(z -> webs.GetSwitch() && mode.GetCombo().equals("Factor"));
     public final Slider verticalFactor = Menu.Slider("Vertical Factor", 1.0f, 0.1f, 10.0f).visibility(z -> webs.GetSwitch() && mode.GetCombo().equals("Factor"));
     public final Slider timer = Menu.Slider("Timer", 1.0f, 0.1f, 20.0f).visibility(z -> webs.GetSwitch() && mode.GetCombo().equals("Timer"));
-    protected boolean sneaking, timered;
+    protected boolean sneaked, timered;
 
     public NoSlow() {
         eventListeners = new EventListener[]{
