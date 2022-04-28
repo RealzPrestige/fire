@@ -16,6 +16,6 @@ public class TickListener extends EventListener<TickEvent, Freecam> {
         final float[] speed = EntityUtil.getSpeed(module.speed.GetSlider());
         mc.player.motionX = speed[0];
         mc.player.motionZ = speed[1];
-        mc.player.motionY = mc.gameSettings.keyBindJump.isKeyDown() ? 1.0f : mc.gameSettings.keyBindSneak.isKeyDown() ? -1.0f : 0.0f;
+        mc.player.motionY = mc.gameSettings.keyBindJump.isKeyDown() ? module.speed.GetSlider() : mc.gameSettings.keyBindSneak.isKeyDown() ? -module.speed.GetSlider() : 0.0f;
     }
 }
