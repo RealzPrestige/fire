@@ -94,17 +94,12 @@ public class Chams extends Module {
     protected void addEntity(final EntityPlayer entity) {
         final EntityOtherPlayerMP playerMP = new EntityOtherPlayerMP(mc.world, mc.player.getGameProfile());
         playerMP.copyLocationAndAnglesFrom(entity);
-        playerMP.rotationYawHead = entity.rotationYawHead;
-        playerMP.prevRotationYawHead = entity.rotationYawHead;
-        playerMP.rotationYaw = entity.rotationYaw;
-        playerMP.prevRotationYaw = entity.rotationYaw;
-        playerMP.rotationPitch = entity.rotationPitch;
-        playerMP.prevRotationPitch = entity.rotationPitch;
-        playerMP.cameraYaw = entity.rotationYaw;
-        playerMP.cameraPitch = entity.rotationPitch;
-        playerMP.limbSwing = entity.limbSwing;
-        playerMP.limbSwingAmount = entity.limbSwingAmount;
-        playerMP.prevLimbSwingAmount = entity.limbSwingAmount;
+
+        playerMP.prevRotationYaw = playerMP.rotationYaw;
+        playerMP.prevRotationYawHead = playerMP.rotationYawHead;
+        playerMP.prevRotationPitch = playerMP.rotationPitch;
+
+        playerMP.entityId = 696969696;
         popEntities.add(new PopEntity(playerMP, popStartAlpha.GetSlider()));
     }
 

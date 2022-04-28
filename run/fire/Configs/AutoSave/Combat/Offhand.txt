@@ -1,5 +1,5 @@
 "Keybind": "0:false"
-"Enabled": "false"
+"Enabled": "true"
 "Drawn": "true"
 "Mode": "Totem"
 "Health": "15.0"

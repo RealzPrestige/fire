@@ -21,27 +21,26 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, Cham
         final float partialTicks = event.getPartialTicks();
         final int fps = Minecraft.getDebugFPS();
         for (final Chams.PopEntity popEntity : new ArrayList<>(module.popEntities)) {
-            final float alpha = popEntity.getAlpha();
+            final int alpha = (int) popEntity.getAlpha();
             final Entity entity = popEntity.getEntity();
             if (module.popAnimateVertical.GetSwitch()) {
                 entity.posY += module.popVerticalAnimationSpeed.GetSlider() / 100.0f;
             }
             if (module.popFill.GetSwitch()) {
                 final Color color = module.popFillColor.GetColor();
-                module.prepareFill(new Color(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, alpha / 255.0f));
+                module.prepareFill(new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha));
                 RenderUtil.renderEntity(entity, partialTicks);
                 module.releaseFill();
             }
             if (module.popOutline.GetSwitch()) {
                 final Color color = module.popOutlineColor.GetColor();
-                module.prepareOutline(new Color(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, alpha / 255.0f), module.popOutlineWidth.GetSlider());
+                module.prepareOutline(new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha), module.popOutlineWidth.GetSlider());
                 RenderUtil.renderEntity(entity, partialTicks);
                 module.releaseOutline();
             }
             popEntity.updateAlpha(fps);
             if (popEntity.getAlpha() < 30) {
                 module.popEntities.remove(popEntity);
-                break;
             }
         }
     }
