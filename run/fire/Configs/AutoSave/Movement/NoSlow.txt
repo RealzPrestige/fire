@@ -1,4 +1,5 @@
 "Keybind": "0:false"
 "Enabled": "false"
 "Drawn": "true"
+"Items": "true"
 "NCP Strict": "false"

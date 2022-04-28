@@ -7,7 +7,8 @@ import dev.zprestige.fire.settings.impl.Switch;
 
 @Descriptor(description = "Prevents slow down on items")
 public class NoSlow extends Module {
-    public final Switch ncpStrict = Menu.Switch("NCP Strict", false);
+    public final Switch items = Menu.Switch("Items", true);
+    public final Switch ncpStrict = Menu.Switch("NCP Strict", false).visibility(z -> items.GetSwitch());
 
     public NoSlow(){
         eventListeners = new EventListener[]{
