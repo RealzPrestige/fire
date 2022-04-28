@@ -42,12 +42,11 @@ public class TickListener extends EventListener<TickEvent, FastExp> {
                     if (module.handOnly.GetSwitch() && !mc.player.getHeldItemMainhand().getItem().equals(Items.EXPERIENCE_BOTTLE)) {
                         return;
                     }
-                    final int slot = Main.inventoryManager.getItemSlot(Items.EXPERIENCE_BOTTLE);
+                    final int slot = Main.inventoryManager.getItemSlot(Items.EXPERIENCE_BOTTLE), currentItem = mc.player.inventory.currentItem;
                     if (slot != -1) {
                         mc.player.connection.sendPacket(new CPacketHeldItemChange(slot));
-
                         IntStream.range(0, (int) module.packets.GetSlider()).forEach(i -> mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND)));
-                        mc.player.connection.sendPacket(new CPacketHeldItemChange(mc.player.inventory.currentItem));
+                        mc.player.connection.sendPacket(new CPacketHeldItemChange(currentItem));
                     }
 
                     break;
