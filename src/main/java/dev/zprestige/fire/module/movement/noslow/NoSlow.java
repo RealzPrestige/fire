@@ -18,6 +18,6 @@ public class NoSlow extends Module {
     }
 
     public boolean slowed(){
-        return mc.player.isHandActive() && !mc.player.isRiding() && !mc.player.isElytraFlying();
+        return items.GetSwitch() && mc.player.isHandActive() && !mc.player.isRiding() && !mc.player.isElytraFlying();
     }
 }
