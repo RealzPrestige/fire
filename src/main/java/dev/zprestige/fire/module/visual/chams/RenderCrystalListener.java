@@ -14,12 +14,12 @@ public class RenderCrystalListener extends EventListener<RenderCrystalEvent, Cha
         final RenderCrystalEvent event = (RenderCrystalEvent) object;
         event.setCancelled();
         if (module.fill.GetSwitch()) {
-            module.prepareFill();
+            module.prepareFill(module.fillColor.GetColor());
             event.render();
             module.releaseFill();
         }
         if (module.outline.GetSwitch()) {
-            module.prepareOutline();
+            module.prepareOutline(module.outlineColor.GetColor(), module.outlineWidth.GetSlider());
             event.render();
             module.releaseOutline();
         }

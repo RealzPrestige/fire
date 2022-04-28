@@ -16,12 +16,12 @@ public class RenderLivingBaseListener extends EventListener<RenderLivingBaseEven
         if (!event.getEntityLivingBase().equals(mc.player) && event.getEntityLivingBase() instanceof EntityPlayer) {
             event.setCancelled();
             if (module.fill.GetSwitch()){
-                module.prepareFill();
+                module.prepareFill(module.fillColor.GetColor());
                 event.render();
                 module.releaseFill();
             }
             if (module.outline.GetSwitch()) {
-                module.prepareOutline();
+                module.prepareOutline(module.outlineColor.GetColor(), module.outlineWidth.GetSlider());
                 event.render();
                 module.releaseOutline();
             }
