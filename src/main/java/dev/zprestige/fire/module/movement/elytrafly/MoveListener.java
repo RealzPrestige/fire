@@ -15,6 +15,7 @@ public class MoveListener extends EventListener<MoveEvent, ElytraFly> {
         if (!mc.player.isElytraFlying() || mc.gameSettings.keyBindJump.isKeyDown()) {
             return;
         }
+        mc.gameSettings.keyBindSneak.pressed = false;
         final MoveEvent event = (MoveEvent) object;
         final float glideSpeed = -module.glideSpeed.GetSlider() / 100.0f;
         final float[] speed = EntityUtil.getSpeed(module.speed.GetSlider());
