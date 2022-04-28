@@ -23,8 +23,8 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, Cham
         for (final Chams.PopEntity popEntity : new ArrayList<>(module.popEntities)) {
             final float alpha = popEntity.getAlpha();
             final Entity entity = popEntity.getEntity();
-            if (module.animateVertical.GetSwitch()) {
-                entity.posY += module.verticalAnimationSpeed.GetSlider() / 100.0f;
+            if (module.popAnimateVertical.GetSwitch()) {
+                entity.posY += module.popVerticalAnimationSpeed.GetSlider() / 100.0f;
             }
             if (module.popFill.GetSwitch()) {
                 final Color color = module.popFillColor.GetColor();
