@@ -1,7 +1,9 @@
 package dev.zprestige.fire.module.movement.longjump;
 
+import dev.zprestige.fire.Main;
 import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.event.impl.MoveEvent;
+import dev.zprestige.fire.module.movement.noslow.NoSlow;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.init.MobEffects;
 
@@ -17,6 +19,8 @@ public class MoveListener extends EventListener<MoveEvent, LongJump> {
     public void invoke(final Object object) {
         final MoveEvent event = (MoveEvent) object;
         if (module.liquids.GetSwitch() || !(mc.player.isInLava() || mc.player.isInWater())) {
+            final NoSlow noSlow = (NoSlow) Main.moduleManager.getModuleByClass(NoSlow.class);
+            final float factor = noSlow.isEnabled() && noSlow.slowed() ? 5.0f : 1.0f;
             switch (module.currentState) {
                 case 0:
                     module.currentState++;
@@ -43,8 +47,8 @@ public class MoveListener extends EventListener<MoveEvent, LongJump> {
                     module.motionSpeed = module.previousDistance - 0.76 * (module.previousDistance - EntityUtil.getBaseMotionSpeed() * module.factor.GetSlider());
             }
             module.motionSpeed = Math.max(module.motionSpeed, EntityUtil.getBaseMotionSpeed() * module.factor.GetSlider());
-            double moveForward = mc.player.movementInput.moveForward;
-            double moveStrafe = mc.player.movementInput.moveStrafe;
+            double moveForward = mc.player.movementInput.moveForward / factor;
+            double moveStrafe = mc.player.movementInput.moveStrafe / factor;
             double yaw = mc.player.rotationYaw;
             if (moveForward != 0.0 && moveStrafe != 0.0) {
                 moveForward *= Math.sin(0.7853981633974483);
