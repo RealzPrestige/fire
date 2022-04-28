@@ -47,7 +47,7 @@ public class HoleFiller extends Module {
             "Enderchests",
             "Fallback",
             "Webs"
-    });
+    }).panel("Placing");
     public final Slider blocksPerTick = Menu.Slider("Blocks Per Tick", 8.0f, 1.0f, 20.0f).visibility(z -> timing.GetCombo().equals("Instant")).panel("Timing");
     public final Slider placeRange = Menu.Slider("Place Range", 5.0f, 0.1f, 6.0f).panel("Ranges");
     public final Slider targetRange = Menu.Slider("Target Range", 9.0f, 0.1f, 15.0f).visibility(z -> mode.GetCombo().equals("Smart")).panel("Ranges");
@@ -62,7 +62,6 @@ public class HoleFiller extends Module {
     public final Switch rotate = Menu.Switch("Rotate", false).panel("Placing");
     public final Switch preventRotationRubberband = Menu.Switch("Prevent Rotation Rubberband", false).visibility(z -> rotate.GetSwitch()).panel("Placing");
     public final Switch strict = Menu.Switch("Strict", false).panel("Placing");
-    public final Switch raytrace = Menu.Switch("Raytrace", false);
     public final Switch doubles = Menu.Switch("Doubles", true).panel("Placing");
     public final Switch whileMoving = Menu.Switch("While Moving", false).panel("Other");
     public final Switch enemyUnsafe = Menu.Switch("Enemy Unsafe", true).visibility(z -> mode.GetCombo().equals("Smart")).panel("Other");
@@ -91,7 +90,7 @@ public class HoleFiller extends Module {
 
     protected void placeBlock(final BlockPos pos, final int slot) {
         if (slot != -1) {
-            Main.interactionManager.placeBlockWithSwitch(pos, rotate.GetSwitch(), packet.GetSwitch(), strict.GetSwitch(), raytrace.GetSwitch(), slot);
+            Main.interactionManager.placeBlockWithSwitch(pos, rotate.GetSwitch(), packet.GetSwitch(), strict.GetSwitch(), slot);
             if (render.GetSwitch()) {
                 switch (animation.GetCombo()) {
                     case "None":

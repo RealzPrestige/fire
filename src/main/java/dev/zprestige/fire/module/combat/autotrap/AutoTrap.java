@@ -42,7 +42,6 @@ public class AutoTrap extends Module {
     public final Switch rotate = Menu.Switch("Rotate", false);
     public final Switch preventRotationRubberband = Menu.Switch("Prevent Rotation Rubberband", false).visibility(z -> rotate.GetSwitch());
     public final Switch strict = Menu.Switch("Strict", false);
-    public final Switch raytrace = Menu.Switch("Raytrace", false);
     public final Switch render = Menu.Switch("Render", false);
     public final Slider fadeSpeed = Menu.Slider("Fade Speed", 25.0f, 0.1f, 100.0f).visibility(z -> render.GetSwitch());
     public final Switch box = Menu.Switch("Box", false).visibility(z -> render.GetSwitch());
