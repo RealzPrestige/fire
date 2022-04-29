@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.network.play.server.SPacketEntityStatus;
 import net.minecraft.network.play.server.SPacketSoundEffect;
+import net.minecraft.util.math.BlockPos;
 
 public class PacketReceiveListener extends EventListener<PacketEvent, Object> {
 
@@ -23,8 +24,11 @@ public class PacketReceiveListener extends EventListener<PacketEvent, Object> {
         if (event.getPacket() instanceof SPacketSoundEffect) {
             final SPacketSoundEffect packet = (SPacketSoundEffect) event.getPacket();
             if (packet.getSound().equals(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT)) {
-                final ChorusEvent chorusEvent = new ChorusEvent(packet.getX(), packet.getY(), packet.getZ());
-                Main.eventBus.invokeEvent(chorusEvent);
+                final double x = packet.getX(), y = packet.getY(), z = packet.getZ();
+                if (mc.player.getDistanceSq(new BlockPos(x, y, z)) > 1.0f) {
+                    final ChorusEvent chorusEvent = new ChorusEvent(x, y, z);
+                    Main.eventBus.invokeEvent(chorusEvent);
+                }
             }
         }
         if (mc.world != null && mc.player != null && event.getPacket() instanceof SPacketEntityStatus) {
