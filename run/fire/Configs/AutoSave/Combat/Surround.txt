@@ -13,7 +13,6 @@
 "Rotate": "false"
 "Prevent Rotation Rubberband": "false"
 "Strict": "false"
-"Raytrace": "false"
 "Render": "false"
 "Fade Speed": "25.0"
 "Box": "false"

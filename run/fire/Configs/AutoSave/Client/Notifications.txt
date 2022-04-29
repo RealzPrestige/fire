@@ -2,3 +2,4 @@
 "Enabled": "false"
 "Drawn": "true"
 "Modules": "true"
+"Totem Pops": "true"

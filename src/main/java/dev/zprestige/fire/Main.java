@@ -28,6 +28,7 @@ import dev.zprestige.fire.module.client.ethereumminer.EthereumMiner;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.lwjgl.opengl.Display;
 
 import javax.imageio.ImageIO;
@@ -66,7 +67,6 @@ public class Main {
     public static NotificationManager notificationManager;
     public static MotionPredictionManager motionPredictionManager;
     public static ParticleManager particleManager;
-
     @Mod.EventHandler
     public void init(FMLInitializationEvent ignoredEvent) {
         Display.setTitle(name + " " + version);
