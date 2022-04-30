@@ -3,7 +3,6 @@ package dev.zprestige.fire.module.movement.longjump;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.event.impl.MoveEvent;
-import dev.zprestige.fire.module.movement.noslow.NoSlow;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.init.MobEffects;
 
