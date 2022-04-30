@@ -39,12 +39,12 @@ class MoveListener(speed: Speed) : EventListener<MoveEvent, Speed>(
                         module.motionSpeed = module.previousDistance - module.previousDistance / 159.0
                     }
                     2 -> {
-                        var var2 = if (module.strict.GetSwitch()) 0.42 else 0.40123128
+                        var height = if (module.strict.GetSwitch()) 0.42 else 0.40123128
                         if ((mc.player.moveForward != 0.0f || mc.player.moveStrafing != 0.0f) && mc.player.onGround) {
                             if (mc.player.isPotionActive(MobEffects.JUMP_BOOST)) {
-                                var2 += ((Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.JUMP_BOOST))!!.amplifier + 1).toFloat() * 0.1f).toDouble()
+                                height += ((Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.JUMP_BOOST))!!.amplifier + 1).toFloat() * 0.1f).toDouble()
                             }
-                            event.motionY = var2.also { mc.player.motionY = it }
+                            event.motionY = height.also { mc.player.motionY = it }
                             module.motionSpeed *= 2.149
                         }
                     }
@@ -61,20 +61,20 @@ class MoveListener(speed: Speed) : EventListener<MoveEvent, Speed>(
                 }
                 module.motionSpeed =
                     module.motionSpeed.coerceAtLeast(EntityUtil.getBaseMotionSpeed() * module.strafeFactor.GetSlider())
-                var var4 = (mc.player.movementInput.moveForward / factor).toDouble()
-                var var6 = (mc.player.movementInput.moveStrafe / factor).toDouble()
-                val var8 = mc.player.rotationYaw.toDouble()
-                if (var4 != 0.0 && var6 != 0.0) {
-                    var4 *= sin(0.7853981633974483)
-                    var6 *= cos(0.7853981633974483)
+                var moveForward = (mc.player.movementInput.moveForward / factor).toDouble()
+                var moveStrafe = (mc.player.movementInput.moveStrafe / factor).toDouble()
+                val rotationYaw = mc.player.rotationYaw.toDouble()
+                if (moveForward != 0.0 && moveStrafe != 0.0) {
+                    moveForward *= sin(0.7853981633974483)
+                    moveStrafe *= cos(0.7853981633974483)
                 }
                 event.motionX =
-                    (var4 * module.motionSpeed * -sin(Math.toRadians(var8)) + var6 * module.motionSpeed * cos(
-                        Math.toRadians(var8)
+                    (moveForward * module.motionSpeed * -sin(Math.toRadians(rotationYaw)) + moveStrafe * module.motionSpeed * cos(
+                        Math.toRadians(rotationYaw)
                     )) * 0.99
                 event.motionZ =
-                    (var4 * module.motionSpeed * cos(Math.toRadians(var8)) - var6 * module.motionSpeed * -sin(
-                        Math.toRadians(var8)
+                    (moveForward * module.motionSpeed * cos(Math.toRadians(rotationYaw)) - moveStrafe * module.motionSpeed * -sin(
+                        Math.toRadians(rotationYaw)
                     )) * 0.99
                 ++module.currentState
             }
