@@ -22,7 +22,7 @@ class Blink : Module() {
     )
     val cPacketPlayer: Switch = Menu.Switch("CPacketPlayer", false)
     val ticks: Slider = Menu.Slider("Ticks", 10.0f, 1.0f, 20.0f).visibility { z: Float? -> mode.GetCombo() == "Pulse" }
-    val burrowOnFinish: Switch = Menu.Switch("Burrow On Finish", false).visibility { z: Boolean? -> mode.GetCombo() == "Blink" }
+    private val burrowOnFinish: Switch = Menu.Switch("Burrow On Finish", false).visibility { z: Boolean? -> mode.GetCombo() == "Blink" }
     val packets: Queue<Packet<*>> = ConcurrentLinkedQueue()
     var entity: EntityOtherPlayerMP? = null
     var i = 0
