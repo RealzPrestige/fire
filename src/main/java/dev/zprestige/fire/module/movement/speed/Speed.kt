@@ -19,11 +19,11 @@ class Speed : Module() {
     val strict: Switch = Menu.Switch("Strict", false)
     val liquids: Switch = Menu.Switch("Liquids", false)
     val useTimer: Switch = Menu.Switch("Use Timer", false)
-    val timerAmount: Slider = Menu.Slider("Timer Amount", 1.0f, 0.9f, 2.0f).visibility { z: Float? -> useTimer.GetSwitch() }
+    val timerAmount: Slider = Menu.Slider("Timer Amount", 1.0f, 0.9f, 2.0f).visibility { useTimer.GetSwitch() }
     val velocityBoost: Switch = Menu.Switch("Velocity Boost", false)
     val boostAmplifier: Slider = Menu.Slider("Velocity Boost Amplifier", 10.0f, 1.0f, 20.0f)
         .visibility { velocityBoost.GetSwitch() }
-    val strafeFactor: Slider = Menu.Slider("Strafe Factor", 1.0f, 0.1f, 3.0f).visibility { z: Float? -> !strict.GetSwitch() }
+    val strafeFactor: Slider = Menu.Slider("Strafe Factor", 1.0f, 0.1f, 3.0f).visibility { !strict.GetSwitch() }
     var previousDistance = 0.0
     var motionSpeed = 0.0
     var lastHealth = 0f
