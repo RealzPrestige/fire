@@ -15,7 +15,7 @@ class TickListener(speed: Speed) : EventListener<TickEvent, Speed>(TickEvent::cl
         }
         val health = mc.player.health + mc.player.absorptionAmount
         var damage = 0.0f
-        for (i in module.damageMap){
+        for (i in HashMap(module.damageMap)){
             val v: Float = i.value / ((System.currentTimeMillis() - i.key) / module.boostAmplifier.GetSlider())
             if (v < 0.1) {
                 module.damageMap.remove(i.key)
