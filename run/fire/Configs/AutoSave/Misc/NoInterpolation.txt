@@ -1,5 +1,5 @@
 "Keybind": "0:false"
-"Enabled": "false"
+"Enabled": "true"
 "Drawn": "true"
 "Delay": "1.0"
 "Sneak": "false"
