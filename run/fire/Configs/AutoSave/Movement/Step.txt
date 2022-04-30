@@ -1,6 +1,6 @@
 "Keybind": "0:false"
 "Enabled": "false"
 "Drawn": "true"
-"Mode": "Vanilla"
+"Mode": "Ncp"
 "Height": "2.0"
 "Entities": "false"

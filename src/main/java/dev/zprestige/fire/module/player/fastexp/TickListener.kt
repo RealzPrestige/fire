@@ -22,13 +22,13 @@ class TickListener(fastExp: FastExp) : EventListener<TickEvent, FastExp>(TickEve
                     mc.rightClickDelayTimer = 0
                 }
                 "Packet" -> {
-                    if (module.activateMode.GetCombo() == "RightClick" && !mc.gameSettings.keyBindUseItem.isKeyDown) {
+                    if (module.activateMode.GetCombo().equals("RightClick") && !mc.gameSettings.keyBindUseItem.isKeyDown) {
                         return
                     }
-                    if (module.activateMode.GetCombo() == "MiddleClick" && !Mouse.isButtonDown(2)) {
+                    if (module.activateMode.GetCombo().equals("MiddleClick") && !Mouse.isButtonDown(2)) {
                         return
                     }
-                    if (module.activateMode.GetCombo() == "Custom" && !Keyboard.isKeyDown(module.customKey.GetKey())) {
+                    if (module.activateMode.GetCombo().equals("Custom") && !Keyboard.isKeyDown(module.customKey.GetKey())) {
                         return
                     }
                     if (module.handOnly.GetSwitch() && mc.player.heldItemMainhand.getItem() != Items.EXPERIENCE_BOTTLE) {
@@ -38,7 +38,7 @@ class TickListener(fastExp: FastExp) : EventListener<TickEvent, FastExp>(TickEve
                     val currentItem = mc.player.inventory.currentItem
                     if (slot != -1) {
                         mc.player.connection.sendPacket(CPacketHeldItemChange(slot))
-                        for (i in 0..module.packets.GetSlider().toInt()){
+                        for (i in 1..module.packets.GetSlider().toInt()){
                             mc.player.connection.sendPacket(CPacketPlayerTryUseItem(EnumHand.MAIN_HAND))
                         }
                         mc.player.connection.sendPacket(CPacketHeldItemChange(currentItem))

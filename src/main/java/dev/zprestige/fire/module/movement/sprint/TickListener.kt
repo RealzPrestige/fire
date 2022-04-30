@@ -8,7 +8,7 @@ class TickListener(sprint: Sprint) :
     EventListener<PacketEvent.PacketReceiveEvent, Sprint>(PacketEvent.PacketReceiveEvent::class.java, sprint) {
 
     override fun invoke(e: Any) {
-        if (EntityUtil.isMoving()){
+        if (module.nullCheck() && EntityUtil.isMoving()){
             mc.player.isSprinting = true
         }
     }

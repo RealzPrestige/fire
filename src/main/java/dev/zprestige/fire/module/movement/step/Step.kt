@@ -24,7 +24,7 @@ class Step : Module() {
 
     init {
         eventListeners = arrayOf<EventListener<*, *>>(
-
+            MoveListener(this)
         )
     }
 
