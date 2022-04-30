@@ -337,33 +337,6 @@ public class RenderUtil implements Utils {
         GL11.glPopMatrix();
     }
 
-    public static void drawArrow(float x, float y, boolean left) {
-        GL11.glPushMatrix();
-        GL11.glScaled(1.3, 1.3, 1.3);
-        y -= 1.5f;
-        x += 2;
-        x /= 1.3;
-        y /= 1.3;
-        GL11.glEnable(GL11.GL_LINE_SMOOTH);
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glLineWidth(1);
-        GL11.glColor4f(255, 255, 255, 255);
-        GL11.glBegin(GL11.GL_LINES);
-        GL11.glVertex2d(x, y);
-        GL11.glVertex2d(x + (left ? -4 : 4), y + 3);
-        GL11.glEnd();
-        GL11.glBegin(GL11.GL_LINES);
-        GL11.glVertex2d(x + (left ? -4 : 4), y + 3);
-        GL11.glVertex2d(x, y + 6);
-        GL11.glEnd();
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glDisable(GL11.GL_LINE_SMOOTH);
-        GL11.glPopMatrix();
-
-    }
-
     public static void drawOutline(float x, float y, float width, float height, Color color, float lineWidth) {
         if (x < width) {
             double i = x;

@@ -26,7 +26,7 @@ public class InventoryManager {
     }
     public int getItemSlot(final Item item, final boolean hotbar) {
         int itemSlot = -1;
-        for (int i = 1; i <= (hotbar ? 45 : 36); ++i) {
+        for (int i = hotbar ? 0 : 9; i <=  45; ++i) {
             final ItemStack stack = mc.player.inventory.getStackInSlot(i);
             if (stack.getItem().equals(item)) {
                 itemSlot = i;
