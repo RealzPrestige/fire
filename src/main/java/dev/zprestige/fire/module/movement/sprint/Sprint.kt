@@ -1,16 +1,15 @@
-package dev.zprestige.fire.module.movement.velocity
+package dev.zprestige.fire.module.movement.sprint
 
 import dev.zprestige.fire.event.bus.EventListener
 import dev.zprestige.fire.module.Descriptor
 import dev.zprestige.fire.module.Module
 
-@Descriptor(description = "Makes you not fly and go pow pow")
-class Velocity : Module() {
+@Descriptor(description = "Sprints when you arent because ur a national fat fuck who cant press a key")
+class Sprint : Module() {
 
     init {
         eventListeners = arrayOf<EventListener<*, *>>(
-            PacketReceiveListener(this)
+            TickListener(this)
         )
     }
-
 }

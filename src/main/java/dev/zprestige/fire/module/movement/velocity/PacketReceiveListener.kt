@@ -6,14 +6,14 @@ import net.minecraft.network.Packet
 import net.minecraft.network.play.server.SPacketEntityVelocity
 import net.minecraft.network.play.server.SPacketExplosion
 
-class PacketReceiveListener(velocity: Velocity?) :
-    EventListener<PacketReceiveEvent?, Velocity?>(PacketReceiveEvent::class.java, velocity) {
+class PacketReceiveListener(velocity: Velocity) :
+    EventListener<PacketReceiveEvent, Velocity>(PacketReceiveEvent::class.java, velocity) {
 
     override fun invoke(e: Any) {
         val event: PacketReceiveEvent = e as PacketReceiveEvent
         val packet: Packet<*> = e.packet
         if (packet is SPacketEntityVelocity) {
-            val sPacketEntityVelocity: SPacketEntityVelocity = packet as SPacketEntityVelocity
+            val sPacketEntityVelocity: SPacketEntityVelocity = packet
             val entityId = sPacketEntityVelocity.getEntityID()
             if (entityId == mc.player.entityId) {
                 event.setCancelled()
