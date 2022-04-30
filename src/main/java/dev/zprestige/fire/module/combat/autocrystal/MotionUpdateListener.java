@@ -5,6 +5,7 @@ import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.event.bus.Stage;
 import dev.zprestige.fire.event.impl.MotionUpdateEvent;
 import dev.zprestige.fire.manager.playermanager.PlayerManager;
+import dev.zprestige.fire.module.misc.automine.AutoMine;
 import dev.zprestige.fire.util.impl.EntityUtil;
 import net.minecraft.init.Items;
 
