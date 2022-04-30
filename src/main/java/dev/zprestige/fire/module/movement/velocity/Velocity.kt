@@ -9,6 +9,8 @@ class Velocity : Module() {
 
     init {
         eventListeners = arrayOf<EventListener<*, *>>(
+            BlockPushListener(this),
+            EntityPushListener(this),
             PacketReceiveListener(this)
         )
     }

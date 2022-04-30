@@ -3,6 +3,7 @@ package dev.zprestige.fire.mixins.impl;
 import com.mojang.authlib.GameProfile;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.event.bus.Stage;
+import dev.zprestige.fire.event.impl.BlockPushEvent;
 import dev.zprestige.fire.event.impl.MotionUpdateEvent;
 import dev.zprestige.fire.event.impl.MoveEvent;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -15,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = EntityPlayerSP.class, priority = 999)
 public class MixinEntityPlayerSP extends AbstractClientPlayer {
@@ -114,6 +116,15 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
         final MotionUpdateEvent event = new MotionUpdateEvent(Stage.Post, motionUpdateEvent);
         event.setCancelled();
         Main.eventBus.invokeEvent(event);
+    }
+
+    @Inject(method = {"pushOutOfBlocks"}, at = {@At("HEAD")}, cancellable = true)
+    public void pushOutOfBlocksHook(double x, double y, double z, CallbackInfoReturnable<Boolean> info) {
+        final BlockPushEvent event = new BlockPushEvent();
+        Main.eventBus.invokeEvent(event);
+        if (event.isCancelled()) {
+            info.setReturnValue(false);
+        }
     }
 
 
