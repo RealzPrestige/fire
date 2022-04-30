@@ -3,6 +3,7 @@ package dev.zprestige.fire.module.misc.constelytrafly;
 import dev.zprestige.fire.Main;
 import dev.zprestige.fire.event.bus.EventListener;
 import dev.zprestige.fire.event.impl.TickEvent;
+import dev.zprestige.fire.module.movement.longjump.LongJump;
 import net.minecraft.network.play.client.CPacketEntityAction;
 
 public class TickListener extends EventListener<TickEvent, ConstElytraFly> {
