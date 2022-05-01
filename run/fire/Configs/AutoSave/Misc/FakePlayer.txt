@@ -1,5 +1,5 @@
-"Keybind": "37:false"
-"Enabled": "true"
+"Keybind": "0:false"
+"Enabled": "false"
 "Drawn": "true"
-"Start": "true"
+"Start": "false"
 "Record": "false"

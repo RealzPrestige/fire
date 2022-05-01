@@ -28,7 +28,6 @@ import dev.zprestige.fire.module.client.ethereumminer.EthereumMiner;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.lwjgl.opengl.Display;
 
 import javax.imageio.ImageIO;
