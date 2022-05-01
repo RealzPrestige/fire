@@ -1,0 +1,3 @@
+FD: dev/zprestige/fire/mixins/impl/MixinRenderEnderCrystal/modelEnderCrystalNoBase dev/zprestige/fire/mixins/impl/MixinRenderEnderCrystal/g
+FD: dev/zprestige/fire/mixins/impl/MixinRenderLivingBase/mainModel dev/zprestige/fire/mixins/impl/MixinRenderLivingBase/f
+MD: dev/zprestige/fire/mixins/impl/MixinRenderItem/renderModel (Lnet/minecraft/client/renderer/block/model/IBakedModel;ILnet/minecraft/item/ItemStack;)V dev/zprestige/fire/mixins/impl/MixinRenderItem/a (Lcfy;ILaip;)V

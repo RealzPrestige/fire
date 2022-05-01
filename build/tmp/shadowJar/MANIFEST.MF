@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+TweakOrder: 0
+MixinConfigs: mixins.fire.json
+FMLCorePluginContainsFMLMod: true
+FMLAT: fire_at.cfg
+tweakClass: org.spongepowered.asm.launch.MixinTweaker
+ForceLoadAsMod: true
+FMLCorePlugin: dev.zprestige.fire.mixins.MixinLoader
+
