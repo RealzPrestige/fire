@@ -36,10 +36,11 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-@Mod(modid = Main.modid, name = Main.name, version = Main.version)
+@Mod(modid = Main.modid, name = Main.name1, version = Main.version)
 public class Main {
     public static final String modid = "fire";
-    public static final String name = "Fire";
+    public static String name = "Fire";
+    public static final String name1 = "Fire";
     public static final String version = "0.1";
     public static Minecraft mc;
     public static EventBus eventBus;

@@ -7,8 +7,9 @@ import net.minecraft.util.text.TextComponentString;
 
 public class ChatManager {
     protected final Minecraft mc = Main.mc;
-    public ChatFormatting prefixColor = ChatFormatting.AQUA;
-    public String prefix = prefixColor + "[Fire] " + ChatFormatting.GRAY;
+    public ChatFormatting prefixColor = ChatFormatting.GOLD;
+    public String prefix = "Fire";
+    public String finalPrefix = prefixColor + "[" + prefix + "] " + ChatFormatting.GRAY;
 
     public void sendRawMessage(String message) {
         if (mc.player != null && mc.world != null) {
@@ -18,18 +19,23 @@ public class ChatManager {
 
     public void sendMessage(String message) {
         if (mc.player != null && mc.world != null) {
-            sendRawMessage(prefix + message);
+            sendRawMessage(finalPrefix + message);
         }
     }
 
     public void sendRemovableMessage(String message, int id) {
         if (mc.player != null && mc.world != null) {
-            mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(prefix + message), id);
+            mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(finalPrefix + message), id);
         }
     }
 
     public void setPrefixColor(ChatFormatting prefixColor) {
         this.prefixColor = prefixColor;
-        this.prefix = prefixColor + "[Fire] " + ChatFormatting.GRAY;
+        this.finalPrefix = prefixColor + "[" + prefix + "] " + ChatFormatting.GRAY;
+    }
+
+    public void setPrefix(final String prefix){
+        this.prefix = prefix;
+        this.finalPrefix = prefixColor + "[" + prefix + "] " + ChatFormatting.GRAY;
     }
 }
