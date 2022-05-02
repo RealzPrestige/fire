@@ -11,7 +11,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void listener(String string) {
+    public void listener(final String string) {
         try {
             Main.commandManager.getCommands().forEach(command -> Main.chatManager.sendMessage(ChatFormatting.GRAY + "\u2022 " + ChatFormatting.WHITE + command.getFormat()));
         } catch (Exception ignored) {

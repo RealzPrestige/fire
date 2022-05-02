@@ -24,10 +24,6 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, NoIn
         mc.world.playerEntities.stream().filter(entityPlayer -> !entityPlayer.equals(mc.player) && !module.contains(entityPlayer)).forEach(entityPlayer -> module.noInterpolatedPlayers.add(new NoInterpolation.NoInterpolatedPlayer(entityPlayer)));
         new ArrayList<>(module.noInterpolatedPlayers).forEach(noInterpolatedPlayer -> {
             final EntityPlayer entityPlayer = noInterpolatedPlayer.getEntityPlayer();
-            if (entityPlayer.isDead) {
-                module.noInterpolatedPlayers.remove(noInterpolatedPlayer);
-                return;
-            }
             noInterpolatedPlayer.updatePosition();
             module.fixPos(noInterpolatedPlayer.getEntityPlayer());
             if (module.sneak.GetSwitch()) {

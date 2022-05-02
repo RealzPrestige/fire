@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ChunkRenderDispatcher.class)
 public class MixinChunkRenderDispatcher {
     @Inject(method = "getNextChunkUpdate", at = @At("HEAD"))
-    protected void limitChunkUpdates(final CallbackInfoReturnable<ChunkCompileTaskGenerator> cir) throws InterruptedException {
+    public void limitChunkUpdates(final CallbackInfoReturnable<ChunkCompileTaskGenerator> callbackInfoReturnable) throws InterruptedException {
         final ViewTweaks viewTweaks = (ViewTweaks) Main.moduleManager.getModuleByClass(ViewTweaks.class);
-        if (viewTweaks.isEnabled() && !Main.mc.isSingleplayer()) {
+        if (Main.listener.checkNull() && viewTweaks != null && viewTweaks.isEnabled() && !Main.mc.isSingleplayer()) {
             Thread.sleep((long) viewTweaks.chunkLoadDelay.GetSlider());
         }
     }

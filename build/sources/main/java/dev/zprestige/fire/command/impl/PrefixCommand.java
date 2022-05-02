@@ -10,7 +10,7 @@ public class PrefixCommand extends Command {
     }
 
     @Override
-    public void listener(String string) {
+    public void listener(final String string) {
         try {
             final String[] split = string.split(" ");
             final String split1 = split[1];

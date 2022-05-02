@@ -12,7 +12,7 @@ public class BindCommand extends Command {
     }
 
     @Override
-    public void listener(String string) {
+    public void listener(final String string) {
         try {
             final String[] split = string.split(" ");
             for (Module module : Main.moduleManager.getModules()) {

@@ -36,7 +36,7 @@ public class Listener {
             Main.eventBus.invokeEvent(tickEvent);
             if (mc.currentScreen == null) {
                 Main.moduleManager.getModules().stream().filter(module -> module.getKeySetting().isHold()).forEach(module -> {
-                    final boolean down = Keyboard.isKeyDown(module.getKeybind());
+                    final boolean down = module.getKeybind() != -1 && Keyboard.isKeyDown(module.getKeybind());
                     if (module.isEnabled() && !down) {
                         module.disableModule();
                     }

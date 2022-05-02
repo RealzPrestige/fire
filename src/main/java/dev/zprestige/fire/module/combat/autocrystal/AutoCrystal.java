@@ -253,7 +253,7 @@ public class AutoCrystal extends Module {
                 }
             }
         }
-        if (timers[1].getTime(Keyboard.isKeyDown(facePlaceForceKey.GetKey()) && facePlaceSlow.GetSwitch() ? 500 : (long) explodeDelay.GetSlider())) {
+        if (timers[1].getTime(facePlaceForceKey.GetKey() != -1 && Keyboard.isKeyDown(facePlaceForceKey.GetKey()) && facePlaceSlow.GetSwitch() ? 500 : (long) explodeDelay.GetSlider())) {
             final EntityEnderCrystal entityEnderCrystal = calculateCrystal(player);
             if (entityEnderCrystal != null) {
                 explodeCrystal(entityEnderCrystal, event);

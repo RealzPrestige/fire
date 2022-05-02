@@ -7,7 +7,7 @@ public class EventBus {
     protected final ArrayList<EventListener<?, ?>> eventListeners = new ArrayList<>();
 
     public void invokeEvent(final Event event) {
-            new ArrayList<>(eventListeners).stream().filter(eventListener -> eventListener.getListener().equals(event.getClass())).forEach(eventListener -> eventListener.invoke(event));
+        new ArrayList<>(eventListeners).stream().filter(eventListener -> eventListener.getListener().equals(event.getClass())).forEach(eventListener -> eventListener.invoke(event));
     }
 
     public void registerListeners(final EventListener<?, ?>[] listeners) {

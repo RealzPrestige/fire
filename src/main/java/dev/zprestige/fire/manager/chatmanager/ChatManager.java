@@ -7,7 +7,7 @@ import net.minecraft.util.text.TextComponentString;
 
 public class ChatManager {
     protected final Minecraft mc = Main.mc;
-    public ChatFormatting prefixColor = ChatFormatting.GOLD;
+    public ChatFormatting prefixColor = ChatFormatting.AQUA;
     public String prefix = prefixColor + "[Fire] " + ChatFormatting.GRAY;
 
     public void sendRawMessage(String message) {
@@ -26,5 +26,10 @@ public class ChatManager {
         if (mc.player != null && mc.world != null) {
             mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(prefix + message), id);
         }
+    }
+
+    public void setPrefixColor(ChatFormatting prefixColor) {
+        this.prefixColor = prefixColor;
+        this.prefix = prefixColor + "[Fire] " + ChatFormatting.GRAY;
     }
 }

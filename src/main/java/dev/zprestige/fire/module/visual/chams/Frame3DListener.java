@@ -5,6 +5,7 @@ import dev.zprestige.fire.event.impl.FrameEvent;
 import dev.zprestige.fire.util.impl.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, Cham
         final float partialTicks = event.getPartialTicks();
         final int fps = Minecraft.getDebugFPS();
         for (final Chams.PopEntity popEntity : new ArrayList<>(module.popEntities)) {
+            ((EntityPlayer) popEntity.getEntity()).hurtTime = 0;
             final int alpha = (int) popEntity.getAlpha();
             final Entity entity = popEntity.getEntity();
             if (module.popAnimateVertical.GetSwitch()) {

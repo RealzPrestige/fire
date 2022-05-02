@@ -14,6 +14,7 @@ public class RenderLivingBaseListener extends EventListener<RenderLivingBaseEven
     public void invoke(final Object object) {
         if (module.players.GetSwitch()) {
             final RenderLivingBaseEvent event = (RenderLivingBaseEvent) object;
+            event.getEntityLivingBase().hurtTime = 0;
             if (!event.getEntityLivingBase().equals(mc.player) && event.getEntityLivingBase().entityId != 696969696 && event.getEntityLivingBase() instanceof EntityPlayer) {
                 event.setCancelled();
                 if (module.fill.GetSwitch()) {
