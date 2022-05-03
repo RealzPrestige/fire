@@ -469,7 +469,7 @@ public class AutoCrystal extends Module {
         final HashMap<BlockPos, CalculationComponent> posses = new HashMap<>();
         for (BlockPos pos : BlockUtil.getCrystallableBlocks(placeRange.GetSlider(), onePointThirteen.GetSwitch())) {
             final ArrayList<Entity> intersecting = mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up())).stream().filter(entity -> !(entity instanceof EntityEnderCrystal)).collect(Collectors.toCollection(ArrayList::new));
-            if (!intersecting.isEmpty() || mc.player.getDistanceSq(pos) / 2 > (BlockUtil.isNotVisible(pos, raytrace(placeRaytrace.GetCombo()).getOffset()) ? placeWallRange.GetSlider() : placeRange.GetSlider())) {
+            if (!intersecting.isEmpty() || Math.sqrt(mc.player.getDistanceSq(pos)) > (BlockUtil.isNotVisible(pos, raytrace(placeRaytrace.GetCombo()).getOffset()) ? placeWallRange.GetSlider() : placeRange.GetSlider())) {
                 continue;
             }
             boolean shouldContinue = true;
