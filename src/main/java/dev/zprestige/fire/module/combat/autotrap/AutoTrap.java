@@ -137,7 +137,7 @@ public class AutoTrap extends Module {
     }
 
     protected boolean valid(final BlockPos pos) {
-        return (!liquids.GetSwitch() ? BlockUtil.getState(pos).equals(Blocks.AIR) : mc.world.getBlockState(pos).getMaterial().isReplaceable()) && mc.player.getDistanceSq(pos) / 2 <= placeRange.GetSlider() * 2;
+        return (!liquids.GetSwitch() ? BlockUtil.getState(pos).equals(Blocks.AIR) : mc.world.getBlockState(pos).getMaterial().isReplaceable()) && Math.sqrt(mc.player.getDistanceSq(pos)) <= placeRange.GetSlider();
     }
 
     protected boolean canPlace(final BlockPos pos) {
