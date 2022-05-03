@@ -7,7 +7,7 @@ import net.minecraft.util.text.TextComponentString;
 
 public class ChatManager {
     protected final Minecraft mc = Main.mc;
-    public ChatFormatting prefixColor = ChatFormatting.AQUA;
+    public ChatFormatting prefixColor = ChatFormatting.GOLD;
     public String prefix = "Fire";
     public String finalPrefix = prefixColor + "[" + prefix + "] " + ChatFormatting.GRAY;
 
