@@ -42,6 +42,7 @@ public class Listener {
                     }
                 });
             }
+            mc.world.playerEntities.stream().filter(entityPlayer -> entityPlayer != null && !(entityPlayer.getHealth() > 0.0f)).map(DeathEvent::new).forEach(Main.eventBus::invokeEvent);
         }
     }
 
@@ -91,12 +92,6 @@ public class Listener {
     public void onDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent ignoredEvent) {
         final ConnectionEvent.Disconnect connectionEventDisconnect = new ConnectionEvent.Disconnect();
         Main.eventBus.invokeEvent(connectionEventDisconnect);
-    }
-
-    @SubscribeEvent
-    public void onDeath(LivingDeathEvent event) {
-        final DeathEvent deathEvent = new DeathEvent(event.getEntity());
-        Main.eventBus.invokeEvent(deathEvent);
     }
 
     @SubscribeEvent

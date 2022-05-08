@@ -20,6 +20,40 @@ public class RenderUtil implements Utils {
     protected static final Tessellator tessellator = Tessellator.getInstance();
     protected static final BufferBuilder bufferbuilder = tessellator.getBuffer();
 
+    public static void addChainedFilledBoxVertices(final double minX, final double minY, final double minZ,final  double maxX,final double maxY, final double maxZ, final Color color) {
+        final float red = color.getRed(), blue = color.getBlue(), green = color.getGreen(), alpha = color.getAlpha();
+        bufferbuilder.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(minX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(maxX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+    }
+
     public static void renderEntity(final Entity entity, final float partialTicks) {
         if (mc.player != null && mc.world != null && entity != null) {
             if (entity.ticksExisted == 0) {

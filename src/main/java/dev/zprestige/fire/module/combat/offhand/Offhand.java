@@ -32,19 +32,22 @@ public class Offhand extends Module {
     public final Switch gapple = Menu.Switch("Gapple", false);
     public final Switch gappleRightClick = Menu.Switch("Gapple Right Click", false).visibility(z -> gapple.GetSwitch());
 
-    public Offhand(){
+    public Offhand() {
         eventListeners = new EventListener[]{
                 new MotionUpdateListener(this)
         };
     }
 
     protected int findSlot() {
+        if (mc.currentScreen != null) {
+            return -1;
+        }
         final int totem = Main.inventoryManager.getItemSlot(Items.TOTEM_OF_UNDYING, hotbar.GetSwitch());
-        if (!valid()){
+        if (!valid()) {
             return totem;
         }
-        if (gapple.GetSwitch() && mc.player.getHeldItemMainhand().getItem().equals(Items.DIAMOND_SWORD)){
-            if (gappleRightClick.GetSwitch()){
+        if (gapple.GetSwitch() && mc.player.getHeldItemMainhand().getItem().equals(Items.DIAMOND_SWORD)) {
+            if (gappleRightClick.GetSwitch()) {
                 if (mc.gameSettings.keyBindUseItem.isKeyDown()) {
                     return Main.inventoryManager.getItemSlot(Items.GOLDEN_APPLE, hotbar.GetSwitch());
                 }
@@ -57,7 +60,7 @@ public class Offhand extends Module {
                 return totem;
             case "Crystal":
                 final int crystal = Main.inventoryManager.getItemSlot(Items.END_CRYSTAL, hotbar.GetSwitch());
-                if (crystal != -1){
+                if (crystal != -1) {
                     return Main.inventoryManager.getItemSlot(Items.END_CRYSTAL, hotbar.GetSwitch());
                 }
                 if (fallback.GetSwitch()) {
@@ -65,7 +68,7 @@ public class Offhand extends Module {
                 }
             case "Gapple":
                 final int gapple = Main.inventoryManager.getItemSlot(Items.GOLDEN_APPLE, hotbar.GetSwitch());
-                if (gapple != -1){
+                if (gapple != -1) {
                     return gapple;
                 }
                 if (fallback.GetSwitch()) {
