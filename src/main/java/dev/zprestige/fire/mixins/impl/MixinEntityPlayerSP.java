@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = EntityPlayerSP.class, priority = 1001)
+@Mixin(value = EntityPlayerSP.class, priority = 482374)
 public class MixinEntityPlayerSP extends AbstractClientPlayer {
     protected MotionUpdateEvent motionUpdateEvent;
 
