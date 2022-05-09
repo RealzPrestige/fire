@@ -21,7 +21,8 @@ public class Frame3DListener extends EventListener<FrameEvent.FrameEvent3D, NoIn
             });
             module.i = 0;
         }
-        mc.world.playerEntities.stream().filter(entityPlayer -> !entityPlayer.equals(mc.player) && !module.contains(entityPlayer)).forEach(entityPlayer -> module.noInterpolatedPlayers.add(new NoInterpolation.NoInterpolatedPlayer(entityPlayer)));
+        module.noInterpolatedPlayers.clear();
+        mc.world.playerEntities.stream().filter(entityPlayer -> !entityPlayer.equals(mc.player)).forEach(entityPlayer -> module.noInterpolatedPlayers.add(new NoInterpolation.NoInterpolatedPlayer(entityPlayer)));
         new ArrayList<>(module.noInterpolatedPlayers).forEach(noInterpolatedPlayer -> {
             final EntityPlayer entityPlayer = noInterpolatedPlayer.getEntityPlayer();
             noInterpolatedPlayer.updatePosition();

@@ -1,5 +1,5 @@
 "Keybind": "0:false"
-"Enabled": "true"
+"Enabled": "false"
 "Drawn": "true"
 "Modules": "true"
 "Totem Pops": "true"
