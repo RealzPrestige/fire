@@ -250,7 +250,7 @@ public class PanelScreen extends GuiScreen {
     }
 
     public static float animationFactor() {
-        return 0.1f;
+        return 0.15f;
     }
 
     protected float normalizeNumber(final float input, final float target, final float factor) {
