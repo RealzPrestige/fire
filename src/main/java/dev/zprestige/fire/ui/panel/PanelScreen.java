@@ -250,7 +250,7 @@ public class PanelScreen extends GuiScreen {
     }
 
     public static float animationFactor() {
-        return (Minecraft.getDebugFPS() / 10.0f) * 0.01f;
+        return (Minecraft.getDebugFPS() * 1.20f);
     }
 
     protected float normalizeNumber(final float input, final float target, final float factor) {
